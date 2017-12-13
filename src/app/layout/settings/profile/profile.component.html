@@ -1,3 +1,45 @@
-<p>
-  profile works!
-</p>
+<h3>Public Profile</h3>
+<hr/>
+<div class="row">
+  <div class="col-lg-7">
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" class="form-control" placeholder="name">
+    </div>
+
+    <div class="form-group">
+      <label>Public Email</label>
+      <select class="form-control col-lg-6">
+        <option>chris.rocco7@gmail.com</option>
+        <option>chris77@uab.edu</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Bio</label>
+      <textarea class="form-control" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Location</label>
+      <input type="text" class="form-control" placeholder="Birmingham, AL.." >
+    </div>
+
+    <hr/>
+
+    <button class="btn btn-success"> Save Profile </button>
+  </div>
+  <div class="col-lg-5" style="padding: 0px 30px">
+    <div class="form-group">
+      <label>Profile Picture</label>
+      <div>
+        <img id="profile-image" src="https://avatars0.githubusercontent.com/u/22692124?s=400&u=7e9e7cbc31a594f43a29fbf9e45baa8c93d2a76b&v=4" width="100%">
+      </div>
+      <br/>
+      <button type="button" class="btn btn-info btn-sm" data-toggle="button">
+        <i class="icon wb-upload text" aria-hidden="true"></i>
+        <span class="text">Upload New Image</span>
+      </button>
+    </div>
+  </div>
+</div>

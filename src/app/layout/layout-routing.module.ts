@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {HomeComponent} from './home/home.component';
 import {RouterModule, Routes} from '@angular/router';
 import {InsightsComponent} from './insights/insights.component';
@@ -14,7 +14,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: '',
+        path: 'home',
         component: HomeComponent
       },
       {
@@ -35,6 +35,11 @@ const routes: Routes = [
             pathMatch: 'full'
           }
         ]
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
       }
     ]
   }
@@ -49,8 +54,9 @@ const routes: Routes = [
     HomeComponent,
     InsightsComponent,
     SettingsComponent,
-      ProfileComponent,
-      AccountComponent
+    ProfileComponent,
+    AccountComponent
   ]
 })
-export class LayoutRoutingModule { }
+export class LayoutRoutingModule {
+}
