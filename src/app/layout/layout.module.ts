@@ -7,6 +7,7 @@ import {LayoutComponent} from './layout.component';
 import {ProfileComponent} from './settings/profile/profile.component';
 import {SettingsComponent} from './settings/settings.component';
 import {AccountComponent} from './settings/account/account.component';
+import {SharedModule} from '../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -38,8 +39,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
+        redirectTo: 'home'
       }
     ]
   }
@@ -48,9 +48,11 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
   declarations: [
+    LayoutComponent,
     HomeComponent,
     InsightsComponent,
     SettingsComponent,
@@ -58,5 +60,5 @@ const routes: Routes = [
     AccountComponent
   ]
 })
-export class LayoutRoutingModule {
+export class LayoutModule {
 }
