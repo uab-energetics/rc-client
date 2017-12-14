@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
+import {AuthService} from '../../shared/auth/auth.service';
 
 class LoginFormModel {
   constructor(public email: string,
@@ -9,17 +10,26 @@ class LoginFormModel {
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
   model = new LoginFormModel('', '', false);
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   onSubmit() {
-    this.router.navigate(['/']);
+    console.log(this.model);
+    this.authService.login({
+      email: this.model.email,
+      password: this.model.password
+    }).then(( data ) => {
+      console.log('logged in!', data);
+      this.router.navigate(['/']);
+    });
   }
 
   ngOnInit(): void {

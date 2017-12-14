@@ -1,46 +1,37 @@
-<div class="page vertical-align text-center login-page">
-  <div class="login-content page-content vertical-align-middle animation-slide-top animation-duration-1">
-    <div class="panel">
-      <div class="panel-body">
-        <div class="brand">
-          <img class="brand-img mb-2" src="../../../assets/images/UAB-logo-full.png" alt="Research Coder UAB">
-        </div>
-        <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
-          <div class="form-group form-material floating" >
-            <input type="email" class="form-control" required
-              [(ngModel)]="model.email" name="email" #name="ngModel"/>
-            <label class="floating-label">Email</label>
-          </div>
-          <div [hidden]="name.valid || name.pristine" style="padding: 2px"
-               class="alert alert-danger">
-            Email is required
-          </div>
-          <div class="form-group form-material floating">
-            <input type="password" class="form-control" required
-              [(ngModel)]="model.password" name="password" #password="ngModel"
-              minlength="5" />
-            <label class="floating-label">Password</label>
-          </div>
-          <div [hidden]="password.valid || password.pristine" style="padding: 2px" class="alert alert-danger">
-            <ul style="list-style: none">
-              <li [hidden]="!password.errors?.minlength">
-                {{password.errors?.minlength?.actualLength}} out of {{password.errors?.minlength?.requiredLength}} characters</li>
-              <li [hidden]="!password.errors?.required">Password is Required</li>
-            </ul>
-          </div>
-          <div class="form-group clearfix">
-            <div class="checkbox-custom checkbox-inline checkbox-primary checkbox-lg float-left">
-              <input type="checkbox" id="inputCheckbox"
-                 [(ngModel)]="model.rememberMe" name="remember">
-              <label for="inputCheckbox">Remember me</label>
-            </div>
-            <a class="float-right" href="forgot-password.html">Forgot password?</a>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block btn-lg mt-40"
-                  [disabled]="!loginForm.form.valid">Sign in</button>
-        </form>
-        <p class="mt-1">Still no account? Please go to <a [routerLink]="'/auth/register'">Sign up</a></p>
-      </div>
+<div>
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="form-group form-material floating" >
+      <input type="email" class="form-control" required
+             [(ngModel)]="model.email" name="email" #name="ngModel"/>
+      <label class="floating-label">Email</label>
     </div>
-  </div>
+    <div [hidden]="name.valid || name.pristine" style="padding: 2px"
+         class="alert alert-danger">
+      Email is required
+    </div>
+    <div class="form-group form-material floating">
+      <input type="password" class="form-control" required
+             [(ngModel)]="model.password" name="password" #password="ngModel"
+             minlength="5" />
+      <label class="floating-label">Password</label>
+    </div>
+    <div [hidden]="password.valid || password.pristine" style="padding: 2px" class="alert alert-danger">
+      <ul style="list-style: none">
+        <li [hidden]="!password.errors?.minlength">
+          {{password.errors?.minlength?.actualLength}} out of {{password.errors?.minlength?.requiredLength}} characters</li>
+        <li [hidden]="!password.errors?.required">Password is Required</li>
+      </ul>
+    </div>
+    <div class="form-group clearfix">
+      <div class="checkbox-custom checkbox-inline checkbox-primary checkbox-lg float-left">
+        <input type="checkbox" id="inputCheckbox"
+               [(ngModel)]="model.rememberMe" name="remember">
+        <label for="inputCheckbox">Remember me</label>
+      </div>
+      <a class="float-right" href="forgot-password.html">Forgot password?</a>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block btn-lg mt-40"
+            [disabled]="!loginForm.form.valid">Sign in</button>
+  </form>
+  <p class="mt-1">Still no account? Please go to <a [routerLink]="'/auth/register'">Sign up</a></p>
 </div>
