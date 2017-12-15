@@ -10,6 +10,8 @@ import {AccountComponent} from './settings/account/account.component';
 import {SharedModule} from '../shared/shared.module';
 import { TasksComponent } from './home/tasks/tasks.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ProjectsComponent } from './projects/projects.component';
+import { CreateProjectComponent } from './create-project/create-project.component';
 
 const routes: Routes = [
   {
@@ -51,6 +53,14 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'projects',
+        component: ProjectsComponent
+      },
+      {
+        path: 'create-project',
+        component: CreateProjectComponent
+      },
+      {
         path: '',
         redirectTo: 'home'
       }
@@ -72,7 +82,9 @@ const routes: Routes = [
     SettingsComponent,
     ProfileComponent,
     AccountComponent,
-    TasksComponent
+    TasksComponent,
+    ProjectsComponent,
+    CreateProjectComponent
   ]
 })
 export class LayoutModule {

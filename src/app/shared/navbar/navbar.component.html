@@ -26,7 +26,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="'/insights'"> Insights </a>
+          <a class="nav-link" [routerLink]="'/home'"> Insights </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/projects'"> Projects </a>
         </li>
       </ul>
       <!-- End Navbar Toolbar -->
@@ -220,7 +223,7 @@
           <div class="dropdown-menu" role="menu">
             <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
               <span class="icon wb-pencil"></span> Find Task</a>
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
+            <a [routerLink]="'/create-project'" class="dropdown-item" role="menuitem">
               <span class="icon wb-book"></span> New Project</a>
           </div>
         </li>
