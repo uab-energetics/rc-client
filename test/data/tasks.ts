@@ -1,12 +1,5 @@
-import {Project} from './projects';
 
-interface Task {
-  name: string,
-  project: Project,
-  pg: number
-}
-
-export const tasks: Task[] = [
+export const tasks = [
   {
     name: 'Screening 128',
     project: {

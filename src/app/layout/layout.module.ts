@@ -13,6 +13,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectComponent } from './project/project.component';
+import { FormBuilderComponent } from './form-builder/form-builder.component';
 
 const routes: Routes = [
   {
@@ -66,6 +67,10 @@ const routes: Routes = [
         component: ProjectComponent
       },
       {
+        path: 'forms/:id',
+        component: FormBuilderComponent
+      },
+      {
         path: '',
         redirectTo: 'home'
       }
@@ -90,7 +95,8 @@ const routes: Routes = [
     TasksComponent,
     ProjectsComponent,
     CreateProjectComponent,
-    ProjectComponent
+    ProjectComponent,
+    FormBuilderComponent
   ]
 })
 export class LayoutModule {
