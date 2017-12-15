@@ -12,6 +12,7 @@ import { TasksComponent } from './home/tasks/tasks.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
+import { ProjectComponent } from './project/project.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
         component: CreateProjectComponent
       },
       {
+        path: "projects/:id",
+        component: ProjectComponent
+      },
+      {
         path: '',
         redirectTo: 'home'
       }
@@ -84,7 +89,8 @@ const routes: Routes = [
     AccountComponent,
     TasksComponent,
     ProjectsComponent,
-    CreateProjectComponent
+    CreateProjectComponent,
+    ProjectComponent
   ]
 })
 export class LayoutModule {

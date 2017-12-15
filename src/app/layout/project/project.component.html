@@ -1,0 +1,103 @@
+<div class="page">
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title mb-25">{{project}}</h1>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/projects">Projects</a></li>
+        <li class="breadcrumb-item active">{{project}}</li>
+      </ol>
+
+      <div class="page-header-actions">
+        <div class="row no-space w-250 hidden-sm-down">
+          <div class="col-sm-4">
+            <div class="counter">
+              <span class="counter-number font-weight-medium">6000</span>
+              <div class="counter-label"> Articles </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="counter">
+              <span class="counter-number font-weight-medium">25</span>
+              <div class="counter-label"> Users </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="counter">
+              <span class="counter-number font-weight-medium">3</span>
+              <div class="counter-label"> Forms </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ngb-tabset class="nav-tabs-line tabs-line-top">
+      <ngb-tab>
+        <ng-template ngbTabTitle><i class="icon wb-pencil"></i> Forms </ng-template>
+        <ng-template ngbTabContent>
+          <div class="container mt-25">
+            <div class="row">
+              <div class="form-group">
+                <button class="btn btn-success">
+                  <i class="icon wb-plus"></i>
+                  New Form </button>
+              </div>
+            </div>
+
+            <hr/>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-block">
+                    <h4 class="card-title">Super Awesome Form</h4>
+                    <p class="card-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                      qui officia deserunt mollit anim id est laborum.</p>
+                    <a href="#" class="btn btn-primary"> Edit </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-block">
+                    <h4 class="card-title"> Prelimiary Screening Form</h4>
+                    <p class="card-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                      qui officia deserunt mollit anim id est laborum.</p>
+                    <a href="#" class="btn btn-primary"> Edit </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4"></div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle><i class="icon wb-tag"></i> Ongoing Tasks </ng-template>
+        <ng-template ngbTabContent>
+          <div class="container mt-2">
+            <p> Working </p>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle><i class="icon wb-stats-bars"></i> Export Data </ng-template>
+        <ng-template ngbTabContent>
+          TODO
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle><i class="icon wb-settings"></i> Settings </ng-template>
+        <ng-template ngbTabContent>
+          TODO
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle><i class="icon wb-users"></i> Collaborators </ng-template>
+        <ng-template ngbTabContent>
+          TODO
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>
