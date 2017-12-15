@@ -51,9 +51,24 @@
             </div>
             <!-- End Example Input Focus -->
           </div>
+
         </div>
       </div>
     </div>
+
+    <ng-template #questionModalContent let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">New Question</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-question-builder (onSave)="onQuestionCreate($event)"></app-question-builder>
+      </div>
+    </ng-template>
+
     <!-- End Panel Form Elements -->
+    <button class="btn btn-success" (click)="open(questionModalContent)"> New Question </button>
   </div>
 </div>

@@ -1,0 +1,51 @@
+<form [formGroup]="questionForm" (ngSubmit)="save()" novalidate>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label class="form-control-label"> Question Text </label>
+      <input
+        formControlName="name" required
+        type="text" class="form-control" placeholder="Question Text" />
+    </div>
+    <div class="form-group col-md-6">
+      <label class="form-control-label"> Response Type </label>
+      <select class="form-control" formControlName="default_type" #selectedType>
+        <option *ngFor="let opt of typeOptions" [value]="opt.val">{{opt.disp}}</option>
+      </select>
+      <!--<mat-select placeholder="Accept Types" [formControlName]="'default_type'">
+        <mat-option *ngFor="let opt of typeOptions" [value]="opt.val">{{opt.disp}}</mat-option>
+      </mat-select>-->
+    </div>
+
+    <!-- Conditional Fields -->
+    <div class="col-12">
+      <!-- boolean -->
+      <div class="row" *ngIf="selectedType.value==='bool'">
+        <div class="form-group col-md-6">
+          <label class="form-control-label"> True Value </label>
+          <input formControlName="true_val"
+                 type="text" class="form-control" placeholder="True option.." />
+        </div>
+        <div class="form-group col-md-6">
+          <label class="form-control-label"> False Value </label>
+          <input formControlName="false_val"
+                 type="text" class="form-control" placeholder="False option.." />
+        </div>
+      </div>
+      <!-- boolean -->
+    </div>
+    <!-- Conditional Fields -->
+
+    <div class="form-group col-12">
+      <label class="form-control-label"> Description </label>
+      <input
+        formControlName="desc"
+        type="text" class="form-control"
+        placeholder="Description.." />
+    </div>
+  </div>
+  <pre>{{ questionForm.value | json }}</pre>
+  <pre>{{ questionForm.status | json }}</pre>
+  <div class="form-group">
+    <button [disabled]="questionForm.status!=='VALID'" type="submit" class="btn btn-primary"> Submit </button>
+  </div>
+</form>
