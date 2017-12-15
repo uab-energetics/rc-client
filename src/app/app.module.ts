@@ -9,6 +9,8 @@ import {UserService} from './shared/auth/user.service';
 import {AuthService} from './shared/auth/auth.service';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptorService} from './shared/auth/auth-interceptor.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {
@@ -28,9 +30,11 @@ const routes: Routes = [
   imports: [
     HttpClientModule,
     BrowserModule,
+    BrowserAnimationsModule,
     SharedModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    NgbModule.forRoot()
   ],
   providers: [
     UserService,

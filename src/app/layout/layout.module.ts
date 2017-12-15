@@ -8,6 +8,8 @@ import {ProfileComponent} from './settings/profile/profile.component';
 import {SettingsComponent} from './settings/settings.component';
 import {AccountComponent} from './settings/account/account.component';
 import {SharedModule} from '../shared/shared.module';
+import { TasksComponent } from './home/tasks/tasks.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
   {
@@ -16,7 +18,18 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        component: HomeComponent
+        component: HomeComponent,
+        children: [
+          {
+            path: 'tasks',
+            component: TasksComponent
+          },
+          {
+            path: '',
+            redirectTo: 'tasks',
+            pathMatch: 'full'
+          }
+        ]
       },
       {
         path: 'settings',
@@ -49,7 +62,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgbModule
   ],
   declarations: [
     LayoutComponent,
@@ -57,7 +71,8 @@ const routes: Routes = [
     InsightsComponent,
     SettingsComponent,
     ProfileComponent,
-    AccountComponent
+    AccountComponent,
+    TasksComponent
   ]
 })
 export class LayoutModule {
