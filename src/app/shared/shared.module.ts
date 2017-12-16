@@ -16,6 +16,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BoolComponent } from './components/response-inputs/bool/bool.component';
 import { QuestionBuilderComponent } from './components/question-builder/question-builder.component';
 import { ChipListComponent } from './components/chip-list/chip-list.component';
+import { FormComponent } from './components/form/form.component';
+import { QuestionComponent } from './components/form/question/question.component';
 
 @NgModule({
   imports: [
@@ -36,7 +38,9 @@ import { ChipListComponent } from './components/chip-list/chip-list.component';
     MultiSelectComponent,
     BoolComponent,
     QuestionBuilderComponent,
-    ChipListComponent
+    ChipListComponent,
+    FormComponent,
+    QuestionComponent
   ],
   exports: [
     NavbarComponent,
@@ -46,7 +50,9 @@ import { ChipListComponent } from './components/chip-list/chip-list.component';
     MultiSelectComponent,
     BoolComponent,
     QuestionBuilderComponent,
-    ChipListComponent
+    ChipListComponent,
+    FormComponent,
+    QuestionComponent
   ]
 })
 export class SharedModule { }

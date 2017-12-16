@@ -1,0 +1,20 @@
+<div class="page">
+  <div class="page-content">
+    <div class="row">
+      <div *ngFor="let question of testQuestions" class="col-md-4">
+        <!-- stuff goes here -->
+        <app-question
+          [questionModel]="question"
+          [observer]="responseSubject">
+        </app-question>
+        <!-- stuff goes here -->
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <pre>{{encoding | json}}</pre>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-text',
   templateUrl: './text.component.html',
   styleUrls: ['./text.component.css']
 })
-export class TextComponent implements OnInit {
+export class TextComponent {
 
-  constructor() { }
+  @Output() appChange = new EventEmitter<string>();
 
-  ngOnInit() {
+  onChange($event){
+    this.appChange.emit($event.target.value);
   }
 
 }

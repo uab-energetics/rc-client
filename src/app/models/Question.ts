@@ -23,12 +23,10 @@ export function makeQuestion ({
   name = 'default name',
   prompt = 'default prompt',
   description = '',
-  options = [],
-  accepts = [],
   default_format = 'txt',
   true_option = 'Yes',
   false_option = 'No'
-}): Question {
+}, options: QuestionOption[] = [], accepts: QuestionResponseType[] = []): Question {
   return {
     id,
     name,

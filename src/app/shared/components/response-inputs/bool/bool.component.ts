@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {MatRadioChange} from "@angular/material/radio";
 
 @Component({
   selector: 'app-bool',
   templateUrl: './bool.component.html',
   styleUrls: ['./bool.component.css']
 })
-export class BoolComponent implements OnInit {
+export class BoolComponent {
 
-  constructor() { }
+  @Input() trueOption;
+  @Input() falseOption;
+  @Output() appChange = new EventEmitter();
 
-  ngOnInit() {
+  onChange($event: MatRadioChange){
+    this.appChange.emit($event.value);
   }
 
 }

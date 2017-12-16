@@ -1,7 +1,8 @@
 <mat-form-field>
-  <mat-select placeholder="Favorite food">
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{ food.viewValue }}
+  <mat-select placeholder="Select One:"
+              (selectionChange)="onChange($event)">
+    <mat-option *ngFor="let opt of options" [value]="opt.txt">
+      {{ opt.txt }}
     </mat-option>
   </mat-select>
 </mat-form-field>

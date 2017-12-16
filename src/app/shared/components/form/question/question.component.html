@@ -1,0 +1,35 @@
+<div class="app-question">
+  <h4 class="card-title">{{questionModel.name}}</h4>
+  <p class="card-text">{{questionModel.prompt}}</p>
+  <div class="app-question-outlet">
+
+
+    <app-text *ngIf="questionModel.default_format === 'txt'"
+              (appChange)="textChanged($event)"></app-text>
+
+
+    <app-number *ngIf="questionModel.default_format === 'num'"
+                (appChange)="numberChanged($event)"></app-number>
+
+
+    <app-bool *ngIf="questionModel.default_format === 'bool'"
+              (appChange)="boolChanged($event)"
+              [trueOption]="questionModel.true_option"
+              [falseOption]="questionModel.false_option">
+    </app-bool>
+
+
+    <app-select *ngIf="questionModel.default_format === 'sel'"
+                (appChange)="selectChanged($event)"
+                [options]="questionModel.options">
+    </app-select>
+
+
+    <app-multi-select *ngIf="questionModel.default_format === 'multi-sel'"
+                      (appChange)="multiSelectChanged($event)"
+                      [options]="questionModel.options">
+    </app-multi-select>
+
+
+  </div>
+</div>

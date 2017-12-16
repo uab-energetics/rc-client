@@ -17,6 +17,7 @@ import { FormBuilderComponent } from './form-builder/form-builder.component';
 import { TreeModule } from 'angular-tree-component';
 import { FormLayoutTreeComponent } from './form-builder/form-layout-tree/form-layout-tree.component';
 import {MatProgressBarModule} from "@angular/material";
+import { PaperCoderComponent } from './paper-coder/paper-coder.component';
 
 const routes: Routes = [
   {
@@ -74,6 +75,10 @@ const routes: Routes = [
         component: FormBuilderComponent
       },
       {
+        path: 'paper-coder/:id',
+        component: PaperCoderComponent
+      },
+      {
         path: '',
         redirectTo: 'home'
       }
@@ -102,7 +107,8 @@ const routes: Routes = [
     CreateProjectComponent,
     ProjectComponent,
     FormBuilderComponent,
-    FormLayoutTreeComponent
+    FormLayoutTreeComponent,
+    PaperCoderComponent
   ]
 })
 export class LayoutModule {
