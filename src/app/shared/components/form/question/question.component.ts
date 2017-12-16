@@ -51,6 +51,7 @@ export class QuestionComponent {
    * @param type - the response format this data should be interpreted as
    */
   private notifyChange( payload, type ){
+    if(!this.observer) return;
     this.observer.next({
       question: this.questionModel,
       payload,

@@ -1,26 +1,13 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-
-
-class QuestionModel {
-  txt = '';
-  desc = '';
-  accepts: QuestionType[] = [];
-  options = [];
-}
-
-class QuestionType {
-  constructor(private txt: string) {}
-}
-
-
+import {makeQuestion, QuestionOption} from "../../../models/Question";
 
 @Component({
   selector: 'app-question-builder',
   templateUrl: './question-builder.component.html',
   styleUrls: ['./question-builder.component.css']
 })
-export class QuestionBuilderComponent implements OnInit {
+export class QuestionBuilderComponent {
 
   /**
    * 1. set up the form model
@@ -28,14 +15,14 @@ export class QuestionBuilderComponent implements OnInit {
    * 3. bind submit event to an output emitter that calls the export method
    */
 
-  @Output() onSave = new EventEmitter<any>();
+  @Output() appSave = new EventEmitter<any>();
 
   questionForm: FormGroup;
 
   typeOptions = [
     { disp: 'Text', val: 'txt' },
     { disp: 'Number', val: 'num' },
-    { disp: 'True/False', val: 'bool' },
+    { disp: 'True/False', val: 'boo' },
     { disp: 'Select', val: 'sel' },
     { disp: 'Multi-Select', val: 'multi-sel' }
   ];
@@ -44,36 +31,31 @@ export class QuestionBuilderComponent implements OnInit {
     this.setupFormModel();
   }
 
-  ngOnInit () {
-  }
-
   save() {
-    this.onSave.emit(this.exportModel());
+    this.appSave.emit(this.exportModel());
   }
 
   exportModel () {
     const model = this.questionForm.value;
 
-    const default_type = model.default_type;
+    let options: QuestionOption[] = model.options.map( opt => { return {"txt": opt} });
 
-    const data = {
+    return makeQuestion({
       name: model.name,
-      desc: model.desc,
-      default_type: default_type,
-      accepts: [default_type],
-      true_val: model.true_val,
-      false_val: model.false_val,
-      options: model.options.map( opt => { return {"txt": opt} })
-    };
-
-    return data;
+      prompt: model.prompt,
+      description: model.desc,
+      default_format: model.default_format,
+      true_option: model.true_val,
+      false_option: model.false_val
+    }, options);
   }
 
   setupFormModel () {
     this.questionForm = this.fb.group({
       name: ['', Validators.required],
       desc: [''],
-      default_type: ['txt', Validators.required],
+      prompt: ['', Validators.required],
+      default_format: ['txt', Validators.required],
       accepts: this.fb.array([]),
       true_val: '',
       false_val: '',

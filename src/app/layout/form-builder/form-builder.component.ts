@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {Form, form_dfs, form_move, makeForm} from "../../models/Form";
+import {Form, form_add, form_dfs, form_move, makeForm} from "../../models/Form";
 import {Category, makeCategory} from "../../models/Category";
-import {makeQuestion} from "../../models/Question";
+import {makeQuestion, Question} from "../../models/Question";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-form-builder',
@@ -25,9 +26,10 @@ export class FormBuilderComponent implements OnInit {
   ngOnInit() {
     let next_id = 0;
 
+    let options = ['Wine', 'Beer', 'Whiskey'].map(str => {return {txt: str}});
     let questions = [
       makeQuestion({ name: 'q1', id: next_id++ }),
-      makeQuestion({ name: 'q2', id: next_id++ }),
+      makeQuestion({ name: 'Drinks', default_format: 'multi-sel', id: next_id++ }, options),
       makeQuestion({ name: 'q3', id: next_id++ })
     ];
 
@@ -53,24 +55,7 @@ export class FormBuilderComponent implements OnInit {
       this.activeCrumbs = res.path;
       this.activeCategory = res.path[res.path.length-1];
     }
-    // let [node, crumbs] = this.dfs(id, this.form.root_category, []);
-    // console.log(node, crumbs);
-    // let crumbs = [];
-    // /* BFS to find the corresponding form element */
-    // let start = this.form.root_category;
-    // let queue = [start];
-    // while(queue.length > 0){
-    //   let next = queue.pop();
-    //   crumbs.push(next.name);
-    //   if(next.id === id)
-    //     this.activeCategory = next;
-    //   next.questions.map( question => {
-    //     if(question.id === id)
-    //       this.activeCategory = next;
-    //   } );
-    //   next.children.forEach( cat => queue.push(cat) );
-    // }
-    // this.activeCrumbs = crumbs;
+    console.log(res);
   }
 
   onNodeMoved($event){
@@ -83,32 +68,20 @@ export class FormBuilderComponent implements OnInit {
     }, 600 * ( Math.random() * 2 + 1 ));
   }
 
-  dfs(id: number, category: Category, crumbs: Category[]) {
-    crumbs.push(category);
-
-    if(category.id === id)
-      return [category, crumbs];
-
-    for(let qi = 0; qi < category.questions.length; qi++)
-      if(category.questions[qi].id === id)
-        return [category, crumbs];
-
-    for(let i = 0; i < category.children.length; i++){
-      let next = this.dfs(id, category.children[i], crumbs);
-      if(next[0] !== null) return next;
-    }
-
-    crumbs.pop();
-    return [null, []];
-  }
-
   selectCrumb(crumb: Category){
     this.onNodeSelected(crumb.id);
   }
 
-  onQuestionCreate($event){
+  onQuestionCreate(newQuestion: Question){
     if(this.activeModal) this.activeModal.close();
-    console.log($event);
+    this.showSaving = true;
+    // create in server
+    setTimeout(()=>{
+      newQuestion.id = _.random(1, 100);
+      let newForm = form_add(this.form, this.activeCategory, newQuestion, 'question');
+      this.form = Object.assign({}, newForm);
+      this.showSaving = false;
+    }, 2000);
   }
 
   open(content) {

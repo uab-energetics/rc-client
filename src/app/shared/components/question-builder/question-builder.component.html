@@ -1,19 +1,27 @@
 <form [formGroup]="questionForm" (ngSubmit)="save()" novalidate>
   <div class="row">
     <div class="form-group col-md-6">
-      <label class="form-control-label"> Question Text </label>
+      <label class="form-control-label"> Question Name </label>
       <input
         formControlName="name" required
-        type="text" class="form-control" placeholder="Question Text" />
+        type="text" class="form-control" placeholder="Short and Sweet" />
     </div>
     <div class="form-group col-md-6">
       <label class="form-control-label"> Response Type </label>
-      <select class="form-control" formControlName="default_type" #selectedType>
+      <select class="form-control" formControlName="default_format" #selectedType>
         <option *ngFor="let opt of typeOptions" [value]="opt.val">{{opt.disp}}</option>
       </select>
       <!--<mat-select placeholder="Accept Types" [formControlName]="'default_type'">
         <mat-option *ngFor="let opt of typeOptions" [value]="opt.val">{{opt.disp}}</mat-option>
       </mat-select>-->
+    </div>
+
+    <div class="form-group col-12">
+      <label class="form-control-label"> Questinon Prompt </label>
+      <input
+        formControlName="prompt"
+        type="text" class="form-control"
+        placeholder="A concise clear prompt yields the best responses" />
     </div>
 
     <div class="form-group col-12">

@@ -4,6 +4,14 @@ export interface Response {
   question_id: number;
   type: string;
   txt?: string;
-  num?: string;
+  num?: number;
   sel?: string;
+}
+
+interface TextPayload {
+  txt: string;
+}
+
+interface NumberPayload {
+  num: number;
 }

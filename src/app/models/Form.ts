@@ -54,7 +54,6 @@ export function form_dfs(form: Form, search_id: number): DFSResult | null {
 }
 
 function _dfs(search_id: number, category: Category, path): DFSResult | null {
-  console.log(search_id, category, path);
   path.push(category);
 
   if(category.id === search_id)
@@ -105,4 +104,12 @@ export function form_move(form, new_parent_id, child_id){
       newParent.children.push(child);
       return;
   }
+}
+
+export function form_add(form: Form, parent: Category, node, type: "question" | "category"): Form {
+  switch (type){
+    case "question": parent.questions.push(node); return form;
+    case "category": parent.children.push(node); return form;
+  }
+  return form;
 }

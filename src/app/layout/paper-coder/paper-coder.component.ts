@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {makeQuestion, Question} from "../../models/Question";
 import {Subject} from "rxjs/Subject";
 

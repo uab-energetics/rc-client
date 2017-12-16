@@ -46,8 +46,10 @@
         </div>
         <div class="panel">
           <div class="panel-body">
-            <h4>{{activeCategory.name}}</h4>
-            <pre>{{ activeCategory | json }}</pre>
+            <app-question
+              [questionModel]="activeCategory">
+            </app-question>
+
           </div>
         </div>
 
@@ -64,7 +66,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-question-builder (onSave)="onQuestionCreate($event)"></app-question-builder>
+        <app-question-builder (appSave)="onQuestionCreate($event)"></app-question-builder>
       </div>
     </ng-template>
   </div>
