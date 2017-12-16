@@ -1,6 +1,6 @@
 <mat-form-field>
   <mat-chip-list #chipList>
-    <mat-chip *ngFor="let chip of chips"
+    <mat-chip *ngFor="let chip of _chips"
     [selectable]="true"
     [removable]="true"
     (remove)="remove(chip)">

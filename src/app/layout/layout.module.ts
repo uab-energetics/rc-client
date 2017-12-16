@@ -14,6 +14,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectComponent } from './project/project.component';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
+import { FormStructurePanelComponent } from './form-builder/form-structure-panel/form-structure-panel.component';
 
 const routes: Routes = [
   {
@@ -96,7 +97,8 @@ const routes: Routes = [
     ProjectsComponent,
     CreateProjectComponent,
     ProjectComponent,
-    FormBuilderComponent
+    FormBuilderComponent,
+    FormStructurePanelComponent
   ]
 })
 export class LayoutModule {

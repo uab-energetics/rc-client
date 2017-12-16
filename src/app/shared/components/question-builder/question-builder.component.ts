@@ -54,11 +54,13 @@ export class QuestionBuilderComponent implements OnInit {
   exportModel () {
     const model = this.questionForm.value;
 
+    const default_type = model.default_type;
+
     const data = {
       name: model.name,
       desc: model.desc,
-      default_type: model.default_type,
-      accepts: [],
+      default_type: default_type,
+      accepts: [default_type],
       true_val: model.true_val,
       false_val: model.false_val,
       options: model.options.map( opt => { return {"txt": opt} })

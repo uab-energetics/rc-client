@@ -1,0 +1,12 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+  <ngb-panel [title]="category.name">
+    <ng-template ngbPanelContent>
+      <!-- questions -->
+      <ul>
+        <li *ngFor="let q of category.questions">{{q.name}}</li>
+      </ul>
+      <!-- sub-categories -->
+      <app-form-structure-panel *ngFor="let c of category.children" [category]="c"></app-form-structure-panel>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

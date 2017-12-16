@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import {MatChipInputEvent} from "@angular/material";
 
 @Component({
@@ -8,7 +8,13 @@ import {MatChipInputEvent} from "@angular/material";
 })
 export class ChipListComponent implements OnInit {
 
-  @Input() chips = [];
+  _chips: string[] = [];
+
+  @Input()
+  set chips( chips: string[] ){
+    this._chips = chips || [];
+  }
+
   @Output() onChange = new EventEmitter<any>();
 
   add(event: MatChipInputEvent): void {
@@ -16,8 +22,8 @@ export class ChipListComponent implements OnInit {
     let value = event.value;
 
     if ((value || '').trim()) {
-      this.chips.push(value);
-      this.onChange.emit(this.chips);
+      this._chips.push(value);
+      this.onChange.emit(this._chips);
     }
 
     if (input) {
@@ -26,10 +32,10 @@ export class ChipListComponent implements OnInit {
   }
 
   remove(chip: any): void {
-    let index = this.chips.indexOf(chip);
+    let index = this._chips.indexOf(chip);
 
     if (index >= 0) {
-      this.chips.splice(index, 1);
+      this._chips.splice(index, 1);
     }
   }
 

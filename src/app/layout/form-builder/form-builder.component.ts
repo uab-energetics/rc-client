@@ -3,6 +3,8 @@ import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {QuestionBuilderComponent} from "../../shared/components/question-builder/question-builder.component";
 import {FormBuilder} from "@angular/forms";
 
+import {form} from "./../../../../test/data/form";
+
 @Component({
   selector: 'app-form-builder',
   templateUrl: './form-builder.component.html',
@@ -11,6 +13,8 @@ import {FormBuilder} from "@angular/forms";
 export class FormBuilderComponent implements OnInit {
 
   activeModal: NgbModalRef;
+
+  form = form;
 
   constructor(
     private modalService: NgbModal
