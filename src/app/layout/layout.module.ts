@@ -14,7 +14,8 @@ import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectComponent } from './project/project.component';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
-import { FormStructurePanelComponent } from './form-builder/form-structure-panel/form-structure-panel.component';
+import { TreeModule } from 'angular-tree-component';
+import { FormLayoutTreeComponent } from './form-builder/form-layout-tree/form-layout-tree.component';
 
 const routes: Routes = [
   {
@@ -84,7 +85,8 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes),
-    NgbModule
+    NgbModule,
+    TreeModule
   ],
   declarations: [
     LayoutComponent,
@@ -98,7 +100,7 @@ const routes: Routes = [
     CreateProjectComponent,
     ProjectComponent,
     FormBuilderComponent,
-    FormStructurePanelComponent
+    FormLayoutTreeComponent
   ]
 })
 export class LayoutModule {

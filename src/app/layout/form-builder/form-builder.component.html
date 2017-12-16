@@ -9,20 +9,19 @@
         <div class="panel">
           <div class="panel-body">
 
-            <app-form-structure-panel [category]="form.layout.root">
-            </app-form-structure-panel>
+            <app-form-layout-tree [form]="form" (nodeSelected)="onNodeSelected($event)"></app-form-layout-tree>
 
           </div>
         </div>
       </div>
       <div class="col-lg-8">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-          <li class="breadcrumb-item active">You are Here</li>
+          <li class="breadcrumb-item"><a routerLink="/">Awesome Form</a></li>
+          <li *ngFor="let crumb of activeCrumbs" class="breadcrumb-item">{{crumb}}</li>
         </ol>
         <div class="panel">
           <div class="panel-body">
-            Rendering Pane!
+            <pre>{{ activeCategory | json }}</pre>
           </div>
         </div>
 
