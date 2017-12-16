@@ -6,6 +6,7 @@ class QuestionModel {
   txt = '';
   desc = '';
   accepts: QuestionType[] = [];
+  options = [];
 }
 
 class QuestionType {
@@ -34,9 +35,10 @@ export class QuestionBuilderComponent implements OnInit {
   typeOptions = [
     { disp: 'Text', val: 'txt' },
     { disp: 'Number', val: 'num' },
-    { disp: 'True/False', val: 'bool' }
+    { disp: 'True/False', val: 'bool' },
+    { disp: 'Select', val: 'sel' },
+    { disp: 'Multi-Select', val: 'multi-sel' }
   ];
-
 
   constructor(private fb: FormBuilder) {
     this.setupFormModel();
@@ -54,7 +56,12 @@ export class QuestionBuilderComponent implements OnInit {
 
     const data = {
       name: model.name,
-      desc: model.desc
+      desc: model.desc,
+      default_type: model.default_type,
+      accepts: [],
+      true_val: model.true_val,
+      false_val: model.false_val,
+      options: model.options.map( opt => { return {"txt": opt} })
     };
 
     return data;
@@ -67,7 +74,8 @@ export class QuestionBuilderComponent implements OnInit {
       default_type: ['txt', Validators.required],
       accepts: this.fb.array([]),
       true_val: '',
-      false_val: ''
+      false_val: '',
+      options: new FormControl([])
     });
   }
 

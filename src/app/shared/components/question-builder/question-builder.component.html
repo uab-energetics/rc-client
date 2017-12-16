@@ -16,6 +16,14 @@
       </mat-select>-->
     </div>
 
+    <div class="form-group col-12">
+      <label class="form-control-label"> Description </label>
+      <input
+        formControlName="desc"
+        type="text" class="form-control"
+        placeholder="Description.." />
+    </div>
+
     <!-- Conditional Fields -->
     <div class="col-12">
       <!-- boolean -->
@@ -32,16 +40,16 @@
         </div>
       </div>
       <!-- boolean -->
+      <!-- select -->
+      <div class="row" *ngIf="selectedType.value==='sel' || selectedType.value==='multi-sel'">
+        <div class="col-12">
+          <app-chip-list (onChange)="questionForm.patchValue({options: $event})" ></app-chip-list>
+        </div>
+      </div>
+      <!-- select -->
     </div>
     <!-- Conditional Fields -->
 
-    <div class="form-group col-12">
-      <label class="form-control-label"> Description </label>
-      <input
-        formControlName="desc"
-        type="text" class="form-control"
-        placeholder="Description.." />
-    </div>
   </div>
   <pre>{{ questionForm.value | json }}</pre>
   <pre>{{ questionForm.status | json }}</pre>

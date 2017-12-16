@@ -21,6 +21,7 @@ export class FormBuilderComponent implements OnInit {
 
   onQuestionCreate($event){
     if(this.activeModal) this.activeModal.close();
+    console.log($event);
   }
 
   open(content) {
