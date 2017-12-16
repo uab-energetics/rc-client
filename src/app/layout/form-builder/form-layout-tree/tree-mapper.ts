@@ -6,7 +6,7 @@ let id_counter = 0;
 
 export function mapToTreeView(form: Form) {
   let root = mapCategory(form.root_category);
-  return root.children;
+  return [root];
 }
 
 function mapCategory(category: Category){
@@ -29,6 +29,6 @@ function mapQuestion(q: Question){
     id: (q.id || id_counter++),
     children: [],
     type: 'file',
-    name: q.prompt
+    name: q.name
   };
 }

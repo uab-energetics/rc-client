@@ -9,7 +9,7 @@ import { SelectComponent } from './components/response-inputs/select/select.comp
 import { MultiSelectComponent } from './components/response-inputs/multi-select/multi-select.component';
 import {
   MatChipsModule,
-  MatIconModule, MatInputModule, MatRadioModule, MatSelectModule, MatSlider,
+  MatIconModule, MatInputModule, MatProgressBarModule, MatRadioModule, MatSelectModule, MatSlider,
   MatSliderModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -23,7 +23,7 @@ import { ChipListComponent } from './components/chip-list/chip-list.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSelectModule, MatRadioModule, MatSliderModule, MatInputModule, MatIconModule, MatChipsModule
+    MatSelectModule, MatRadioModule, MatSliderModule, MatInputModule, MatIconModule, MatChipsModule, MatProgressBarModule
   ],
   providers: [
     AuthService

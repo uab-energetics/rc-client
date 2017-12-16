@@ -8,24 +8,50 @@
         </ol>
         <div class="panel">
           <div class="panel-body">
+            <div id="saving" [hidden]="!showSaving">
+              <b>Saving..</b>
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              <br/>
+            </div>
 
-            <app-form-layout-tree [form]="form" (nodeSelected)="onNodeSelected($event)"></app-form-layout-tree>
+            <app-form-layout-tree
+              [form]="form"
+              (nodeSelected)="onNodeSelected($event)"
+              (nodeMoved)="onNodeMoved($event)">
+            </app-form-layout-tree>
 
           </div>
         </div>
       </div>
       <div class="col-lg-8">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a routerLink="/">Awesome Form</a></li>
-          <li *ngFor="let crumb of activeCrumbs" class="breadcrumb-item">{{crumb}}</li>
+        <ol class="breadcrumb text-lg-center">
+          <li *ngFor="let crumb of activeCrumbs" class="breadcrumb-item">
+            <a (click)="selectCrumb(crumb)" href="javascript:void(0)">{{crumb.name}}</a>
+          </li>
         </ol>
+        <div class="row" *ngIf="activeCategory?.children">
+          <div class="col-12 pt-20 pl-20">
+            <button *ngFor="let sub of activeCategory?.children"
+                    (click)="onNodeSelected(sub.id)"
+                    class="btn btn-lg btn-default mr-20">
+              <i class="icon wb-folder"></i> {{sub.name}}</button>
+          </div>
+          <hr>
+          <div class="col-12 p-20">
+            <button *ngFor="let question of activeCategory?.questions"
+                    (click)="onNodeSelected(question.id)"
+                    class="btn btn-lg btn-default mr-20">
+              <i class="icon fa-question"></i> {{question.name}}</button>
+          </div>
+        </div>
         <div class="panel">
           <div class="panel-body">
+            <h4>{{activeCategory.name}}</h4>
             <pre>{{ activeCategory | json }}</pre>
           </div>
         </div>
 
-        <button class="btn btn-success" (click)="open(questionModalContent)"> New Question </button>
+        <button class="btn btn-success" (click)="open(questionModalContent)"> <i class="icon wb-plus"></i> New Question </button>
       </div>
     </div>
 

@@ -1,14 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Form} from "../../../models/Form";
 import {mapToTreeView} from "./tree-mapper";
-import {IActionMapping} from "angular-tree-component";
 
 @Component({
   selector: 'app-form-layout-tree',
   templateUrl: './form-layout-tree.component.html',
   styleUrls: ['./form-layout-tree.component.css']
 })
-export class FormLayoutTreeComponent implements OnInit {
+export class FormLayoutTreeComponent implements AfterViewInit {
 
   @Input()
   set form( formInput: Form ){
@@ -16,20 +15,34 @@ export class FormLayoutTreeComponent implements OnInit {
   }
 
   @Output('nodeSelected') nodeSelected = new EventEmitter<number>();
+  @Output('nodeMoved') nodeMoved = new EventEmitter();
+
+  @ViewChild('tree') treeview;
 
   _tree;
   _opts = {
+    allowDrag: true,
     actionMapping: {
       mouse: {
         dblClick: (tree, node, $event) => {
           this.nodeSelected.emit(node.id);
         }
       }
+    },
+    allowDrop: (element, { parent, index }) => {
+      return parent.data.type === 'folder';
     }
   };
 
-  ngOnInit () {
+  onMove($event){
+    this.nodeMoved.emit({
+      node: $event.node.id,
+      parent: $event.to.parent.id
+    });
+  }
 
+  ngAfterViewInit () {
+    this.treeview.treeModel.expandAll();
   }
 
 }

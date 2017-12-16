@@ -16,6 +16,7 @@ import { ProjectComponent } from './project/project.component';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
 import { TreeModule } from 'angular-tree-component';
 import { FormLayoutTreeComponent } from './form-builder/form-layout-tree/form-layout-tree.component';
+import {MatProgressBarModule} from "@angular/material";
 
 const routes: Routes = [
   {
@@ -86,7 +87,8 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     NgbModule,
-    TreeModule
+    TreeModule,
+    MatProgressBarModule
   ],
   declarations: [
     LayoutComponent,

@@ -1,4 +1,7 @@
-<tree-root #tree [nodes]="_tree" [options]="_opts" [focused]="true">
+<tree-root #tree [nodes]="_tree"
+           [options]="_opts"
+           [focused]="true"
+           (moveNode)="onMove($event)">
   <ng-template #treeNodeTemplate let-node let-index="index">
     <span>
       <i *ngIf="node.data.type==='folder'" class="icon wb-folder"></i>

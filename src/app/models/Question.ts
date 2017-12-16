@@ -8,6 +8,7 @@ export interface QuestionResponseType {
 
 export interface Question {
   id?: number;
+  name: string;
   prompt: string;
   description: string;
   options: QuestionOption[];
@@ -19,6 +20,7 @@ export interface Question {
 
 export function makeQuestion ({
   id = 0,
+  name = 'default name',
   prompt = 'default prompt',
   description = '',
   options = [],
@@ -29,6 +31,7 @@ export function makeQuestion ({
 }): Question {
   return {
     id,
+    name,
     prompt,
     description,
     options,
