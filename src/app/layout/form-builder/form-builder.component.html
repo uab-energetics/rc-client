@@ -29,27 +29,19 @@
             <a (click)="selectCrumb(crumb)" href="javascript:void(0)">{{crumb.name}}</a>
           </li>
         </ol>
-        <div class="row" *ngIf="activeCategory?.children">
-          <div class="col-12 pt-20 pl-20">
-            <button *ngFor="let sub of activeCategory?.children"
-                    (click)="onNodeSelected(sub.id)"
-                    class="btn btn-lg btn-default mr-20">
-              <i class="icon wb-folder"></i> {{sub.name}}</button>
-          </div>
-          <hr>
-          <div class="col-12 p-20">
-            <button *ngFor="let question of activeCategory?.questions"
-                    (click)="onNodeSelected(question.id)"
-                    class="btn btn-lg btn-default mr-20">
-              <i class="icon fa-question"></i> {{question.name}}</button>
-          </div>
-        </div>
+
         <div class="panel">
           <div class="panel-body">
-            <app-question
-              [questionModel]="activeCategory">
-            </app-question>
+            <div class="row" *ngIf="activeCategory?.children?.length > 0">
+              <div class="col-12 mb-20">
+                <button *ngFor="let sub of activeCategory?.children"
+                        (click)="onNodeSelected(sub.id)"
+                        class="btn btn-lg btn-default mr-20">
+                  <i class="icon wb-folder"></i> {{sub.name}}</button>
+              </div>
+            </div>
 
+            <app-category [categoryModel]="activeCategory"></app-category>
           </div>
         </div>
 

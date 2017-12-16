@@ -1,0 +1,10 @@
+<div class="app-category">
+  <div class="row">
+    <div class="col-12" *ngFor="let question of categoryModel.questions">
+      <app-question
+        [questionModel]="question"
+        [observer]="observer">
+      </app-question>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,6 @@
+
+import {RESPONSE_FORMATS} from "./formats";
+
 export interface QuestionOption {
   txt: string;
 }
@@ -23,7 +26,7 @@ export function makeQuestion ({
   name = 'default name',
   prompt = 'default prompt',
   description = '',
-  default_format = 'txt',
+  default_format = RESPONSE_FORMATS.TEXT,
   true_option = 'Yes',
   false_option = 'No'
 }, options: QuestionOption[] = [], accepts: QuestionResponseType[] = []): Question {

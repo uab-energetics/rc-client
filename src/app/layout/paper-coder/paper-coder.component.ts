@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {makeQuestion, Question} from "../../models/Question";
 import {Subject} from "rxjs/Subject";
+import {RESPONSE_FORMATS as fmt} from "../../models/formats";
 
 @Component({
   selector: 'app-paper-coder',
@@ -22,21 +23,22 @@ export class PaperCoderComponent implements OnInit {
     this.testQuestions.push(makeQuestion({
       id: id_cnt++,
       name: 'Working!',
-      prompt: 'How are you feeling today?'
+      prompt: 'How are you feeling today?',
+      default_format: fmt.TEXT
     }));
 
     this.testQuestions.push(makeQuestion({
       id: id_cnt++,
       name: "Number Question",
       prompt: 'How old are you?',
-      default_format: 'num'
+      default_format: fmt.NUMBER
     }));
 
     this.testQuestions.push(makeQuestion({
       id: id_cnt++,
       name: "Binary Question",
       prompt: "Which party do you most associate with?",
-      default_format: 'bool',
+      default_format: fmt.BOOLEAN,
       true_option: 'Republican',
       false_option: 'Democrat'
     }));
@@ -51,7 +53,7 @@ export class PaperCoderComponent implements OnInit {
       id: id_cnt++,
       name: "Select Question",
       prompt: "Pick your Poison:",
-      default_format: 'sel'
+      default_format: fmt.SELECT
     }, selectOptions));
 
     let multiSelectOptions = [
@@ -65,7 +67,7 @@ export class PaperCoderComponent implements OnInit {
       id: id_cnt++,
       name: "Multi-Select Question",
       prompt: "Which of these movies have you seen?",
-      default_format: 'multi-sel'
+      default_format: fmt.MULTI_SELECT
     }, multiSelectOptions));
 
     console.log(this.testQuestions);

@@ -35,15 +35,15 @@
     <!-- Conditional Fields -->
     <div class="col-12">
       <!-- boolean -->
-      <div class="row" *ngIf="selectedType.value==='bool'">
+      <div class="row" *ngIf="selectedType.value==='boo'">
         <div class="form-group col-md-6">
           <label class="form-control-label"> True Value </label>
-          <input formControlName="true_val"
+          <input formControlName="true_option"
                  type="text" class="form-control" placeholder="True option.." />
         </div>
         <div class="form-group col-md-6">
           <label class="form-control-label"> False Value </label>
-          <input formControlName="false_val"
+          <input formControlName="false_option"
                  type="text" class="form-control" placeholder="False option.." />
         </div>
       </div>

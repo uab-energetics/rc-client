@@ -12,7 +12,7 @@
                 (appChange)="numberChanged($event)"></app-number>
 
 
-    <app-bool *ngIf="questionModel.default_format === 'bool'"
+    <app-bool *ngIf="questionModel.default_format === 'boo'"
               (appChange)="boolChanged($event)"
               [trueOption]="questionModel.true_option"
               [falseOption]="questionModel.false_option">

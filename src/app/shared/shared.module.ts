@@ -18,6 +18,7 @@ import { QuestionBuilderComponent } from './components/question-builder/question
 import { ChipListComponent } from './components/chip-list/chip-list.component';
 import { FormComponent } from './components/form/form.component';
 import { QuestionComponent } from './components/form/question/question.component';
+import { CategoryComponent } from './components/form/category/category.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { QuestionComponent } from './components/form/question/question.component
     QuestionBuilderComponent,
     ChipListComponent,
     FormComponent,
-    QuestionComponent
+    QuestionComponent,
+    CategoryComponent
   ],
   exports: [
     NavbarComponent,
@@ -52,7 +54,8 @@ import { QuestionComponent } from './components/form/question/question.component
     QuestionBuilderComponent,
     ChipListComponent,
     FormComponent,
-    QuestionComponent
+    QuestionComponent,
+    CategoryComponent
   ]
 })
 export class SharedModule { }

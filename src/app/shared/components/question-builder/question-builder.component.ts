@@ -40,13 +40,15 @@ export class QuestionBuilderComponent {
 
     let options: QuestionOption[] = model.options.map( opt => { return {"txt": opt} });
 
+    console.log(model);
+
     return makeQuestion({
       name: model.name,
       prompt: model.prompt,
       description: model.desc,
       default_format: model.default_format,
-      true_option: model.true_val,
-      false_option: model.false_val
+      true_option: model.true_option,
+      false_option: model.false_option
     }, options);
   }
 
@@ -57,8 +59,8 @@ export class QuestionBuilderComponent {
       prompt: ['', Validators.required],
       default_format: ['txt', Validators.required],
       accepts: this.fb.array([]),
-      true_val: '',
-      false_val: '',
+      true_option: 'Yes',
+      false_option: 'No',
       options: new FormControl([])
     });
   }
