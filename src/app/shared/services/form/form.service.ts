@@ -1,12 +1,16 @@
-
-import {Form, makeForm} from "../../models/Form";
-import {Category, makeCategory} from "../../models/Category";
-import {makeQuestion, Question} from "../../models/Question";
+import { Injectable } from '@angular/core';
+import {Form, makeForm} from "../../../models/Form";
+import {makeQuestion, Question} from "../../../models/Question";
+import {Category, makeCategory} from "../../../models/Category";
 import {Forms} from "./formHelpers";
-import _ = require("lodash");
-import {RESPONSE_FORMATS as fmt} from "../../models/formats";
+import * as _ from 'lodash';
+import {RESPONSE_FORMATS as fmt} from "../../../models/formats";
 
+@Injectable()
 export class FormService {
+
+  constructor() { }
+
   getForm(id: number){
     return buildMockForm();
   }
@@ -101,9 +105,8 @@ export class FormService {
       }, 300);
     });
   }
+
 }
-
-
 
 function buildMockForm () {
   let mapOpts = arr => arr.map( str => { return {txt: str}});

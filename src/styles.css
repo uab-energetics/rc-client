@@ -16,3 +16,8 @@
   border: solid lightgrey 2px;
   margin-bottom: 5px;
 }
+
+.app-category.complete .card {
+  border: solid lightgreen 2px;
+  margin-bottom: 5px;
+}

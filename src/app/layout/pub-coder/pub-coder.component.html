@@ -1,0 +1,17 @@
+<div class="page">
+  <div class="page-content">
+    <div class="row">
+      <div class="col-lg-6">
+        <!-- start form render-->
+        <app-category *ngFor="let rootCat of formModel.root_category.children"
+          [categoryModel]="rootCat"
+          (appCategoryUpdate)="onCategoryUpdate($event)">
+        </app-category>
+        <!-- end form render -->
+      </div>
+      <div class="col-lg-6">
+        <pre>{{encoding | json}}</pre>
+      </div>
+    </div>
+  </div>
+</div>

@@ -18,6 +18,7 @@ import { TreeModule } from 'angular-tree-component';
 import { FormLayoutTreeComponent } from './form-builder/form-layout-tree/form-layout-tree.component';
 import {MatProgressBarModule, MatSnackBarModule} from "@angular/material";
 import { PaperCoderComponent } from './paper-coder/paper-coder.component';
+import { PubCoderComponent } from './pub-coder/pub-coder.component';
 
 const routes: Routes = [
   {
@@ -75,8 +76,8 @@ const routes: Routes = [
         component: FormBuilderComponent
       },
       {
-        path: 'paper-coder/:id',
-        component: PaperCoderComponent
+        path: 'pub-coder/:id',
+        component: PubCoderComponent
       },
       {
         path: '',
@@ -108,7 +109,8 @@ const routes: Routes = [
     ProjectComponent,
     FormBuilderComponent,
     FormLayoutTreeComponent,
-    PaperCoderComponent
+    PaperCoderComponent,
+    PubCoderComponent
   ]
 })
 export class LayoutModule {

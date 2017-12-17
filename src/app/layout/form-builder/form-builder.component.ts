@@ -4,23 +4,22 @@ import {Category} from "../../models/Category";
 import {Question} from "../../models/Question";
 import * as _ from 'lodash';
 import {Form} from "../../models/Form";
-import {FormService} from "./FormService";
 import {
   ADD_CATEGORY, ADD_QUESTION, addCategory, addQuestion, DEL_CATEGORY, DEL_QUESTION, MOVE_CATEGORY, MOVE_QUESTION,
   SELECT_CATEGORY,
   selectCategory, SHOW_ADD_QUESTION
 } from "./actions";
 import {MatSnackBar} from "@angular/material";
+import {FormService} from "../../shared/services/form/form.service";
 
 @Component({
   selector: 'app-form-builder',
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.css'],
-  providers: [MatSnackBar]
+  providers: [MatSnackBar, FormService]
 })
 export class FormBuilderComponent implements OnInit {
 
-  formService = new FormService();
   activeModal: NgbModalRef;
 
   @ViewChild('treeView') treeView;
@@ -34,7 +33,8 @@ export class FormBuilderComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public formService: FormService
   ) { }
 
   ngOnInit() {

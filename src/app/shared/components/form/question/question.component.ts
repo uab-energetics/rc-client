@@ -1,6 +1,12 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Question} from "../../../../models/Question";
-import {Subject} from "rxjs/Subject";
+import {RESPONSE_FORMATS as fmt} from "../../../../models/formats";
+
+export interface ResponseUpdate {
+  type: string;
+  question: Question;
+  payload;
+}
 
 @Component({
   selector: 'app-question',
@@ -10,52 +16,46 @@ import {Subject} from "rxjs/Subject";
 export class QuestionComponent {
 
   @Input() questionModel: Question;
-  @Input() observer: Subject<any>;
+  @Output() appResponseChange = new EventEmitter<ResponseUpdate>();
 
+  private emitResponseChange(responsePayload, type){
+    this.appResponseChange.emit({
+      question: this.questionModel,
+      payload: responsePayload,
+      type
+    });
+  }
 
   /* CHANGE LISTENERS */
 
   selectChanged($event){
-    this.notifyChange({
-      sel: $event
-    }, 'sel')
+    this.emitResponseChange({
+      [fmt.SELECT]: $event
+    }, fmt.SELECT);
   }
 
   boolChanged($event){
-    this.notifyChange({
-      boo: $event
-    }, 'boo')
+    this.emitResponseChange({
+      [fmt.BOOLEAN]: $event
+    }, fmt.BOOLEAN);
   }
 
   textChanged($event){
-    this.notifyChange({
-      txt: $event
-    }, 'txt')
+    this.emitResponseChange({
+      [fmt.TEXT]: $event
+    }, fmt.TEXT);
   }
 
   numberChanged($event){
-    this.notifyChange({
-      num: $event
-    }, 'num')
+    this.emitResponseChange({
+      [fmt.NUMBER]: $event
+    }, fmt.NUMBER);
   }
 
   multiSelectChanged($event){
-    this.notifyChange({
-      selections: $event
-    }, 'multi-sel')
+    this.emitResponseChange({
+      [fmt.MULTI_SELECT]: $event
+    }, fmt.MULTI_SELECT);
   }
 
-  /**
-   * Emits the change event through the observer subject
-   * @param payload - the portion of the response model that requires update
-   * @param type - the response format this data should be interpreted as
-   */
-  private notifyChange( payload, type ){
-    if(!this.observer) return;
-    this.observer.next({
-      question: this.questionModel,
-      payload,
-      type
-    })
-  }
 }

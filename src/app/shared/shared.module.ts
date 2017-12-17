@@ -21,6 +21,7 @@ import { QuestionComponent } from './components/form/question/question.component
 import { CategoryComponent } from './components/form/category/category.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { CategoryBuilderComponent } from './components/category-builder/category-builder.component';
+import {FormService} from "./services/form/form.service";
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { CategoryBuilderComponent } from './components/category-builder/category
     MatSelectModule, MatRadioModule, MatSliderModule, MatInputModule, MatIconModule, MatChipsModule, MatProgressBarModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    FormService
   ],
   declarations: [
     NavbarComponent,

@@ -1,6 +1,6 @@
-import {Category} from "../../models/Category";
-import {Question} from "../../models/Question";
-import {Form} from "../../models/Form";
+import {Category} from "../../../models/Category";
+import {Question} from "../../../models/Question";
+import {Form} from "../../../models/Form";
 import * as _ from 'lodash';
 
 interface DFSResult {
