@@ -15,9 +15,9 @@
             </div>
 
             <app-form-layout-tree
+              #treeView
               [form]="form"
-              (nodeSelected)="onNodeSelected($event)"
-              (nodeMoved)="onNodeMoved($event)">
+              (formAction)="dispatch($event)">
             </app-form-layout-tree>
 
           </div>
@@ -26,26 +26,33 @@
       <div class="col-lg-8">
         <ol class="breadcrumb text-lg-center">
           <li *ngFor="let crumb of activeCrumbs" class="breadcrumb-item">
-            <a (click)="selectCrumb(crumb)" href="javascript:void(0)">{{crumb.name}}</a>
+            <a (click)="onSelectCategory(crumb.id)" href="javascript:void(0)"><b>{{crumb.name}}</b></a>
           </li>
         </ol>
 
         <div class="panel">
           <div class="panel-body">
+            <h3>Sub-Categories</h3>
             <div class="row" *ngIf="activeCategory?.children?.length > 0">
               <div class="col-12 mb-20">
                 <button *ngFor="let sub of activeCategory?.children"
-                        (click)="onNodeSelected(sub.id)"
+                        (click)="onSelectCategory(sub.id)"
                         class="btn btn-lg btn-default mr-20">
                   <i class="icon wb-folder"></i> {{sub.name}}</button>
               </div>
             </div>
+            <h2>Rendering Preview</h2>
 
+            <!-- start form render-->
             <app-category [categoryModel]="activeCategory"></app-category>
+            <!-- end form render -->
+
+            <br/>
+            <button class="btn btn-success" (click)="open(questionModalContent)"> <i class="icon wb-plus"></i> <b>Question</b></button>
+            <button class="btn btn-success" (click)="open(categoryModalContent)"> <i class="icon wb-plus"></i> <b>Category</b></button>
           </div>
         </div>
 
-        <button class="btn btn-success" (click)="open(questionModalContent)"> <i class="icon wb-plus"></i> New Question </button>
       </div>
     </div>
 
@@ -58,8 +65,21 @@
         </button>
       </div>
       <div class="modal-body">
-        <app-question-builder (appSave)="onQuestionCreate($event)"></app-question-builder>
+        <app-question-builder (appSave)="onAddQuestion($event)"></app-question-builder>
       </div>
     </ng-template>
+
+    <ng-template #categoryModalContent let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">New Category</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-category-builder (appSave)="onAddCategory($event)"></app-category-builder>
+      </div>
+    </ng-template>
+
   </div>
 </div>

@@ -11,3 +11,8 @@
 .app-question {
   margin-bottom: 20px;
 }
+
+.app-category .card {
+  border: solid lightgrey 2px;
+  margin-bottom: 5px;
+}

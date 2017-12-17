@@ -2,7 +2,7 @@ import {Form} from "../../../models/Form";
 import {Category} from "../../../models/Category";
 import {Question} from "../../../models/Question";
 
-let id_counter = 0;
+let id_counter = 1;
 
 export function mapToTreeView(form: Form) {
   let root = mapCategory(form.root_category);

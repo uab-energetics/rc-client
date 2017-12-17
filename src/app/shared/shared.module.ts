@@ -19,6 +19,8 @@ import { ChipListComponent } from './components/chip-list/chip-list.component';
 import { FormComponent } from './components/form/form.component';
 import { QuestionComponent } from './components/form/question/question.component';
 import { CategoryComponent } from './components/form/category/category.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { CategoryBuilderComponent } from './components/category-builder/category-builder.component';
 
 @NgModule({
   imports: [
@@ -26,6 +28,7 @@ import { CategoryComponent } from './components/form/category/category.component
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule,
     MatSelectModule, MatRadioModule, MatSliderModule, MatInputModule, MatIconModule, MatChipsModule, MatProgressBarModule
   ],
   providers: [
@@ -42,7 +45,8 @@ import { CategoryComponent } from './components/form/category/category.component
     ChipListComponent,
     FormComponent,
     QuestionComponent,
-    CategoryComponent
+    CategoryComponent,
+    CategoryBuilderComponent
   ],
   exports: [
     NavbarComponent,
@@ -55,7 +59,8 @@ import { CategoryComponent } from './components/form/category/category.component
     ChipListComponent,
     FormComponent,
     QuestionComponent,
-    CategoryComponent
+    CategoryComponent,
+    CategoryBuilderComponent
   ]
 })
 export class SharedModule { }

@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Form} from "../../../models/Form";
 import {mapToTreeView} from "./tree-mapper";
+import {deleteCategory, deleteQuestion, moveCategory, moveQuestion, selectCategory} from "../actions";
 
 @Component({
   selector: 'app-form-layout-tree',
@@ -10,22 +11,22 @@ import {mapToTreeView} from "./tree-mapper";
 export class FormLayoutTreeComponent implements AfterViewInit {
 
   @Input()
-  set form( formInput: Form ){
-    this._tree = mapToTreeView(formInput);
-  }
+  set form(form: Form){
+    this.setForm(form);
+  };
 
-  @Output('nodeSelected') nodeSelected = new EventEmitter<number>();
-  @Output('nodeMoved') nodeMoved = new EventEmitter();
+  @Output() formAction = new EventEmitter();
 
   @ViewChild('tree') treeview;
 
-  _tree;
-  _opts = {
+  treeData;
+  treeOptions = {
     allowDrag: true,
     actionMapping: {
       mouse: {
         dblClick: (tree, node, $event) => {
-          this.nodeSelected.emit(node.id);
+          if(node.data.type !== 'folder') return;
+          this.formAction.emit(selectCategory(node.id));
         }
       }
     },
@@ -35,14 +36,38 @@ export class FormLayoutTreeComponent implements AfterViewInit {
   };
 
   onMove($event){
-    this.nodeMoved.emit({
-      node: $event.node.id,
-      parent: $event.to.parent.id
-    });
+    console.log('move:', $event);
+    let nodeID = $event.node.id;
+    let tgtID = $event.to.parent.id;
+    switch ($event.node.type){
+      case "file":
+        this.formAction.emit(moveQuestion(nodeID, tgtID));
+        break;
+      case "folder":
+        this.formAction.emit(moveCategory(nodeID, tgtID));
+        break;
+    }
+  }
+
+  onDelete(){
+    let node = this.treeview.treeModel.getActiveNode();
+    switch(node.data.type){
+      case 'file':
+        this.formAction.emit(deleteQuestion(node.id));
+        break;
+      case 'folder':
+        this.formAction.emit(deleteCategory(node.id));
+        break;
+    }
   }
 
   ngAfterViewInit () {
     this.treeview.treeModel.expandAll();
+  };
+
+  public setForm(form: Form){
+    this.treeData = [];
+    this.treeData = mapToTreeView(form);
   }
 
 }

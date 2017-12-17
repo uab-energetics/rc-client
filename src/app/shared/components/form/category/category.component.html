@@ -1,10 +1,21 @@
-<div class="app-category">
-  <div class="row">
-    <div class="col-12" *ngFor="let question of categoryModel.questions">
-      <app-question
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="app-category">
+  <ngb-panel>
+    <ng-template ngbPanelTitle>
+      <i class="icon wb-folder"></i> &nbsp;
+      {{categoryModel.name}}
+      &nbsp; <span class="badge badge-round badge-info">{{categoryModel.questions.length}}</span>
+    </ng-template>
+    <ng-template ngbPanelContent>
+      <!-- Child Questions -->
+      <app-question *ngFor="let question of categoryModel.questions"
         [questionModel]="question"
         [observer]="observer">
       </app-question>
-    </div>
-  </div>
-</div>
+      <!-- Child Categories -->
+      <app-category *ngFor="let subCategory of categoryModel.children"
+        [categoryModel]="subCategory"
+        [observer]="observer">
+      </app-category>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
