@@ -6,6 +6,7 @@ let id_counter = 1;
 
 export function mapToTreeView(form: Form) {
   let root = mapCategory(form.root_category);
+  root['isRoot'] = true;
   return [root];
 }
 

@@ -1,15 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {Category, makeCategory} from "../../models/Category";
-import {makeQuestion, Question} from "../../models/Question";
+import {Category} from "../../models/Category";
+import {Question} from "../../models/Question";
 import * as _ from 'lodash';
 import {Form} from "../../models/Form";
-import {Forms} from "./formHelpers";
 import {FormService} from "./FormService";
 import {
   ADD_CATEGORY, ADD_QUESTION, addCategory, addQuestion, DEL_CATEGORY, DEL_QUESTION, MOVE_CATEGORY, MOVE_QUESTION,
   SELECT_CATEGORY,
-  selectCategory
+  selectCategory, SHOW_ADD_QUESTION
 } from "./actions";
 import {MatSnackBar} from "@angular/material";
 
@@ -25,6 +24,7 @@ export class FormBuilderComponent implements OnInit {
   activeModal: NgbModalRef;
 
   @ViewChild('treeView') treeView;
+  @ViewChild('questionModalContent') questionModalContent;
 
   form: Form;
   activeCategory: Category;
@@ -64,14 +64,13 @@ export class FormBuilderComponent implements OnInit {
           }).then(() => this.showSaving = false);
         break;
       case SELECT_CATEGORY:
-        this.formService.getCategory(this.form, action.categoryID)
+        return this.formService.getCategory(this.form, action.categoryID)
           .then( res => {
             this.activeCategory = res.category;
             this.activeCrumbs = res.path;
           }).catch( err => {
             this.resetForm();
           }).then(() => this.showSaving = false);
-        break;
       case ADD_QUESTION:
         this.activeModal.close();
         action.question.id = _.random(1, 9999); // demo purposes only. server will return question with a good ID
@@ -104,6 +103,10 @@ export class FormBuilderComponent implements OnInit {
           .catch( err => console.log(err))
           .then( () => this.showSaving = false);
         break;
+      case SHOW_ADD_QUESTION:
+        this.dispatch(selectCategory(action.categoryID))
+          .then(() => this.open(this.questionModalContent));
+        break;
       default:
         this.showSaving = false;
         console.log('unknown action');
@@ -121,66 +124,6 @@ export class FormBuilderComponent implements OnInit {
   onAddCategory(category: Category){
     this.dispatch(addCategory(category, this.activeCategory.id));
   }
-
-  // onNodeSelected({ id, type = 'category' }){
-  //   if(type !== 'category') return;
-  //   let searchResults = Forms.find(this.form, id);
-  //   console.log(searchResults);
-  //   if(!searchResults) return;
-  //   this.activeCrumbs = searchResults.path;
-  //   this.activeCategory = searchResults.node as Category;
-  // }
-
-  // onNodeMoved($event){
-  //   console.log('moving', $event.node, 'to', $event.parent );
-  //   Forms.move(this.form, $event.parent, $event.node);
-  //   // mocking ajax request
-  //   this.showSaving = true;
-  //   setTimeout(()=>{
-  //     this.showSaving = false;
-  //   }, 600 * ( Math.random() * 2 + 1 ));
-  // }
-
-  // onNodeDelete({ id, type }){
-  //   console.log('deleting', id);
-  //   let searchResults = Forms.find(this.form, id);
-  //   if(!searchResults) return;
-  //   let parent = searchResults.path[searchResults.path.length-2];
-  //   switch (searchResults.type){
-  //     case "category":
-  //       this.form = Forms.removeCategory(this.form, parent, searchResults.node as Category);
-  //       return;
-  //     case "question":
-  //       this.form = Forms.removeQuestion(this.form, parent, searchResults.node as Question);
-  //       return;
-  //   }
-  // }
-
-  // selectCrumb(crumb: Category){
-  //   this.onNodeSelected({ id: crumb.id });
-  // }
-
-  // onQuestionCreate(newQuestion: Question){
-  //   if(this.activeModal) this.activeModal.close();
-  //   this.showSaving = true;
-  //   // create in server
-  //   setTimeout(()=>{
-  //     newQuestion.id = _.random(1, 100);
-  //     this.form = Forms.addQuestion(this.form, this.activeCategory, newQuestion);
-  //     this.showSaving = false;
-  //   }, 2000);
-  // }
-  //
-  // onCategoryCreate(newCategory: Category): void {
-  //   if(this.activeModal) this.activeModal.close();
-  //   this.showSaving = true;
-  //   // create in server
-  //   setTimeout(()=>{
-  //     newCategory.id = _.random(1, 99999999);
-  //     this.form = Forms.addCategory(this.form, this.activeCategory, newCategory);
-  //     this.showSaving = false;
-  //   }, 2000);
-  // }
 
   open(content) {
     this.activeModal = this.modalService.open(content)

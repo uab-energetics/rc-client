@@ -1,5 +1,12 @@
 <div>
-  <button (click)="onDelete()" class="btn btn-sm btn-danger">Delete</button>
+  <button (click)="onDelete()"
+          [disabled]="isOnRoot()"
+          class="btn btn-sm btn-danger mr-10">Delete</button>
+  <button (click)="onCreateQuestion()"
+          [disabled]="!isOnFolder()"
+      class="btn btn-sm btn-success mr-10">
+    <i class="icon wb-plus"></i> Question </button>
+  <!--<button (click)="onDelete()" class="btn btn-sm btn-danger mr-10"><i class="icon wb-plus"></i> Category </button>-->
   <br/>
   <br/>
   <tree-root #tree [nodes]="treeData"

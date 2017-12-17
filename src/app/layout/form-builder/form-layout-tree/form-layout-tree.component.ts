@@ -1,7 +1,10 @@
 import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Form} from "../../../models/Form";
 import {mapToTreeView} from "./tree-mapper";
-import {deleteCategory, deleteQuestion, moveCategory, moveQuestion, selectCategory} from "../actions";
+import {
+  deleteCategory, deleteQuestion, moveCategory, moveQuestion, selectCategory,
+  showAddQuestionForm
+} from "../actions";
 
 @Component({
   selector: 'app-form-layout-tree',
@@ -50,7 +53,7 @@ export class FormLayoutTreeComponent implements AfterViewInit {
   }
 
   onDelete(){
-    let node = this.treeview.treeModel.getActiveNode();
+    let node = this.activeNode();
     switch(node.data.type){
       case 'file':
         this.formAction.emit(deleteQuestion(node.id));
@@ -61,6 +64,24 @@ export class FormLayoutTreeComponent implements AfterViewInit {
     }
   }
 
+  onCreateQuestion(){
+    let node = this.activeNode();
+    if(node.data.type !== 'folder') return;
+    this.formAction.emit(showAddQuestionForm(node.id));
+  }
+
+  isOnFolder() {
+    let node = this.activeNode();
+    if(!node) return false;
+    return node.data.type === 'folder';
+  }
+
+  isOnRoot() {
+    let node = this.activeNode();
+    if(!node) return false;
+    return node.data.isRoot;
+  }
+
   ngAfterViewInit () {
     this.treeview.treeModel.expandAll();
   };
@@ -68,6 +89,10 @@ export class FormLayoutTreeComponent implements AfterViewInit {
   public setForm(form: Form){
     this.treeData = [];
     this.treeData = mapToTreeView(form);
+  }
+
+  private activeNode(){
+    return this.treeview.treeModel.getActiveNode();
   }
 
 }
