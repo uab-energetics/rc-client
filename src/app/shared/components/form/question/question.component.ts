@@ -3,9 +3,8 @@ import {Question} from "../../../../models/Question";
 import {RESPONSE_FORMATS as fmt} from "../../../../models/formats";
 
 export interface ResponseUpdate {
-  type: string;
   question: Question;
-  payload;
+  response: Response;
 }
 
 @Component({
@@ -18,11 +17,10 @@ export class QuestionComponent {
   @Input() questionModel: Question;
   @Output() appResponseChange = new EventEmitter<ResponseUpdate>();
 
-  private emitResponseChange(responsePayload, type){
+  private emitResponseChange(responsePayload){
     this.appResponseChange.emit({
       question: this.questionModel,
-      payload: responsePayload,
-      type
+      response: responsePayload
     });
   }
 
@@ -30,32 +28,37 @@ export class QuestionComponent {
 
   selectChanged($event){
     this.emitResponseChange({
+      type: fmt.SELECT,
       [fmt.SELECT]: $event
-    }, fmt.SELECT);
+    });
   }
 
   boolChanged($event){
     this.emitResponseChange({
+      type: fmt.BOOLEAN,
       [fmt.BOOLEAN]: $event
-    }, fmt.BOOLEAN);
+    });
   }
 
   textChanged($event){
     this.emitResponseChange({
+      type: fmt.TEXT,
       [fmt.TEXT]: $event
-    }, fmt.TEXT);
+    });
   }
 
   numberChanged($event){
     this.emitResponseChange({
+      type: fmt.NUMBER,
       [fmt.NUMBER]: $event
-    }, fmt.NUMBER);
+    });
   }
 
   multiSelectChanged($event){
     this.emitResponseChange({
+      type: fmt.MULTI_SELECT,
       [fmt.MULTI_SELECT]: $event
-    }, fmt.MULTI_SELECT);
+    });
   }
 
 }

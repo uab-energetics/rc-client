@@ -16,12 +16,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BoolComponent } from './components/response-inputs/bool/bool.component';
 import { QuestionBuilderComponent } from './components/question-builder/question-builder.component';
 import { ChipListComponent } from './components/chip-list/chip-list.component';
-import { FormComponent } from './components/form/form.component';
 import { QuestionComponent } from './components/form/question/question.component';
 import { CategoryComponent } from './components/form/category/category.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { CategoryBuilderComponent } from './components/category-builder/category-builder.component';
 import {FormService} from "./services/form/form.service";
+import { ExperimentFormComponent } from './components/form/experiment-form/experiment-form.component';
+import { BranchComponent } from './components/form/branch/branch.component';
+import {EncodingService} from "./services/encoding.service";
 
 @NgModule({
   imports: [
@@ -34,7 +36,8 @@ import {FormService} from "./services/form/form.service";
   ],
   providers: [
     AuthService,
-    FormService
+    FormService,
+    EncodingService
   ],
   declarations: [
     NavbarComponent,
@@ -45,10 +48,11 @@ import {FormService} from "./services/form/form.service";
     BoolComponent,
     QuestionBuilderComponent,
     ChipListComponent,
-    FormComponent,
     QuestionComponent,
     CategoryComponent,
-    CategoryBuilderComponent
+    CategoryBuilderComponent,
+    ExperimentFormComponent,
+    BranchComponent
   ],
   exports: [
     NavbarComponent,
@@ -59,10 +63,11 @@ import {FormService} from "./services/form/form.service";
     BoolComponent,
     QuestionBuilderComponent,
     ChipListComponent,
-    FormComponent,
     QuestionComponent,
     CategoryComponent,
-    CategoryBuilderComponent
+    CategoryBuilderComponent,
+    ExperimentFormComponent,
+    BranchComponent
   ]
 })
 export class SharedModule { }

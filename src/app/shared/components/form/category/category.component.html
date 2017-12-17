@@ -1,4 +1,6 @@
-<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="app-category" [ngClass]="{complete: (completion===1)}">
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="app-category"
+               [ngClass]="{complete: (completion===1)}"
+               [destroyOnHide]="false">
   <ngb-panel>
     <ng-template ngbPanelTitle>
       <i class="icon wb-folder"></i> &nbsp;

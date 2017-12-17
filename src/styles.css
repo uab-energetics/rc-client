@@ -21,3 +21,7 @@
   border: solid lightgreen 2px;
   margin-bottom: 5px;
 }
+
+.progress-bar-animated {
+  animation: progress-bar-stripes 2s linear infinite;
+}

@@ -1,0 +1,6 @@
+<div class="app-branch">
+  <app-category *ngFor="let rootCat of formModel.root_category.children"
+                [categoryModel]="rootCat"
+                (appCategoryUpdate)="onCategoryUpdate($event)">
+  </app-category>
+</div>

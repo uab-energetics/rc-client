@@ -6,8 +6,7 @@ import {Question} from "../../../../models/Question";
 export interface CategoryUpdate {
   category: Category;
   question: Question;
-  type: string;
-  payload;
+  response: Response;
 }
 
 @Component({
