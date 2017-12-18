@@ -27,6 +27,7 @@ import {EncodingService} from "./services/encoding.service";
 import { FormFormComponent } from './components/forms/form-form/form-form.component';
 import {ProjectService} from "./services/project.service";
 import { ProjectFormComponent } from './components/forms/project-form/project-form.component';
+import { TaskListComponent } from './components/task-list/task-list.component';
 
 @NgModule({
   imports: [
@@ -58,9 +59,11 @@ import { ProjectFormComponent } from './components/forms/project-form/project-fo
     ExperimentFormComponent,
     BranchComponent,
     FormFormComponent,
-    ProjectFormComponent
+    ProjectFormComponent,
+    TaskListComponent
   ],
   exports: [
+    TaskListComponent,
     NavbarComponent,
     TextComponent,
     NumberComponent,

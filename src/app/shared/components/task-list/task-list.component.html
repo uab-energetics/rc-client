@@ -1,0 +1,40 @@
+<div class="container mt-2">
+  <button class="btn btn-success" (click)="findTasks()"><i class="icon wb-plus"></i> Find Tasks </button>
+
+  <br/>
+  <br/>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Task name</th>
+      <th>Status</th>
+      <th>Progress</th>
+      <th>Project</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let task of tasks">
+      <th scope="row">{{task.id}}</th>
+      <td>{{task.name}}</td>
+      <td><span class="badge badge-success">Clean</span></td>
+      <td>
+        <p><ngb-progressbar type="warning" [value]="task.completion" [striped]="true" [animated]="true"><i>{{task.completion}}%</i></ngb-progressbar></p>
+      </td>
+      <td>{{task.project.name}}</td>
+      <td>
+        <button class="btn btn-success" routerLink="/pub-coder/{{task.id}}"> Go! </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!--<div class="">
+    <a class="btn btn-outline btn-default" href="#">
+      <i class="icon wb-pencil"></i>
+      Load all tasks ...</a>
+  </div>-->
+
+</div>
