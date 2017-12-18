@@ -29,7 +29,7 @@ export class BranchComponent implements OnInit {
   }
 
   onCategoryUpdate($event: CategoryUpdate){
-    this.appBranchUpdate.emit(Object.assign({}, $event, { branch: this.branchModel }))
+    this.appBranchUpdate.emit(Object.assign($event, { branch: this.branchModel }))
   }
 
 }

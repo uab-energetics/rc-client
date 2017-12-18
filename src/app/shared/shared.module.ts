@@ -16,14 +16,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BoolComponent } from './components/response-inputs/bool/bool.component';
 import { QuestionBuilderComponent } from './components/question-builder/question-builder.component';
 import { ChipListComponent } from './components/chip-list/chip-list.component';
-import { QuestionComponent } from './components/form/question/question.component';
-import { CategoryComponent } from './components/form/category/category.component';
+import { QuestionComponent } from './components/app-form/question/question.component';
+import { CategoryComponent } from './components/app-form/category/category.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { CategoryBuilderComponent } from './components/category-builder/category-builder.component';
 import {FormService} from "./services/form/form.service";
-import { ExperimentFormComponent } from './components/form/experiment-form/experiment-form.component';
-import { BranchComponent } from './components/form/branch/branch.component';
+import { ExperimentFormComponent } from './components/app-form/experiment-form/experiment-form.component';
+import { BranchComponent } from './components/app-form/branch/branch.component';
 import {EncodingService} from "./services/encoding.service";
+import { FormFormComponent } from './components/forms/form-form/form-form.component';
+import {ProjectService} from "./services/project.service";
 
 @NgModule({
   imports: [
@@ -37,7 +39,8 @@ import {EncodingService} from "./services/encoding.service";
   providers: [
     AuthService,
     FormService,
-    EncodingService
+    EncodingService,
+    ProjectService
   ],
   declarations: [
     NavbarComponent,
@@ -52,7 +55,8 @@ import {EncodingService} from "./services/encoding.service";
     CategoryComponent,
     CategoryBuilderComponent,
     ExperimentFormComponent,
-    BranchComponent
+    BranchComponent,
+    FormFormComponent
   ],
   exports: [
     NavbarComponent,
@@ -67,7 +71,8 @@ import {EncodingService} from "./services/encoding.service";
     CategoryComponent,
     CategoryBuilderComponent,
     ExperimentFormComponent,
-    BranchComponent
+    BranchComponent,
+    FormFormComponent
   ]
 })
 export class SharedModule { }

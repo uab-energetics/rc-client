@@ -30,7 +30,7 @@ export class ExperimentFormComponent implements OnInit {
   }
 
   onBranchUpdate($event: BranchUpdate){
-    this.appExperimentFormUpdate.emit(Object.assign({}, $event, { form: this.formModel }));
+    this.appExperimentFormUpdate.emit(Object.assign($event, { form: this.formModel }));
   }
 
 }

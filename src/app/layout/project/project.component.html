@@ -23,7 +23,7 @@
           </div>
           <div class="col-sm-4">
             <div class="counter">
-              <span class="counter-number font-weight-medium">3</span>
+              <span class="counter-number font-weight-medium">{{projectForms.length}}</span>
               <div class="counter-label"> Forms </div>
             </div>
           </div>
@@ -38,7 +38,7 @@
           <div class="container mt-25">
             <div class="row">
               <div class="form-group">
-                <button class="btn btn-success">
+                <button (click)="openFormForm(newFormModal)" class="btn btn-success">
                   <i class="icon wb-plus"></i>
                   New Form </button>
               </div>
@@ -47,23 +47,12 @@
             <hr/>
 
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-4" *ngFor="let form of projectForms">
                 <div class="card">
                   <div class="card-block">
-                    <h4 class="card-title">Super Awesome Form</h4>
-                    <p class="card-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                      qui officia deserunt mollit anim id est laborum.</p>
-                    <a [routerLink]="'/forms/12'" class="btn btn-primary"> Edit </a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="card">
-                  <div class="card-block">
-                    <h4 class="card-title"> Prelimiary Screening Form</h4>
-                    <p class="card-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                      qui officia deserunt mollit anim id est laborum.</p>
-                    <a [routerLink]="'/forms/12'" class="btn btn-primary"> Edit </a>
+                    <h4 class="card-title">{{form.name}}</h4>
+                    <p class="card-text">{{form.description}}</p>
+                    <a [routerLink]="'/forms/' + form.id" class="btn btn-primary"> Edit </a>
                   </div>
                 </div>
               </div>
@@ -99,5 +88,20 @@
         </ng-template>
       </ngb-tab>
     </ngb-tabset>
+
+
+    <ng-template #newFormModal let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Create Form</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar>
+        <app-form-form (appSubmit)="onFormFormSubmit($event)"></app-form-form>
+      </div>
+    </ng-template>
+
   </div>
 </div>

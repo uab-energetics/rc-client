@@ -11,11 +11,15 @@
           {{formCompletion}}%
         </ngb-progressbar></p>
 
-        <app-experiment-form
-          (appExperimentFormUpdate)="onFormUpdate($event)"
-          [branches]="branches"
-          [formModel]="formModel">
-        </app-experiment-form>
+        <div class="panel">
+          <div class="panel-body">
+            <app-experiment-form
+              (appExperimentFormUpdate)="onFormUpdate($event)"
+              [branches]="branches"
+              [formModel]="formModel">
+            </app-experiment-form>
+          </div>
+        </div>
 
       </div>
       <div class="col-lg-6">

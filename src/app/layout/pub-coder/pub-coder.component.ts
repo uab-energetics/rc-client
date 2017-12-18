@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormService} from "../../shared/services/form/form.service";
 import {Form} from "../../models/Form";
-import {ExperimentFormUpdate} from "../../shared/components/form/experiment-form/experiment-form.component";
+import {ExperimentFormUpdate} from "../../shared/components/app-form/experiment-form/experiment-form.component";
 import {EncodingService} from "../../shared/services/encoding.service";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-pub-coder',
@@ -38,11 +39,10 @@ export class PubCoderComponent implements OnInit {
   onFormUpdate($event: ExperimentFormUpdate){
     let update = {
       [$event.branch.id]: {
-        [$event.question.id]: Object.assign({}, $event.response )
+        [$event.question.id]: $event.response
       }
     };
-    Object.assign(this.encoding, update);
-    /* completion */
+    this.encoding = _.mergeWith(this.encoding, update);
     this.formCompletion = this.encodingService.calculateCompletion(this.formModel, this.encoding);
   }
 

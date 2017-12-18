@@ -1,10 +1,8 @@
 
 import { Category, makeCategory } from "./Category";
-import {Question} from "./Question";
-
-import * as _ from "lodash";
 
 export interface Form {
+  id?: number;
   type: string;
   name: string;
   description: string;
