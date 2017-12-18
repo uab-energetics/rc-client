@@ -7,14 +7,44 @@
 
     <div class="page-content">
       <div class="row">
-        <div class="col-lg-8">
+        <div class="col-12">
           <div class="panel">
             <div class="panel-body">
               <ngb-tabset class="nav-tabs-line tabs-line-top">
                 <ngb-tab title="Ongoing Tasks">
                   <ng-template ngbTabContent>
                     <div class="container mt-2">
-                      <router-outlet></router-outlet>
+                      <table class="table">
+                        <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Task name</th>
+                          <th>Progress</th>
+                          <th>Project</th>
+                          <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let task of myTasks">
+                          <th scope="row">{{task.id}}</th>
+                          <td>{{task.name}}</td>
+                          <td>
+                            <p><ngb-progressbar type="warning" [value]="task.completion" [striped]="true" [animated]="true"><i>{{task.completion}}%</i></ngb-progressbar></p>
+                          </td>
+                          <td>{{task.project.name}}</td>
+                          <td>
+                            <button class="btn btn-success" routerLink="/pub-coder/{{task.id}}"> Go! </button>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+
+                      <!--<div class="">
+                        <a class="btn btn-outline btn-default" href="#">
+                          <i class="icon wb-pencil"></i>
+                          Load all tasks ...</a>
+                      </div>-->
+
                     </div>
                   </ng-template>
                 </ngb-tab>
@@ -27,20 +57,6 @@
               </ngb-tabset>
             </div>
           </div>
-        </div>
-        <div class="col-lg-4">
-
-          <h4>Recent Activity</h4>
-          <ul class="list-group list-group-bordered">
-            <li class="list-group-item"><i class="icon wb-book"></i> <a href>Murine Rigor</a> <span class="badge badge-pill badge-info">3</span> </li>
-            <li class="list-group-item"><i class="icon wb-book"></i> <a href>Missile</a> <span class="badge badge-pill badge-info">1</span> </li>
-            <li class="list-group-item"><i class="icon wb-book"></i> <a href>Example Project A</a> <span class="badge badge-pill badge-info">1</span> </li>
-            <li class="list-group-item"><i class="icon wb-book"></i> <a href>Example Project B</a> <span class="badge badge-pill badge-info">1</span> </li>
-          </ul>
-          <div class="text-right">
-            <a href>Load More ...</a>
-          </div>
-
         </div>
       </div>
     </div>

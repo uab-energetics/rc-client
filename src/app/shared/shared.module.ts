@@ -26,6 +26,7 @@ import { BranchComponent } from './components/app-form/branch/branch.component';
 import {EncodingService} from "./services/encoding.service";
 import { FormFormComponent } from './components/forms/form-form/form-form.component';
 import {ProjectService} from "./services/project.service";
+import { ProjectFormComponent } from './components/forms/project-form/project-form.component';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import {ProjectService} from "./services/project.service";
     CategoryBuilderComponent,
     ExperimentFormComponent,
     BranchComponent,
-    FormFormComponent
+    FormFormComponent,
+    ProjectFormComponent
   ],
   exports: [
     NavbarComponent,
@@ -72,7 +74,8 @@ import {ProjectService} from "./services/project.service";
     CategoryBuilderComponent,
     ExperimentFormComponent,
     BranchComponent,
-    FormFormComponent
+    FormFormComponent,
+    ProjectFormComponent
   ]
 })
 export class SharedModule { }

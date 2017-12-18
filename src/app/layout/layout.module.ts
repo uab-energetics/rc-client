@@ -8,7 +8,6 @@ import {ProfileComponent} from './settings/profile/profile.component';
 import {SettingsComponent} from './settings/settings.component';
 import {AccountComponent} from './settings/account/account.component';
 import {SharedModule} from '../shared/shared.module';
-import { TasksComponent } from './home/tasks/tasks.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
@@ -19,6 +18,7 @@ import { FormLayoutTreeComponent } from './form-builder/form-layout-tree/form-la
 import {MatProgressBarModule, MatSnackBarModule} from "@angular/material";
 import { PaperCoderComponent } from './paper-coder/paper-coder.component';
 import { PubCoderComponent } from './pub-coder/pub-coder.component';
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {
@@ -28,17 +28,7 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
-        children: [
-          {
-            path: 'tasks',
-            component: TasksComponent
-          },
-          {
-            path: '',
-            redirectTo: 'tasks',
-            pathMatch: 'full'
-          }
-        ]
+        children: []
       },
       {
         path: 'settings',
@@ -91,6 +81,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
     RouterModule.forChild(routes),
     NgbModule,
     TreeModule,
@@ -103,7 +94,6 @@ const routes: Routes = [
     SettingsComponent,
     ProfileComponent,
     AccountComponent,
-    TasksComponent,
     ProjectsComponent,
     CreateProjectComponent,
     ProjectComponent,

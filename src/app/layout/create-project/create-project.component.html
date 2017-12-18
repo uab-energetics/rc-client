@@ -10,34 +10,8 @@
           <hr/>
         </div>
 
-        <form class="row new-project-form">
-          <div class="form-group col-md-3">
-            <label class="form-control-label"> Owner </label> &nbsp;
-            <div>
-              <button type="button" class="btn btn-sm btn-icon btn-light"
-                      data-toggle="tooltip" data-original-title="Edit">
-                <img height="20" src="https://avatars0.githubusercontent.com/u/22692124?s=40&v=4"/>
-                &nbsp; chrisrocco &nbsp;
-                <i class="icon wb-chevron-down-mini" aria-hidden="true"></i>
-              </button>
-            </div>
-          </div>
-          <div class="form-group col-md-9">
-            <label class="form-control-label"> Repository Name </label>
-            <input type="text" class="form-control" placeholder="Murine Rigor"/>
-          </div>
-          <div class="col-md-12">
-            <p>Great project names are short and memorable.</p>
-          </div>
-          <div class="form-group col-md-12">
-            <label class="form-control-label"> Description</label> <small>(optional)</small>
-            <input type="text" class="form-control" />
-          </div>
-          <div class="form-group col-md-12">
-            <hr/>
-            <button class="btn btn-success">  Create Project </button>
-          </div>
-        </form>
+        <app-project-form (appSubmit)="onProjectFormSubmit($event)"></app-project-form>
+
       </div>
     </div>
 
