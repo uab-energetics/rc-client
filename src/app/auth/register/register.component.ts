@@ -1,12 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {AuthService, RegisterRequest} from "../../shared/auth/auth.service";
 
 class RegisterFormModel {
   constructor(
-    private name: string,
-    private email: string,
-    private password: string,
-    private passwordConfirm: string
+    public name: string,
+    public email: string,
+    public password: string,
+    public passwordConfirm: string
   ) {}
 }
 
@@ -18,10 +19,26 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   model = new RegisterFormModel('', '', '', '');
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService : AuthService) { }
 
   onSubmit() {
-    this.router.navigate(['/']);
+    let formData = this.exportFormData();
+    console.log(formData);
+    this.authService.register(formData)
+      .then((response) => {
+        //skip and dance
+        this.router.navigate(['/']);
+      })
+      .catch();
+  }
+
+  exportFormData(): RegisterRequest {
+    let {name, email, password} = this.model;
+    return {name, email, password};
+  }
+
+  onInputChange(data){
+    console.log(data);
   }
 
   ngOnInit(): void {

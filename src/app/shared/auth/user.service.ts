@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 
 import jsonwebtoken from 'jsonwebtoken';
-import User from './User';
+import {AppUser} from "./User";
 
 @Injectable()
 export class UserService implements OnInit {
@@ -11,14 +11,13 @@ export class UserService implements OnInit {
 
   jwt: string;
   jwt_decoded: any;
-  _user: User;
+  _user: AppUser;
 
   constructor() {
     this.loadSessionData();
   }
 
   get user(){
-    console.log('"Tried to access user data while not logged in"');
     return this._user;
   }
 
@@ -31,7 +30,7 @@ export class UserService implements OnInit {
     }
   }
 
-  public setSession(jwt: string, user: User){
+  public setSession(jwt: string, user: AppUser){
     localStorage.setItem(UserService.JWT_LOCATION, jwt);
     localStorage.setItem(UserService.USER_LOCATION, JSON.stringify(user));
     this.loadSessionData();

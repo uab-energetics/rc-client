@@ -18,13 +18,14 @@
   <!-- Page Content -->
   <div class="page-content container-fluid">
     <div class="row">
+      <mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar>
       <div *ngFor="let pj of projects" class="col-lg-4">
         <!-- Example Panel With Heading -->
         <div class="panel">
           <div class="panel-heading">
             <h3 class="panel-title">
               <i class="icon wb-book"></i>
-              <a [routerLink]="'/projects/'+pj.name">{{pj.name}}</a></h3>
+              <a [routerLink]="'/projects/'+pj.id">{{pj.name}}</a></h3>
             <div class="panel-actions panel-actions-keep">
               <div class="dropdown">
                 <a class="panel-action" id="examplePanelDropdown" data-toggle="dropdown" href="#"
@@ -39,7 +40,7 @@
             </div>
           </div>
           <div class="panel-body">
-            <p>{{pj.desc}}</p>
+            <p>{{pj.description}}</p>
           </div>
         </div>
         <!-- End Example Panel With Heading -->

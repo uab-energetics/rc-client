@@ -9,14 +9,17 @@ import {ProjectService} from "../../shared/services/project.service";
 export class ProjectsComponent implements OnInit {
 
   projects;
+  showLoader = false;
 
   constructor(private projectService: ProjectService) {
   }
 
   ngOnInit() {
+    this.showLoader = true;
     this.projectService.myProjects()
       .then( projects => {
-        this.projects = projects
+        this.projects = projects;
+        this.showLoader = false;
       });
   }
 

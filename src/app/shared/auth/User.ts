@@ -1,6 +1,5 @@
-export default class User {
-  constructor(
-    public name: string,
-    public email: string
-  ) {}
+export interface AppUser {
+  id: number;
+  email: string;
+  name: string;
 }

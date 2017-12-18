@@ -29,10 +29,10 @@ export class ProjectService {
 const mockProjects: AppProject[] = [
   {
     name: "Murine Rigor",
-    description: ""
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum."
   },
   {
     name: "Missile",
-    description: ""
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum."
   }
 ];

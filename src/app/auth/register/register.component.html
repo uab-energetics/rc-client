@@ -1,7 +1,7 @@
 <div>
   <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="form-group form-material floating" >
-      <input type="name" class="form-control" required
+      <input class="form-control" required
              [(ngModel)]="model.name" name="name" #name="ngModel"/>
       <label class="floating-label">Name</label>
     </div>
@@ -33,7 +33,7 @@
         <li [hidden]="!password.errors?.required">Password is Required</li>
       </ul>
     </div>
-    <div [hidden]="password.value === passwordConfirm.value" style="padding: 2px" class="alert alert-danger">
+    <div [hidden]="password.value===passwordConfirm.value" style="padding: 2px" class="alert alert-danger">
       <span>passwords do not match</span>
     </div>
     <div class="form-group clearfix">
@@ -42,7 +42,7 @@
                [(ngModel)]="model.rememberMe" name="remember">
         <label for="inputCheckbox">Remember me</label>
       </div>
-      <a class="float-right" href="forgot-password.html">Forgot password?</a>
+      <a class="float-right" href="javascript:void(0)">Forgot password?</a>
     </div>
     <button type="submit" class="btn btn-primary btn-block btn-lg mt-40"
             [disabled]="!loginForm.form.valid">Register</button>
