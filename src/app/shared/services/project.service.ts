@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Form} from "../../models/Form";
 import {AppProject} from "../../models/Project";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class ProjectService {
@@ -19,6 +20,13 @@ export class ProjectService {
     })
   }
 
+  deleteProject(projectID: number){
+    return new Observable((subject) => {
+      mockProjects = mockProjects.filter( p => p.id !== projectID );
+      subject.next(mockProjects);
+    })
+  }
+
   createForm(projectID: number, form: Form): Promise<Form> {
     return new Promise((res, rej)=>{
       setTimeout(() => res(form), 1400);
@@ -34,7 +42,7 @@ export class ProjectService {
 }
 
 
-const mockProjects: AppProject[] = [
+let mockProjects: AppProject[] = [
   {
     id: 1,
     name: "Murine Rigor",

@@ -15,12 +15,21 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadProjects();
+  }
+
+  private loadProjects(){
     this.showLoader = true;
     this.projectService.myProjects()
       .then( projects => {
         this.projects = projects;
         this.showLoader = false;
       });
+  }
+
+  deleteProject(id: number){
+    this.projectService.deleteProject(id)
+      .subscribe(() => this.loadProjects() );
   }
 
 }
