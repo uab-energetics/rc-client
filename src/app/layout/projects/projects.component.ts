@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {projects} from '../../../../test/data/projects';
+import {ProjectService} from "../../shared/services/project.service";
 
 @Component({
   selector: 'app-projects',
@@ -10,11 +10,14 @@ export class ProjectsComponent implements OnInit {
 
   projects;
 
-  constructor() {
-    this.projects = projects;
+  constructor(private projectService: ProjectService) {
   }
 
   ngOnInit() {
+    this.projectService.myProjects()
+      .then( projects => {
+        this.projects = projects
+      });
   }
 
 }

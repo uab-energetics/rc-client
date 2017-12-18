@@ -8,7 +8,7 @@ export class ProjectService {
   constructor() { }
 
   find(projectID: number): Promise<AppProject> {
-    return Promise.resolve(mockProject);
+    return Promise.resolve(mockProjects[0]);
   }
 
   createForm(projectID: number, form: Form): Promise<Form> {
@@ -17,10 +17,22 @@ export class ProjectService {
     })
   }
 
+  myProjects(): Promise<AppProject[]> {
+    return new Promise((res, rej)=>{
+      setTimeout(() => res(mockProjects), 1300);
+    })
+  }
+
 }
 
 
-const mockProject = {
-  name: 'mock project',
-  description: 'dummy project'
-};
+const mockProjects: AppProject[] = [
+  {
+    name: "Murine Rigor",
+    description: ""
+  },
+  {
+    name: "Missile",
+    description: ""
+  }
+];
