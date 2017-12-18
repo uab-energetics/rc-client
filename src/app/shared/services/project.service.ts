@@ -1,15 +1,20 @@
-import { Injectable } from '@angular/core';
+import  { Injectable } from '@angular/core';
 import {Form} from "../../models/Form";
 import {AppProject} from "../../models/Project";
 import {Observable} from "rxjs/Observable";
+import * as Rx from 'rxjs/Rx';
 
 @Injectable()
 export class ProjectService {
 
   constructor() { }
 
-  find(projectID: number): Promise<AppProject> {
-    return Promise.resolve(mockProjects[0]);
+  firstOrFail(projectID: number): Observable<AppProject> {
+    return Observable.create((subject) => {
+      let project = mockProjects.filter( p => p.id === projectID);
+      if(project.length === 0) subject.error(404);
+      subject.next(project[0]);
+    });
   }
 
   createProject(project: AppProject){
@@ -31,6 +36,18 @@ export class ProjectService {
     return new Promise((res, rej)=>{
       setTimeout(() => res(form), 1400);
     })
+  }
+
+  getForms(projectID: number): Observable<Form[]> {
+    return Rx.Observable.of([
+      {
+        id: 123,
+        name: 'Preliminary Screening',
+        type: '',
+        published: false,
+        description: 'asdf dsa fdsa fads fads fads f'
+      }
+    ])
   }
 
   myProjects(): Promise<AppProject[]> {

@@ -4,6 +4,7 @@ import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Form} from "../../models/Form";
 import {ProjectService} from "../../shared/services/project.service";
 import {MatSnackBar} from "@angular/material";
+import {AppProject} from "../../models/Project";
 
 @Component({
   selector: 'app-project',
@@ -12,9 +13,11 @@ import {MatSnackBar} from "@angular/material";
 })
 export class ProjectComponent implements OnInit {
 
-  projectID;
+  /* Data */
+  projectForms: Form[] = [];
+  project: AppProject;
+  /* UI */
   formFormModal: NgbActiveModal;
-  projectForms: Form[];
   showLoader = false;
 
   constructor(
@@ -26,7 +29,7 @@ export class ProjectComponent implements OnInit {
 
   onFormFormSubmit(newForm: Form){
     this.showLoader = true;
-    this.projectService.createForm(this.projectID, newForm)
+    this.projectService.createForm(this.project.id, newForm)
       .then( _newForm  => {
         this.projectForms.push(_newForm);
         this.snackBar.open('Form Created!', 'Ok', { verticalPosition: 'top' })
@@ -39,16 +42,17 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projectID = this.route.snapshot.paramMap.get('id');
-    this.projectForms = [
-      {
-        id: 123,
-        name: 'Murine Rigor',
-        description: 'asdfads fsa fdsadsf adsas dfsadfdsafad sfads sadf',
-        published: false,
-        type: 'experiment'
-      }
-    ]
+    this.loadProject();
+  }
+
+  loadProject() {
+    let projectID = +this.route.snapshot.paramMap.get('id');
+    this.projectService.firstOrFail(projectID)
+      .subscribe(project => {
+        this.project = project;
+        this.projectService.getForms(this.project.id)
+          .subscribe( forms => this.projectForms = forms );
+      })
   }
 
   openFormForm(content) {

@@ -1,11 +1,12 @@
 <div class="page">
   <div class="container">
     <div class="page-header">
-      <h1 class="page-title mb-25">{{project}}</h1>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/projects">Projects</a></li>
-        <li class="breadcrumb-item active">{{project}}</li>
+        <li class="breadcrumb-item active">{{project.name}}</li>
       </ol>
+      <h1 class="page-title mb-25">{{project.name}}</h1>
+      <!--<p class="page-description">{{project.description}}</p>-->
 
       <div class="page-header-actions">
         <div class="row no-space w-250 hidden-sm-down">
