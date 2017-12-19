@@ -29,6 +29,7 @@ import {ProjectService} from "./services/project.service";
 import { ProjectFormComponent } from './components/forms/project-form/project-form.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import {AuthGuardService} from "./auth/auth-guard.service";
+import { ProjectFormsListComponent } from './components/project-forms-list/project-forms-list.component';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import {AuthGuardService} from "./auth/auth-guard.service";
     BranchComponent,
     FormFormComponent,
     ProjectFormComponent,
-    TaskListComponent
+    TaskListComponent,
+    ProjectFormsListComponent
   ],
   exports: [
     TaskListComponent,
@@ -80,7 +82,8 @@ import {AuthGuardService} from "./auth/auth-guard.service";
     ExperimentFormComponent,
     BranchComponent,
     FormFormComponent,
-    ProjectFormComponent
+    ProjectFormComponent,
+    ProjectFormsListComponent
   ]
 })
 export class SharedModule { }

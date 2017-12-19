@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row mb-25">
+    <div class="col-12">
+      <button (click)="openFormForm(newFormModal)"
+              class="btn btn-success btn-outline">
+        <i class="icon wb-plus"></i>
+        New Form </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Form Cards -->
+    <div *ngFor="let form of forms" class="col-lg-6">
+      <div class="panel panel-bordered panel-primary bg-blue-grey-200">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <i class="icon wb-file"></i>
+            <b>{{form.name}}</b>
+          </h3>
+          <div class="panel-actions panel-actions-keep">
+            <div class="dropdown">
+              <a class="panel-action"
+                 data-toggle="dropdown" href
+                 role="button"><i class="icon wb-more-vertical"></i></a>
+              <div class="dropdown-menu dropdown-menu-bullet dropdown-menu-right">
+                <a class="dropdown-item" (click)="deleteForm(form.id)" href="javascript:void(0)">
+                  <i class="icon wb-trash"></i> Delete</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
+                  <i class="icon wb-settings" aria-hidden="true"></i>
+                  Settings
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <p>{{form.description}}</p>
+          <hr/>
+          <a [routerLink]="['/forms', form.id]"
+             class="btn btn-warning pull-right"> <i class="icon wb-edit"></i> <b>Edit</b> </a>
+        </div>
+      </div>
+      <!-- End Example Panel With Heading -->
+    </div>
+    <!-- Form Cards -->
+  </div>
+
+
+  <!-- Create Form Modal -->
+  <ng-template #newFormModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Create Form</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar>
+      <app-form-form (appSubmit)="onFormFormSubmit($event)"></app-form-form>
+    </div>
+  </ng-template>
+  <!-- Create Form Modal -->
+</div>
