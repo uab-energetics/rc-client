@@ -1,167 +1,84 @@
 import { Injectable } from '@angular/core';
-import {Form, makeForm} from "../../../models/Form";
-import {makeQuestion, Question} from "../../../models/Question";
-import {Category, makeCategory} from "../../../models/Category";
-import {Forms} from "./formHelpers";
-import * as _ from 'lodash';
-import {RESPONSE_FORMATS as fmt} from "../../../models/formats";
+import {AppForm} from "../../../models/AppForm";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../../environments/environment";
+import {Observable} from "rxjs/Observable";
+import {AppCategory} from "../../../models/AppCategory";
+import {AppQuestion} from "../../../models/AppQuestion";
+import {share} from "rxjs/operators";
+
+const api = environment.api;
 
 @Injectable()
 export class FormService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  getForm(id: number){
-    return buildMockForm();
+  getForm(id: number): Observable<AppForm> {
+    return this.http.get<AppForm>(`${api}/forms/${id}`)
+      .pipe(share());
   }
 
-  addQuestion(form: Form, question: Question, parentID: number): Promise<Form> {
-    return new Promise((res, rej)=>{
-      let searchResults = Forms.find(form, parentID);
-      if(!searchResults) rej();
-
-      searchResults.node.questions.push(question);
-      setTimeout( () => {
-        res(Object.assign({}, form));
-      }, 300);
-    });
+  addQuestion(formID: number, question: AppQuestion, parentID: number): Observable<AppForm> {
+    let url = `${api}/forms/${formID}/questions`;
+    let body = {
+      'category_id': parentID,
+      question
+    };
+    return this.http.post<AppForm>(url, body)
+      .pipe(share());
   }
 
-  addCategory(form: Form, category: Category, parentID: number): Promise<Form> {
-    return new Promise((res, rej)=>{
-      let searchResults = Forms.find(form, parentID);
-      if(!searchResults) rej();
-
-      searchResults.node.children.push(category);
-      setTimeout( () => {
-        res(Object.assign({}, form));
-      }, 300);
-    });
+  addCategory(formID: number, category: AppCategory, parentID: number): Observable<AppForm> {
+    let url = `${api}/forms/${formID}/categories`;
+    let body = Object.assign({}, category, { parent_id: parentID });
+    return this.http.post<AppForm>(url, body)
+      .pipe(share());
   }
 
-  deleteQuestion(form: Form, questionID: number): Promise<Form> {
-    let rs = Forms.find(form, questionID);
-    let parent = rs.path[rs.path.length-2];
-    _.pull(parent.questions, rs.node);
-    return Promise.resolve(Object.assign({}, form));
+  deleteQuestion(formID: number, questionID: number): Observable<AppForm> {
+    let url = `${api}/forms/${formID}/questions/${questionID}`;
+    return this.http.delete<AppForm>(url)
+      .pipe(share());
   }
 
-  deleteCategory(form: Form, categoryID: number): Promise<Form> {
-    let rs = Forms.find(form, categoryID);
-    let parent = rs.path[rs.path.length-2];
-    _.pull(parent.children, rs.node);
-    return Promise.resolve(Object.assign({}, form));
+  deleteCategory(formID: number, categoryID: number): Observable<AppForm> {
+    let url = `${api}/forms/${formID}/categories/${categoryID}`;
+    return this.http.delete<AppForm>(url)
+      .pipe(share());
   }
 
-  moveQuestion(form: Form, question, parent): Promise<Form> {
-    return new Promise((res, rej) => {
-      /* remove from parent */
-      let rs = Forms.find(form, question);
-      let rsp = Forms.find(form, parent);
-      console.log(rs, rsp);
-      if(!rs) rej();
-      if(!rsp) rej();
-
-      let currentParent = rs.path[rs.path.length-2];
-      let targetParent: any = rsp.node;
-      _.pull(currentParent.questions, rs.node);
-      targetParent.questions.push(rs.node);
-      setTimeout(()=>{
-        res(Object.assign({}, form));
-      }, 1000);
-    });
+  moveQuestion(formID: number, questionID: number, categoryID: number): Observable<AppForm> {
+    let url = `${api}/forms/${formID}/questions/${questionID}`;
+    let body = {
+      'category_id': categoryID
+    };
+    return this.http.put<AppForm>(url, body)
+      .pipe(share());
   }
 
-  moveCategory(form: Form, category, parent): Promise<Form> {
-    return new Promise((res, rej) => {
-      /* remove from parent */
-      let rs = Forms.find(form, category);
-      let rsp = Forms.find(form, parent);
-      console.log(rs, rsp);
-      if(!rs) rej();
-      if(!rsp) rej();
-
-      let currentParent = rs.path[rs.path.length-2];
-      let targetParent: any = rsp.node;
-      _.pull(currentParent.children, rs.node);
-      targetParent.children.push(rs.node);
-      setTimeout(()=>{
-        res(Object.assign({}, form));
-      }, 1000);
-    });
+  moveCategory(formID: number, categoryID: number, parentID: number): Observable<AppForm> {
+    let url = `${api}/forms/${formID}/categories/${categoryID}`;
+    let body = {
+      'parent_id': parentID
+    };
+    return this.http.put<AppForm>(url, body)
+      .pipe(share());
   }
 
-  getCategory(form: Form, id: number): Promise<any> {
-    return new Promise((res, rej)=>{
-      let rs = Forms.find(form, id);
-      if(!rs) rej();
+  getCategory(formID: number, categoryID: number): Observable<AppCategory> {
+    let url = `${api}/categories/${categoryID}`;
+    return this.http.get<AppCategory>(url)
+      .pipe(share());
 
-      let category = rs.node;
-      setTimeout(()=>{
-        res({
-          category,
-          path: rs.path
-        });
-      }, 300);
-    });
   }
 
-}
+  getQuestion(formID: number, id: number): Observable<AppCategory> {
+    let url = `${api}/questions/${id}`;
+    return this.http.get<AppCategory>(url)
+      .pipe(share());
+  }
 
-function buildMockForm () {
-  let mapOpts = arr => arr.map( str => { return {txt: str}});
-
-  let next_id = 1;
-
-  let drinks = makeQuestion({
-    name: 'Select Question',
-    prompt: "Pick your poison:",
-    default_format: fmt.SELECT,
-    id: next_id++
-  }, mapOpts(['Wine', 'Beer', 'Whiskey', 'Gin']));
-
-
-  let movies = makeQuestion({
-    name: 'Multi-Select',
-    default_format: fmt.MULTI_SELECT,
-    prompt: 'Which of these movies have you seen before?',
-    id: next_id++
-  }, mapOpts(['Pulp Fiction', 'The Godfather', 'Shawshank Redemption', 'Django Unchained', 'Star Wars']));
-
-  let howAreYou = makeQuestion({
-    name: 'Text Question',
-    default_format: fmt.TEXT,
-    prompt: "What did you do yesterday?",
-    id: next_id++
-  });
-
-  let party = makeQuestion({
-    name: "Binary Question",
-    default_format: fmt.BOOLEAN,
-    prompt: "Which party do you most associate with?",
-    true_option: "Republican",
-    false_option: "Democrat",
-    id: next_id++
-  });
-
-  let age = makeQuestion({
-    name: "Number Question",
-    default_format: fmt.NUMBER,
-    prompt: "How old are you?",
-    id: next_id++
-  });
-
-  /* categories */
-  let personal = makeCategory({
-    id: next_id++,
-    name: 'Personal Questions'
-  }, [], [age, party]);
-
-  let casual = makeCategory({
-    id: next_id++,
-    name: "Casual Questions"
-  }, [], [howAreYou, movies, drinks]);
-
-  let root = makeCategory({id: next_id, name: 'root'}, [personal, casual]);
-  return makeForm({}, root);
 }

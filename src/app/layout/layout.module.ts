@@ -16,7 +16,6 @@ import { FormBuilderComponent } from './form-builder/form-builder.component';
 import { TreeModule } from 'angular-tree-component';
 import { FormLayoutTreeComponent } from './form-builder/form-layout-tree/form-layout-tree.component';
 import {MatProgressBarModule, MatSnackBarModule} from "@angular/material";
-import { PaperCoderComponent } from './paper-coder/paper-coder.component';
 import { PubCoderComponent } from './pub-coder/pub-coder.component';
 import {FormsModule} from "@angular/forms";
 
@@ -99,7 +98,6 @@ const routes: Routes = [
     ProjectComponent,
     FormBuilderComponent,
     FormLayoutTreeComponent,
-    PaperCoderComponent,
     PubCoderComponent
   ]
 })

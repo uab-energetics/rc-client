@@ -1,8 +1,8 @@
 
 
-import {makeQuestion} from "../../../models/Question";
-import {makeCategory} from "../../../models/Category";
-import {makeForm} from "../../../models/Form";
+import {makeQuestion} from "../../../models/AppQuestion";
+import {makeCategory} from "../../../models/AppCategory";
+import {makeForm} from "../../../models/AppForm";
 import {mapToTreeView} from "./tree-mapper";
 
 describe("Tree mapping test", () => {
@@ -27,7 +27,7 @@ describe("Tree mapping test", () => {
 
 
     let tree = mapToTreeView(form);
-    console.log(JSON.stringify(tree, null, 2));
+    // console.log(JSON.stringify(tree, null, 2));
 
   })
 

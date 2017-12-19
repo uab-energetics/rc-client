@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {Category} from "../../models/Category";
-import {Question} from "../../models/Question";
+import {AppCategory} from "../../models/AppCategory";
+import {AppQuestion} from "../../models/AppQuestion";
 import * as _ from 'lodash';
-import {Form} from "../../models/Form";
+import {AppForm} from "../../models/AppForm";
 import {
   ADD_CATEGORY, ADD_QUESTION, addCategory, addQuestion, DEL_CATEGORY, DEL_QUESTION, MOVE_CATEGORY, MOVE_QUESTION,
   SELECT_CATEGORY,
@@ -11,6 +11,9 @@ import {
 } from "./actions";
 import {MatSnackBar} from "@angular/material";
 import {FormService} from "../../shared/services/form/form.service";
+import {catchError} from "rxjs/operators";
+import {Observable} from "rxjs/Observable";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-form-builder',
@@ -25,103 +28,80 @@ export class FormBuilderComponent implements OnInit {
   @ViewChild('treeView') treeView;
   @ViewChild('questionModalContent') questionModalContent;
 
-  form: Form;
-  activeCategory: Category;
-  activeCrumbs: Category[] = [];
+  _form: AppForm;
+  set form(form: AppForm) {
+    this._form = form;
+    if(!this.activeCategory)
+      this.activeCategory = form.root_category;
+    this.selectCategory(this.activeCategory.id)
+  }
+  get form(){
+    return this._form;
+  }
+
+  activeCategory: AppCategory;
+  activeCrumbs: AppCategory[] = [];
 
   showSaving = false;
 
-  constructor(
-    private modalService: NgbModal,
-    public snackBar: MatSnackBar,
-    public formService: FormService
-  ) { }
+  constructor(private modalService: NgbModal,
+              private route: ActivatedRoute,
+              public snackBar: MatSnackBar,
+              public formService: FormService) {
+  }
 
   ngOnInit() {
-    this.form = this.formService.getForm(0);
-    this.activeCategory = this.form.root_category;
-    this.activeCrumbs = [this.form.root_category];
+    this.loadForm();
   }
 
-  dispatch( action ){
+  loadForm(){
+    this.formService.getForm(+this.route.snapshot.paramMap.get('id'))
+      .subscribe(form => {
+        this.form = window['form'] = form;
+        this.activeCrumbs = [this.form.root_category];
+      });
+  }
+
+  dispatch(action) {
     console.log('dispatching...', action);
     this.showSaving = true;
-    switch(action.type){
+    let asyncAction: Observable<any>;
+    switch (action.type) {
       case MOVE_QUESTION:
-        this.formService.moveQuestion(this.form, action.questionID, action.categoryID)
-          .then( newForm => this.form = newForm )
-          .catch( err => {
-            this.resetForm();
-            this.snackBar.open('Failed to Move Question', 'Ok', { verticalPosition: "top" });
-          }).then(() => this.showSaving = false );
-        break;
+        asyncAction = this.moveQuestion(action.questionID, action.categoryID); break;
       case MOVE_CATEGORY:
-        this.formService.moveCategory(this.form, action.categoryID, action.parentID)
-          .then( newForm => this.form = newForm )
-          .catch( err => {
-            this.resetForm();
-            this.snackBar.open('Failed to move category', 'Ok', {verticalPosition: 'top'});
-          }).then(() => this.showSaving = false);
-        break;
+        asyncAction = this.moveCategory(action.categoryID, action.parentID); break;
       case SELECT_CATEGORY:
-        return this.formService.getCategory(this.form, action.categoryID)
-          .then( res => {
-            this.activeCategory = res.category;
-            this.activeCrumbs = res.path;
-          }).catch( err => {
-            this.resetForm();
-          }).then(() => this.showSaving = false);
+        asyncAction = this.selectCategory(action.categoryID); break;
       case ADD_QUESTION:
         this.activeModal.close();
-        action.question.id = _.random(1, 9999); // demo purposes only. server will return question with a good ID
-        this.formService.addQuestion(this.form, action.question, action.parentID)
-          .then( newForm => this.form = newForm )
-          .catch( err => {
-            this.resetForm();
-            this.snackBar.open('Failed to add question', 'Ok', {verticalPosition: 'top'});
-          }).then( () => this.showSaving = false);
-        break;
+        asyncAction = this.addQuestion(action.question, action.parentID); break;
       case ADD_CATEGORY:
         this.activeModal.close();
-        action.category.id = _.random(1, 9999);
-        this.formService.addCategory(this.form, action.category, action.parentID)
-          .then( newForm => this.form = newForm )
-          .catch( err => console.log(err))
-          .then( () => this.showSaving = false);
-        break;
+        asyncAction = this.addCategory(action.category, action.parentID); break;
       case DEL_QUESTION:
-        console.log('delete question');
-        this.formService.deleteQuestion(this.form, action.questionID)
-          .then( newForm => this.form = newForm )
-          .catch( err => console.log(err))
-          .then( () => this.showSaving = false);
-        break;
+        asyncAction = this.deleteQuestion(action.questionID); break;
       case DEL_CATEGORY:
-        console.log('delete category');
-        this.formService.deleteCategory(this.form, action.categoryID)
-          .then( newForm => this.form = newForm )
-          .catch( err => console.log(err))
-          .then( () => this.showSaving = false);
-        break;
+        asyncAction = this.deleteCategory(action.categoryID); break;
       case SHOW_ADD_QUESTION:
-        this.dispatch(selectCategory(action.categoryID))
-          .then(() => this.open(this.questionModalContent));
+        this.selectCategory(action.categoryID)
+          .subscribe(() => this.open(this.questionModalContent));
         break;
       default:
-        this.showSaving = false;
         console.log('unknown action');
     }
+    this.stopLoader(asyncAction);
   }
 
-  onSelectCategory(categoryID: number){
+  onSelectCategory(categoryID: number) {
     this.dispatch(selectCategory(categoryID));
   }
 
-  onAddQuestion(question: Question){
+  onAddQuestion(question: AppQuestion) {
     this.dispatch(addQuestion(question, this.activeCategory.id));
   }
 
-  onAddCategory(category: Category){
+  onAddCategory(category: AppCategory) {
     this.dispatch(addCategory(category, this.activeCategory.id));
   }
 
@@ -129,8 +109,101 @@ export class FormBuilderComponent implements OnInit {
     this.activeModal = this.modalService.open(content)
   }
 
-  resetForm(){
+  rollbackForm() {
     this.treeView.setForm(this.form);
   }
 
+  applyForm(form: AppForm) {
+    this.form = form;
+    this.showSaving = false;
+  }
+
+
+  /**
+   * Form Builder Operations
+   * ==================================
+   */
+
+  selectCategory(id: number): Observable<any> {
+    let src = this.formService.getCategory(this.form.id, id);
+    src.subscribe(
+      category => this.activeCategory = category,
+      this.handleError('fetch category')
+    );
+    return src;
+  }
+
+  addQuestion(question, categoryID) {
+    let formID = this.form.id;
+    let src = this.formService.addQuestion(formID, question, categoryID);
+    src.subscribe(
+      newForm => this.form = newForm,
+      this.handleError('create question')
+    );
+    return src;
+  }
+
+  addCategory(category, parentID){
+    let src = this.formService.addCategory(this.form.id, category, parentID);
+    src.subscribe(
+      newCategory => this.loadForm(),
+      this.handleError('create category')
+    );
+    return src;
+  }
+
+  moveQuestion(questionID, categoryID) {
+    let src = this.formService.moveQuestion(this.form.id, questionID, categoryID);
+    src.subscribe(
+      newForm => this.form = newForm,
+      this.handleError('move question')
+    );
+    return src;
+  }
+
+  moveCategory(categoryID: number, parentID: number) {
+    let src = this.formService.moveCategory(this.form.id, categoryID, parentID)
+      .finally(() => this.showSaving = false);
+
+    src.subscribe(
+      newForm => this.form = newForm,
+      this.handleError('move category')
+    );
+
+    return src;
+  }
+
+  deleteCategory(id: number){
+    let src = this.formService.deleteCategory(this.form.id, id);
+    src.subscribe(
+      () => this.loadForm(),
+      this.handleError('delete Category')
+    );
+    return src;
+  }
+
+  deleteQuestion(id: number){
+    let src = this.formService.deleteQuestion(this.form.id, id);
+    src.subscribe(
+      () => this.loadForm(),
+      this.handleError('delete question')
+    );
+    return src;
+  }
+
+  handleError( operation ){
+    return ( error ) => {
+      this.showSaving = false;
+      this.snackBar.open('Failed to ' + operation, 'Ok.. :(', {verticalPosition: "top"});
+      this.rollbackForm();
+    };
+  }
+
+  stopLoader( obs: Observable<any> ){
+    if(!obs){
+      this.showSaving = false;
+      return;
+    }
+    obs.subscribe( () => this.showSaving = false );
+  }
 }

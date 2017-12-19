@@ -1,15 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Form} from "../../../../models/Form";
-import {AppBranch} from "../../../../models/Branch";
+import {AppForm} from "../../../../models/AppForm";
+import {AppBranch} from "../../../../models/AppBranch";
 import {BranchUpdate} from "../branch/branch.component";
-import {Category} from "../../../../models/Category";
-import {Question} from "../../../../models/Question";
+import {AppCategory} from "../../../../models/AppCategory";
+import {AppQuestion} from "../../../../models/AppQuestion";
 
 export interface ExperimentFormUpdate {
-  form: Form;
+  form: AppForm;
   branch: AppBranch;
-  category: Category;
-  question: Question;
+  category: AppCategory;
+  question: AppQuestion;
   response: Response;
 }
 
@@ -20,7 +20,7 @@ export interface ExperimentFormUpdate {
 })
 export class ExperimentFormComponent implements OnInit {
 
-  @Input() formModel: Form;
+  @Input() formModel: AppForm;
   @Input() branches: AppBranch[];
   @Output() appExperimentFormUpdate = new EventEmitter<ExperimentFormUpdate>();
 

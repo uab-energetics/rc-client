@@ -1,5 +1,5 @@
 
-import {AppBranch} from "./Branch";
+import {AppBranch} from "./AppBranch";
 
 export interface AppExperimentEncoding {
   id?: number;

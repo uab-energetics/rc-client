@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Category, makeCategory} from "../../../models/Category";
+import {AppCategory, makeCategory} from "../../../models/AppCategory";
 
 @Component({
   selector: 'app-category-builder',
@@ -9,7 +9,7 @@ import {Category, makeCategory} from "../../../models/Category";
 })
 export class CategoryBuilderComponent {
 
-  @Output() appSave = new EventEmitter<Category>();
+  @Output() appSave = new EventEmitter<AppCategory>();
   categoryForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -19,7 +19,7 @@ export class CategoryBuilderComponent {
     })
   }
 
-  exportModel(): Category {
+  exportModel(): AppCategory {
     let formModel = this.categoryForm.value;
 
     return makeCategory({

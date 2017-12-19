@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProjectService} from "../../shared/services/project.service";
 
 @Component({
@@ -18,18 +18,20 @@ export class ProjectsComponent implements OnInit {
     this.loadProjects();
   }
 
-  private loadProjects(){
+  private loadProjects() {
     this.showLoader = true;
     this.projectService.myProjects()
-      .then( projects => {
+      .subscribe(
+      projects => {
         this.projects = projects;
         this.showLoader = false;
-      });
+      }
+    )
   }
 
-  deleteProject(id: number){
+  deleteProject(id: number) {
     this.projectService.deleteProject(id)
-      .subscribe(() => this.loadProjects() );
+      .subscribe(() => this.loadProjects());
   }
 
 }

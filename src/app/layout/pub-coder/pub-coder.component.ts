@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormService} from "../../shared/services/form/form.service";
-import {Form} from "../../models/Form";
+import {AppForm} from "../../models/AppForm";
 import {ExperimentFormUpdate} from "../../shared/components/app-form/experiment-form/experiment-form.component";
 import {EncodingService} from "../../shared/services/encoding.service";
 import * as _ from 'lodash';
@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 })
 export class PubCoderComponent implements OnInit {
 
-  formModel: Form;
+  formModel: AppForm;
   encoding = {};
   branches = [
     {
@@ -33,7 +33,8 @@ export class PubCoderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.formModel = this.formService.getForm(-1);
+    this.formService.getForm(-1)
+      .subscribe( form => this.formModel = form )
   }
 
   onFormUpdate($event: ExperimentFormUpdate){

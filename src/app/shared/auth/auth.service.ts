@@ -27,6 +27,9 @@ export interface RegisterRequest {
 @Injectable()
 export class AuthService {
 
+  redirectURL: string;
+  sessionExpired: boolean;
+
   constructor(
     private http: HttpClient,
     private router: Router,

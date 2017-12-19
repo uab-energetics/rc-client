@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Question} from "../../../../models/Question";
+import {AppQuestion} from "../../../../models/AppQuestion";
 import {RESPONSE_FORMATS as fmt} from "../../../../models/formats";
 
 export interface ResponseUpdate {
-  question: Question;
+  question: AppQuestion;
   response: Response;
 }
 
@@ -14,7 +14,7 @@ export interface ResponseUpdate {
 })
 export class QuestionComponent {
 
-  @Input() questionModel: Question;
+  @Input() questionModel: AppQuestion;
   @Output() appResponseChange = new EventEmitter<ResponseUpdate>();
 
   private emitResponseChange(responsePayload){

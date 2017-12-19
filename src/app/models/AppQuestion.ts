@@ -9,7 +9,7 @@ export interface QuestionResponseType {
   type: string;
 }
 
-export interface Question {
+export interface AppQuestion {
   id?: number;
   name: string;
   prompt: string;
@@ -29,7 +29,7 @@ export function makeQuestion ({
   default_format = RESPONSE_FORMATS.TEXT,
   true_option = 'Yes',
   false_option = 'No'
-}, options: QuestionOption[] = [], accepts: QuestionResponseType[] = []): Question {
+}, options: QuestionOption[] = [], accepts: QuestionResponseType[] = []): AppQuestion {
   return {
     id,
     name,

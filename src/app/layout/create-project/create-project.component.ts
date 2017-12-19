@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProjectService} from "../../shared/services/project.service";
 import {Router, RouterModule} from "@angular/router";
-import {AppProject} from "../../models/Project";
+import {AppProject} from "../../models/AppProject";
 
 class ProjectModel {
   constructor(
@@ -26,7 +26,7 @@ export class CreateProjectComponent {
 
   onProjectFormSubmit(project: AppProject){
     this.projectService.createProject(project)
-      .then( newProject => this.router.navigate(['/projects']))
+      .subscribe( newProject => this.router.navigate(['/projects']))
   }
 
 }

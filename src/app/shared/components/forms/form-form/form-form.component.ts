@@ -1,5 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Form, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Component, EventEmitter, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AppForm} from "../../../../models/AppForm";
 
 @Component({
   selector: 'app-form-form',
@@ -8,14 +9,14 @@ import {Form, FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class FormFormComponent {
 
-  @Output() appSubmit = new EventEmitter<Form>();
+  @Output() appSubmit = new EventEmitter<AppForm>();
 
   formForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.formForm = fb.group({
       name: [ '', Validators.required ],
-      description: ''
+      description: [ '', Validators.required ]
     })
   }
 
@@ -23,7 +24,7 @@ export class FormFormComponent {
     this.appSubmit.emit(this.exportForm());
   }
 
-  public exportForm(){
+  public exportForm(): AppForm {
     return Object.assign({}, this.formForm.value, {
       published: false,
       type: 'experiment' // TODO - move types to constants

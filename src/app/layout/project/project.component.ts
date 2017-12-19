@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Form} from "../../models/Form";
+import {AppForm} from "../../models/AppForm";
 import {ProjectService} from "../../shared/services/project.service";
 import {MatSnackBar} from "@angular/material";
-import {AppProject} from "../../models/Project";
+import {AppProject} from "../../models/AppProject";
 
 @Component({
   selector: 'app-project',
@@ -14,8 +14,9 @@ import {AppProject} from "../../models/Project";
 export class ProjectComponent implements OnInit {
 
   /* Data */
-  projectForms: Form[] = [];
+  projectForms: AppForm[] = [];
   project: AppProject;
+
   /* UI */
   formFormModal: NgbActiveModal;
   showLoader = false;
@@ -27,7 +28,7 @@ export class ProjectComponent implements OnInit {
     private projectService: ProjectService
   ) { }
 
-  onFormFormSubmit(newForm: Form){
+  onFormFormSubmit(newForm: AppForm){
     this.showLoader = true;
     this.projectService.createForm(this.project.id, newForm)
       .then( _newForm  => {
@@ -47,7 +48,7 @@ export class ProjectComponent implements OnInit {
 
   loadProject() {
     let projectID = +this.route.snapshot.paramMap.get('id');
-    this.projectService.firstOrFail(projectID)
+    this.projectService.find(projectID)
       .subscribe(project => {
         this.project = project;
         this.projectService.getForms(this.project.id)

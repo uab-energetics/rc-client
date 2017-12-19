@@ -1,5 +1,5 @@
-import {Question} from "../../models/Question";
-import {Category} from "../../models/Category";
+import {AppQuestion} from "../../models/AppQuestion";
+import {AppCategory} from "../../models/AppCategory";
 
 export const DEL_QUESTION = 'del_q';
 export const DEL_CATEGORY = 'del_c';
@@ -47,7 +47,7 @@ export function selectCategory(categoryID: number) {
   }
 }
 
-export function addQuestion(question: Question, parentID: number) {
+export function addQuestion(question: AppQuestion, parentID: number) {
   return {
     type: ADD_QUESTION,
     question,
@@ -55,7 +55,7 @@ export function addQuestion(question: Question, parentID: number) {
   }
 }
 
-export function addCategory(category: Category, parentID: number) {
+export function addCategory(category: AppCategory, parentID: number) {
   return {
     type: ADD_CATEGORY,
     category,

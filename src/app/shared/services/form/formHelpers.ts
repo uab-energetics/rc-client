@@ -1,10 +1,10 @@
-import {Category} from "../../../models/Category";
-import {Question} from "../../../models/Question";
-import {Form} from "../../../models/Form";
+import {AppForm} from "../../../models/AppForm";
 import * as _ from 'lodash';
+import {AppCategory} from "../../../models/AppCategory";
+import {AppQuestion} from "../../../models/AppQuestion";
 
 interface DFSResult {
-  path: Category[];
+  path: AppCategory[];
   node;
   type: 'question' | 'category';
 }
@@ -20,11 +20,11 @@ export const FormNodeTypes = {
  * @param {number} search_id - the ID of the node to search for
  * @returns {DFSResult} - the response data
  */
-export function find(form: Form, search_id: number): DFSResult | null {
+export function find(form: AppForm, search_id: number): DFSResult | null {
   return _dfs(search_id, form.root_category, []);
 }
 
-function _dfs(search_id: number, category: Category, path): DFSResult | null {
+function _dfs(search_id: number, category: AppCategory, path): DFSResult | null {
   path.push(category);
 
   if(category.id === search_id)
@@ -68,28 +68,28 @@ export function move(form, new_parent_id, child_id){
   }
 }
 
-function deleteNode(form: Form, node_id: number){
+function deleteNode(form: AppForm, node_id: number){
   let rs = find(form, node_id);
   if(!rs) return;
 }
 
 
-function addCategory(form: Form, parent: Category, node: Category): Form {
+function addCategory(form: AppForm, parent: AppCategory, node: AppCategory): AppForm {
   parent.children.push(node);
   return Object.assign({}, form);
 }
 
-function addQuestion(form: Form, parent: Category, node: Question): Form {
+function addQuestion(form: AppForm, parent: AppCategory, node: AppQuestion): AppForm {
   parent.questions.push(node);
   return Object.assign({}, form);
 }
 
-function removeCategory(form: Form, parent: Category, node: Category): Form {
+function removeCategory(form: AppForm, parent: AppCategory, node: AppCategory): AppForm {
   _.pull(parent.children, node);
   return Object.assign({}, form);
 }
 
-function removeQuestion(form: Form, parent: Category, node: Question): Form {
+function removeQuestion(form: AppForm, parent: AppCategory, node: AppQuestion): AppForm {
   _.pull(parent.questions, node);
   return Object.assign({}, form);
 }

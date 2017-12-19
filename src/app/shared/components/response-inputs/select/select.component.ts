@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {QuestionOption} from "../../../../models/Question";
+import {QuestionOption} from "../../../../models/AppQuestion";
 
 declare let $: any;
 

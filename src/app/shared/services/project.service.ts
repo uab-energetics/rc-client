@@ -1,59 +1,58 @@
 import  { Injectable } from '@angular/core';
-import {Form} from "../../models/Form";
-import {AppProject} from "../../models/Project";
+import {AppForm} from "../../models/AppForm";
+import {AppProject} from "../../models/AppProject";
 import {Observable} from "rxjs/Observable";
 import * as Rx from 'rxjs/Rx';
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
+import {of} from "rxjs/observable/of";
+import {catchError} from "rxjs/operators";
+
+const api = environment.api;
+
+function handleError<T>(operation, result?: T){
+  return (error: any): Observable<T> => {
+    console.error('operation failed: ' + operation, error);
+    return of(result as T);
+  }
+}
 
 @Injectable()
 export class ProjectService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  firstOrFail(projectID: number): Observable<AppProject> {
-    return Observable.create((subject) => {
-      let project = mockProjects.filter( p => p.id === projectID);
-      if(project.length === 0) subject.error(404);
-      subject.next(project[0]);
-    });
+  find(projectID: number): Observable<AppProject> {
+    return this.http.get<AppProject>(api + "/projects/" + projectID);
   }
 
-  createProject(project: AppProject){
-    return new Promise((res, rej) => {
-      project.id = Math.random();
-      mockProjects.push(project);
-      res(Object.assign({}, project));
-    })
+  createProject(project: AppProject): Observable<AppProject> {
+    return this.http.post<AppProject>(api + "/projects", project);
   }
 
-  deleteProject(projectID: number){
-    return new Observable((subject) => {
-      mockProjects = mockProjects.filter( p => p.id !== projectID );
-      subject.next(mockProjects);
-    })
+  deleteProject(id: number): Observable<any> {
+    return this.http.delete(`${api}/projects/${id}`)
+      .pipe(
+        catchError( handleError('delete project', false))
+      )
   }
 
-  createForm(projectID: number, form: Form): Promise<Form> {
-    return new Promise((res, rej)=>{
-      setTimeout(() => res(form), 1400);
-    })
+  createForm(projectID: number, form: AppForm): Promise<AppForm> {
+    return this.http.post(`${api}/projects/${projectID}/forms`, form).toPromise() as Promise<AppForm>;
   }
 
-  getForms(projectID: number): Observable<Form[]> {
-    return Rx.Observable.of([
-      {
-        id: 123,
-        name: 'Preliminary Screening',
-        type: '',
-        published: false,
-        description: 'asdf dsa fdsa fads fads fads f'
-      }
-    ])
+  myProjects(): Observable<AppProject[]> {
+    return this.http.get<AppProject[]>(api + '/users/projects').pipe(
+      catchError( handleError('my projects', []))
+    )
   }
 
-  myProjects(): Promise<AppProject[]> {
-    return new Promise((res, rej)=>{
-      setTimeout(() => res(mockProjects), 1300);
-    })
+  /* TODO -- the rest of these */
+
+  getForms(projectID: number): Observable<AppForm[]> {
+    return this.http.get<AppForm[]>(`${api}/projects/${projectID}/forms`);
   }
 
 }

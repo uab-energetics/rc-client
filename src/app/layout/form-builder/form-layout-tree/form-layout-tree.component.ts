@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {Form} from "../../../models/Form";
-import {mapToTreeView} from "./tree-mapper";
+import {AppForm} from "../../../models/AppForm";
+import {decodeID, mapToTreeView} from "./tree-mapper";
 import {
   deleteCategory, deleteQuestion, moveCategory, moveQuestion, selectCategory,
   showAddQuestionForm
@@ -14,7 +14,7 @@ import {
 export class FormLayoutTreeComponent implements AfterViewInit {
 
   @Input()
-  set form(form: Form){
+  set form(form: AppForm){
     this.setForm(form);
   };
 
@@ -29,7 +29,9 @@ export class FormLayoutTreeComponent implements AfterViewInit {
       mouse: {
         dblClick: (tree, node, $event) => {
           if(node.data.type !== 'folder') return;
-          this.formAction.emit(selectCategory(node.id));
+          this.formAction.emit(
+            selectCategory(
+              decodeID(node.id)));
         }
       }
     },
@@ -44,10 +46,10 @@ export class FormLayoutTreeComponent implements AfterViewInit {
     let tgtID = $event.to.parent.id;
     switch ($event.node.type){
       case "file":
-        this.formAction.emit(moveQuestion(nodeID, tgtID));
+        this.formAction.emit(moveQuestion(decodeID(nodeID), tgtID));
         break;
       case "folder":
-        this.formAction.emit(moveCategory(nodeID, tgtID));
+        this.formAction.emit(moveCategory(decodeID(nodeID), tgtID));
         break;
     }
   }
@@ -56,10 +58,10 @@ export class FormLayoutTreeComponent implements AfterViewInit {
     let node = this.activeNode();
     switch(node.data.type){
       case 'file':
-        this.formAction.emit(deleteQuestion(node.id));
+        this.formAction.emit(deleteQuestion(decodeID(node.id)));
         break;
       case 'folder':
-        this.formAction.emit(deleteCategory(node.id));
+        this.formAction.emit(deleteCategory(decodeID(node.id)));
         break;
     }
   }
@@ -67,7 +69,7 @@ export class FormLayoutTreeComponent implements AfterViewInit {
   onCreateQuestion(){
     let node = this.activeNode();
     if(node.data.type !== 'folder') return;
-    this.formAction.emit(showAddQuestionForm(node.id));
+    this.formAction.emit(showAddQuestionForm(decodeID(node.id)));
   }
 
   isOnFolder() {
@@ -86,7 +88,7 @@ export class FormLayoutTreeComponent implements AfterViewInit {
     this.treeview.treeModel.expandAll();
   };
 
-  public setForm(form: Form){
+  public setForm(form: AppForm){
     this.treeData = [];
     this.treeData = mapToTreeView(form);
   }

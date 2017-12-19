@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AppExperimentEncoding} from "../../../models/ExperimentEncoding";
+import {AppExperimentEncoding} from "../../../models/AppExperimentEncoding";
 
 @Component({
   selector: 'app-task-list',

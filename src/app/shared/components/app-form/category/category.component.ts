@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Category} from "../../../../models/Category";
+import {AppCategory} from "../../../../models/AppCategory";
 import {ResponseUpdate} from "../question/question.component";
-import {Question} from "../../../../models/Question";
+import {AppQuestion} from "../../../../models/AppQuestion";
 
 export interface CategoryUpdate {
-  category: Category;
-  question: Question;
+  category: AppCategory;
+  question: AppQuestion;
   response: Response;
 }
 
@@ -16,7 +16,7 @@ export interface CategoryUpdate {
 })
 export class CategoryComponent implements OnInit {
 
-  @Input() categoryModel: Category;
+  @Input() categoryModel: AppCategory;
   @Output() appCategoryUpdate = new EventEmitter<CategoryUpdate>();
 
   completion: number;

@@ -1,13 +1,13 @@
 
-import { Category, makeCategory } from "./Category";
+import {AppCategory, makeCategory} from "./AppCategory";
 
-export interface Form {
+export interface AppForm {
   id?: number;
   type: string;
   name: string;
   description: string;
   published: boolean;
-  root_category?: Category;
+  root_category?: AppCategory;
 }
 
 /**
@@ -19,7 +19,7 @@ export function makeForm ({
   name = 'Default Form',
   description = '',
   published = false
-}, root_category = null): Form {
+}, root_category = null): AppForm {
   if(!root_category) root_category = makeCategory({});
   return {
     type,

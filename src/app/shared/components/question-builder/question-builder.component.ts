@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {makeQuestion, QuestionOption} from "../../../models/Question";
+import {makeQuestion, QuestionOption} from "../../../models/AppQuestion";
 
 @Component({
   selector: 'app-question-builder',

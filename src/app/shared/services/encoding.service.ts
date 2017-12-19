@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import {Form} from "../../models/Form";
+import {AppForm} from "../../models/AppForm";
 
 @Injectable()
 export class EncodingService {
 
   constructor( ) { }
 
-  public calculateCompletion(form: Form, encoding): number {
+  public calculateCompletion(form: AppForm, encoding): number {
     return Math.ceil(Math.random() * 100);
   }
 
