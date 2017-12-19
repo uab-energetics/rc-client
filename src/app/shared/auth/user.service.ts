@@ -1,10 +1,11 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import jsonwebtoken from 'jsonwebtoken';
 import {AppUser} from "./User";
+import {LoggerService} from "../logger.service";
 
 @Injectable()
-export class UserService implements OnInit {
+export class UserService {
 
   private static USER_LOCATION = 'user';
   private static JWT_LOCATION = 'jwt';
@@ -13,9 +14,11 @@ export class UserService implements OnInit {
   jwt_decoded: any;
   _user: AppUser;
 
-
-  ngOnInit(): void {
+  constructor(
+    private log: LoggerService
+  ) {
     this.loadSessionData();
+    this.log.write('loaded session data:', this.user, this.jwt_decoded);
   }
 
   get user(){

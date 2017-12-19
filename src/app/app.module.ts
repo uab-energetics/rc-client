@@ -12,6 +12,7 @@ import {AuthInterceptorService} from './shared/auth/auth-interceptor.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthGuardService} from "./shared/auth/auth-guard.service";
+import {LoggerService} from "./shared/logger.service";
 
 const routes: Routes = [
   {
@@ -41,6 +42,7 @@ const routes: Routes = [
   providers: [
     UserService,
     AuthService,
+    LoggerService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]

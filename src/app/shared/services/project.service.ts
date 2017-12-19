@@ -41,6 +41,11 @@ export class ProjectService {
       .toPromise();
   }
 
+  deleteForm(id: number): Observable<any> {
+    return this.http.delete(`${api}/forms/${id}`)
+      .pipe(share())
+  }
+
   myProjects(): Observable<AppProject[]> {
     return this.http.get<AppProject[]>(api + '/users/projects').pipe(
       catchError( err => [] )

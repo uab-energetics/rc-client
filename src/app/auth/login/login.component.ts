@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
 import {AuthService} from '../../shared/auth/auth.service';
+import {UserService} from "../../shared/auth/user.service";
 
 class LoginFormModel {
   constructor(public email: string,
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {}
 
   onSubmit() {
@@ -33,6 +35,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if(this.userService.isAuthenticated()){
+      this.router.navigate(['/']);
+      return;
+    }
     document.body.classList.add('page-login-v3', 'layout-full');
   }
 

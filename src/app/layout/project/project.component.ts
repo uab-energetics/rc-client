@@ -56,6 +56,15 @@ export class ProjectComponent implements OnInit {
       })
   }
 
+  deleteForm(id: number) {
+    this.showLoader = true;
+    this.projectService.deleteForm(id)
+      .subscribe( res => {
+        this.showLoader = false;
+        this.snackBar.open('Form deleted.', 'Ok', { verticalPosition: 'top', duration: 2000 });
+      } )
+  }
+
   openFormForm(content) {
     this.formFormModal = this.modalService.open(content)
   }

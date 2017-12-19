@@ -32,32 +32,58 @@
       </div>
     </div>
 
-    <ngb-tabset class="nav-tabs-line tabs-line-top">
+    <ngb-tabset class="nav-tabs-horizontal nav-tabs-inverse nav-tabs-solid">
       <ngb-tab>
         <ng-template ngbTabTitle><i class="icon wb-pencil"></i> Forms </ng-template>
         <ng-template ngbTabContent>
           <div class="container mt-25">
-            <div class="row">
-              <div class="form-group">
-                <button (click)="openFormForm(newFormModal)" class="btn btn-success">
+            <div class="row mb-25">
+              <div class="col-12">
+                <button (click)="openFormForm(newFormModal)"
+                        class="btn btn-success btn-outline">
                   <i class="icon wb-plus"></i>
                   New Form </button>
               </div>
             </div>
 
-            <hr/>
-
             <div class="row">
-              <div class="col-lg-4" *ngFor="let form of projectForms">
-                <div class="card">
-                  <div class="card-block">
-                    <h4 class="card-title">{{form.name}}</h4>
-                    <p class="card-text">{{form.description}}</p>
-                    <a [routerLink]="'/forms/' + form.id" class="btn btn-primary"> Edit </a>
+
+              <!-- Form Cards -->
+              <div *ngFor="let form of projectForms" class="col-lg-6">
+                <div class="panel panel-bordered panel-primary bg-blue-grey-200">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">
+                      <i class="icon wb-file"></i>
+                      <b>{{form.name}}</b>
+                    </h3>
+                    <div class="panel-actions panel-actions-keep">
+                      <div class="dropdown">
+                        <a class="panel-action"
+                           data-toggle="dropdown" href
+                           role="button"><i class="icon wb-more-vertical"></i></a>
+                        <div class="dropdown-menu dropdown-menu-bullet dropdown-menu-right">
+                          <a class="dropdown-item" (click)="deleteForm(form.id)" href="javascript:void(0)">
+                            <i class="icon wb-trash"></i> Delete</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
+                            <i class="icon wb-settings" aria-hidden="true"></i>
+                            Settings
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <p>{{form.description}}</p>
+                    <hr/>
+                    <a [routerLink]="['/forms', form.id]"
+                       class="btn btn-warning pull-right"> <i class="icon wb-edit"></i> <b>Edit</b> </a>
                   </div>
                 </div>
+                <!-- End Example Panel With Heading -->
               </div>
-              <div class="col-lg-4"></div>
+              <!-- Form Cards -->
+
             </div>
           </div>
         </ng-template>

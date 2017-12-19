@@ -5,5 +5,6 @@
 
 export const environment = {
   api: 'http://api.v3.researchcoder.com',
+  showLog: true,
   production: false
 };

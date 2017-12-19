@@ -163,13 +163,10 @@ export class FormBuilderComponent implements OnInit {
 
   moveCategory(categoryID: number, parentID: number) {
     let src = this.formService.moveCategory(this.form.id, categoryID, parentID)
-      .finally(() => this.showSaving = false);
-
     src.subscribe(
       newForm => this.form = newForm,
       this.handleError('move category')
     );
-
     return src;
   }
 
