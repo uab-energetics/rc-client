@@ -28,6 +28,7 @@ import { FormFormComponent } from './components/forms/form-form/form-form.compon
 import {ProjectService} from "./services/project.service";
 import { ProjectFormComponent } from './components/forms/project-form/project-form.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
+import {AuthGuardService} from "./auth/auth-guard.service";
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { TaskListComponent } from './components/task-list/task-list.component';
   ],
   providers: [
     AuthService,
+    AuthGuardService,
     FormService,
     EncodingService,
     ProjectService

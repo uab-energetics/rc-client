@@ -14,7 +14,9 @@ export class AuthGuardService implements CanActivate {
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if(this.userService.isLoggedIn()) return true;
+    if(this.userService.isAuthenticated()) return true;
+
+    console.log('not authenticated');
 
     this.authService.redirectURL = state.url;
     this.authService.sessionExpired = true;

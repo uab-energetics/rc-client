@@ -11,6 +11,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptorService} from './shared/auth/auth-interceptor.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AuthGuardService} from "./shared/auth/auth-guard.service";
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
   },
   {
     path: '',
+    canActivate: [AuthGuardService],
     loadChildren: './layout/layout.module#LayoutModule'
   }
 ];

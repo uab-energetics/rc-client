@@ -13,7 +13,8 @@ export class UserService implements OnInit {
   jwt_decoded: any;
   _user: AppUser;
 
-  constructor() {
+
+  ngOnInit(): void {
     this.loadSessionData();
   }
 
@@ -42,7 +43,7 @@ export class UserService implements OnInit {
     this.loadSessionData();
   }
 
-  public isLoggedIn() {
+  public isAuthenticated() {
     if (!this._user || !this.jwt)
       return false;
     if (this.jwt_decoded.exp < (new Date().getTime() / 1000))
@@ -50,7 +51,4 @@ export class UserService implements OnInit {
     return true;
   }
 
-  ngOnInit(): void {
-    this.loadSessionData();
-  }
 }

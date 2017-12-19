@@ -9,7 +9,7 @@ export class AuthInterceptorService {
   constructor( private userService: UserService ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.userService.isLoggedIn()) {
+    if (this.userService.isAuthenticated()) {
       const jwt = this.userService.jwt;
       const authenticatedRequest = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + jwt)});
       return next.handle(authenticatedRequest);
