@@ -13,6 +13,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthGuardService} from "./shared/auth/auth-guard.service";
 import {LoggerService} from "./shared/logger.service";
+import { SweetAlertService } from 'ng2-sweetalert2';
 
 const routes: Routes = [
   {
@@ -43,6 +44,7 @@ const routes: Routes = [
     UserService,
     AuthService,
     LoggerService,
+    SweetAlertService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]

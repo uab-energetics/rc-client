@@ -4,6 +4,7 @@ import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ProjectService} from "../../services/project.service";
 import {MatSnackBar} from "@angular/material";
 import {AppProject} from "../../../models/AppProject";
+import {SweetAlertService} from "ng2-sweetalert2";
 
 @Component({
   selector: 'app-project-forms-list',
@@ -28,6 +29,7 @@ export class ProjectFormsListComponent {
   constructor(
     private modalService: NgbModal,
     public snackBar: MatSnackBar,
+    private alerts: SweetAlertService,
     private projectService: ProjectService
   ) { }
 
@@ -52,12 +54,29 @@ export class ProjectFormsListComponent {
   }
 
   deleteForm(id: number) {
-    this.showLoader = true;
-    this.projectService.deleteForm(id)
-      .subscribe( res => {
-        this.loadProjectForms();
-        this.snackBar.open('Form deleted.', 'Ok', { verticalPosition: 'top', duration: 2000 });
-      } )
+    let confirmDelete = () => {
+      this.showLoader = true;
+      this.projectService.deleteForm(id)
+        .subscribe( res => {
+          this.loadProjectForms();
+          this.snackBar.open('Form deleted.', 'Ok', { verticalPosition: 'top', duration: 2000 });
+        } )
+    };
+
+    this.alerts.swal({
+      title: 'Are you sure?',
+      text: "This action cannot be undone!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      console.log(result);
+      if (result) {
+        confirmDelete();
+      }
+    });
   }
 
   openFormForm(content) {

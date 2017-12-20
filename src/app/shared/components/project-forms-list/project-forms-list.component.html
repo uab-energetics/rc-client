@@ -17,6 +17,7 @@
             <i class="icon wb-file"></i>
             <b>{{form.name}}</b>
           </h3>
+
           <div class="panel-actions panel-actions-keep">
             <div class="dropdown">
               <a class="panel-action"
@@ -34,11 +35,20 @@
             </div>
           </div>
         </div>
-        <div class="panel-body">
-          <p>{{form.description}}</p>
-          <hr/>
-          <a [routerLink]="['/forms', form.id]"
-             class="btn btn-warning pull-right"> <i class="icon wb-edit"></i> <b>Edit</b> </a>
+        <div class="panel-collapse">
+          <div class="panel-toolbar bg-grey-300" role="toolbar">
+            <label class="badge badge-success"> <i class="icon wb-check"></i> Published </label>
+            <span class="float-right"><b><em> used in 20 publications </em></b></span>
+          </div>
+          <div class="panel-body">
+            Boreas, nutrix, et barcas.Yes, there is upstairs, it contacts with fear.Torus de germanus parma, anhelare cedrium!Uria dexter hibrida est.
+            Boreas, nutrix, et barcas.Yes, there is upstairs, it contacts with fear.Torus de germanus parma, anhelare cedrium!Uria dexter hibrida est.
+            Boreas, nutrix, et barcas.Yes, there is upstairs, it contacts with fear.Torus de germanus parma, anhelare cedrium!Uria dexter hibrida est.
+            <p>{{form.description}}</p>
+            <hr/>
+            <a [routerLink]="['/forms', form.id]"
+               class="btn btn-warning pull-right"> <i class="icon wb-edit"></i> <b>Edit</b> </a>
+          </div>
         </div>
       </div>
       <!-- End Example Panel With Heading -->
