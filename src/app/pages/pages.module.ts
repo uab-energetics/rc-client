@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {HomeComponent} from './home/home.component';
 import {RouterModule, Routes} from '@angular/router';
 import {InsightsComponent} from './insights/insights.component';
-import {LayoutComponent} from './layout.component';
 import {ProfileComponent} from './settings/profile/profile.component';
 import {SettingsComponent} from './settings/settings.component';
 import {AccountComponent} from './settings/account/account.component';
@@ -18,11 +17,12 @@ import { FormLayoutTreeComponent } from './form-builder/form-layout-tree/form-la
 import {MatProgressBarModule, MatSnackBarModule} from "@angular/material";
 import { PubCoderComponent } from './pub-coder/pub-coder.component';
 import {FormsModule} from "@angular/forms";
+import {PagesComponent} from "./page.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent,
+    component: PagesComponent,
     children: [
       {
         path: 'home',
@@ -87,7 +87,7 @@ const routes: Routes = [
     MatProgressBarModule, MatSnackBarModule
   ],
   declarations: [
-    LayoutComponent,
+    PagesComponent,
     HomeComponent,
     InsightsComponent,
     SettingsComponent,
@@ -101,5 +101,5 @@ const routes: Routes = [
     PubCoderComponent
   ]
 })
-export class LayoutModule {
+export class PagesModule {
 }

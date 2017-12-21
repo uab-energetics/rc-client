@@ -6,7 +6,7 @@ import {AuthService} from '../shared/auth/auth.service';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css']
 })
-export class LayoutComponent implements OnInit {
+export class PagesComponent implements OnInit {
 
   constructor(
     private authService: AuthService
