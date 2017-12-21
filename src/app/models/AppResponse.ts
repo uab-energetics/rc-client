@@ -6,12 +6,10 @@ export interface AppResponse {
   txt?: string;
   num?: number;
   sel?: string;
+  boo?: string;
+  'multi-sel'?: TextPayload[];
 }
 
-interface TextPayload {
+export interface TextPayload {
   txt: string;
-}
-
-interface NumberPayload {
-  num: number;
 }

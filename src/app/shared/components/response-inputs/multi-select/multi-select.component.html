@@ -1,6 +1,8 @@
 <mat-form-field>
-  <mat-select placeholder="Select Multiple:"
-      (selectionChange)="onChange($event)" multiple>
+  <mat-select
+    placeholder="Select Multiple:"
+    [value]="value"
+    (selectionChange)="onChange($event)" multiple>
     <mat-option *ngFor="let opt of options" [value]="opt.txt">
       {{opt.txt}}
     </mat-option>

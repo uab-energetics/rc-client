@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppCategory} from "../../../../models/AppCategory";
 import {QuestionUpdate} from "../question/question.component";
+import {LoggerService} from "../../../logger.service";
 
 export interface CategoryUpdate {
   key;
@@ -14,6 +15,11 @@ export interface CategoryUpdate {
 })
 export class CategoryComponent implements OnInit {
 
+  /**
+   * Used to distribute existing responses to questions
+   */
+  @Input() formData = {};
+
   @Input() category: AppCategory;
   @Output() appCategoryUpdate = new EventEmitter<CategoryUpdate>();
 
@@ -22,9 +28,16 @@ export class CategoryComponent implements OnInit {
     // this.recordInCompletion($event);
   }
 
-  constructor() { }
+  constructor(
+    private logger: LoggerService
+  ) {}
 
   ngOnInit() {
+    this.logger.write('category loaded: ', this.category);
+  }
+
+  getQuestionData(question_key){
+    return this.formData[question_key] || {};
   }
 
 

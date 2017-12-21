@@ -14,15 +14,27 @@ export interface QuestionUpdate {
 })
 export class QuestionComponent {
 
+  /**
+   * Uniquely identifies this question within the scope of the form
+   */
   @Input() key;
+
+  /**
+   * Existing response data
+   */
+  @Input() responseData = {};
   @Input() question: AppQuestion;
   @Output() questionUpdate = new EventEmitter<QuestionUpdate>();
 
   private emitResponseChange(responsePayload){
     this.questionUpdate.emit({
       key: this.key,
-      response: responsePayload
+      response: Object.assign({}, this.responseData, responsePayload)
     });
+  }
+
+  ngOnInit(){
+    console.log('question loaded', this.responseData);
   }
 
   /* CHANGE LISTENERS */
@@ -60,6 +72,24 @@ export class QuestionComponent {
       type: fmt.MULTI_SELECT,
       [fmt.MULTI_SELECT]: $event
     });
+  }
+
+  /* loaders */
+
+  getMultiSelect(){
+    return this.responseData['multi-sel'] || [];
+  }
+
+  getText(){
+    return this.responseData['txt'] || '';
+  }
+
+  getBoo(){
+    return this.responseData['boo'] || null;
+  }
+
+  getNumber(){
+    return this.responseData['num'] || null;
   }
 
 }

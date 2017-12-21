@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {QuestionOption} from "../../../../models/AppQuestion";
+import {TextPayload} from "../../../../models/AppResponse";
 
 @Component({
   selector: 'app-multi-select',
@@ -9,16 +10,19 @@ import {QuestionOption} from "../../../../models/AppQuestion";
 })
 export class MultiSelectComponent implements OnInit {
 
+  @Input('multi-sel') selections: TextPayload[] = [];
   @Input() options: QuestionOption[];
   @Output() appChange = new EventEmitter();
 
+  value: string[];
+
   onChange($event){
-    this.appChange.emit($event.value);
+    let transformed = $event.value.map( v => { return { txt: v }});
+    this.appChange.emit(transformed);
   }
 
-  constructor() { }
-
   ngOnInit() {
+    this.value = this.selections.map( sel => sel.txt );
   }
 
 }

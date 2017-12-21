@@ -10,6 +10,7 @@ declare let $: any;
 })
 export class SelectComponent {
 
+  @Input() value: string;
   @Input() options: QuestionOption[];
   @Output() appChange = new EventEmitter<string[]>();
 

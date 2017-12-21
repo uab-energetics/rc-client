@@ -111,13 +111,13 @@ export class FormService {
 export function buildMockForm () {
   let mapOpts = arr => arr.map( str => { return {txt: str}});
 
-  let next_id = 1;
+  let next_id = 99;
 
   let drinks = makeQuestion({
     name: 'Select Question',
     prompt: "Pick your poison:",
     default_format: fmt.SELECT,
-    id: next_id++
+    id: 1,
   }, mapOpts(['Wine', 'Beer', 'Whiskey', 'Gin']));
 
 
@@ -125,14 +125,14 @@ export function buildMockForm () {
     name: 'Multi-Select',
     default_format: fmt.MULTI_SELECT,
     prompt: 'Which of these movies have you seen before?',
-    id: next_id++
+    id: 2
   }, mapOpts(['Pulp Fiction', 'The Godfather', 'Shawshank Redemption', 'Django Unchained', 'Star Wars']));
 
   let howAreYou = makeQuestion({
     name: 'Text Question',
     default_format: fmt.TEXT,
     prompt: "What did you do yesterday?",
-    id: next_id++
+    id: 3
   });
 
   let party = makeQuestion({
@@ -148,7 +148,7 @@ export function buildMockForm () {
     name: "Number Question",
     default_format: fmt.NUMBER,
     prompt: "How old are you?",
-    id: next_id++
+    id: 5
   });
 
   /* categories */

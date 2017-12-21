@@ -1,13 +1,21 @@
+<button
+  (click)="newBranch()"
+  class="btn btn-success"> + New Branch </button>
+
+<br/>
+<br/>
+
 <ngb-tabset class="nav-tabs-line tabs-line-top"
             [destroyOnHide]="false">
-  <ngb-tab *ngFor="let branch of encoding.branches; let i = index;">
-    <ng-template ngbTabTitle><i class="icon wb-tree"></i> {{branch.name}} - {{branch.id}} </ng-template>
+  <ngb-tab *ngFor="let branch of formModel.branches;">
+    <ng-template ngbTabTitle><i class="icon wb-share"></i> {{branch.name}} </ng-template>
     <ng-template ngbTabContent>
       <div class="container mt-25">
         <app-branch
-          [key]="i"
+          [key]="branch._key"
           (appBranchUpdate)="onBranchUpdate($event)"
-          [appBranch]="branch"
+          [branchForm]="branch"
+          [branchData]="getBranchData(branch._key)"
           [appForm]="appForm">
         </app-branch>
       </div>

@@ -5,6 +5,7 @@ import {CategoryUpdate} from "../category/category.component";
 import {AppCategory} from "../../../../models/AppCategory";
 import {AppQuestion} from "../../../../models/AppQuestion";
 import * as _ from 'lodash';
+import {LoggerService} from "../../../logger.service";
 
 export interface BranchUpdate {
   branch_key,
@@ -20,11 +21,17 @@ export interface BranchUpdate {
 export class BranchComponent implements OnInit {
 
   @Input() key;
+  @Input() branchForm;
+  @Input() branchData = {};
   @Input() appForm: AppForm;
-  @Input() appBranch: AppBranch;
   @Output() appBranchUpdate = new EventEmitter<BranchUpdate>();
 
+  constructor(
+    private log: LoggerService
+  ) {}
+
   ngOnInit() {
+    this.log.write('branch loaded: ', this.key, this.branchData)
   }
 
   onCategoryUpdate($event: CategoryUpdate){

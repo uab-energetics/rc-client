@@ -1,5 +1,6 @@
 <mat-form-field>
   <mat-select placeholder="Select One:"
+              [value]="value"
               (selectionChange)="onChange($event)">
     <mat-option *ngFor="let opt of options" [value]="opt.txt">
       {{ opt.txt }}

@@ -2,6 +2,7 @@
 <div class="app-branch">
   <app-category
     *ngFor="let topLevelCategory of appForm.root_category.children"
+    [formData]="branchData"
     [category]="topLevelCategory"
     (appCategoryUpdate)="onCategoryUpdate($event)">
   </app-category>

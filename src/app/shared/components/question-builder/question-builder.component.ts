@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {makeQuestion, QuestionOption} from "../../../models/AppQuestion";
+import {RESPONSE_FORMATS as fmt} from "../../../models/formats";
 
 @Component({
   selector: 'app-question-builder',
@@ -20,11 +21,11 @@ export class QuestionBuilderComponent {
   questionForm: FormGroup;
 
   typeOptions = [
-    { disp: 'Text', val: 'txt' },
-    { disp: 'Number', val: 'num' },
-    { disp: 'True/False', val: 'boo' },
-    { disp: 'Select', val: 'sel' },
-    { disp: 'Multi-Select', val: 'multi-sel' }
+    { disp: 'Text', val: fmt.TEXT },
+    { disp: 'Number', val: fmt.NUMBER },
+    { disp: 'True/False', val: fmt.BOOLEAN },
+    { disp: 'Select', val: fmt.SELECT },
+    { disp: 'Multi-Select', val: fmt.MULTI_SELECT }
   ];
 
   constructor(private fb: FormBuilder) {
@@ -40,8 +41,6 @@ export class QuestionBuilderComponent {
 
     let options: QuestionOption[] = model.options.map( opt => { return {"txt": opt} });
 
-    console.log(model);
-
     return makeQuestion({
       name: model.name,
       prompt: model.prompt,
@@ -49,7 +48,9 @@ export class QuestionBuilderComponent {
       default_format: model.default_format,
       true_option: model.true_option,
       false_option: model.false_option
-    }, options);
+    }, options, [{
+      type: model.default_format
+    }]);
   }
 
   setupFormModel () {

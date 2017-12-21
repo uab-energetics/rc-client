@@ -12,13 +12,15 @@
       <!-- Child Questions -->
       <app-question
         *ngFor="let question of category.questions; let i = index"
-        [key]="category.id+'-'+i"
+        [key]="question.id"
+        [responseData]="getQuestionData(question.id)"
         [question]="question"
         (questionUpdate)="onQuestionChange($event)">
       </app-question>
       <!-- Child Categories -->
       <app-category
         *ngFor="let subCategory of category.children"
+        [formData]="formData"
         [category]="subCategory">
       </app-category>
     </ng-template>

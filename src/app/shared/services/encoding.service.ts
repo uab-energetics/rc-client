@@ -49,12 +49,51 @@ const mockTasks = [
 
 
 const mockEncodings: AppExperimentEncoding[] = [
-  factory('encoding', {
-    id: 5555,
-    branches: [
-      factory('branch'),
-      factory('branch'),
-      factory('branch')
+  {
+    "id": 5555,
+    "name": "Encoding 8665",
+    "form_id": 820,
+    "branches": [
+      {
+        "name": "Branch 3390",
+        "responses": [
+          {
+            "id": 4651,
+            "question_id": 1,
+            "type": "sel",
+            "num": 12,
+            "sel": "Beer",
+            "txt": "Secret places of vision will oddly forget a unconditional thing."
+          },
+          {
+            "id": 3215,
+            "question_id": 3,
+            "type": "txt",
+            "num": 12,
+            "sel": "Salvus cottas ducunt",
+            "txt": "Secret places of vision will oddly forget a unconditional thing."
+          },
+          {
+            "id": 4319,
+            "question_id": 5,
+            "type": "num",
+            "num": 20,
+            "sel": "Salvus cottas ducunt",
+            "txt": "Secret places of vision will oddly forget a unconditional thing."
+          },
+          {
+            "id": 4319,
+            "question_id": 2,
+            "type": "multi-sel",
+            "num": 20,
+            "sel": "Salvus cottas ducunt",
+            "txt": "Secret places of vision will oddly forget a unconditional thing.",
+            "multi-sel": [
+              { 'txt': 'Pulp Fiction' }
+            ]
+          }
+        ]
+      }
     ]
-  })
+  }
 ];

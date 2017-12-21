@@ -6,9 +6,6 @@ import {AppExperimentEncoding} from "../../models/AppExperimentEncoding";
 import {buildMockForm} from "../../shared/services/form/mock-form.service";
 import * as _ from 'lodash';
 
-
-
-
 @Component({
   selector: 'app-pub-coder',
   templateUrl: './pub-coder.component.html',
@@ -31,10 +28,12 @@ export class PubCoderComponent implements OnInit {
     this.encodingService.getEncoding(5555)
       .then((encoding: AppExperimentEncoding) => {
           this.encoding = encoding;
+          window['mockEncoding'] = encoding;
           this.formService.getForm(encoding.form_id).toPromise()
             .catch( err => buildMockForm())
             .then((form: AppForm) => this.form = form)
         })
+
   }
 
   displayFormModel_ThisIsOnlyTemporary = {};

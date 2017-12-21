@@ -8,6 +8,7 @@ import {MatRadioChange} from "@angular/material/radio";
 })
 export class BoolComponent {
 
+  @Input() value;
   @Input() trueOption;
   @Input() falseOption;
   @Output() appChange = new EventEmitter();

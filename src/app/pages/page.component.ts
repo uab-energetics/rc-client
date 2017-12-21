@@ -3,8 +3,8 @@ import {AuthService} from '../shared/auth/auth.service';
 
 @Component({
   selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  templateUrl: './pages.component.html',
+  styleUrls: ['./pages.component.css']
 })
 export class PagesComponent implements OnInit {
 
