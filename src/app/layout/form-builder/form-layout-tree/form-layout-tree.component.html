@@ -12,6 +12,8 @@
   <tree-root #tree [nodes]="treeData"
              [options]="treeOptions"
              [focused]="true"
+             (initialized)="onInitialized($event)"
+             (updateData)="onInitialized($event)"
              (moveNode)="onMove($event)">
     <ng-template #treeNodeTemplate let-node let-index="index">
     <span>

@@ -1,5 +1,5 @@
 
-export interface Response {
+export interface AppResponse {
   id?: number;
   question_id: number;
   type: string;

@@ -11,7 +11,7 @@ import {
   templateUrl: './form-layout-tree.component.html',
   styleUrls: ['./form-layout-tree.component.css']
 })
-export class FormLayoutTreeComponent implements AfterViewInit {
+export class FormLayoutTreeComponent {
 
   @Input()
   set form(form: AppForm){
@@ -84,13 +84,14 @@ export class FormLayoutTreeComponent implements AfterViewInit {
     return node.data.isRoot;
   }
 
-  ngAfterViewInit () {
+  onInitialized(){
     this.treeview.treeModel.expandAll();
-  };
+  }
 
   public setForm(form: AppForm){
     this.treeData = [];
     this.treeData = mapToTreeView(form);
+    setTimeout(() => this.treeview.treeModel.expandAll(), 2000);
   }
 
   private activeNode(){

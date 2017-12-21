@@ -11,11 +11,11 @@
           {{formCompletion}}%
         </ngb-progressbar></p>
 
-        <div class="panel">
+        <div class="panel" *ngIf="encodingModel && formModel">
           <div class="panel-body">
             <app-experiment-form
               (appExperimentFormUpdate)="onFormUpdate($event)"
-              [branches]="branches"
+              [branches]="Object.values(encodingModel.branches)"
               [formModel]="formModel">
             </app-experiment-form>
           </div>
@@ -23,7 +23,7 @@
 
       </div>
       <div class="col-lg-6">
-        <pre>{{encoding | json}}</pre>
+        <pre>{{encodingModel | json}}</pre>
       </div>
     </div>
   </div>

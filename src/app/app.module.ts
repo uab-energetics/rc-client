@@ -14,6 +14,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthGuardService} from "./shared/auth/auth-guard.service";
 import {LoggerService} from "./shared/logger.service";
 import { SweetAlertService } from 'ng2-sweetalert2';
+import { NgSwitch } from '@angular/common';
 
 const routes: Routes = [
   {

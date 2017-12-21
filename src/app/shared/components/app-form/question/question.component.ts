@@ -24,6 +24,10 @@ export class QuestionComponent {
     });
   }
 
+  ngAfterViewInit(){
+    console.log(this.questionModel);
+  }
+
   /* CHANGE LISTENERS */
 
   selectChanged($event){

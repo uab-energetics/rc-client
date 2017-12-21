@@ -3,6 +3,7 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "
 import {UserService} from "./user.service";
 import {Observable} from "rxjs/Observable";
 import {AuthService} from "./auth.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
@@ -19,7 +20,6 @@ export class AuthGuardService implements CanActivate {
     console.log('not authenticated');
 
     this.authService.redirectURL = state.url;
-    this.authService.sessionExpired = true;
 
     this.router.navigate(['/auth/login']);
     return false;

@@ -3,33 +3,33 @@
   <p class="card-text">{{questionModel.prompt}}</p>
   <div class="app-question-outlet">
 
-
-    <app-text *ngIf="questionModel.default_format === 'txt'"
-              (appChange)="textChanged($event)"></app-text>
-
-
-    <app-number *ngIf="questionModel.default_format === 'num'"
-                (appChange)="numberChanged($event)"></app-number>
+    <div [ngSwitch]="questionModel.default_format">
+      <app-text *ngSwitchCase="'txt'"
+                (appChange)="textChanged($event)"></app-text>
 
 
-    <app-bool *ngIf="questionModel.default_format === 'boo'"
-              (appChange)="boolChanged($event)"
-              [trueOption]="questionModel.true_option"
-              [falseOption]="questionModel.false_option">
-    </app-bool>
+      <app-number *ngSwitchCase="'num'"
+                  (appChange)="numberChanged($event)"></app-number>
 
 
-    <app-select *ngIf="questionModel.default_format === 'sel'"
-                (appChange)="selectChanged($event)"
-                [options]="questionModel.options">
-    </app-select>
+      <app-bool *ngSwitchCase="'boo'"
+                (appChange)="boolChanged($event)"
+                [trueOption]="questionModel.true_option"
+                [falseOption]="questionModel.false_option">
+      </app-bool>
 
 
-    <app-multi-select *ngIf="questionModel.default_format === 'multi-sel'"
-                      (appChange)="multiSelectChanged($event)"
-                      [options]="questionModel.options">
-    </app-multi-select>
+      <app-select *ngSwitchCase="'sel'"
+                  (appChange)="selectChanged($event)"
+                  [options]="questionModel.options">
+      </app-select>
 
+
+      <app-multi-select *ngSwitchCase="'multi-sel'"
+                        (appChange)="multiSelectChanged($event)"
+                        [options]="questionModel.options">
+      </app-multi-select>
+    </div>
 
   </div>
 </div>

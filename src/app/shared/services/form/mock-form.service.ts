@@ -108,7 +108,7 @@ export class FormService {
 
 }
 
-function buildMockForm () {
+export function buildMockForm () {
   let mapOpts = arr => arr.map( str => { return {txt: str}});
 
   let next_id = 1;
