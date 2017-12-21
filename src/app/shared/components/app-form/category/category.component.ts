@@ -1,11 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppCategory} from "../../../../models/AppCategory";
-import {ResponseUpdate} from "../question/question.component";
-import {AppQuestion} from "../../../../models/AppQuestion";
+import {QuestionUpdate} from "../question/question.component";
 
 export interface CategoryUpdate {
-  category: AppCategory;
-  question: AppQuestion;
+  key;
   response: Response;
 }
 
@@ -16,26 +14,21 @@ export interface CategoryUpdate {
 })
 export class CategoryComponent implements OnInit {
 
-  @Input() categoryModel: AppCategory;
+  @Input() category: AppCategory;
   @Output() appCategoryUpdate = new EventEmitter<CategoryUpdate>();
 
-  completion: number;
-  completionMap = {};
-
-  onQuestionChange($event: ResponseUpdate){
-    this.appCategoryUpdate.emit( Object.assign($event, { category: this.categoryModel }));
-    this.recordInCompletion($event);
+  onQuestionChange($event: QuestionUpdate){
+    this.appCategoryUpdate.emit($event);
+    // this.recordInCompletion($event);
   }
 
   constructor() { }
 
   ngOnInit() {
-    this.categoryModel.questions.forEach( question => {
-      let id = question.id;
-      this.completionMap[id] = false;
-    })
   }
 
+
+/*
   private recordInCompletion(update: ResponseUpdate){
     let id = update.question.id;
     this.completionMap[id] = true;
@@ -50,5 +43,6 @@ export class CategoryComponent implements OnInit {
       console.log('done!');
     }
   }
+*/
 
 }

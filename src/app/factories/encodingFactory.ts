@@ -14,3 +14,8 @@ export function factory (): AppExperimentEncoding {
     branches: []
   }
 }
+
+
+function randomEncoding(){
+
+}

@@ -2,8 +2,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AppQuestion} from "../../../../models/AppQuestion";
 import {RESPONSE_FORMATS as fmt} from "../../../../models/formats";
 
-export interface ResponseUpdate {
-  question: AppQuestion;
+export interface QuestionUpdate {
+  key,
   response: Response;
 }
 
@@ -14,18 +14,15 @@ export interface ResponseUpdate {
 })
 export class QuestionComponent {
 
-  @Input() questionModel: AppQuestion;
-  @Output() appResponseChange = new EventEmitter<ResponseUpdate>();
+  @Input() key;
+  @Input() question: AppQuestion;
+  @Output() questionUpdate = new EventEmitter<QuestionUpdate>();
 
   private emitResponseChange(responsePayload){
-    this.appResponseChange.emit({
-      question: this.questionModel,
+    this.questionUpdate.emit({
+      key: this.key,
       response: responsePayload
     });
-  }
-
-  ngAfterViewInit(){
-    console.log(this.questionModel);
   }
 
   /* CHANGE LISTENERS */

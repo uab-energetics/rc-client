@@ -1,22 +1,27 @@
-<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" class="app-category"
-               [ngClass]="{complete: (completion===1)}"
-               [destroyOnHide]="false">
+<ngb-accordion
+  #acc="ngbAccordion" activeIds="ngb-panel-0" class="app-category"
+  [destroyOnHide]="false">
+
   <ngb-panel>
     <ng-template ngbPanelTitle>
       <i class="icon wb-folder"></i> &nbsp;
-      {{categoryModel.name}}
-      &nbsp; <span class="badge badge-round badge-info">{{categoryModel.questions.length}}</span>
+      {{category.name}}
+      &nbsp; <span class="badge badge-round badge-info">{{category.questions.length}}</span>
     </ng-template>
     <ng-template ngbPanelContent>
       <!-- Child Questions -->
-      <app-question *ngFor="let question of categoryModel.questions"
-        [questionModel]="question"
-        (appResponseChange)="onQuestionChange($event)">
+      <app-question
+        *ngFor="let question of category.questions; let i = index"
+        [key]="category.id+'-'+i"
+        [question]="question"
+        (questionUpdate)="onQuestionChange($event)">
       </app-question>
       <!-- Child Categories -->
-      <app-category *ngFor="let subCategory of categoryModel.children"
-        [categoryModel]="subCategory">
+      <app-category
+        *ngFor="let subCategory of category.children"
+        [category]="subCategory">
       </app-category>
     </ng-template>
   </ngb-panel>
+
 </ngb-accordion>

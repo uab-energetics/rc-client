@@ -3,27 +3,27 @@
     <div class="row">
       <div class="col-lg-6">
 
-        <p><ngb-progressbar
+        <!--<p><ngb-progressbar
           class="active"
           type="success"
           [striped]="true" [animated]="true"
           [value]="formCompletion">
           {{formCompletion}}%
-        </ngb-progressbar></p>
+        </ngb-progressbar></p>-->
 
-        <div class="panel" *ngIf="encodingModel && formModel">
+        <div class="panel" *ngIf="encoding && form">
           <div class="panel-body">
             <app-experiment-form
               (appExperimentFormUpdate)="onFormUpdate($event)"
-              [branches]="Object.values(encodingModel.branches)"
-              [formModel]="formModel">
+              [encoding]="encoding"
+              [appForm]="form">
             </app-experiment-form>
           </div>
         </div>
 
       </div>
       <div class="col-lg-6">
-        <pre>{{encodingModel | json}}</pre>
+        <pre>{{displayFormModel_ThisIsOnlyTemporary | json}}</pre>
       </div>
     </div>
   </div>

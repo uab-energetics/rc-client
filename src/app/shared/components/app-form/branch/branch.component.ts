@@ -4,12 +4,12 @@ import {AppBranch} from "../../../../models/AppBranch";
 import {CategoryUpdate} from "../category/category.component";
 import {AppCategory} from "../../../../models/AppCategory";
 import {AppQuestion} from "../../../../models/AppQuestion";
+import * as _ from 'lodash';
 
 export interface BranchUpdate {
-  branch: AppBranch;
-  category: AppCategory;
-  question: AppQuestion;
-  response: Response;
+  branch_key,
+  question_key,
+  response
 }
 
 @Component({
@@ -19,17 +19,20 @@ export interface BranchUpdate {
 })
 export class BranchComponent implements OnInit {
 
-  @Input() formModel: AppForm;
-  @Input() branchModel: AppBranch;
+  @Input() key;
+  @Input() appForm: AppForm;
+  @Input() appBranch: AppBranch;
   @Output() appBranchUpdate = new EventEmitter<BranchUpdate>();
-
-  constructor() { }
 
   ngOnInit() {
   }
 
   onCategoryUpdate($event: CategoryUpdate){
-    this.appBranchUpdate.emit(Object.assign($event, { branch: this.branchModel }))
+    this.appBranchUpdate.emit({
+      branch_key: this.key,
+      question_key: $event.key,
+      response: $event.response
+    });
   }
 
 }

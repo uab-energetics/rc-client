@@ -1,13 +1,14 @@
 <ngb-tabset class="nav-tabs-line tabs-line-top"
             [destroyOnHide]="false">
-  <ngb-tab *ngFor="let branch of branches">
+  <ngb-tab *ngFor="let branch of encoding.branches; let i = index;">
     <ng-template ngbTabTitle><i class="icon wb-tree"></i> {{branch.name}} - {{branch.id}} </ng-template>
     <ng-template ngbTabContent>
       <div class="container mt-25">
         <app-branch
+          [key]="i"
           (appBranchUpdate)="onBranchUpdate($event)"
-          [branchModel]="branch"
-          [formModel]="formModel">
+          [appBranch]="branch"
+          [appForm]="appForm">
         </app-branch>
       </div>
     </ng-template>

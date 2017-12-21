@@ -1,6 +1,8 @@
+<!-- TODO - just render the root category, dummy -->
 <div class="app-branch">
-  <app-category *ngFor="let rootCat of formModel.root_category.children"
-                [categoryModel]="rootCat"
-                (appCategoryUpdate)="onCategoryUpdate($event)">
+  <app-category
+    *ngFor="let topLevelCategory of appForm.root_category.children"
+    [category]="topLevelCategory"
+    (appCategoryUpdate)="onCategoryUpdate($event)">
   </app-category>
 </div>
