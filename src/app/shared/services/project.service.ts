@@ -5,6 +5,7 @@ import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {catchError, share} from "rxjs/operators";
+import {AppPublication} from "../../models/AppPublication";
 
 const api = environment.api;
 
@@ -17,27 +18,26 @@ export class ProjectService {
 
   find(projectID: number): Observable<AppProject> {
     return this.http.get<AppProject>(api + "/projects/" + projectID)
-      .pipe(
-        share()
-      )
+      .pipe(share())
   }
 
   createProject(project: AppProject): Observable<AppProject> {
     return this.http.post<AppProject>(api + "/projects", project)
-      .pipe(
-        share()
-      )
+      .pipe(share())
   }
 
   deleteProject(id: number): Observable<any> {
     return this.http.delete(`${api}/projects/${id}`)
-      .pipe(
-        share()
-      )
+      .pipe(share())
   }
 
   createForm(projectID: number, form: AppForm): Promise<AppForm> {
     return this.http.post<AppForm>(`${api}/projects/${projectID}/forms`, form)
+      .toPromise();
+  }
+
+  createPublication(projectID: number, publication: AppPublication): Promise<AppPublication> {
+    return this.http.post<AppPublication>(`${api}/projects/${projectID}/publications`, publication)
       .toPromise();
   }
 
@@ -55,6 +55,11 @@ export class ProjectService {
   getForms(projectID: number): Observable<AppForm[]> {
     return this.http.get<AppForm[]>(`${api}/projects/${projectID}/forms`)
       .pipe(share())
+  }
+
+  getPublications(projectID: number): Promise<AppPublication[]> {
+    return this.http.get<AppPublication[]>(`${api}/projects/${projectID}/publications`)
+      .toPromise()
   }
 
 }

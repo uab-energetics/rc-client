@@ -5,6 +5,9 @@ import {AppForm} from "../../models/AppForm";
 import {ProjectService} from "../../shared/services/project.service";
 import {MatSnackBar} from "@angular/material";
 import {AppProject} from "../../models/AppProject";
+import {AppPublication} from "../../models/AppPublication";
+import {LoggerService} from "../../shared/logger.service";
+import {NotifyService} from "../../shared/services/notify.service";
 
 @Component({
   selector: 'app-project',
@@ -15,32 +18,18 @@ export class ProjectComponent implements OnInit {
 
   /* Data */
   projectForms: AppForm[] = [];
+  projectPublications: AppPublication[] = [];
   project: AppProject;
 
   /* UI */
-  formFormModal: NgbActiveModal;
   showLoader = false;
 
   constructor(
     private route: ActivatedRoute,
-    private modalService: NgbModal,
-    public snackBar: MatSnackBar,
-    private projectService: ProjectService
+    public notify: NotifyService,
+    private projectService: ProjectService,
+    private logger: LoggerService
   ) { }
-
-  onFormFormSubmit(newForm: AppForm){
-    this.showLoader = true;
-    this.projectService.createForm(this.project.id, newForm)
-      .then( _newForm  => {
-        this.projectForms.push(_newForm);
-        this.snackBar.open('Form Created!', 'Ok', { verticalPosition: 'top' })
-      })
-      .catch( err => console.error(err) )
-      .then(()=> {
-        this.formFormModal.close();
-        this.showLoader = false;
-      });
-  }
 
   ngOnInit() {
     this.loadProject();
@@ -53,20 +42,25 @@ export class ProjectComponent implements OnInit {
         this.project = project;
         this.projectService.getForms(this.project.id)
           .subscribe( forms => this.projectForms = forms );
+        this.projectService.getPublications(this.project.id)
+          .then( publications => this.projectPublications = publications )
       })
   }
 
-  deleteForm(id: number) {
-    this.showLoader = true;
-    this.projectService.deleteForm(id)
-      .subscribe( res => {
+  dispatch(action){
+    switch(action.type){
+      case "request_start": this.showLoader = true; break;
+      case "request_end":
         this.showLoader = false;
-        this.snackBar.open('Form deleted.', 'Ok', { verticalPosition: 'top', duration: 2000 });
-      } )
+        break;
+    }
   }
+}
 
-  openFormForm(content) {
-    this.formFormModal = this.modalService.open(content)
-  }
+export function requestStart(){
+  return { type: 'request_start' }
+}
 
+export function requestEnd(){
+  return { type: 'request_end' }
 }

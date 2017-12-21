@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row mb-25">
+    <div class="col-12">
+      <button (click)="openModal(addPublicationForm)"
+              class="btn btn-success btn-outline">
+        <i class="icon wb-plus"></i>
+        New Publication </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <ul>
+      <li *ngFor="let pub of publications"> {{pub.name}} </li>
+    </ul>
+  </div>
+
+
+  <ng-template #addPublicationForm let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Add a Publication</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-publication-form (appSubmit)="onPublicationFormSubmit($event)"></app-publication-form>
+    </div>
+  </ng-template>
+
+</div>

@@ -1,35 +1,38 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {RouterModule} from '@angular/router';
 import {AuthService} from './auth/auth.service';
-import { TextComponent } from './components/response-inputs/text/text.component';
-import { NumberComponent } from './components/response-inputs/number/number.component';
-import { SelectComponent } from './components/response-inputs/select/select.component';
-import { MultiSelectComponent } from './components/response-inputs/multi-select/multi-select.component';
+import {TextComponent} from './components/response-inputs/text/text.component';
+import {NumberComponent} from './components/response-inputs/number/number.component';
+import {SelectComponent} from './components/response-inputs/select/select.component';
+import {MultiSelectComponent} from './components/response-inputs/multi-select/multi-select.component';
 import {
   MatChipsModule,
   MatIconModule, MatInputModule, MatProgressBarModule, MatRadioModule, MatSelectModule, MatSlider,
-  MatSliderModule
+  MatSliderModule, MatTableDataSource, MatTableModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { BoolComponent } from './components/response-inputs/bool/bool.component';
-import { QuestionBuilderComponent } from './components/question-builder/question-builder.component';
-import { ChipListComponent } from './components/chip-list/chip-list.component';
-import { QuestionComponent } from './components/app-form/question/question.component';
-import { CategoryComponent } from './components/app-form/category/category.component';
+import {BoolComponent} from './components/response-inputs/bool/bool.component';
+import {QuestionBuilderComponent} from './components/question-builder/question-builder.component';
+import {ChipListComponent} from './components/chip-list/chip-list.component';
+import {QuestionComponent} from './components/app-form/question/question.component';
+import {CategoryComponent} from './components/app-form/category/category.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { CategoryBuilderComponent } from './components/category-builder/category-builder.component';
+import {CategoryBuilderComponent} from './components/category-builder/category-builder.component';
 import {FormService} from "./services/form/form.service";
-import { ExperimentFormComponent } from './components/app-form/experiment-form/experiment-form.component';
-import { BranchComponent } from './components/app-form/branch/branch.component';
+import {ExperimentFormComponent} from './components/app-form/experiment-form/experiment-form.component';
+import {BranchComponent} from './components/app-form/branch/branch.component';
 import {EncodingService} from "./services/encoding.service";
-import { FormFormComponent } from './components/forms/form-form/form-form.component';
+import {FormFormComponent} from './components/forms/form-form/form-form.component';
 import {ProjectService} from "./services/project.service";
-import { ProjectFormComponent } from './components/forms/project-form/project-form.component';
-import { TaskListComponent } from './components/task-list/task-list.component';
+import {ProjectFormComponent} from './components/forms/project-form/project-form.component';
+import {TaskListComponent} from './components/task-list/task-list.component';
 import {AuthGuardService} from "./auth/auth-guard.service";
-import { ProjectFormsListComponent } from './components/project-forms-list/project-forms-list.component';
+import {ProjectFormsListComponent} from './components/project-forms-list/project-forms-list.component';
+import {PublicationFormComponent} from './components/forms/publication-form/publication-form.component';
+import {ProjectPublicationsListComponent} from "./components/project-publications-list/project-publications-list.component";
+import {NotifyService} from "./services/notify.service";
 
 @NgModule({
   imports: [
@@ -38,14 +41,16 @@ import { ProjectFormsListComponent } from './components/project-forms-list/proje
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    MatSelectModule, MatRadioModule, MatSliderModule, MatInputModule, MatIconModule, MatChipsModule, MatProgressBarModule
+    MatSelectModule, MatRadioModule, MatSliderModule, MatInputModule, MatIconModule, MatChipsModule, MatProgressBarModule,
+    MatTableModule
   ],
   providers: [
     AuthService,
     AuthGuardService,
     FormService,
     EncodingService,
-    ProjectService
+    ProjectService,
+    NotifyService
   ],
   declarations: [
     NavbarComponent,
@@ -64,7 +69,9 @@ import { ProjectFormsListComponent } from './components/project-forms-list/proje
     FormFormComponent,
     ProjectFormComponent,
     TaskListComponent,
-    ProjectFormsListComponent
+    ProjectFormsListComponent,
+    ProjectPublicationsListComponent,
+    PublicationFormComponent
   ],
   exports: [
     TaskListComponent,
@@ -83,7 +90,10 @@ import { ProjectFormsListComponent } from './components/project-forms-list/proje
     BranchComponent,
     FormFormComponent,
     ProjectFormComponent,
-    ProjectFormsListComponent
+    ProjectFormsListComponent,
+    ProjectPublicationsListComponent,
+    PublicationFormComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}
