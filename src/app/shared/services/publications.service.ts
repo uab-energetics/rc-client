@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {share} from "rxjs/operators";
+import {Observable} from "rxjs/Observable";
+import {AppPublication} from "../../models/AppPublication";
+import 'rxjs/add/operator/share';
 
 const api = environment.api;
 
@@ -14,7 +16,14 @@ export class PublicationsService {
 
   deletePublication(id: number){
     return this.http.delete(`${api}/publications/${id}`)
-      .pipe(share())
+      .share()
+  }
+
+  searchPublications(query: string = null): Observable<AppPublication[]> {
+    let params = {};
+    if(query) params['search'] = query;
+    return this.http.get<AppPublication[]>(`${api}/publications`, {params})
+      .share()
   }
 
 }

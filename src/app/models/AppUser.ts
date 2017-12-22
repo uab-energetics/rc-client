@@ -1,5 +1,8 @@
+
 export interface AppUser {
   id: number;
-  email: string;
   name: string;
+  email: string;
+  image: string;
+  location: string;
 }

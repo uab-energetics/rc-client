@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {UserService} from './user.service';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
-import {AppUser} from "./User";
+import {AppUser} from "../../models/AppUser";
 
 export interface LoginRequest {
   email: string;

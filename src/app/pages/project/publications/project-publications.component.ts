@@ -1,27 +1,25 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppProject} from "../../../models/AppProject";
 import {SweetAlertService} from "ng2-sweetalert2";
-import {NotifyService} from "../../services/notify.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AppPublication} from "../../../models/AppPublication";
-import {ProjectService} from "../../services/project.service";
-import {requestEnd, requestStart} from "../../../pages/project/project.component";
-import {MatTableDataSource} from "@angular/material";
+import {ProjectService} from "../../../shared/services/project.service";
 import {catchError} from "rxjs/operators";
-import {PublicationsService} from "../../services/publications.service";
+import {PublicationsService} from "../../../shared/services/publications.service";
+import {NotifyService} from "../../../shared/services/notify.service";
 
 @Component({
-  selector: 'app-project-publications-list',
-  templateUrl: './project-publications-list.component.html',
-  styleUrls: ['./project-publications-list.component.css']
+  selector: 'app-project-publications',
+  templateUrl: './project-publications.component.html',
+  styleUrls: ['./project-publications.component.css']
 })
-export class ProjectPublicationsListComponent {
+export class ProjectPublicationsComponent {
 
   @Input() project: AppProject;
 
   showLoader = false;
 
-  publications: AppPublication[] = [];
+  publications: AppPublication[];
 
   /* UI Data */
   modal;

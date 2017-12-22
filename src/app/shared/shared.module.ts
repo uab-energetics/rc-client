@@ -30,11 +30,11 @@ import {ProjectService} from "./services/project.service";
 import {ProjectFormComponent} from './components/forms/project-form/project-form.component';
 import {TaskListComponent} from './components/task-list/task-list.component';
 import {AuthGuardService} from "./auth/auth-guard.service";
-import {ProjectFormsListComponent} from './components/project-forms-list/project-forms-list.component';
 import {PublicationFormComponent} from './components/forms/publication-form/publication-form.component';
-import {ProjectPublicationsListComponent} from "./components/project-publications-list/project-publications-list.component";
 import {NotifyService} from "./services/notify.service";
 import {PublicationsService} from "./services/publications.service";
+import {PeopleService} from "./services/people.service";
+import { FindTaskComponent } from './components/forms/find-task/find-task.component';
 
 @NgModule({
   imports: [
@@ -43,7 +43,13 @@ import {PublicationsService} from "./services/publications.service";
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    MatSelectModule, MatRadioModule, MatSliderModule, MatInputModule, MatIconModule, MatChipsModule, MatProgressBarModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatSliderModule,
+    MatInputModule,
+    MatIconModule,
+    MatChipsModule,
+    MatProgressBarModule,
     MatTableModule,
     MatProgressSpinnerModule
   ],
@@ -54,7 +60,8 @@ import {PublicationsService} from "./services/publications.service";
     EncodingService,
     ProjectService,
     NotifyService,
-    PublicationsService
+    PublicationsService,
+    PeopleService
   ],
   declarations: [
     NavbarComponent,
@@ -73,9 +80,8 @@ import {PublicationsService} from "./services/publications.service";
     FormFormComponent,
     ProjectFormComponent,
     TaskListComponent,
-    ProjectFormsListComponent,
-    ProjectPublicationsListComponent,
-    PublicationFormComponent
+    PublicationFormComponent,
+    FindTaskComponent
   ],
   exports: [
     TaskListComponent,
@@ -94,8 +100,6 @@ import {PublicationsService} from "./services/publications.service";
     BranchComponent,
     FormFormComponent,
     ProjectFormComponent,
-    ProjectFormsListComponent,
-    ProjectPublicationsListComponent,
     PublicationFormComponent
   ]
 })

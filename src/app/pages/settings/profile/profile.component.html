@@ -1,44 +1,48 @@
 <h3>Public Profile</h3>
 <hr/>
 <div class="row">
+
+  <p><mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar></p>
+
   <div class="col-lg-7">
-    <div class="form-group">
-      <label>Name</label>
-      <input type="text" class="form-control" placeholder="name">
-    </div>
+    <form #form="ngForm" (ngSubmit)="onSubmit($event)">
+      <div class="form-group">
+        <label>Name</label>
+        <input [(ngModel)]="user.name" name="name" type="text" class="form-control" placeholder="name">
+      </div>
 
-    <div class="form-group">
-      <label>Public Email</label>
-      <select class="form-control col-lg-6">
-        <option>chris.rocco7@gmail.com</option>
-        <option>chris77@uab.edu</option>
-      </select>
-    </div>
+      <div class="form-group">
+        <label>Public Email</label>
+        <select class="form-control col-lg-6">
+          <option>{{user.email}}</option>
+        </select>
+      </div>
 
-    <div class="form-group">
-      <label>Bio</label>
-      <textarea class="form-control" rows="3"></textarea>
-    </div>
+      <div class="form-group">
+        <label>Bio</label>
+        <textarea class="form-control" rows="3"></textarea>
+      </div>
 
-    <div class="form-group">
-      <label>Profile Image</label>
-      <input type="text" class="form-control" placeholder="Enter a URL..">
-    </div>
+      <div class="form-group">
+        <label>Profile Image</label>
+        <input [(ngModel)]="user.image" name="image" type="text" class="form-control" placeholder="Enter a URL..">
+      </div>
 
-    <div class="form-group">
-      <label>Location</label>
-      <input type="text" class="form-control" placeholder="Birmingham, AL.." >
-    </div>
+      <div class="form-group">
+        <label>Location</label>
+        <input [(ngModel)]="user.location" name="location" type="text" class="form-control" placeholder="Birmingham, AL.." >
+      </div>
 
-    <hr/>
+      <hr/>
 
-    <button class="btn btn-success"> Save Profile </button>
+      <button class="btn btn-success"> Save Profile </button>
+    </form>
   </div>
   <div class="col-lg-5" style="padding: 0px 30px">
     <div class="form-group">
       <label>Profile Picture</label>
       <div>
-        <img id="profile-image" src="https://avatars0.githubusercontent.com/u/22692124?s=400&u=7e9e7cbc31a594f43a29fbf9e45baa8c93d2a76b&v=4" width="100%">
+        <img id="profile-image" [src]="user.image" width="100%">
       </div>
       <br/>
     </div>

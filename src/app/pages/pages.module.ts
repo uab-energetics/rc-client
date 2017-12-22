@@ -14,10 +14,12 @@ import { ProjectComponent } from './project/project.component';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
 import { TreeModule } from 'angular-tree-component';
 import { FormLayoutTreeComponent } from './form-builder/form-layout-tree/form-layout-tree.component';
-import {MatProgressBarModule, MatSnackBarModule} from "@angular/material";
+import {MatProgressBarModule, MatProgressSpinnerModule, MatSnackBarModule} from "@angular/material";
 import { PubCoderComponent } from './pub-coder/pub-coder.component';
 import {FormsModule} from "@angular/forms";
 import {PagesComponent} from "./page.component";
+import {ProjectFormsComponent} from "./project/forms/project-forms.component";
+import {ProjectPublicationsComponent} from "./project/publications/project-publications.component";
 
 const routes: Routes = [
   {
@@ -84,7 +86,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     NgbModule,
     TreeModule,
-    MatProgressBarModule, MatSnackBarModule
+    MatProgressBarModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     PagesComponent,
@@ -98,6 +102,8 @@ const routes: Routes = [
     ProjectComponent,
     FormBuilderComponent,
     FormLayoutTreeComponent,
+    ProjectFormsComponent,
+    ProjectPublicationsComponent,
     PubCoderComponent
   ]
 })

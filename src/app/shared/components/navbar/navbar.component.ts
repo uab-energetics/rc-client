@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
 import {UserService} from "../../auth/user.service";
-import {AppUser} from "../../auth/User";
+import {AppUser} from "../../../models/AppUser";
 
 @Component({
   selector: 'app-navbar',
@@ -10,12 +10,13 @@ import {AppUser} from "../../auth/User";
 })
 export class NavbarComponent implements OnInit {
 
+  user: AppUser;
+
   constructor(
     private authService: AuthService,
-    private userService : UserService
+    private userService: UserService
   ) {}
 
-  public user : AppUser;
 
   logout () {
     this.authService.logout();

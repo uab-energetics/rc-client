@@ -34,21 +34,24 @@
 
     <p><mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar></p>
 
-    <ngb-tabset *ngIf="project" class="nav-tabs-horizontal nav-tabs-inverse nav-tabs-solid">
+    <ngb-tabset
+      *ngIf="project"
+      [destroyOnHide]="false"
+      class="nav-tabs-horizontal nav-tabs-inverse nav-tabs-solid">
       <ngb-tab>
         <ng-template ngbTabTitle><i class="icon wb-pencil"></i> Forms </ng-template>
         <ng-template ngbTabContent>
-          <app-project-forms-list
+          <app-project-forms
             [project]="project">
-          </app-project-forms-list>
+          </app-project-forms>
         </ng-template>
       </ngb-tab>
       <ngb-tab>
         <ng-template ngbTabTitle><i class="icon wb-book"></i> Publications </ng-template>
         <ng-template ngbTabContent>
-          <app-project-publications-list
+          <app-project-publications
             [project]="project">
-          </app-project-publications-list>
+          </app-project-publications>
         </ng-template>
       </ngb-tab>
       <ngb-tab>

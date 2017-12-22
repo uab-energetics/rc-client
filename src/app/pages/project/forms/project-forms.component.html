@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row mb-25">
     <div class="col-12">
-      <button (click)="openFormForm(newFormModal)"
+      <button (click)="openModal(newFormModal)"
               class="btn btn-success btn-outline">
         <i class="icon wb-plus"></i>
         New Form </button>
@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="forms">
     <!-- Form Cards -->
     <div *ngFor="let form of forms" class="col-lg-6">
       <div class="panel panel-bordered panel-primary bg-blue-grey-200">
@@ -27,7 +27,7 @@
           <div class="panel-actions panel-actions-keep">
             <div class="dropdown">
               <a class="panel-action"
-                 data-toggle="dropdown" href
+                 data-toggle="dropdown" href="javascript:void(0)"
                  role="button"><i class="icon wb-more-vertical"></i></a>
               <div class="dropdown-menu dropdown-menu-bullet dropdown-menu-right">
                 <a class="dropdown-item" (click)="deleteForm(form.id)" href="javascript:void(0)">
@@ -58,6 +58,8 @@
       <!-- End Example Panel With Heading -->
     </div>
     <!-- Form Cards -->
+
+    <h3 *ngIf="forms.length === 0">No forms yet. <a href="javascript:void(0)" (click)="openModal(newFormModal)">Add one</a> to get started.</h3>
   </div>
 
 
@@ -71,7 +73,7 @@
     </div>
     <div class="modal-body">
       <mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar>
-      <app-form-form (appSubmit)="onFormFormSubmit($event)"></app-form-form>
+      <app-form-form (appSubmit)="createForm($event)"></app-form-form>
     </div>
   </ng-template>
   <!-- Create Form Modal -->

@@ -1,0 +1,28 @@
+<form [formGroup]="taskForm">
+    <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
+  <div class="row">
+
+
+    <div class="form-group col-md-6">
+      <label class="form-control-label">Select a Form:</label>
+      <select class="form-control" formControlName="formID">
+        <option
+          *ngFor="let form of forms"
+          [value]="form.id">
+          {{form.name}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label class="form-control-label">Select a Publication:</label>
+      <select class="form-control" formControlName="publicationID">
+        <option
+          *ngFor="let pub of publications"
+          [value]="pub.id">
+          {{pub.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+</form>

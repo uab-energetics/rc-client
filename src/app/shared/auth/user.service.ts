@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 
 import jsonwebtoken from 'jsonwebtoken';
-import {AppUser} from "./User";
 import {LoggerService} from "../logger.service";
+import {AppUser} from "../../models/AppUser";
 
 @Injectable()
 export class UserService {
