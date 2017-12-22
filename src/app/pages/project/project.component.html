@@ -34,7 +34,7 @@
 
     <p><mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar></p>
 
-    <ngb-tabset class="nav-tabs-horizontal nav-tabs-inverse nav-tabs-solid">
+    <ngb-tabset *ngIf="project" class="nav-tabs-horizontal nav-tabs-inverse nav-tabs-solid">
       <ngb-tab>
         <ng-template ngbTabTitle><i class="icon wb-pencil"></i> Forms </ng-template>
         <ng-template ngbTabContent>
@@ -47,7 +47,6 @@
         <ng-template ngbTabTitle><i class="icon wb-book"></i> Publications </ng-template>
         <ng-template ngbTabContent>
           <app-project-publications-list
-            [dispatcher]="dispatch.bind(this)"
             [project]="project">
           </app-project-publications-list>
         </ng-template>

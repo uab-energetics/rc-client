@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppForm} from "../../../models/AppForm";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ProjectService} from "../../services/project.service";
 import {MatSnackBar} from "@angular/material";
 import {AppProject} from "../../../models/AppProject";
 import {SweetAlertService} from "ng2-sweetalert2";
+import {requestEnd, requestStart} from "../../../pages/project/project.component";
+import {catchError} from "rxjs/operators";
 
 @Component({
   selector: 'app-project-forms-list',
@@ -13,13 +15,8 @@ import {SweetAlertService} from "ng2-sweetalert2";
 })
 export class ProjectFormsListComponent {
 
-  _project: AppProject;
-  @Input()
-  set project( project: AppProject){
-    this._project = project;
-    this.loadProjectForms();
-  }
-  get project() { return this._project }
+
+  @Input() project: AppProject;
 
   forms: AppForm[];
 
@@ -33,12 +30,17 @@ export class ProjectFormsListComponent {
     private projectService: ProjectService
   ) { }
 
+  ngOnInit(){
+    this.loadProjectForms();
+  }
+
   loadProjectForms() {
-    if(!this.project) return;
     this.showLoader = true;
     this.projectService.getForms(this.project.id)
+      .pipe(catchError((err) => [] ))
       .subscribe( forms => {
         this.forms = forms;
+      },()=>{}, () => {
         this.showLoader = false;
       } );
   }

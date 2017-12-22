@@ -37,23 +37,12 @@ export class ProjectComponent implements OnInit {
 
   loadProject() {
     let projectID = +this.route.snapshot.paramMap.get('id');
+    this.showLoader = true;
     this.projectService.find(projectID)
-      .subscribe(project => {
+      .then(project => {
         this.project = project;
-        this.projectService.getForms(this.project.id)
-          .subscribe( forms => this.projectForms = forms );
-        this.projectService.getPublications(this.project.id)
-          .then( publications => this.projectPublications = publications )
-      })
-  }
-
-  dispatch(action){
-    switch(action.type){
-      case "request_start": this.showLoader = true; break;
-      case "request_end":
         this.showLoader = false;
-        break;
-    }
+      })
   }
 }
 

@@ -8,6 +8,12 @@
     </div>
   </div>
 
+  <div class="text-center">
+    <div class="loading-wrapper" style="width: 100px; margin: auto">
+      <mat-progress-spinner mode="indeterminate" *ngIf="showLoader"></mat-progress-spinner>
+    </div>
+  </div>
+
   <div class="row">
     <!-- Form Cards -->
     <div *ngFor="let form of forms" class="col-lg-6">

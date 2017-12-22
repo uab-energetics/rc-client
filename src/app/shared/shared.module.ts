@@ -9,7 +9,8 @@ import {SelectComponent} from './components/response-inputs/select/select.compon
 import {MultiSelectComponent} from './components/response-inputs/multi-select/multi-select.component';
 import {
   MatChipsModule,
-  MatIconModule, MatInputModule, MatProgressBarModule, MatRadioModule, MatSelectModule, MatSlider,
+  MatIconModule, MatInputModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule,
+  MatSlider,
   MatSliderModule, MatTableDataSource, MatTableModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -42,7 +43,8 @@ import {NotifyService} from "./services/notify.service";
     ReactiveFormsModule,
     NgbModule,
     MatSelectModule, MatRadioModule, MatSliderModule, MatInputModule, MatIconModule, MatChipsModule, MatProgressBarModule,
-    MatTableModule
+    MatTableModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthService,

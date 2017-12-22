@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppProject} from "../../../models/AppProject";
 import {SweetAlertService} from "ng2-sweetalert2";
 import {NotifyService} from "../../services/notify.service";
@@ -7,16 +7,18 @@ import {AppPublication} from "../../../models/AppPublication";
 import {ProjectService} from "../../services/project.service";
 import {requestEnd, requestStart} from "../../../pages/project/project.component";
 import {MatTableDataSource} from "@angular/material";
+import {catchError} from "rxjs/operators";
 
 @Component({
   selector: 'app-project-publications-list',
   templateUrl: './project-publications-list.component.html',
   styleUrls: ['./project-publications-list.component.css']
 })
-export class ProjectPublicationsListComponent implements OnInit {
+export class ProjectPublicationsListComponent {
 
   @Input() project: AppProject;
-  @Input() dispatcher: Function = () => {};
+
+  showLoader = false;
 
   publications: AppPublication[] = [];
 
@@ -34,21 +36,23 @@ export class ProjectPublicationsListComponent implements OnInit {
   }
 
   loadPublications(){
-    this.dispatcher(requestStart());
-    this.projectService.getPublications(this.project.id)
-      .then( pubs => {
-        this.dispatcher(requestEnd());
-        this.publications = pubs;
+    this.showLoader = true;
+    this.projectService.getForms(this.project.id)
+      .pipe(catchError((err) => [] ))
+      .subscribe( publications => {
+        this.publications = publications;
+      },()=>{}, () => {
+        this.showLoader = false;
       } );
   }
 
   onPublicationFormSubmit(newPublication: AppPublication){
-    this.dispatcher(requestStart());
+    this.showLoader = true;
     this.modal.close();
     this.projectService.createPublication(this.project.id, newPublication)
       .then( () => this.loadPublications() )
       .catch( err => console.log(err) )
-      .then( () => this.dispatcher(requestEnd()) );
+      .then( () => this.showLoader = false );
   }
 
   openModal(content){

@@ -6,6 +6,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {catchError, share} from "rxjs/operators";
 import {AppPublication} from "../../models/AppPublication";
+import * as _ from "lodash";
 
 const api = environment.api;
 
@@ -16,9 +17,9 @@ export class ProjectService {
     private http: HttpClient
   ) { }
 
-  find(projectID: number): Observable<AppProject> {
-    return this.http.get<AppProject>(api + "/projects/" + projectID)
-      .pipe(share())
+  find(projectID: number): Promise<AppProject> {
+      return this.http.get<AppProject>(api + "/projects/" + projectID)
+        .toPromise()
   }
 
   createProject(project: AppProject): Observable<AppProject> {
@@ -57,9 +58,9 @@ export class ProjectService {
       .pipe(share())
   }
 
-  getPublications(projectID: number): Promise<AppPublication[]> {
+  getPublications(projectID: number): Observable<AppPublication[]> {
     return this.http.get<AppPublication[]>(`${api}/projects/${projectID}/publications`)
-      .toPromise()
+      .pipe(share())
   }
 
 }
