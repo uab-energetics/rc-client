@@ -28,7 +28,6 @@ import {EncodingService} from "./services/encoding.service";
 import {FormFormComponent} from './components/forms/form-form/form-form.component';
 import {ProjectService} from "./services/project.service";
 import {ProjectFormComponent} from './components/forms/project-form/project-form.component';
-import {TaskListComponent} from './components/task-list/task-list.component';
 import {AuthGuardService} from "./auth/auth-guard.service";
 import {PublicationFormComponent} from './components/forms/publication-form/publication-form.component';
 import {NotifyService} from "./services/notify.service";
@@ -79,12 +78,10 @@ import { FindTaskComponent } from './components/forms/find-task/find-task.compon
     BranchComponent,
     FormFormComponent,
     ProjectFormComponent,
-    TaskListComponent,
     PublicationFormComponent,
     FindTaskComponent
   ],
   exports: [
-    TaskListComponent,
     NavbarComponent,
     TextComponent,
     NumberComponent,
@@ -100,7 +97,8 @@ import { FindTaskComponent } from './components/forms/find-task/find-task.compon
     BranchComponent,
     FormFormComponent,
     ProjectFormComponent,
-    PublicationFormComponent
+    PublicationFormComponent,
+    FindTaskComponent
   ]
 })
 export class SharedModule {

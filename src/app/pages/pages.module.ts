@@ -20,6 +20,7 @@ import {FormsModule} from "@angular/forms";
 import {PagesComponent} from "./page.component";
 import {ProjectFormsComponent} from "./project/forms/project-forms.component";
 import {ProjectPublicationsComponent} from "./project/publications/project-publications.component";
+import {TaskListComponent} from "./home/task-list/task-list.component";
 
 const routes: Routes = [
   {
@@ -93,6 +94,7 @@ const routes: Routes = [
   declarations: [
     PagesComponent,
     HomeComponent,
+    TaskListComponent,
     InsightsComponent,
     SettingsComponent,
     ProfileComponent,

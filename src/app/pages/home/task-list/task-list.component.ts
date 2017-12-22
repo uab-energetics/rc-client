@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AppExperimentEncoding} from "../../../models/AppExperimentEncoding";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {EncodingService} from "../../services/encoding.service";
-import {LoggerService} from "../../logger.service";
-import {NotifyService} from "../../services/notify.service";
+import {EncodingService} from "../../../shared/services/encoding.service";
+import {LoggerService} from "../../../shared/logger.service";
+import {NotifyService} from "../../../shared/services/notify.service";
 
 @Component({
   selector: 'app-task-list',

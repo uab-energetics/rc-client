@@ -28,7 +28,7 @@
       <td><span class="badge badge-success">Clean</span></td>
       <td>
         <button
-          routerLink="/pub-coder/{{task.id}}"
+          [routerLink]="['/pub-coder', task.id]"
           class="btn btn-sm btn-success mr-10"> continue </button>
         <button
           (click)="onQuitEncoding(task)"
