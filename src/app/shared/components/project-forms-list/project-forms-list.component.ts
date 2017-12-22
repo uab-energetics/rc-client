@@ -5,8 +5,7 @@ import {ProjectService} from "../../services/project.service";
 import {MatSnackBar} from "@angular/material";
 import {AppProject} from "../../../models/AppProject";
 import {SweetAlertService} from "ng2-sweetalert2";
-import {requestEnd, requestStart} from "../../../pages/project/project.component";
-import {catchError} from "rxjs/operators";
+import 'rxjs/add/operator/finally';
 
 @Component({
   selector: 'app-project-forms-list',
@@ -37,12 +36,10 @@ export class ProjectFormsListComponent {
   loadProjectForms() {
     this.showLoader = true;
     this.projectService.getForms(this.project.id)
-      .pipe(catchError((err) => [] ))
+      .finally(() => this.showLoader = false )
       .subscribe( forms => {
         this.forms = forms;
-      },()=>{}, () => {
-        this.showLoader = false;
-      } );
+      });
   }
 
   onFormFormSubmit(newForm: AppForm){

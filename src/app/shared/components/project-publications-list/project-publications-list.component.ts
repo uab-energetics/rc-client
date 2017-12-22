@@ -8,6 +8,7 @@ import {ProjectService} from "../../services/project.service";
 import {requestEnd, requestStart} from "../../../pages/project/project.component";
 import {MatTableDataSource} from "@angular/material";
 import {catchError} from "rxjs/operators";
+import {PublicationsService} from "../../services/publications.service";
 
 @Component({
   selector: 'app-project-publications-list',
@@ -28,7 +29,8 @@ export class ProjectPublicationsListComponent {
   constructor(
     private notify: NotifyService,
     private modalService: NgbModal,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private publicationService: PublicationsService
   ) {}
 
   ngOnInit(){
@@ -37,7 +39,7 @@ export class ProjectPublicationsListComponent {
 
   loadPublications(){
     this.showLoader = true;
-    this.projectService.getForms(this.project.id)
+    this.projectService.getPublications(this.project.id)
       .pipe(catchError((err) => [] ))
       .subscribe( publications => {
         this.publications = publications;
@@ -53,6 +55,16 @@ export class ProjectPublicationsListComponent {
       .then( () => this.loadPublications() )
       .catch( err => console.log(err) )
       .then( () => this.showLoader = false );
+  }
+
+  onDeletePublication(publication){
+    this.showLoader = true;
+    this.publicationService.deletePublication(publication.id)
+      .finally(() => this.showLoader = false)
+      .subscribe(() => {
+        this.notify.toast('Publication deleted');
+        this.loadPublications();
+      })
   }
 
   openModal(content){

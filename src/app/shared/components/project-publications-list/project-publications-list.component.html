@@ -8,13 +8,13 @@
     </div>
   </div>
 
-  <div class="text-center">
+  <div class="text-center" *ngIf="showLoader">
     <div class="loading-wrapper" style="width: 100px; margin: auto">
-      <mat-progress-spinner mode="indeterminate" *ngIf="showLoader"></mat-progress-spinner>
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="!showLoader">
     <div class="col-12">
       <table class="table">
         <thead class="thead-light">
@@ -27,11 +27,12 @@
         </thead>
         <tbody>
         <tr *ngFor="let pub of publications">
-          <th scope="row"></th>
+          <th>{{pub.id}}</th>
           <td>{{pub.name}}</td>
           <td>{{pub.embedding_url}}</td>
           <td>
-            <button class="btn btn-danger"><i class="icon wb-trash"></i> Remove </button>
+            <button class="btn btn-danger" (click)="onDeletePublication(pub)">
+              <i class="icon wb-trash"></i> Remove </button>
           </td>
         </tr>
         </tbody>

@@ -34,6 +34,7 @@ import {ProjectFormsListComponent} from './components/project-forms-list/project
 import {PublicationFormComponent} from './components/forms/publication-form/publication-form.component';
 import {ProjectPublicationsListComponent} from "./components/project-publications-list/project-publications-list.component";
 import {NotifyService} from "./services/notify.service";
+import {PublicationsService} from "./services/publications.service";
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import {NotifyService} from "./services/notify.service";
     FormService,
     EncodingService,
     ProjectService,
-    NotifyService
+    NotifyService,
+    PublicationsService
   ],
   declarations: [
     NavbarComponent,
