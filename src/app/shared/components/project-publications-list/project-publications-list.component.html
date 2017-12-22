@@ -9,9 +9,28 @@
   </div>
 
   <div class="row">
-    <ul>
-      <li *ngFor="let pub of publications"> {{pub.name}} </li>
-    </ul>
+    <div class="col-12">
+      <table class="table">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Publication Name</th>
+          <th scope="col">Embedding URL</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let pub of publications">
+          <th scope="row"></th>
+          <td>{{pub.name}}</td>
+          <td>{{pub.embedding_url}}</td>
+          <td>
+            <button class="btn btn-danger"><i class="icon wb-trash"></i> Remove </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
 

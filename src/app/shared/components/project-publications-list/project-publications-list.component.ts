@@ -6,6 +6,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AppPublication} from "../../../models/AppPublication";
 import {ProjectService} from "../../services/project.service";
 import {requestEnd, requestStart} from "../../../pages/project/project.component";
+import {MatTableDataSource} from "@angular/material";
 
 @Component({
   selector: 'app-project-publications-list',
@@ -19,6 +20,7 @@ export class ProjectPublicationsListComponent implements OnInit {
 
   publications: AppPublication[] = [];
 
+  /* UI Data */
   modal;
 
   constructor(
@@ -32,8 +34,12 @@ export class ProjectPublicationsListComponent implements OnInit {
   }
 
   loadPublications(){
+    this.dispatcher(requestStart());
     this.projectService.getPublications(this.project.id)
-      .then( pubs => this.publications = pubs );
+      .then( pubs => {
+        this.dispatcher(requestEnd());
+        this.publications = pubs;
+      } );
   }
 
   onPublicationFormSubmit(newPublication: AppPublication){

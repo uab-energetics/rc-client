@@ -88,7 +88,11 @@ export class QuestionComponent {
     return this.responseData['boo'] || null;
   }
 
-  getNumber(){
+  getSel(){
+    return this.responseData['sel'] || '';
+  }
+
+  getNum(){
     return this.responseData['num'] || null;
   }
 
