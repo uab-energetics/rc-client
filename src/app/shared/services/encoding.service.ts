@@ -16,12 +16,9 @@ export class EncodingService {
     private userService: UserService
   ) { }
 
-  getEncoding(id: number): Promise<AppExperimentEncoding> {
-    return new Promise(( res, rej ) => {
-      let forms = mockEncodings.filter( enc => enc.id = id );
-      if(forms.length === 0) rej(404);
-      res(forms[0]);
-    });
+  getEncoding(id: number): Observable<AppExperimentEncoding> {
+    return this.http.get<AppExperimentEncoding>(`${api}/encodings/${id}`)
+      .share();
   }
 
   public calculateCompletion(form: AppForm, encoding): number {
@@ -47,70 +44,3 @@ export class EncodingService {
   }
 
 }
-
-
-const mockTasks = [
-  {
-    id: 1,
-    name: 'Screening One',
-    completion: 89,
-    project: { name: 'Murine Rigor' }
-  },
-  {
-    id: 2,
-    name: 'Screening Two',
-    completion: 35,
-    project: { name: 'Missile' }
-  }
-];
-
-
-const mockEncodings: AppExperimentEncoding[] = [
-  {
-    "id": 5555,
-    "name": "Encoding 8665",
-    "form_id": 820,
-    "branches": [
-      {
-        "name": "Branch 3390",
-        "responses": [
-          {
-            "id": 4651,
-            "question_id": 1,
-            "type": "sel",
-            "num": 12,
-            "sel": "Beer",
-            "txt": "Secret places of vision will oddly forget a unconditional thing."
-          },
-          {
-            "id": 3215,
-            "question_id": 3,
-            "type": "txt",
-            "num": 12,
-            "sel": "Salvus cottas ducunt",
-            "txt": "Secret places of vision will oddly forget a unconditional thing."
-          },
-          {
-            "id": 4319,
-            "question_id": 5,
-            "type": "num",
-            "num": 20,
-            "sel": "Salvus cottas ducunt",
-            "txt": "Secret places of vision will oddly forget a unconditional thing."
-          },
-          {
-            "id": 4319,
-            "question_id": 2,
-            "type": "multi-sel",
-            "num": 20,
-            "sel": "Salvus cottas ducunt",
-            "txt": "Secret places of vision will oddly forget a unconditional thing.",
-            "multi-sel": [
-              { 'txt': 'Pulp Fiction' }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-];

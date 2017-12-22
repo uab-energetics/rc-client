@@ -17,9 +17,9 @@ export class ProjectService {
     private http: HttpClient
   ) { }
 
-  find(projectID: number): Promise<AppProject> {
+  find(projectID: number): Observable<AppProject> {
       return this.http.get<AppProject>(api + "/projects/" + projectID)
-        .toPromise()
+        .share();
   }
 
   createProject(project: AppProject): Observable<AppProject> {
@@ -32,9 +32,9 @@ export class ProjectService {
       .pipe(share())
   }
 
-  createForm(projectID: number, form: AppForm): Promise<AppForm> {
+  createForm(projectID: number, form: AppForm): Observable<AppForm> {
     return this.http.post<AppForm>(`${api}/projects/${projectID}/forms`, form)
-      .toPromise();
+      .share()
   }
 
   createPublication(projectID: number, publication: AppPublication): Promise<AppPublication> {

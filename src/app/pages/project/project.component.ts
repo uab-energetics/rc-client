@@ -22,7 +22,7 @@ export class ProjectComponent implements OnInit {
   project: AppProject;
 
   /* UI */
-  showLoader = false;
+  loading = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,12 +37,10 @@ export class ProjectComponent implements OnInit {
 
   loadProject() {
     let projectID = +this.route.snapshot.paramMap.get('id');
-    this.showLoader = true;
+    this.loading++;
     this.projectService.find(projectID)
-      .then(project => {
-        this.project = project;
-        this.showLoader = false;
-      })
+      .finally(() => this.loading--)
+      .subscribe(project => this.project = project)
   }
 }
 

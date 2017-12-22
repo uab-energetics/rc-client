@@ -31,7 +31,7 @@ export class BranchComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.log.write('branch loaded: ', this.key, this.branchData)
+    this.log.write('branch loaded: ', this.key, this.branchData, this.appForm)
   }
 
   onCategoryUpdate($event: CategoryUpdate){

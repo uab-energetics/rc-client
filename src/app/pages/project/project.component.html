@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <p><mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar></p>
+    <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
 
     <ngb-tabset
       *ngIf="project"

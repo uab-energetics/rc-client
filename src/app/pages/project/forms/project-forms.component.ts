@@ -18,7 +18,7 @@ export class ProjectFormsComponent {
   forms: AppForm[];
 
   modal: NgbActiveModal;
-  showLoader = false;
+  loading = 0;
 
   constructor(
     private modalService: NgbModal,
@@ -31,17 +31,18 @@ export class ProjectFormsComponent {
   }
 
   loadForms() {
-    this.showLoader = true;
+    this.loading++;
     this.projectService.getForms(this.project.id)
-      .finally(() => this.showLoader = false )
+      .finally(() => this.loading-- )
       .subscribe( forms => this.forms = forms );
   }
 
   createForm(newForm: AppForm){
-    this.showLoader = true;
+    this.loading++;
     this.modal.close();
     this.projectService.createForm(this.project.id, newForm)
-      .then( () => {
+      .finally(() => this.loading-- )
+      .subscribe( () => {
         this.loadForms();
         this.notify.toast('Created Form!');
       });
@@ -49,8 +50,9 @@ export class ProjectFormsComponent {
 
   deleteForm(id: number) {
     let confirmDelete = () => {
-      this.showLoader = true;
+      this.loading++;
       this.projectService.deleteForm(id)
+        .finally(() => this.loading--)
         .subscribe( res => {
           this.loadForms();
           this.notify.toast('Form deleted.');

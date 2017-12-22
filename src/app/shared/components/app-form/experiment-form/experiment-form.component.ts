@@ -34,7 +34,7 @@ export class ExperimentFormComponent implements OnInit {
   @Output() appExperimentFormUpdate = new EventEmitter();
 
   formModel = {
-    branches: []
+    experiment_branches: []
   };
   originalData = {};
   changedData = {};
@@ -48,7 +48,7 @@ export class ExperimentFormComponent implements OnInit {
       _key: Keys.next(),
       name: 'New Branch '
     };
-    this.formModel.branches.push(branchFormModel);
+    this.formModel.experiment_branches.push(branchFormModel);
   }
 
   getBranchData(branch_key){
@@ -88,13 +88,13 @@ export class ExperimentFormComponent implements OnInit {
   private loadData(encoding: AppExperimentEncoding){
     let _encoding = {};
     let e = this.encoding;
-    e.branches.forEach( b => {
+    e.experiment_branches.forEach( b => {
       let branch_key = recordBranch(b, _encoding);
       let branchFormModel = {
         _key: branch_key,
         name: b.name
       };
-      this.formModel.branches.push(branchFormModel);
+      this.formModel.experiment_branches.push(branchFormModel);
       b.responses.forEach( r => {
         let res_key = recordResponse(r, _encoding[branch_key]);
       });

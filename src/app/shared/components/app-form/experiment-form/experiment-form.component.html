@@ -7,10 +7,10 @@
 
 <ngb-tabset class="nav-tabs-line tabs-line-top"
             [destroyOnHide]="false">
-  <ngb-tab *ngFor="let branch of formModel.branches;">
+  <ngb-tab *ngFor="let branch of formModel.experiment_branches;">
     <ng-template ngbTabTitle><i class="icon wb-share"></i> {{branch.name}} </ng-template>
     <ng-template ngbTabContent>
-      <div class="container mt-25">
+      <div class="mt-25">
         <app-branch
           [key]="branch._key"
           (appBranchUpdate)="onBranchUpdate($event)"
