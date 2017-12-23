@@ -25,12 +25,18 @@ export class ExperimentFormComponent implements OnInit {
   originalData = {};
   changedData = {};
 
-  constructor(
-    private notify: NotifyService
-  ){}
+  constructor(private notify: NotifyService) {
+  }
 
   ngOnInit() {
+    this.branches = [];
+    this.originalData = {};
+    this.changedData = {};
     this.loadData(this.encoding);
+  }
+
+  ngOnChanges() {
+    this.ngOnInit();
   }
 
 
@@ -47,13 +53,13 @@ export class ExperimentFormComponent implements OnInit {
 
   exportResponses(): object[] {
     let _responses = [];
-    for(let [branch_id, branch] of Object.entries(this.changedData)){
-      for(let [question_id, response] of Object.entries(branch['responses'])){
+    for (let [branch_id, branch] of Object.entries(this.changedData)) {
+      for (let [question_id, response] of Object.entries(branch['responses'])) {
         _responses.push(Object.assign(
           {},
           response,
-          { branch_id: branch_id },
-          { question_id: question_id }))
+          {branch_id: branch_id},
+          {question_id: question_id}))
       }
     }
     return _responses;
@@ -65,16 +71,18 @@ export class ExperimentFormComponent implements OnInit {
    * EVENT HANDLERS
    * ===============================
    */
-  newBranch(){
+  newBranch() {
     let branchName = this.notify.prompt("Give the new branch a name:");
     this.onCreateBranch.emit({name: branchName});
   }
 
-  deleteBranch(branch){
+  deleteBranch(branch) {
     let afterConfirm = () => {
       this.onDeleteBranch.emit(branch.id);
     };
-    this.notify.confirm(afterConfirm);
+    this.notify.confirm(afterConfirm, {
+      title: 'Delete Branch?'
+    });
   }
 
   onResponseChanged($event: EncodingUpdate): void {

@@ -7,6 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import * as _ from "lodash";
 import {forkJoin} from "rxjs/observable/forkJoin";
 import {NotifyService} from "../../shared/services/notify.service";
+import {AppBranch} from "../../models/AppBranch";
 
 @Component({
   selector: 'app-pub-coder',
@@ -32,7 +33,6 @@ export class PubCoderComponent implements OnInit {
    */
   ngOnInit() {
     let encoding_id = +this.route.snapshot.paramMap.get('id');
-    console.log(encoding_id);
     this.loading++;
     this.encodingService.getEncoding(encoding_id)
       .finally(() => this.loading--)
@@ -46,18 +46,20 @@ export class PubCoderComponent implements OnInit {
   }
 
   handleDeleteBranch(id: number){
-
+    this.loading++;
+    this.encodingService.deleteBranch(this.encoding.id, id)
+      .finally(() => this.loading--)
+      .subscribe(() => this.ngOnInit());
   }
 
   handleCreateBranch(data: object){
-
+    this.loading++;
+    this.encodingService.recordBranch(this.encoding.id, data as AppBranch)
+      .finally(() => this.loading--)
+      .subscribe(() => this.ngOnInit());
   }
 
-
-  displayFormModel_ThisIsOnlyTemporary = {};
-  onSaveResponses(response_array){
-    this.displayFormModel_ThisIsOnlyTemporary = response_array;
-
+  handleSaveResponses(response_array){
     // enqueue the response updates
     let requests = [];
     response_array.forEach( _response => {
@@ -70,10 +72,7 @@ export class PubCoderComponent implements OnInit {
     this.loading++;
     forkJoin(requests)
       .finally(() => this.loading--)
-      .subscribe(() => {
-        this.notify.toast('Data Saved!');
-        // this.ngOnInit();
-      })
+      .subscribe(() => this.notify.toast('Data Saved!'))
   }
 
 }

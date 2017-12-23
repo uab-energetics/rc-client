@@ -1,30 +1,51 @@
-<ngb-accordion
-  #acc="ngbAccordion" activeIds="ngb-panel-0" class="app-category"
-  [destroyOnHide]="false">
 
-  <ngb-panel>
-    <ng-template ngbPanelTitle>
-      <i class="icon wb-folder"></i> &nbsp;
-      {{category.name}}
-      &nbsp; <span class="badge badge-round badge-info">{{category.questions.length}}</span>
-    </ng-template>
-    <ng-template ngbPanelContent>
-      <!-- Child Questions -->
-      <app-question
-        *ngFor="let question of category.questions; let i = index"
-        [key]="question.id"
-        [responseData]="getQuestionData(question.id)"
-        [question]="question"
-        (questionUpdate)="onQuestionChange($event)">
-      </app-question>
-      <!-- Child Categories -->
-      <app-category
-        *ngFor="let subCategory of category.children"
-        (appCategoryUpdate)="onQuestionChange($event)"
-        [formData]="formData"
-        [category]="subCategory">
-      </app-category>
-    </ng-template>
-  </ngb-panel>
+<div>
+  <div *ngIf="root">
+    <!-- Child Questions -->
+    <app-question
+      *ngFor="let question of category.questions; let i = index"
+      [key]="question.id"
+      [responseData]="getQuestionData(question.id)"
+      [question]="question"
+      (questionUpdate)="onQuestionChange($event)">
+    </app-question>
+    <!-- Child Categories -->
+    <app-category
+      *ngFor="let subCategory of category.children"
+      (appCategoryUpdate)="onQuestionChange($event)"
+      [formData]="formData"
+      [category]="subCategory">
+    </app-category>
+  </div>
+  <ngb-accordion *ngIf="!root"
+    #acc="ngbAccordion"
+    class="app-category"
+    [activeIds]="'ngb-panel-1'"
+    [destroyOnHide]="false">
 
-</ngb-accordion>
+    <ngb-panel>
+      <ng-template ngbPanelTitle>
+        <i class="icon wb-folder"></i> &nbsp;
+        {{category.name}}
+        &nbsp; <span class="badge badge-round badge-info">{{category.questions.length}}</span>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <!-- Child Questions -->
+        <app-question
+          *ngFor="let question of category.questions; let i = index"
+          [key]="question.id"
+          [responseData]="getQuestionData(question.id)"
+          [question]="question"
+          (questionUpdate)="onQuestionChange($event)">
+        </app-question>
+        <!-- Child Categories -->
+        <app-category
+          *ngFor="let subCategory of category.children"
+          (appCategoryUpdate)="onQuestionChange($event)"
+          [formData]="formData"
+          [category]="subCategory">
+        </app-category>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

@@ -7,7 +7,7 @@
 
       <div class="col-12 mb-30">
         <button
-          (click)="onSaveResponses(experimentForm.exportResponses())"
+          (click)="handleSaveResponses(experimentForm.exportResponses())"
           class="btn btn-lg btn-success">Save</button>
       </div>
 
@@ -35,7 +35,7 @@
 
       </div>
       <div class="col-lg-6">
-        <pre>{{displayFormModel_ThisIsOnlyTemporary | json}}</pre>
+
       </div>
     </div>
   </div>

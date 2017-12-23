@@ -20,6 +20,7 @@ export class CategoryComponent implements OnInit {
    */
   @Input() formData = {};
 
+  @Input() root = false;
   @Input() category: AppCategory;
   @Output() appCategoryUpdate = new EventEmitter<CategoryUpdate>();
 

@@ -10,9 +10,10 @@
   <ngb-tab *ngFor="let branch of branches;">
     <ng-template ngbTabTitle>
       <i class="icon wb-share"></i>
-      {{getBranchData(branch.id).name}} &nbsp;
-      <button (click)="deleteBranch(branch)" class="btn btn-sm btn-danger p-3 btn-outline">
-        <i class="icon wb-trash"></i>
+      {{getBranchData(branch.id).name}}
+      &nbsp;
+      <button (click)="deleteBranch(branch)" class="btn btn-sm btn-warning btn-outline p-3">
+        <i class="icon wb-pencil"></i>
       </button>
     </ng-template>
     <ng-template ngbTabContent>
