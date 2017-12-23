@@ -6,6 +6,9 @@ import {Observable} from "rxjs/Observable";
 import {AppCategory} from "../../../models/AppCategory";
 import {AppQuestion} from "../../../models/AppQuestion";
 import 'rxjs/add/operator/share';
+import {share} from "rxjs/operators";
+import {saveAs} from 'file-saver';
+import {HttpResponse} from "@angular/common/http/src/response";
 
 const api = environment.api;
 
@@ -86,6 +89,24 @@ export class FormService {
     let url = `${api}/questions/${id}`;
     return this.http.get<AppCategory>(url)
       .share()
+  }
+
+  saveExport(formID: number, filename = "form_export.csv") {
+    let url = `${api}/forms/${formID}/export`;
+    this.http.get<HttpResponse<Blob>>(url, {
+      responseType: 'blob',
+      observe: 'response'
+    }).toPromise()
+      .then(
+        response => {
+          // console.log(response.headers.keys());
+          let blob = response.body;
+          saveAs(blob, filename);
+        },
+        data => {
+          console.log(data);
+        }
+    );
   }
 
 }

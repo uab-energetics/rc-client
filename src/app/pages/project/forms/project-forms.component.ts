@@ -6,6 +6,7 @@ import {AppProject} from "../../../models/AppProject";
 import {SweetAlertService} from "ng2-sweetalert2";
 import 'rxjs/add/operator/finally';
 import {NotifyService} from "../../../shared/services/notify.service";
+import {FormService} from "../../../shared/services/form/form.service";
 
 @Component({
   selector: 'app-project-forms',
@@ -23,7 +24,8 @@ export class ProjectFormsComponent {
   constructor(
     private modalService: NgbModal,
     private notify: NotifyService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private formService: FormService
   ) { }
 
   ngOnInit(){
@@ -60,6 +62,10 @@ export class ProjectFormsComponent {
     };
 
     this.notify.confirm(confirmDelete);
+  }
+
+  exportForm(id: number) {
+    this.formService.saveExport(id);
   }
 
   openModal(content) {

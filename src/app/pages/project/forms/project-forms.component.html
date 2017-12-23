@@ -50,6 +50,9 @@
             <h4>Form Description:</h4>
             <p>{{form.description}}</p>
             <hr/>
+            <a class="btn btn-success"
+               style="color: white"
+               (click)="exportForm(form.id)"> Export </a>
             <a [routerLink]="['/forms', form.id]"
                class="btn btn-warning float-right"> <b> Open </b> </a>
           </div>
