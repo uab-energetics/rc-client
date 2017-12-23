@@ -32,6 +32,11 @@ export class ProjectService {
       .pipe(share())
   }
 
+  updateProject(project: AppProject): Observable<AppProject> {
+    return this.http.put<AppProject>(`${api}/projects/${project.id}`, project)
+      .share()
+  }
+
   createForm(projectID: number, form: AppForm): Observable<AppForm> {
     return this.http.post<AppForm>(`${api}/projects/${projectID}/forms`, form)
       .share()

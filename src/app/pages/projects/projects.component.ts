@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectService} from "../../shared/services/project.service";
+import {AppProject} from "../../models/AppProject";
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NotifyService} from "../../shared/services/notify.service";
 
 @Component({
   selector: 'app-projects',
@@ -8,11 +11,15 @@ import {ProjectService} from "../../shared/services/project.service";
 })
 export class ProjectsComponent implements OnInit {
 
-  projects;
+  projects: AppProject[];
+  editingProject: AppProject;
   showLoader = false;
 
-  constructor(private projectService: ProjectService) {
-  }
+  constructor(
+    private projectService: ProjectService,
+    private modals: NgbModal,
+    private notify: NotifyService
+  ) {}
 
   ngOnInit() {
     this.loadProjects();
@@ -32,6 +39,25 @@ export class ProjectsComponent implements OnInit {
   deleteProject(id: number) {
     this.projectService.deleteProject(id)
       .subscribe(() => this.loadProjects());
+  }
+
+
+  modal: NgbActiveModal;
+
+  editProject(project: AppProject, modal){
+    this.editingProject = project;
+    this.modal = this.modals.open(modal);
+  }
+
+  updateProject(project: AppProject){
+    this.modal.close();
+    this.showLoader = true;
+    this.projectService.updateProject(project)
+      .finally(() => this.showLoader = false)
+      .subscribe(() => {
+        this.notify.toast('Project updated');
+        this.loadProjects();
+      })
   }
 
 }
