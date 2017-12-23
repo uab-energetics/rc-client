@@ -3,9 +3,16 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-export const environment = {
+let environment = {
   api: 'http://api.v3.researchcoder.com',
   disableRouteGuards: true,
   showLog: true,
   production: false
 };
+
+if(localStorage.env){
+    let custom = JSON.parse(localStorage.env);
+    Object.assign(environment, custom);
+}
+
+export { environment }
