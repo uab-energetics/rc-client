@@ -13,6 +13,7 @@ import {reduceResponses} from "../pub-coder/experiment-form/encodingReduce";
 import {EncodingService} from "../../shared/services/encoding.service";
 import {NotifyService} from "../../shared/services/notify.service";
 import {forkJoin} from "rxjs/observable/forkJoin";
+import {AppForm} from "../../models/AppForm";
 
 /**
  * ===============================================================
@@ -62,6 +63,8 @@ export class ConflictsComponent implements OnInit {
   myEncoding: any;
 
 
+  form: AppForm;
+
   loading = 0;
   ready = false;
 
@@ -86,6 +89,7 @@ export class ConflictsComponent implements OnInit {
     this.conflictsService.getConflictsReport(id)
       .finally(() => this.loading--)
       .subscribe( data => {
+        this.form = data.encoding.form;
         this.setupTable(
           data.encoding,
           data.other_encodings,
