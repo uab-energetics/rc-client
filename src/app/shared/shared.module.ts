@@ -21,7 +21,7 @@ import {QuestionComponent} from './components/app-form/question/question.compone
 import {CategoryComponent} from './components/app-form/category/category.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {CategoryBuilderComponent} from './components/category-builder/category-builder.component';
-import {FormService} from "./services/form/form.service";
+import {FormService} from "./services/form.service";
 import {BranchComponent} from './components/app-form/branch/branch.component';
 import {EncodingService} from "./services/encoding.service";
 import {FormFormComponent} from './components/forms/form-form/form-form.component';

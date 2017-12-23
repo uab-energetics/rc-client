@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormService} from "../../shared/services/form/form.service";
+import {FormService} from "../../shared/services/form.service";
 import {AppForm} from "../../models/AppForm";
 import {EncodingService} from "../../shared/services/encoding.service";
 import {AppExperimentEncoding} from "../../models/AppExperimentEncoding";

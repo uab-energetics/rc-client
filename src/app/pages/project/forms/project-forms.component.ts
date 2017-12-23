@@ -6,7 +6,7 @@ import {AppProject} from "../../../models/AppProject";
 import {SweetAlertService} from "ng2-sweetalert2";
 import 'rxjs/add/operator/finally';
 import {NotifyService} from "../../../shared/services/notify.service";
-import {FormService} from "../../../shared/services/form/form.service";
+import {FormService} from "../../../shared/services/form.service";
 
 @Component({
   selector: 'app-project-forms',

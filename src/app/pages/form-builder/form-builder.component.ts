@@ -10,7 +10,7 @@ import {
   selectCategory, SHOW_ADD_QUESTION
 } from "./actions";
 import {MatSnackBar} from "@angular/material";
-import {FormService} from "../../shared/services/form/form.service";
+import {FormService} from "../../shared/services/form.service";
 import {catchError} from "rxjs/operators";
 import {Observable} from "rxjs/Observable";
 import {ActivatedRoute} from "@angular/router";

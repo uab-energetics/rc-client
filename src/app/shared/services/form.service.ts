@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {AppForm} from "../../../models/AppForm";
+import {AppForm} from "../../models/AppForm";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs/Observable";
-import {AppCategory} from "../../../models/AppCategory";
-import {AppQuestion} from "../../../models/AppQuestion";
+import {AppCategory} from "../../models/AppCategory";
+import {AppQuestion} from "../../models/AppQuestion";
 import 'rxjs/add/operator/share';
 import {share} from "rxjs/operators";
 import {saveAs} from 'file-saver';
@@ -91,22 +91,15 @@ export class FormService {
       .share()
   }
 
-  saveExport(formID: number, filename = "form_export.csv") {
+  saveExport(formID: number, filename?: string) {
     let url = `${api}/forms/${formID}/export`;
     this.http.get<HttpResponse<Blob>>(url, {
-      responseType: 'blob',
+      responseType: 'blob' as any,
       observe: 'response'
-    }).toPromise()
-      .then(
-        response => {
-          // console.log(response.headers.keys());
-          let blob = response.body;
-          saveAs(blob, filename);
-        },
-        data => {
-          console.log(data);
-        }
-    );
+    }).subscribe( response => {
+      filename = filename || response.headers.get('Content-Disposition').match(/filename=(.*)$/)[1];
+      saveAs(response.body as any, filename);
+    });
   }
 
 }

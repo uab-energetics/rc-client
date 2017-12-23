@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AppForm} from "../../../../models/AppForm";
 import {AppPublication} from "../../../../models/AppPublication";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {FormService} from "../../../services/form/form.service";
+import {FormService} from "../../../services/form.service";
 import {PublicationsService} from "../../../services/publications.service";
 
 @Component({
