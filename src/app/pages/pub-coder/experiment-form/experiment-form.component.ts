@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AppForm} from "../../../../models/AppForm";
-import {AppExperimentEncoding} from "../../../../models/AppExperimentEncoding";
+import {AppForm} from "../../../models/AppForm";
+import {AppExperimentEncoding} from "../../../models/AppExperimentEncoding";
 import * as _ from 'lodash';
-import {AppBranch} from "../../../../models/AppBranch";
+import {AppBranch} from "../../../models/AppBranch";
 import {EncodingUpdate, reduceEncoding} from "./encodingReduce";
 import {mapToFormData} from "./encodingMapper";
-import {NotifyService} from "../../../services/notify.service";
+import {NotifyService} from "../../../shared/services/notify.service";
+import {exportResponses} from "./encodingExports";
 
 @Component({
   selector: 'app-experiment-form',
@@ -17,6 +18,7 @@ export class ExperimentFormComponent implements OnInit {
   @Input() appForm: AppForm;
   @Input() encoding: AppExperimentEncoding;
 
+  @Output() onChange = new EventEmitter();
   @Output() saveResponses = new EventEmitter();
   @Output() onDeleteBranch = new EventEmitter<number>();
   @Output() onCreateBranch = new EventEmitter<object>();
@@ -51,20 +53,9 @@ export class ExperimentFormComponent implements OnInit {
     console.log(this.originalData);
   }
 
-  exportResponses(): object[] {
-    let _responses = [];
-    for (let [branch_id, branch] of Object.entries(this.changedData)) {
-      for (let [question_id, response] of Object.entries(branch['responses'])) {
-        _responses.push(Object.assign(
-          {},
-          response,
-          {branch_id: branch_id},
-          {question_id: question_id}))
-      }
-    }
-    return _responses;
+  exportChangedResponses(): object[] {
+    return exportResponses(this.changedData);
   }
-
 
   /**
    * ===============================
@@ -73,6 +64,7 @@ export class ExperimentFormComponent implements OnInit {
    */
   newBranch() {
     let branchName = this.notify.prompt("Give the new branch a name:");
+    if(!branchName) return;
     this.onCreateBranch.emit({name: branchName});
   }
 
@@ -87,6 +79,7 @@ export class ExperimentFormComponent implements OnInit {
 
   onResponseChanged($event: EncodingUpdate): void {
     this.changedData = reduceEncoding(this.changedData, $event);
+    this.onChange.emit();
   }
 
 

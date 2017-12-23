@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppForm} from "../../../../models/AppForm";
 import {CategoryUpdate} from "../category/category.component";
 import {LoggerService} from "../../../logger.service";
-import {EncodingUpdate} from "../experiment-form/encodingReduce";
+import {EncodingUpdate} from "../../../../pages/pub-coder/experiment-form/encodingReduce";
 import * as _ from 'lodash';
 
 @Component({

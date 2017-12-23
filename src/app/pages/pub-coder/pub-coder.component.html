@@ -7,7 +7,7 @@
 
       <div class="col-12 mb-30">
         <button
-          (click)="handleSaveResponses(experimentForm.exportResponses())"
+          (click)="handleSaveResponses(experimentForm.exportChangedResponses())"
           class="btn btn-lg btn-success">Save</button>
       </div>
 
@@ -17,21 +17,22 @@
           class="active"
           type="success"
           [striped]="true" [animated]="true"
-          [value]="formCompletion">
-          {{formCompletion}}%
+          [value]="completion">
+          {{completion}}%
         </ngb-progressbar></p>-->
 
-        <div class="panel">
+        <app-experiment-form
+          #experimentForm
+          (onCreateBranch)="handleCreateBranch($event)"
+          (onDeleteBranch)="handleDeleteBranch($event)"
+          [encoding]="encoding"
+          [appForm]="form">
+        </app-experiment-form>
+        <!--<div class="panel">
           <div class="panel-body">
-            <app-experiment-form
-              #experimentForm
-              (onCreateBranch)="handleCreateBranch($event)"
-              (onDeleteBranch)="handleDeleteBranch($event)"
-              [encoding]="encoding"
-              [appForm]="form">
-            </app-experiment-form>
+
           </div>
-        </div>
+        </div>-->
 
       </div>
       <div class="col-lg-6">

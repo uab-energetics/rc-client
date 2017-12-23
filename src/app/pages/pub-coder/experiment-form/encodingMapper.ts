@@ -1,4 +1,4 @@
-import {AppExperimentEncoding} from "../../../../models/AppExperimentEncoding";
+import {AppExperimentEncoding} from "../../../models/AppExperimentEncoding";
 
 
 /*=================================================
