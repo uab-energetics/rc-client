@@ -52,3 +52,9 @@
   border: none;
 }
 /* ngBootstrap styling fix */
+
+
+/* disable the dropdown transition animation */
+.dropdown-menu {
+  transition: none;
+}

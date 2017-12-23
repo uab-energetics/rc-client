@@ -7,7 +7,7 @@ export interface AppResponse {
   num?: number;
   sel?: string;
   boo?: string;
-  'multi-sel'?: TextPayload[];
+  selections?: TextPayload[];
 }
 
 export interface TextPayload {

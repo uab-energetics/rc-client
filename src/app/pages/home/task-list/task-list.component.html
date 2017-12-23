@@ -27,12 +27,26 @@
       </td>-->
       <td><span class="badge badge-success">Clean</span></td>
       <td>
-        <button
-          [routerLink]="['/pub-coder', task.id]"
-          class="btn btn-sm btn-success mr-10"> continue </button>
-        <button
-          (click)="onQuitEncoding(task)"
-          class="btn btn-sm btn-danger mr-10"> quit </button>
+
+        <div class="dropdown">
+          <button data-toggle="dropdown" class="btn btn-primary" >
+            Actions
+            <i class="icon wb-chevron-down-mini"></i>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a [routerLink]="['/pub-coder', task.id]" class="dropdown-item">
+              <i class="icon wb-pencil"></i>
+              Continue
+            </a>
+            <a [routerLink]="['/conflicts', task.id]" class="dropdown-item">
+              <i class="icon wb-users"></i>
+              Conflict Report
+            </a>
+            <div class="dropdown-divider"></div>
+            <a (click)="onQuitEncoding(task)" class="dropdown-item" href="javascript:void(0)">
+              <i class="icon wb-trash"></i> Quit</a>
+          </div>
+        </div>
       </td>
     </tr>
     </tbody>

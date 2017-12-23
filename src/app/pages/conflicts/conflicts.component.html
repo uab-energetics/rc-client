@@ -1,0 +1,50 @@
+
+<div class="page">
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title mb-25">Showing Conflicts Report</h1>
+      <!--<p class="page-description">{{project.description}}</p>-->
+    </div>
+
+    <div class="container">
+      <div class="text-center" *ngIf="loading">
+        <div class="loading-wrapper" style="width: 100px; margin: auto">
+          <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <table class="table" *ngIf="questions && myEncoding && otherEncodings">
+            <thead class="thead-light">
+            <tr class="avatar-thead">
+              <th scope="col">Question</th>
+              <th scope="col">
+                <span class="avatar avatar-sm">
+                  <img [src]="user.image">
+                </span> &nbsp;
+                My Response
+              </th>
+              <th scope="col" *ngFor="let otherEncoding of otherEncodings">
+                <span class="avatar avatar-sm">
+                  <img [src]="getUser(otherEncoding).image"/>
+                </span> &nbsp;
+                {{getUser(otherEncoding).name}}
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let question of questions">
+              <th>{{question.name}}</th>
+              <th>{{renderResponse(myEncoding, question)}}</th>
+              <th *ngFor="let enc of otherEncodings">
+                {{renderResponse(enc, question)}}
+              </th>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
