@@ -8,6 +8,11 @@ import * as _ from 'lodash';
 import {AppQuestion} from "../../models/AppQuestion";
 import {AppBranch} from "../../models/AppBranch";
 import {AppExperimentEncoding} from "../../models/AppExperimentEncoding";
+import {QuestionUpdate} from "../../shared/components/app-form/question/question.component";
+import {reduceResponses} from "../pub-coder/experiment-form/encodingReduce";
+import {EncodingService} from "../../shared/services/encoding.service";
+import {NotifyService} from "../../shared/services/notify.service";
+import {forkJoin} from "rxjs/observable/forkJoin";
 
 /**
  * ===============================================================
@@ -63,10 +68,19 @@ export class ConflictsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private conflictsService: ConflictsService
+    private conflictsService: ConflictsService,
+    private encodingService: EncodingService,
+    private notify: NotifyService
   ) {}
 
   ngOnInit() {
+    this.questions = [];
+    this.otherUsers = [];
+    this.otherEncodings = [];
+    this.conflictReport = {};
+    this.myEncoding = {};
+    this.user = this.userService.user;
+
     let id = +this.route.snapshot.paramMap.get('id');
     this.loading++;
     this.conflictsService.getConflictsReport(id)
@@ -86,7 +100,6 @@ export class ConflictsComponent implements OnInit {
 
     this.questions = questions;
 
-    this.user = this.userService.user;
     /* hash my encoding for instant lookup */
     myEncoding.experiment_branches =
       myEncoding.experiment_branches.map( branch =>
@@ -105,7 +118,14 @@ export class ConflictsComponent implements OnInit {
     this.conflictReport = conflicts;
   }
 
-  private conflict(encoding, question: AppQuestion): Conflict {
+
+  /**
+   * ========================
+   * CALLED FROM TEMPLATE
+   * ========================
+   */
+
+  conflict(encoding, question: AppQuestion): Conflict {
     return _.get(
       this.conflictReport,
       `${question.id}.${encoding.id}`,
@@ -125,10 +145,40 @@ export class ConflictsComponent implements OnInit {
     return renderToString(this.lookupResponse(encoding, question));
   }
 
+
+  /**
+   * ========================
+   * CHANGE DETECTION
+   * ========================
+   */
+
+  changes = null;
+  handleResponseChange($event: QuestionUpdate){
+    this.changes = reduceResponses(this.changes, $event.key, $event.response);
+  }
+
+  commitChanges(){
+    this.loading++;
+    let branch_id = this.myEncoding.experiment_branches[0].id; // because conflicts only work with the first branch right now.
+    let sources = [];
+    for(let [key, val] of Object.entries(this.changes)){
+      // no need to set question id here - we are not creating responses
+      let src = this.encodingService.recordResponse(this.myEncoding.id, branch_id, val);
+      sources.push(src);
+    }
+    forkJoin(sources)
+      .finally(() => this.loading--)
+      .subscribe(() => {
+        this.notify.toast('Changes Saved!');
+        this.changes = null;
+        this.ngOnInit();
+      })
+  }
+
 }
 
 function hashBranch(branch: AppBranch){
-  let hashedBranch = {};
+  let hashedBranch = Object.assign({}, branch);
   branch.responses.forEach(response => {
     hashedBranch[response.question_id] = response;
   });

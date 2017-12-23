@@ -12,14 +12,22 @@
   vertical-align: middle;
 }
 
-td.conflict {
-  background-color: rgba(255,8,0,0.26);
-}
-
-.my-response {
-  background-color: rgba(16,255,0,0.26);
-}
-
 table.conflicts-table {
   font-weight: bold;
+  background-color: white;
+}
+
+
+/* CONDITIONALLY COLORED CELLS */
+
+td.my-response {
+  background-color: rgba(188, 255, 253, 0.41);
+}
+
+td.conflict {
+  background-color: rgba(255, 8, 0, 0.14);
+}
+
+td.agreement {
+  background-color: rgba(16, 255, 0, 0.14);
 }

@@ -7,16 +7,24 @@
     </div>
 
     <div class="container">
-      <div class="text-center" *ngIf="loading > 0">
-        <div class="loading-wrapper" style="width: 100px; margin: auto">
-          <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-        </div>
-      </div>
 
       <div class="row">
         <div class="col-12">
+
+
+          <div class="text-center" *ngIf="loading > 0">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </div>
+
+
+
           <table class="table conflicts-table" *ngIf="ready">
-            <thead class="thead-light">
+
+
+
+            <!-- TABLE HEADERS
+            ======================== -->
+            <thead class="">
             <tr class="avatar-thead">
               <th>Questions</th>
               <th>
@@ -33,29 +41,66 @@
               </th>
             </tr>
             </thead>
+
+
+
+
+            <!-- TABLE BODY
+            ========================= -->
             <tbody>
               <tr *ngFor="let question of questions">
 
 
+                <!-- QUESTION POP-OUT -->
                 <ng-template #questionPopover>
-                  <app-question [question]="question" [responseData]="lookupResponse(myEncoding, question)"></app-question>
+                  <app-question
+                    [key]="question.id"
+                    [question]="question"
+                    [responseData]="lookupResponse(myEncoding, question)"
+                    (questionUpdate)="handleResponseChange($event)">
+                  </app-question>
                 </ng-template>
 
-
+                <!-- QUESTION COLUMN -->
                 <th>
-                  <button class="btn btn-sm p-3" [ngbPopover]="questionPopover" placement="right" popoverTitle="{{question.name}}">
+                  <button class="btn btn-sm btn-primary p-3"
+                          [ngbPopover]="questionPopover"
+                          placement="right"
+                          popoverTitle="{{question.name}}">
                     <i class="icon fa-question"></i>
                   </button>
                   &nbsp;
                   {{question.name}}
                 </th>
+
+
+                <!-- MY RESPONSE -->
                 <td class="my-response">{{renderResponse(myEncoding, question)}}</td>
-                <td *ngFor="let other of otherEncodings" [ngClass]="{ 'conflict': !conflict(other, question)?.agrees}">
+
+
+                <!-- OTHER REPSONDERS
+                ============================ -->
+                <td *ngFor="let other of otherEncodings"
+                    [ngClass]="{
+                      'conflict': conflict(other, question)?.agrees===0,
+                      'agreement': conflict(other, question)?.agrees===1 }">
+
                   {{renderResponse(other, question)}}
                 </td>
+
+
+
               </tr>
             </tbody>
           </table>
+
+
+          <button *ngIf="changes" (click)="commitChanges()" class="btn btn-primary" >
+            <i class="icon wb-upload"></i> &nbsp;
+            Commit Changes
+          </button>
+
+
         </div>
       </div>
     </div>
