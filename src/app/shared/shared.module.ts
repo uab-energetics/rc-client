@@ -22,7 +22,6 @@ import {CategoryComponent} from './components/app-form/category/category.compone
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {CategoryBuilderComponent} from './components/category-builder/category-builder.component';
 import {FormService} from "./services/form/form.service";
-import {ExperimentFormComponent} from './components/app-form/experiment-form/experiment-form.component';
 import {BranchComponent} from './components/app-form/branch/branch.component';
 import {EncodingService} from "./services/encoding.service";
 import {FormFormComponent} from './components/forms/form-form/form-form.component';
@@ -74,7 +73,6 @@ import { FindTaskComponent } from './components/forms/find-task/find-task.compon
     QuestionComponent,
     CategoryComponent,
     CategoryBuilderComponent,
-    ExperimentFormComponent,
     BranchComponent,
     FormFormComponent,
     ProjectFormComponent,
@@ -93,7 +91,6 @@ import { FindTaskComponent } from './components/forms/find-task/find-task.compon
     QuestionComponent,
     CategoryComponent,
     CategoryBuilderComponent,
-    ExperimentFormComponent,
     BranchComponent,
     FormFormComponent,
     ProjectFormComponent,

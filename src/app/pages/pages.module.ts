@@ -21,6 +21,7 @@ import {PagesComponent} from "./page.component";
 import {ProjectFormsComponent} from "./project/forms/project-forms.component";
 import {ProjectPublicationsComponent} from "./project/publications/project-publications.component";
 import {TaskListComponent} from "./home/task-list/task-list.component";
+import {ExperimentFormComponent} from "./pub-coder/experiment-form/experiment-form.component";
 
 const routes: Routes = [
   {
@@ -106,7 +107,8 @@ const routes: Routes = [
     FormLayoutTreeComponent,
     ProjectFormsComponent,
     ProjectPublicationsComponent,
-    PubCoderComponent
+    PubCoderComponent,
+    ExperimentFormComponent
   ]
 })
 export class PagesModule {
