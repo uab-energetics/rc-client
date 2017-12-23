@@ -33,6 +33,7 @@ import {NotifyService} from "./services/notify.service";
 import {PublicationsService} from "./services/publications.service";
 import {PeopleService} from "./services/people.service";
 import { FindTaskComponent } from './components/forms/find-task/find-task.component';
+import {SkinService} from "./services/skin.service";
 
 @NgModule({
   imports: [
@@ -59,7 +60,8 @@ import { FindTaskComponent } from './components/forms/find-task/find-task.compon
     ProjectService,
     NotifyService,
     PublicationsService,
-    PeopleService
+    PeopleService,
+    SkinService
   ],
   declarations: [
     NavbarComponent,
