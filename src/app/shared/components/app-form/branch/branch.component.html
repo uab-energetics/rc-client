@@ -1,6 +1,6 @@
 <div class="app-branch">
   <app-category
-    [formData]="branchData"
+    [formData]="getCategoryFormData()"
     [category]="appForm.root_category"
     (appCategoryUpdate)="onCategoryUpdate($event)">
   </app-category>

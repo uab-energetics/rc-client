@@ -33,7 +33,7 @@ export class CategoryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.logger.write('category loaded: ', this.category);
+    this.logger.write('category loaded: ', this.category, this.formData);
   }
 
   getQuestionData(question_key){

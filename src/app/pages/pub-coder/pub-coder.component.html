@@ -1,6 +1,16 @@
 <div class="page">
   <div class="page-content">
-    <div class="row">
+
+    <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
+
+    <div class="row" *ngIf="encoding && form">
+
+      <div class="col-12 mb-30">
+        <button
+          (click)="onSaveResponses(experimentForm.exportResponses())"
+          class="btn btn-lg btn-success">Save</button>
+      </div>
+
       <div class="col-lg-6">
 
         <!--<p><ngb-progressbar
@@ -11,10 +21,12 @@
           {{formCompletion}}%
         </ngb-progressbar></p>-->
 
-        <div class="panel" *ngIf="encoding && form">
+        <div class="panel">
           <div class="panel-body">
             <app-experiment-form
-              (appExperimentFormUpdate)="onFormUpdate($event)"
+              #experimentForm
+              (onCreateBranch)="handleCreateBranch($event)"
+              (onDeleteBranch)="handleDeleteBranch($event)"
               [encoding]="encoding"
               [appForm]="form">
             </app-experiment-form>

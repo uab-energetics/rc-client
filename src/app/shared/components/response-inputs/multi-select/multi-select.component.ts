@@ -10,7 +10,7 @@ import {TextPayload} from "../../../../models/AppResponse";
 })
 export class MultiSelectComponent implements OnInit {
 
-  @Input('multi-sel') selections: TextPayload[] = [];
+  @Input() selections: TextPayload[] = [];
   @Input() options: QuestionOption[];
   @Output() appChange = new EventEmitter();
 

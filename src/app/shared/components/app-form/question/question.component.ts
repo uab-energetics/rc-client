@@ -7,6 +7,8 @@ export interface QuestionUpdate {
   response: Response;
 }
 
+const MULTI_SELECT_PROP = "selections";
+
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -34,7 +36,7 @@ export class QuestionComponent {
   }
 
   ngOnInit(){
-    console.log('question loaded', this.responseData);
+    console.log('question loaded..', this.responseData);
   }
 
   /* CHANGE LISTENERS */
@@ -70,30 +72,30 @@ export class QuestionComponent {
   multiSelectChanged($event){
     this.emitResponseChange({
       type: fmt.MULTI_SELECT,
-      [fmt.MULTI_SELECT]: $event
+      [MULTI_SELECT_PROP]: $event
     });
   }
 
   /* loaders */
 
   getMultiSelect(){
-    return this.responseData['multi-sel'] || [];
+    return this.responseData[MULTI_SELECT_PROP] || [];
   }
 
   getText(){
-    return this.responseData['txt'] || '';
+    return this.responseData[fmt.TEXT] || '';
   }
 
   getBoo(){
-    return this.responseData['boo'] || null;
+    return this.responseData[fmt.BOOLEAN] || null;
   }
 
   getSel(){
-    return this.responseData['sel'] || '';
+    return this.responseData[fmt.SELECT] || '';
   }
 
   getNum(){
-    return this.responseData['num'] || null;
+    return this.responseData[fmt.NUMBER] || null;
   }
 
 }

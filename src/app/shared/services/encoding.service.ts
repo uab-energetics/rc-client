@@ -5,6 +5,8 @@ import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {UserService} from "../auth/user.service";
+import {AppResponse} from "../../models/AppResponse";
+import {AppBranch} from "../../models/AppBranch";
 
 const api = environment.api;
 
@@ -21,8 +23,19 @@ export class EncodingService {
       .share();
   }
 
-  public calculateCompletion(form: AppForm, encoding): number {
-    return Math.ceil(Math.random() * 100);
+  recordResponse(encoding_id: number, branch_id: number, response: AppResponse): Observable<AppResponse> {
+    return this.http.post<AppResponse>(`${api}/encodings/${encoding_id}/branches/${branch_id}/responses`, response)
+      .share();
+  }
+
+  deleteBranch(encoding_id: number, branch_id: number): Observable<void> {
+    return this.http.delete<void>(`${api}/encodings/${encoding_id}/branches/${branch_id}`)
+      .share();
+  }
+
+  recordBranch(encoding_id: number, branch: AppBranch): Observable<AppBranch> {
+    return this.http.post<AppBranch>(`${api}/encodings/${encoding_id}/branches`, branch)
+      .share();
   }
 
   myEncodings(): Observable<AppExperimentEncoding[]> {

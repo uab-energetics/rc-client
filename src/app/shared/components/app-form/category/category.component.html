@@ -20,6 +20,7 @@
       <!-- Child Categories -->
       <app-category
         *ngFor="let subCategory of category.children"
+        (appCategoryUpdate)="onQuestionChange($event)"
         [formData]="formData"
         [category]="subCategory">
       </app-category>

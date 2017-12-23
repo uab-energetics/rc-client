@@ -4,6 +4,9 @@ import {AppForm} from "../../models/AppForm";
 import {EncodingService} from "../../shared/services/encoding.service";
 import {AppExperimentEncoding} from "../../models/AppExperimentEncoding";
 import {ActivatedRoute} from "@angular/router";
+import * as _ from "lodash";
+import {forkJoin} from "rxjs/observable/forkJoin";
+import {NotifyService} from "../../shared/services/notify.service";
 
 @Component({
   selector: 'app-pub-coder',
@@ -20,7 +23,8 @@ export class PubCoderComponent implements OnInit {
   constructor(
     private formService: FormService,
     private encodingService: EncodingService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private notify: NotifyService
   ) { }
 
   /**
@@ -41,9 +45,35 @@ export class PubCoderComponent implements OnInit {
         })
   }
 
+  handleDeleteBranch(id: number){
+
+  }
+
+  handleCreateBranch(data: object){
+
+  }
+
+
   displayFormModel_ThisIsOnlyTemporary = {};
-  onFormUpdate($event){
-    this.displayFormModel_ThisIsOnlyTemporary = $event;
+  onSaveResponses(response_array){
+    this.displayFormModel_ThisIsOnlyTemporary = response_array;
+
+    // enqueue the response updates
+    let requests = [];
+    response_array.forEach( _response => {
+      let source = this.encodingService
+        .recordResponse(this.encoding.id, _response.branch_id, _response);
+      requests.push(source);
+    });
+
+    // resolve them all
+    this.loading++;
+    forkJoin(requests)
+      .finally(() => this.loading--)
+      .subscribe(() => {
+        this.notify.toast('Data Saved!');
+        // this.ngOnInit();
+      })
   }
 
 }

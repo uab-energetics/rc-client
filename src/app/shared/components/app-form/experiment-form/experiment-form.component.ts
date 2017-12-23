@@ -1,26 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppForm} from "../../../../models/AppForm";
-import {BranchUpdate} from "../branch/branch.component";
 import {AppExperimentEncoding} from "../../../../models/AppExperimentEncoding";
 import * as _ from 'lodash';
 import {AppBranch} from "../../../../models/AppBranch";
-
-let cnt = 0;
-let Keys = {
-  next: () => ++cnt
-};
-
-let recordBranch = (b, e) => {
-  let key = Keys.next();
-  e[key] = _.pick(b, 'name');
-  return key;
-};
-
-let recordResponse = (r, b) => {
-  let key = r.question_id;
-  b[key] = r;
-  return key;
-};
+import {EncodingUpdate, reduceEncoding} from "./encodingReduce";
+import {mapToFormData} from "./encodingMapper";
+import {NotifyService} from "../../../services/notify.service";
 
 @Component({
   selector: 'app-experiment-form',
@@ -31,74 +16,78 @@ export class ExperimentFormComponent implements OnInit {
 
   @Input() appForm: AppForm;
   @Input() encoding: AppExperimentEncoding;
-  @Output() appExperimentFormUpdate = new EventEmitter();
 
-  formModel = {
-    experiment_branches: []
-  };
+  @Output() saveResponses = new EventEmitter();
+  @Output() onDeleteBranch = new EventEmitter<number>();
+  @Output() onCreateBranch = new EventEmitter<object>();
+
+  branches = [];
   originalData = {};
   changedData = {};
+
+  constructor(
+    private notify: NotifyService
+  ){}
 
   ngOnInit() {
     this.loadData(this.encoding);
   }
 
-  newBranch(){
-    let branchFormModel = {
-      _key: Keys.next(),
-      name: 'New Branch '
-    };
-    this.formModel.experiment_branches.push(branchFormModel);
+
+  /**
+   * ===============================
+   * DATA METHODS
+   * ===============================
+   */
+  loadData(encoding: AppExperimentEncoding): void {
+    encoding.experiment_branches.forEach(b => this.branches.push(b));
+    this.originalData = mapToFormData(encoding);
+    console.log(this.originalData);
   }
 
-  getBranchData(branch_key){
-    return this.originalData[branch_key] || {};
-  }
-
-  onBranchUpdate($event: BranchUpdate) {
-    this.appExperimentFormUpdate.emit($event);
-
-    let update = {
-      [$event.branch_key]: {
-        [$event.question_key]: $event.response
+  exportResponses(): object[] {
+    let _responses = [];
+    for(let [branch_id, branch] of Object.entries(this.changedData)){
+      for(let [question_id, response] of Object.entries(branch['responses'])){
+        _responses.push(Object.assign(
+          {},
+          response,
+          { branch_id: branch_id },
+          { question_id: question_id }))
       }
-    };
-
-    _.mergeWith(this.changedData, update);
-    this.appExperimentFormUpdate.emit(this.exportData());
-  }
-
-  private exportData(): AppBranch[] {
-    let branches = [];
-    for(let [bkey, bval] of Object.entries(this.changedData)){
-      let branch: AppBranch = {
-        name: bval['name'],
-        responses: []
-      };
-      for(let [qkey, qval] of Object.entries(bval)){
-        let response = qval;
-        response.question_id = qkey;
-        branch.responses.push(response);
-      }
-      branches.push(branch);
     }
-    return branches;
+    return _responses;
   }
 
-  private loadData(encoding: AppExperimentEncoding){
-    let _encoding = {};
-    let e = this.encoding;
-    e.experiment_branches.forEach( b => {
-      let branch_key = recordBranch(b, _encoding);
-      let branchFormModel = {
-        _key: branch_key,
-        name: b.name
-      };
-      this.formModel.experiment_branches.push(branchFormModel);
-      b.responses.forEach( r => {
-        let res_key = recordResponse(r, _encoding[branch_key]);
-      });
-    });
-    this.originalData = _encoding;
+
+  /**
+   * ===============================
+   * EVENT HANDLERS
+   * ===============================
+   */
+  newBranch(){
+    let branchName = this.notify.prompt("Give the new branch a name:");
+    this.onCreateBranch.emit({name: branchName});
+  }
+
+  deleteBranch(branch){
+    let afterConfirm = () => {
+      this.onDeleteBranch.emit(branch.id);
+    };
+    this.notify.confirm(afterConfirm);
+  }
+
+  onResponseChanged($event: EncodingUpdate): void {
+    this.changedData = reduceEncoding(this.changedData, $event);
+  }
+
+
+  /**
+   * ===============================
+   * HELPERS
+   * ===============================
+   */
+  private getBranchData(branch_key): object {
+    return this.originalData[branch_key] || {};
   }
 }

@@ -1,17 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppForm} from "../../../../models/AppForm";
-import {AppBranch} from "../../../../models/AppBranch";
 import {CategoryUpdate} from "../category/category.component";
-import {AppCategory} from "../../../../models/AppCategory";
-import {AppQuestion} from "../../../../models/AppQuestion";
-import * as _ from 'lodash';
 import {LoggerService} from "../../../logger.service";
-
-export interface BranchUpdate {
-  branch_key,
-  question_key,
-  response
-}
+import {EncodingUpdate} from "../experiment-form/encodingReduce";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-branch',
@@ -21,10 +13,9 @@ export interface BranchUpdate {
 export class BranchComponent implements OnInit {
 
   @Input() key;
-  @Input() branchForm;
   @Input() branchData = {};
   @Input() appForm: AppForm;
-  @Output() appBranchUpdate = new EventEmitter<BranchUpdate>();
+  @Output() appBranchUpdate = new EventEmitter<EncodingUpdate>();
 
   constructor(
     private log: LoggerService
@@ -34,10 +25,15 @@ export class BranchComponent implements OnInit {
     this.log.write('branch loaded: ', this.key, this.branchData, this.appForm)
   }
 
+  getCategoryFormData() {
+    return this.branchData['responses'] || {}
+  }
+
   onCategoryUpdate($event: CategoryUpdate){
     this.appBranchUpdate.emit({
       branch_key: this.key,
       question_key: $event.key,
+      branch: this.branchData,
       response: $event.response
     });
   }

@@ -16,6 +16,10 @@ export class NotifyService {
     this.materialSnackBar.open(message, action, options);
   }
 
+  prompt(message){
+    return prompt(message);
+  }
+
   confirm(callback, {
       title = 'Are you sure?',
       text = "This action cannot be undone!",

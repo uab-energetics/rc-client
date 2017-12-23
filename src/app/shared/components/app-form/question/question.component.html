@@ -31,7 +31,7 @@
 
       <app-multi-select
         *ngSwitchCase="'multi-sel'"
-        [multi-sel]="getMultiSelect()"
+        [selections]="getMultiSelect()"
         (appChange)="multiSelectChanged($event)"
         [options]="question.options">
       </app-multi-select>
