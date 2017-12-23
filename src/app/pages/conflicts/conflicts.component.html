@@ -7,7 +7,7 @@
     </div>
 
     <div class="container">
-      <div class="text-center" *ngIf="loading">
+      <div class="text-center" *ngIf="loading > 0">
         <div class="loading-wrapper" style="width: 100px; margin: auto">
           <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
         </div>
@@ -15,32 +15,45 @@
 
       <div class="row">
         <div class="col-12">
-          <table class="table" *ngIf="questions && myEncoding && otherEncodings">
+          <table class="table conflicts-table" *ngIf="ready">
             <thead class="thead-light">
             <tr class="avatar-thead">
-              <th scope="col">Question</th>
-              <th scope="col">
+              <th>Questions</th>
+              <th>
                 <span class="avatar avatar-sm">
-                  <img [src]="user.image">
+                  <img [src]="user.image"/>
                 </span> &nbsp;
-                My Response
+                My Responses
               </th>
-              <th scope="col" *ngFor="let otherEncoding of otherEncodings">
+              <th *ngFor="let user of otherUsers">
                 <span class="avatar avatar-sm">
-                  <img [src]="getUser(otherEncoding).image"/>
+                  <img [src]="user.image"/>
                 </span> &nbsp;
-                {{getUser(otherEncoding).name}}
+                {{user.name}}
               </th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let question of questions">
-              <th>{{question.name}}</th>
-              <th>{{renderResponse(myEncoding, question)}}</th>
-              <th *ngFor="let enc of otherEncodings">
-                {{renderResponse(enc, question)}}
-              </th>
-            </tr>
+              <tr *ngFor="let question of questions">
+
+
+                <ng-template #questionPopover>
+                  <app-question [question]="question" [responseData]="lookupResponse(myEncoding, question)"></app-question>
+                </ng-template>
+
+
+                <th>
+                  <button class="btn btn-sm p-3" [ngbPopover]="questionPopover" placement="right" popoverTitle="{{question.name}}">
+                    <i class="icon fa-question"></i>
+                  </button>
+                  &nbsp;
+                  {{question.name}}
+                </th>
+                <td class="my-response">{{renderResponse(myEncoding, question)}}</td>
+                <td *ngFor="let other of otherEncodings" [ngClass]="{ 'conflict': !conflict(other, question)?.agrees}">
+                  {{renderResponse(other, question)}}
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

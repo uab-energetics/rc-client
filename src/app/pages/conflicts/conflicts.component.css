@@ -11,3 +11,15 @@
 .avatar-thead span {
   vertical-align: middle;
 }
+
+td.conflict {
+  background-color: rgba(255,8,0,0.26);
+}
+
+.my-response {
+  background-color: rgba(16,255,0,0.26);
+}
+
+table.conflicts-table {
+  font-weight: bold;
+}

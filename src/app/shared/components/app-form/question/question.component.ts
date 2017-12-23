@@ -37,6 +37,7 @@ export class QuestionComponent {
 
   ngOnInit(){
     console.log('question loaded..', this.responseData);
+    if(!this.responseData) this.responseData = {};
   }
 
   /* CHANGE LISTENERS */

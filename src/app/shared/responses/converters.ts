@@ -1,6 +1,9 @@
 import {AppResponse} from "../../models/AppResponse";
 
+export const NO_RESPONSE = 'NO_REPSONSE';
+
 export function renderToString(response: AppResponse){
+  if(!response) return NO_RESPONSE;
   switch (response.type){
     case "txt":
       return response.txt;
