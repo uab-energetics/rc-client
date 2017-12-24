@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AppForm} from "../../../../models/AppForm";
 
@@ -7,16 +7,27 @@ import {AppForm} from "../../../../models/AppForm";
   templateUrl: './form-form.component.html',
   styleUrls: ['./form-form.component.css']
 })
-export class FormFormComponent {
+export class FormFormComponent implements OnInit {
 
   @Output() appSubmit = new EventEmitter<AppForm>();
+  @Input() appForm: AppForm;
 
   formForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.formForm = fb.group({
-      name: [ '', Validators.required ],
-      description: [ '', Validators.required ]
+  }
+
+  ngOnInit() {
+    let name = "";
+    let description = "";
+    if(this.appForm){
+      name = this.appForm.name;
+      description = this.appForm.description;
+    }
+
+    this.formForm = this.fb.group({
+      name: [ name, Validators.required ],
+      description: [ description, Validators.required ]
     })
   }
 
@@ -25,10 +36,7 @@ export class FormFormComponent {
   }
 
   public exportForm(): AppForm {
-    return Object.assign({}, this.formForm.value, {
-      published: false,
-      type: 'experiment' // TODO - move types to constants
-    });
+    return Object.assign({ published: false, type: 'experiment' }, this.appForm, this.formForm.value);
   }
 
 }

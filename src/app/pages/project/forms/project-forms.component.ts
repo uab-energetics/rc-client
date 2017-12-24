@@ -18,7 +18,9 @@ export class ProjectFormsComponent {
   @Input() project: AppProject;
   forms: AppForm[];
 
-  modal: NgbActiveModal;
+  editingForm: AppForm;
+
+  modal;
   loading = 0;
 
   constructor(
@@ -41,7 +43,6 @@ export class ProjectFormsComponent {
 
   createForm(newForm: AppForm){
     this.loading++;
-    this.modal.close();
     this.projectService.createForm(this.project.id, newForm)
       .finally(() => this.loading-- )
       .subscribe( () => {
@@ -64,11 +65,46 @@ export class ProjectFormsComponent {
     this.notify.confirm(confirmDelete);
   }
 
+  updateForm(form: AppForm){
+    console.log('updating...', form);
+    this.loading++;
+    this.projectService.updateForm(form)
+      .finally(() => this.loading--)
+      .subscribe(() => {
+        this.notify.toast('Form updated.');
+        this.loadForms();
+      })
+  }
+
+  formFormSubmit(form: AppForm){
+    this.modal.close();
+    console.log(form);
+    if(form.id){
+      this.updateForm(form);
+    } else {
+      this.createForm(form);
+    }
+  }
+
   exportForm(id: number) {
     this.formService.saveExport(id);
   }
 
+
+  /**
+   * ======================
+   * UI HANDLERS
+   * ======================
+   */
+
+
   openModal(content) {
+    this.modal = this.modalService.open(content)
+  }
+
+
+  editForm(form: AppForm, content){
+    this.editingForm = form;
     this.modal = this.modalService.open(content)
   }
 

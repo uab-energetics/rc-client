@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row mb-25">
     <div class="col-12">
-      <button (click)="openModal(newFormModal)"
+      <button (click)="openModal(formFormModal)"
               class="btn btn-success btn-outline">
         <i class="icon wb-plus"></i>
         New Form </button>
@@ -15,6 +15,10 @@
   </div>
 
   <div class="row" *ngIf="forms">
+
+
+
+
     <!-- Form Cards -->
     <div *ngFor="let form of forms" class="col-lg-6">
       <div class="panel panel-bordered panel-primary bg-blue-grey-200">
@@ -30,13 +34,21 @@
                  data-toggle="dropdown" href="javascript:void(0)"
                  role="button"><i class="icon wb-more-vertical"></i></a>
               <div class="dropdown-menu dropdown-menu-bullet dropdown-menu-right">
-                <a class="dropdown-item" (click)="deleteForm(form.id)" href="javascript:void(0)">
-                  <i class="icon wb-trash"></i> Delete</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                  <i class="icon wb-settings" aria-hidden="true"></i>
-                  Settings
+
+
+                <a class="dropdown-item" (click)="editForm(form, formFormModal)" href="javascript:void(0)">
+                  <i class="icon wb-settings"></i>
+                  Edit
                 </a>
+
+                <div class="dropdown-divider"></div>
+
+                <a class="dropdown-item" (click)="deleteForm(form.id)" href="javascript:void(0)">
+                  <i class="icon wb-trash"></i>
+                  Delete
+                </a>
+
+
               </div>
             </div>
           </div>
@@ -44,7 +56,7 @@
         <div class="panel-collapse">
           <div class="panel-toolbar bg-grey-300" role="toolbar">
             <label class="badge badge-success"> <i class="icon wb-check"></i> Published </label>
-            <span class="float-right"><b><em> used in 20 publications </em></b></span>
+            <span class="float-right"><b><em> encoded 20 times </em></b></span>
           </div>
           <div class="panel-body">
             <h4>Form Description:</h4>
@@ -62,12 +74,21 @@
     </div>
     <!-- Form Cards -->
 
-    <h3 *ngIf="forms.length === 0">No forms yet. <a href="javascript:void(0)" (click)="openModal(newFormModal)">Add one</a> to get started.</h3>
+
+
+
+
+
+    <h3 *ngIf="forms.length === 0">No forms yet. <a href="javascript:void(0)" (click)="openModal(formFormModal)">Add one</a> to get started.</h3>
   </div>
 
 
+
+
+
+
   <!-- Create Form Modal -->
-  <ng-template #newFormModal let-c="close" let-d="dismiss">
+  <ng-template #formFormModal let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">Create Form</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -76,7 +97,10 @@
     </div>
     <div class="modal-body">
       <mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar>
-      <app-form-form (appSubmit)="createForm($event)"></app-form-form>
+      <app-form-form
+        [appForm]="editingForm"
+        (appSubmit)="formFormSubmit($event)">
+      </app-form-form>
     </div>
   </ng-template>
   <!-- Create Form Modal -->

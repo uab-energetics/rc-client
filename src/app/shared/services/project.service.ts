@@ -42,14 +42,19 @@ export class ProjectService {
       .share()
   }
 
-  createPublication(projectID: number, publication: AppPublication): Promise<AppPublication> {
-    return this.http.post<AppPublication>(`${api}/projects/${projectID}/publications`, publication)
-      .toPromise();
+  updateForm(form: AppForm): Observable<AppForm> {
+    return this.http.put<AppForm>(`${api}/forms/${form.id}`, form)
+      .share()
   }
 
   deleteForm(id: number): Observable<any> {
     return this.http.delete(`${api}/forms/${id}`)
-      .pipe(share())
+      .share()
+  }
+
+  createPublication(projectID: number, publication: AppPublication): Promise<AppPublication> {
+    return this.http.post<AppPublication>(`${api}/projects/${projectID}/publications`, publication)
+      .toPromise();
   }
 
   myProjects(): Observable<AppProject[]> {
