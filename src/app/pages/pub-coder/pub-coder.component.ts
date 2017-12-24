@@ -72,7 +72,15 @@ export class PubCoderComponent implements OnInit {
     this.loading++;
     forkJoin(requests)
       .finally(() => this.loading--)
-      .subscribe(() => this.notify.toast('Data Saved!'))
+      .subscribe(() => {
+        this.notify.toast('Data Saved!');
+        this.changes = false;
+      })
+  }
+
+  changes = false;
+  onChange(){
+    this.changes = true;
   }
 
 }

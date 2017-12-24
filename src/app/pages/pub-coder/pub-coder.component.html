@@ -7,8 +7,12 @@
 
       <div class="col-12 mb-30">
         <button
+          [disabled]="!changes"
           (click)="handleSaveResponses(experimentForm.exportChangedResponses())"
-          class="btn btn-lg btn-success">Save</button>
+          class="btn btn-animate btn-animate-side btn-success">
+          <span><i class="icon wb-download" aria-hidden="true"></i> Save Changes </span>
+        </button>
+        <p [hidden]="changes">No changes since last save</p>
       </div>
 
       <div class="col-lg-6">
@@ -25,6 +29,7 @@
           #experimentForm
           (onCreateBranch)="handleCreateBranch($event)"
           (onDeleteBranch)="handleDeleteBranch($event)"
+          (onChange)="onChange()"
           [encoding]="encoding"
           [appForm]="form">
         </app-experiment-form>

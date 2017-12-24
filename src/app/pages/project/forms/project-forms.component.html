@@ -62,11 +62,23 @@
             <h4>Form Description:</h4>
             <p>{{form.description}}</p>
             <hr/>
-            <a class="btn btn-success"
-               style="color: white"
-               (click)="exportForm(form.id)"> Export </a>
+
+
+
+            <button class="btn btn-primary" (click)="exportForm(form.id)">
+              <i class="icon wb-briefcase"></i> Export
+            </button>
+
+
+
             <a [routerLink]="['/forms', form.id]"
-               class="btn btn-warning float-right"> <b> Open </b> </a>
+               class="btn btn-warning float-right">
+              <i class="icon wb-extension"></i>
+              <b> Open Form Builder</b>
+            </a>
+
+
+
           </div>
         </div>
       </div>
