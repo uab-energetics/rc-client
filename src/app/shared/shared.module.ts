@@ -35,6 +35,7 @@ import {PeopleService} from "./services/people.service";
 import { FindTaskComponent } from './components/forms/find-task/find-task.component';
 import {SkinService} from "./services/skin.service";
 import {ConflictsService} from "./services/conflicts.service";
+import {UserSearchComponent} from "./components/forms/user-search/user-search.component";
 
 @NgModule({
   imports: [
@@ -81,7 +82,8 @@ import {ConflictsService} from "./services/conflicts.service";
     FormFormComponent,
     ProjectFormComponent,
     PublicationFormComponent,
-    FindTaskComponent
+    FindTaskComponent,
+    UserSearchComponent
   ],
   exports: [
     NavbarComponent,
@@ -99,6 +101,7 @@ import {ConflictsService} from "./services/conflicts.service";
     FormFormComponent,
     ProjectFormComponent,
     PublicationFormComponent,
+    UserSearchComponent,
     FindTaskComponent
   ]
 })

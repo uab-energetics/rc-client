@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-xl-4">
+      <!-- Example User -->
+      <div class="example-wrap m-lg-0">
+        <h4 class="example-title">User List</h4>
+        <p>A list of the project's active users</p>
+        <ul class="list-group list-group-full">
+          <li *ngFor="let user of users" class="list-group-item">
+            <div class="media">
+              <div class="pr-20">
+                <a class="avatar" href="javascript:void(0)">
+                  <img class="img-fluid" [src]="user.image" alt="User Avatar">
+                </a>
+              </div>
+              <div class="media-body">
+                <h5 class="mt-0 mb-5">{{user.name}}</h5>
+                <small>{{user.location}}</small>
+              </div>
+              <div class="pl-20">
+                <span class="status status-lg status-online"></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- End Example User -->
+    </div>
+
+    <div class="col-md-6 col-xl-8">
+
+
+      <div class="text-center" *ngIf="loading > 0">
+        <div class="loading-wrapper" style="width: 100px; margin: auto">
+          <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+      </div>
+
+      <div *ngIf="loading === 0">
+        <h4 class="example-title">Invite a Collaborator</h4>
+        <p>Start typing a user's name to search</p>
+
+        <app-user-search #userSearch></app-user-search>
+
+        <p></p>
+        <pre>{{userSearch.model | json}}</pre>
+
+        <button (click)="sendInvite(userSearch.model)" class="btn btn-primary">Send Invite</button>
+      </div>
+    </div>
+
+  </div>
+</div>

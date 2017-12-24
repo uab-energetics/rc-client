@@ -20,6 +20,10 @@ export class NotifyService {
     return prompt(message);
   }
 
+  alert(title, message = '', type = 'success'){
+    this.sweetAlerts.swal(title, message, type);
+  }
+
   confirm(callback, {
       title = 'Are you sure?',
       text = "This action cannot be undone!",

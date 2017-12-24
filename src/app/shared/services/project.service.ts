@@ -7,6 +7,7 @@ import {environment} from "../../../environments/environment";
 import {catchError, share} from "rxjs/operators";
 import {AppPublication} from "../../models/AppPublication";
 import * as _ from "lodash";
+import {AppUser} from "../../models/AppUser";
 
 const api = environment.api;
 
@@ -71,6 +72,17 @@ export class ProjectService {
   getPublications(projectID: number): Observable<AppPublication[]> {
     return this.http.get<AppPublication[]>(`${api}/projects/${projectID}/publications`)
       .pipe(share())
+  }
+
+  inviteCollaborator(projectID: number, userID: number): Observable<void> {
+    return this.http.post<void>(`${api}/projects/${projectID}/invite-researcher`, {
+      user_id: userID
+    }).share();
+  }
+
+  getResearchers(projectID: number): Observable<AppUser[]> {
+    return this.http.get<AppUser[]>(`${api}/projects/${projectID}/researchers`)
+      .share()
   }
 
 }

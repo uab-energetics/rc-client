@@ -55,6 +55,12 @@
         </ng-template>
       </ngb-tab>
       <ngb-tab>
+        <ng-template ngbTabTitle><i class="icon wb-users"></i> Collaborators </ng-template>
+        <ng-template ngbTabContent>
+          <app-collaborators [project]="project"></app-collaborators>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
         <ng-template ngbTabTitle><i class="icon wb-tag"></i> Ongoing Tasks </ng-template>
         <ng-template ngbTabContent>
           <div class="container mt-2">
@@ -63,19 +69,7 @@
         </ng-template>
       </ngb-tab>
       <ngb-tab>
-        <ng-template ngbTabTitle><i class="icon wb-stats-bars"></i> Export Data </ng-template>
-        <ng-template ngbTabContent>
-          TODO
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab>
         <ng-template ngbTabTitle><i class="icon wb-settings"></i> Settings </ng-template>
-        <ng-template ngbTabContent>
-          TODO
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab>
-        <ng-template ngbTabTitle><i class="icon wb-users"></i> Collaborators </ng-template>
         <ng-template ngbTabContent>
           TODO
         </ng-template>

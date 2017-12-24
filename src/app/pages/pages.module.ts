@@ -23,6 +23,7 @@ import {ProjectPublicationsComponent} from "./project/publications/project-publi
 import {TaskListComponent} from "./home/task-list/task-list.component";
 import {ExperimentFormComponent} from "./pub-coder/experiment-form/experiment-form.component";
 import { ConflictsComponent } from './conflicts/conflicts.component';
+import { CollaboratorsComponent } from './project/collaborators/collaborators.component';
 
 const routes: Routes = [
   {
@@ -115,7 +116,8 @@ const routes: Routes = [
     ProjectPublicationsComponent,
     PubCoderComponent,
     ExperimentFormComponent,
-    ConflictsComponent
+    ConflictsComponent,
+    CollaboratorsComponent
   ]
 })
 export class PagesModule {
