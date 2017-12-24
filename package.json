@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "ssh researchcoder.com \"cd /var/research-coder; git pull; npm install; ng build -op='../www/v3/researchcoder.com/'; echo 'done'\""
   },
   "private": true,
   "dependencies": {
