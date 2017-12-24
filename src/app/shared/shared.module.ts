@@ -36,6 +36,7 @@ import { FindTaskComponent } from './components/forms/find-task/find-task.compon
 import {SkinService} from "./services/skin.service";
 import {ConflictsService} from "./services/conflicts.service";
 import {UserSearchComponent} from "./components/forms/user-search/user-search.component";
+import {NotificationsService} from "./services/notifications.service";
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import {UserSearchComponent} from "./components/forms/user-search/user-search.co
     ProjectService,
     NotifyService,
     PublicationsService,
+    NotificationsService,
     PeopleService,
     SkinService,
     ConflictsService

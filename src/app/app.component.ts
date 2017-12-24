@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {SkinService} from "./shared/services/skin.service";
+import {NotificationsService} from "./shared/services/notifications.service";
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,10 @@ import {SkinService} from "./shared/services/skin.service";
 })
 export class AppComponent {
 
-  constructor(private themeService: SkinService) {
+  constructor(
+    private themeService: SkinService,
+    private notifications: NotificationsService
+  ) {
     themeService.loadFromLocalStorage();
   }
 

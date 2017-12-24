@@ -76,7 +76,10 @@ export class ProjectService {
 
   inviteCollaborator(projectID: number, userID: number): Observable<void> {
     return this.http.post<void>(`${api}/projects/${projectID}/invite-researcher`, {
-      user_id: userID
+      user_id: userID,
+      notification_payload: {
+        projectID: projectID
+      }
     }).share();
   }
 

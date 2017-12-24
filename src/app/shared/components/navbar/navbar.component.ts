@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
 import {UserService} from "../../auth/user.service";
 import {AppUser} from "../../../models/AppUser";
+import {NotificationsService} from "../../services/notifications.service";
+import {NotifyService} from "../../services/notify.service";
 
 @Component({
   selector: 'app-navbar',
@@ -11,10 +13,13 @@ import {AppUser} from "../../../models/AppUser";
 export class NavbarComponent implements OnInit {
 
   user: AppUser;
+  unreadNotifications = [];
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private notifications: NotificationsService,
+    private notify: NotifyService
   ) {}
 
 
@@ -24,6 +29,17 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userService.user;
+    this.notifications.getUnread()
+      .subscribe(notifications => this.unreadNotifications = notifications);
+  }
+
+  dismissNotifications(){
+    if(this.unreadNotifications.length === 0) return;
+    this.notifications.markAllRead()
+      .subscribe(() => {
+        this.notify.toast('Notifications dismissed');
+        this.ngOnInit();
+      })
   }
 
 }
