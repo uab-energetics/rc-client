@@ -42,8 +42,7 @@ export class RedeemInviteComponent implements OnInit {
 
         if(!this.userService.isAuthenticated()){
           this.isAuthenticated = false;
-          localStorage.redirectOnAuth = window.location.pathname;
-          localStorage.redirectOnAuthParams = JSON.stringify(this.queryParams);
+          this.authService.setRedirectURL(window.location.pathname, this.queryParams);
         }
 
         this.invitation = res;

@@ -83,4 +83,9 @@ export class AuthService {
     delete localStorage.redirectOnAuthParams;
   }
 
+  setRedirectURL(url, params?){
+    localStorage.redirectOnAuth = url;
+    if(params) localStorage.redirectOnAuthParams = JSON.stringify(params);
+  }
+
 }
