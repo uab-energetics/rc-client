@@ -11,9 +11,10 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptorService} from './shared/auth/auth-interceptor.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AuthGuardService} from "./shared/auth/auth-guard.service";
-import {LoggerService} from "./shared/logger.service";
+import {AuthGuardService} from './shared/auth/auth-guard.service';
+import {LoggerService} from './shared/logger.service';
 import { SweetAlertService } from 'ng2-sweetalert2';
+import { RedeemInviteComponent } from './callbacks/redeem-invite/redeem-invite.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
     path: '',
     canActivate: [AuthGuardService],
     loadChildren: './pages/pages.module#PagesModule'
+  },
+  {
+    path: 'callbacks',
+    loadChildren: './callbacks/callbacks.module#CallbacksModule'
   }
 ];
 

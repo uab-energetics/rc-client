@@ -3,6 +3,7 @@ import {AppProject} from "../../../models/AppProject";
 import {AppUser} from "../../../models/AppUser";
 import {ProjectService} from "../../../shared/services/project.service";
 import {NotifyService} from "../../../shared/services/notify.service";
+import {InvitationsService} from "../../../shared/services/invitations.service";
 
 @Component({
   selector: 'app-collaborators',
@@ -15,11 +16,14 @@ export class CollaboratorsComponent implements OnInit {
 
   users: AppUser[];
 
+  inviteEmail: string = "";
+
   loading = 0;
 
   constructor(
     private projectService: ProjectService,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private invitations: InvitationsService
   ) { }
 
   ngOnInit() {
@@ -29,6 +33,16 @@ export class CollaboratorsComponent implements OnInit {
       .subscribe(users => this.users = users);
   }
 
+  inviteByEmail(email: string){
+    this.loading++;
+    this.invitations.sendEmailInvite(this.project.id, email)
+      .finally(() => this.loading--)
+      .catch(err => {
+        this.notify.alert('Oops', "Invite couldn't be sent", "error");
+        return [];
+      })
+      .subscribe( res => this.notify.alert('Invitation Sent!'))
+  }
 
   sendInvite(user: AppUser){
     console.log(user);

@@ -37,6 +37,7 @@ import {SkinService} from "./services/skin.service";
 import {ConflictsService} from "./services/conflicts.service";
 import {UserSearchComponent} from "./components/forms/user-search/user-search.component";
 import {NotificationsService} from "./services/notifications.service";
+import {InvitationsService} from "./services/invitations.service";
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import {NotificationsService} from "./services/notifications.service";
     NotificationsService,
     PeopleService,
     SkinService,
-    ConflictsService
+    ConflictsService,
+    InvitationsService
   ],
   declarations: [
     NavbarComponent,

@@ -28,9 +28,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login({
       email: this.model.email,
       password: this.model.password
-    }).then(( data ) => {
+    }).subscribe(( data ) => {
       console.log('logged in!', data);
-      this.router.navigate(['/']);
     });
   }
 

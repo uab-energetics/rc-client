@@ -25,20 +25,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
     let formData = this.exportFormData();
     console.log(formData);
     this.authService.register(formData)
-      .then((response) => {
-        //skip and dance
-        this.router.navigate(['/']);
-      })
-      .catch();
+      .subscribe((data) => {
+        console.log("registered and logged in!", data);
+      });
   }
 
   exportFormData(): RegisterRequest {
     let {name, email, password} = this.model;
     return {name, email, password};
-  }
-
-  onInputChange(data){
-    console.log(data);
   }
 
   ngOnInit(): void {

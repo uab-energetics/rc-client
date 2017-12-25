@@ -7,8 +7,13 @@ let environment = {
   api: 'http://api.v3.researchcoder.com',
   disableRouteGuards: true,
   showLog: true,
-  production: false
+  production: false,
+  callbacks: {
+    redeemInvite: window.location.origin + "/callbacks/redeem-invite"
+  }
 };
+
+
 
 if(localStorage.env){
     let custom = JSON.parse(localStorage.env);
