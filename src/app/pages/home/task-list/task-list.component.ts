@@ -12,7 +12,7 @@ import {NotifyService} from "../../../shared/services/notify.service";
 })
 export class TaskListComponent implements OnInit {
 
-  encodings: AppExperimentEncoding[] = [];
+  encodings: AppExperimentEncoding[];
 
   loading = 0;
 
