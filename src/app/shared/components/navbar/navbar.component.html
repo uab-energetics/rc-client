@@ -27,14 +27,14 @@
       <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
         <!-- Navbar Toolbar -->
         <ul class="nav navbar-toolbar">
-          <li class="nav-item hidden-float">
-            <a class="nav-link icon wb-search" data-toggle="collapse" href="#" data-target="#site-navbar-search"
-               role="button">
-              <span class="sr-only">Toggle Search</span>
-            </a>
-          </li>
+          <!--<li class="nav-item hidden-float">-->
+            <!--<a class="nav-link icon wb-search" data-toggle="collapse" href="#" data-target="#site-navbar-search"-->
+               <!--role="button">-->
+              <!--<span class="sr-only">Toggle Search</span>-->
+            <!--</a>-->
+          <!--</li>-->
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="'/home'"> My Encodings </a>
+            <a class="nav-link" [routerLink]="'/tasks'"> My Encodings </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="'/projects'"> My Reviews </a>
@@ -244,8 +244,6 @@
               <span class="icon wb-plus"></span> &nbsp; <i class="icon wb-chevron-down-mini"></i>
             </a>
             <div class="dropdown-menu" role="menu">
-              <a class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                <span class="icon wb-pencil"></span> Find Task</a>
               <a [routerLink]="'/create-project'" class="dropdown-item" role="menuitem">
                 <span class="icon wb-book"></span> New Project</a>
             </div>

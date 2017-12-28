@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HomeComponent} from './home/home.component';
 import {RouterModule, Routes} from '@angular/router';
 import {InsightsComponent} from './insights/insights.component';
 import {ProfileComponent} from './settings/profile/profile.component';
@@ -20,7 +19,7 @@ import {FormsModule} from "@angular/forms";
 import {PagesComponent} from "./page.component";
 import {ProjectFormsComponent} from "./project/forms/project-forms.component";
 import {ProjectPublicationsComponent} from "./project/publications/project-publications.component";
-import {TaskListComponent} from "./home/task-list/task-list.component";
+import {TaskListComponent} from "./task-list/task-list.component";
 import {ExperimentFormComponent} from "./pub-coder/experiment-form/experiment-form.component";
 import { ConflictsComponent } from './conflicts/conflicts.component';
 import { CollaboratorsComponent } from './project/collaborators/collaborators.component';
@@ -32,11 +31,6 @@ const routes: Routes = [
     path: '',
     component: PagesComponent,
     children: [
-      {
-        path: 'home',
-        component: HomeComponent,
-        children: []
-      },
       {
         path: 'settings',
         component: SettingsComponent,
@@ -85,12 +79,16 @@ const routes: Routes = [
         component: DiscussComponent
       },
       {
+        path: "tasks",
+        component: TaskListComponent
+      },
+      {
         path: "welcome",
         component: WelcomeComponent
       },
       {
         path: '',
-        redirectTo: 'welcome'
+        redirectTo: 'projects'
       }
     ]
   }
@@ -111,7 +109,6 @@ const routes: Routes = [
   ],
   declarations: [
     PagesComponent,
-    HomeComponent,
     TaskListComponent,
     InsightsComponent,
     SettingsComponent,

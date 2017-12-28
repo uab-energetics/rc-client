@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AppExperimentEncoding} from "../../../models/AppExperimentEncoding";
+import {AppExperimentEncoding} from "../../models/AppExperimentEncoding";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {EncodingService} from "../../../shared/services/encoding.service";
-import {LoggerService} from "../../../shared/logger.service";
-import {NotifyService} from "../../../shared/services/notify.service";
+import {EncodingService} from "../../shared/services/encoding.service";
+import {LoggerService} from "../../shared/logger.service";
+import {NotifyService} from "../../shared/services/notify.service";
 
 @Component({
   selector: 'app-task-list',
@@ -19,7 +19,6 @@ export class TaskListComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private encodingService: EncodingService,
-    private logger: LoggerService,
     private notify: NotifyService
   ) { }
 
@@ -49,7 +48,6 @@ export class TaskListComponent implements OnInit {
   }
 
   onTaskFormSubmit(task){
-    this.logger.write("Submitting new task request... ", task);
     this.loading++;
     this.encodingService.selfAssign(task.formID, task.publicationID)
       .finally(() => this.loading--)
