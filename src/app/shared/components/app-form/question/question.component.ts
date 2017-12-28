@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AppQuestion} from "../../../../models/AppQuestion";
-import {RESPONSE_FORMATS as fmt} from "../../../../models/formats";
-import {DynamicResponseChange} from '../../response-inputs/dynamic-input.component';
+import {AppResponse} from '../../../../models/AppResponse';
 
 export interface QuestionUpdate {
   key,
@@ -41,8 +40,8 @@ export class QuestionComponent {
     if(!this.responseData) this.responseData = {};
   }
 
-  handleChange($event: DynamicResponseChange){
-    this.emitResponseChange($event.response);
+  handleChange($event: AppResponse){
+    this.emitResponseChange($event);
   }
 
 }

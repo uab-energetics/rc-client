@@ -3,11 +3,6 @@ import {AppQuestion} from '../../../models/AppQuestion';
 import {propName, RESPONSE_FORMATS as fmt} from '../../../models/formats';
 import {AppResponse} from '../../../models/AppResponse';
 
-export interface DynamicResponseChange {
-  type: string;
-  response: AppResponse;
-}
-
 @Component({
   selector: 'app-dynamic-input',
   templateUrl: './dynamic-input.component.html'
@@ -18,7 +13,7 @@ export class DynamicInputComponent implements OnInit {
   @Input() type: string;
   @Input() response: AppResponse;
 
-  @Output() onChange = new EventEmitter<DynamicResponseChange>();
+  @Output() onChange = new EventEmitter<AppResponse>();
 
   data;
 
@@ -27,15 +22,12 @@ export class DynamicInputComponent implements OnInit {
   handleChange(data){
     let prop = propName(this.type);
 
-    this.onChange.emit({
-      type: this.type,
-      response: Object.assign(
-        {},
-        this.response,
-        { [prop]: data },
-        { type: this.type }
-        )
-    });
+    this.onChange.emit(Object.assign(
+      {},
+      this.response,
+      { [prop]: data },
+      { type: this.type }
+    ));
   }
 
   ngOnInit(){
