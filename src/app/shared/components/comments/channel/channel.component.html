@@ -1,18 +1,25 @@
-<div>
+<div *ngIf="channel">
+
   <h2>{{channel.display_name}}</h2>
-  <small>{{channel.name}}</small>
+  <small>#{{channel.name}}</small>
   <p>{{channel.topic}}</p>
 
 
 
 
 
-
   <app-comments
+    [root]="true"
+    [userID]="user.id"
+    (onReply)="onReply($event)"
+    (onEdit)="onEdit($event)"
+    (onDelete)="onDelete($event)"
     [comment]="channel.root_comment">
   </app-comments>
 
 
+
+  <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
 
 
 

@@ -24,6 +24,7 @@ import {TaskListComponent} from "./home/task-list/task-list.component";
 import {ExperimentFormComponent} from "./pub-coder/experiment-form/experiment-form.component";
 import { ConflictsComponent } from './conflicts/conflicts.component';
 import { CollaboratorsComponent } from './project/collaborators/collaborators.component';
+import { DiscussComponent } from './discuss/discuss.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,10 @@ const routes: Routes = [
         component: ConflictsComponent
       },
       {
+        path: "discuss",
+        component: DiscussComponent
+      },
+      {
         path: '',
         redirectTo: 'home'
       }
@@ -117,7 +122,8 @@ const routes: Routes = [
     PubCoderComponent,
     ExperimentFormComponent,
     ConflictsComponent,
-    CollaboratorsComponent
+    CollaboratorsComponent,
+    DiscussComponent
   ]
 })
 export class PagesModule {

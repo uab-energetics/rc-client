@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {AppComment} from "../../models/AppComment";
 import {AppChannel} from "../../models/AppChannel";
+import {of} from 'rxjs/observable/of';
 
 const api = environment.api;
 
@@ -14,8 +15,12 @@ export class CommentsService {
     private http: HttpClient
   ) { }
 
-  commentInChannel(channel_name: string, message: string): Observable<AppComment> {
-    return this.http.post<AppComment>(`${api}/channels/${channel_name}/comments`, {
+  createChannel(channel: AppChannel): Observable<AppChannel> {
+    return this.http.post<AppChannel>(`${api}/channels`, channel);
+  }
+
+  commentInChannel(channel_id: number, message: string): Observable<AppComment> {
+    return this.http.post<AppComment>(`${api}/channels/${channel_id}/comments`, {
       message
     })
   }

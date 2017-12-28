@@ -1,4 +1,4 @@
-<div class="comment media">
+<div class="comment media" *ngIf="!root">
   <div class="pr-20">
     <a class="avatar avatar-lg" href="javascript:void(0)">
       <img [src]="comment.user.image" alt="...">
@@ -16,16 +16,53 @@
 
 
     <div class="comment-body">
+
+      <div *ngIf="comment.children.length > 0" class="float-right">
+        <a (click)="toggleExpanded()" href="javascript:void(0)">
+
+          <span *ngIf="!expanded"><i class="icon wb-plus"></i></span>
+          <span *ngIf="expanded"><i class="icon wb-minus"></i></span>
+        </a> &nbsp;
+        <span class="badge badge-round badge-dark">{{comment.children.length}}</span>
+      </div>
+
+
       <a class="comment-author" href="javascript:void(0)">{{comment.user.name}}</a>
       <div class="comment-meta">
         <span class="date">{{comment.created_at}}</span>
       </div>
       <div class="comment-content">
-        <p>{{comment.message}}</p>
+
+
+        <div *ngIf="!comment.deleted">
+          <p [hidden]="showEditBox">{{comment.message}}</p>
+          <div *ngIf="showEditBox">
+            <form (ngSubmit)="editComment(comment.message)">
+              <div class="form-group">
+              <textarea
+                [(ngModel)]="comment.message"
+                name="comment-message"
+                required
+                class="form-control" rows="3" placeholder="Comment here"></textarea>
+              </div>
+              <button class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="comment.deleted">
+          <p style="color: red"><em>Comment was deleted.</em></p>
+        </div>
+
+
+
       </div>
       <div class="comment-actions">
-        <!--<a class="text-like active icon wb-heart" href="javascript:void(0)" role="button"></a>-->
-        <a (click)="toggleReplyBox()" href="javascript:void(0)" role="button">Reply</a>
+        <div *ngIf="!comment.deleted" style="min-height: 10px">
+          <!--<a class="text-like active icon wb-heart" href="javascript:void(0)" role="button"></a>-->
+          <a (click)="toggleReplyBox()" href="javascript:void(0)" role="button">Reply</a>
+          <a *ngIf="userID === comment.user.id" (click)="toggleEditBox()" href="javascript:void(0)" role="button">Edit</a>
+          <a *ngIf="userID === comment.user.id" (click)="deleteComment()" href="javascript:void(0)" role="button">Delete</a>
+        </div>
       </div>
 
 
@@ -36,7 +73,10 @@
       ===================== -->
       <form *ngIf="showReplyBox" (ngSubmit)="onReplySubmit()" class="comment-reply">
         <div class="form-group">
-          <textarea class="form-control" rows="5" placeholder="Comment here"></textarea>
+          <textarea
+            [formControl]="replyInput"
+            required
+            class="form-control" rows="5" placeholder="Comment here"></textarea>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-primary">Reply</button>
@@ -50,13 +90,32 @@
 
 
     </div>
-    <div class="comments">
+    <div class="comments" [hidden]="!expanded">
 
       <app-comments
+        [userID]="userID"
         *ngFor="let child of comment.children"
+        (onReply)="onReply.emit($event)"
+        (onEdit)="onEdit.emit($event)"
+        (onDelete)="onDelete.emit($event)"
         [comment]="child">
       </app-comments>
 
     </div>
+  </div>
+</div>
+
+<div *ngIf="root">
+  <app-comments
+    [userID]="userID"
+    *ngFor="let child of comment.children"
+    (onReply)="onReply.emit($event)"
+    (onEdit)="onEdit.emit($event)"
+    (onDelete)="onDelete.emit($event)"
+    [comment]="child">
+  </app-comments>
+
+  <div *ngIf="comment.children.length === 0" class="text-center">
+    <p>No Comments Yet</p>
   </div>
 </div>
