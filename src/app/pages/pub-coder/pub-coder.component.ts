@@ -10,6 +10,7 @@ import {NotifyService} from "../../shared/services/notify.service";
 import {AppBranch} from "../../models/AppBranch";
 import {AppPublication} from '../../models/AppPublication';
 import {PublicationsService} from '../../shared/services/publications.service';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pub-coder',
@@ -23,13 +24,15 @@ export class PubCoderComponent implements OnInit {
   encoding: AppExperimentEncoding;
 
   loading = 0;
+  embeddingURL;
 
   constructor(
     private formService: FormService,
     private encodingService: EncodingService,
     private publicationService: PublicationsService,
     private route: ActivatedRoute,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private sanitizer: DomSanitizer
   ) { }
 
   /**
@@ -49,7 +52,10 @@ export class PubCoderComponent implements OnInit {
 
           this.publicationService.getPublication(encoding.publication_id)
             .finally(() => this.loading--)
-            .subscribe( pub => this.publication = pub );
+            .subscribe( pub => {
+              this.publication = pub;
+              this.embeddingURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.publication.embedding_url);
+            } );
         })
   }
 
@@ -90,5 +96,4 @@ export class PubCoderComponent implements OnInit {
   onChange(){
     this.changes = true;
   }
-
 }

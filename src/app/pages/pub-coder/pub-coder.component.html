@@ -1,47 +1,36 @@
 <div class="page">
   <div class="page-content">
 
-    <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
-
-    <div class="row" *ngIf="encoding && form">
-
-      <div class="col-12 mb-30">
-        <button
-          [disabled]="!changes"
-          (click)="handleSaveResponses(experimentForm.exportChangedResponses())"
-          class="btn btn-animate btn-animate-side btn-success">
-          <span><i class="icon wb-download" aria-hidden="true"></i> Save Changes </span>
-        </button>
-        <p [hidden]="changes">No changes since last save</p>
-      </div>
+    <div class="row">
 
       <div class="col-lg-6">
 
-        <!--<p><ngb-progressbar
-          class="active"
-          type="success"
-          [striped]="true" [animated]="true"
-          [value]="completion">
-          {{completion}}%
-        </ngb-progressbar></p>-->
+        <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
 
-        <app-experiment-form
-          #experimentForm
-          (onCreateBranch)="handleCreateBranch($event)"
-          (onDeleteBranch)="handleDeleteBranch($event)"
-          (onChange)="onChange()"
-          [encoding]="encoding"
-          [appForm]="form">
-        </app-experiment-form>
-        <!--<div class="panel">
-          <div class="panel-body">
-
+        <div *ngIf="loading === 0">
+          <div class="mb-20">
+            <button
+              [disabled]="!changes"
+              (click)="handleSaveResponses(experimentForm.exportChangedResponses())"
+              class="btn btn-animate btn-animate-side btn-success btn-raised">
+              <span><i class="icon wb-download" aria-hidden="true"></i> Save Changes </span>
+            </button>
+            <p [hidden]="changes">No changes since last save</p>
           </div>
-        </div>-->
+
+          <app-experiment-form
+            #experimentForm
+            (onCreateBranch)="handleCreateBranch($event)"
+            (onDeleteBranch)="handleDeleteBranch($event)"
+            (onChange)="onChange()"
+            [encoding]="encoding"
+            [appForm]="form">
+          </app-experiment-form>
+        </div>
 
       </div>
       <div class="col-lg-6">
-
+        <iframe *ngIf="embeddingURL" [src]="embeddingURL" style="width: 100%; height: 700px;"></iframe>
       </div>
     </div>
   </div>
