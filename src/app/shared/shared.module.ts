@@ -38,6 +38,9 @@ import {ConflictsService} from "./services/conflicts.service";
 import {UserSearchComponent} from "./components/forms/user-search/user-search.component";
 import {NotificationsService} from "./services/notifications.service";
 import {InvitationsService} from "./services/invitations.service";
+import { CommentsComponent } from './components/comments/comments.component';
+import { ChannelComponent } from './components/comments/channel/channel.component';
+import {CommentsService} from "./services/comments.service";
 
 @NgModule({
   imports: [
@@ -68,7 +71,8 @@ import {InvitationsService} from "./services/invitations.service";
     PeopleService,
     SkinService,
     ConflictsService,
-    InvitationsService
+    InvitationsService,
+    CommentsService
   ],
   declarations: [
     NavbarComponent,
@@ -87,7 +91,9 @@ import {InvitationsService} from "./services/invitations.service";
     ProjectFormComponent,
     PublicationFormComponent,
     FindTaskComponent,
-    UserSearchComponent
+    UserSearchComponent,
+    CommentsComponent,
+    ChannelComponent
   ],
   exports: [
     NavbarComponent,
@@ -106,6 +112,8 @@ import {InvitationsService} from "./services/invitations.service";
     ProjectFormComponent,
     PublicationFormComponent,
     UserSearchComponent,
+    CommentsComponent,
+    ChannelComponent,
     FindTaskComponent
   ]
 })

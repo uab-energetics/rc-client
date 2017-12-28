@@ -1,0 +1,62 @@
+<div class="comment media">
+  <div class="pr-20">
+    <a class="avatar avatar-lg" href="javascript:void(0)">
+      <img [src]="comment.user.image" alt="...">
+    </a>
+  </div>
+  <div class="media-body">
+
+
+
+
+
+
+
+
+
+
+    <div class="comment-body">
+      <a class="comment-author" href="javascript:void(0)">{{comment.user.name}}</a>
+      <div class="comment-meta">
+        <span class="date">{{comment.created_at}}</span>
+      </div>
+      <div class="comment-content">
+        <p>{{comment.message}}</p>
+      </div>
+      <div class="comment-actions">
+        <!--<a class="text-like active icon wb-heart" href="javascript:void(0)" role="button"></a>-->
+        <a (click)="toggleReplyBox()" href="javascript:void(0)" role="button">Reply</a>
+      </div>
+
+
+
+
+
+      <!-- REPLY
+      ===================== -->
+      <form *ngIf="showReplyBox" (ngSubmit)="onReplySubmit()" class="comment-reply">
+        <div class="form-group">
+          <textarea class="form-control" rows="5" placeholder="Comment here"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Reply</button>
+          <button (click)="toggleReplyBox()" type="button" class="btn btn-link blue-grey-500">Close</button>
+        </div>
+      </form>
+
+
+
+
+
+
+    </div>
+    <div class="comments">
+
+      <app-comments
+        *ngFor="let child of comment.children"
+        [comment]="child">
+      </app-comments>
+
+    </div>
+  </div>
+</div>

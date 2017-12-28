@@ -4,5 +4,5 @@ export interface AppUser {
   name: string;
   email: string;
   image: string;
-  location: string;
+  location?: string;
 }
