@@ -1,0 +1,33 @@
+<div [ngSwitch]="type">
+  <app-text
+    *ngSwitchCase="fmt.TEXT"
+    [value]="data"
+    (appChange)="handleChange($event)"></app-text>
+
+  <app-number
+    *ngSwitchCase="fmt.NUMBER"
+    [value]="data"
+    (appChange)="handleChange($event)"></app-number>
+
+  <app-bool
+    *ngSwitchCase="fmt.BOOLEAN"
+    [value]="data"
+    (appChange)="handleChange($event)"
+    [trueOption]="question.true_option"
+    [falseOption]="question.false_option">
+  </app-bool>
+
+  <app-select
+    *ngSwitchCase="fmt.SELECT"
+    [value]="data"
+    (appChange)="handleChange($event)"
+    [options]="question.options">
+  </app-select>
+
+  <app-multi-select
+    *ngSwitchCase="fmt.MULTI_SELECT"
+    [selections]="data"
+    (appChange)="handleChange($event)"
+    [options]="question.options">
+  </app-multi-select>
+</div>

@@ -8,6 +8,8 @@ import * as _ from "lodash";
 import {forkJoin} from "rxjs/observable/forkJoin";
 import {NotifyService} from "../../shared/services/notify.service";
 import {AppBranch} from "../../models/AppBranch";
+import {AppPublication} from '../../models/AppPublication';
+import {PublicationsService} from '../../shared/services/publications.service';
 
 @Component({
   selector: 'app-pub-coder',
@@ -17,6 +19,7 @@ import {AppBranch} from "../../models/AppBranch";
 export class PubCoderComponent implements OnInit {
 
   form: AppForm;
+  publication: AppPublication;
   encoding: AppExperimentEncoding;
 
   loading = 0;
@@ -24,6 +27,7 @@ export class PubCoderComponent implements OnInit {
   constructor(
     private formService: FormService,
     private encodingService: EncodingService,
+    private publicationService: PublicationsService,
     private route: ActivatedRoute,
     private notify: NotifyService
   ) { }
@@ -38,10 +42,14 @@ export class PubCoderComponent implements OnInit {
       .finally(() => this.loading--)
       .subscribe((encoding: AppExperimentEncoding) => {
           this.encoding = encoding;
-          this.loading++;
+          this.loading += 2;
           this.formService.getForm(encoding.form_id)
             .finally(() => this.loading--)
-            .subscribe( form => this.form = form)
+            .subscribe( form => this.form = form);
+
+          this.publicationService.getPublication(encoding.publication_id)
+            .finally(() => this.loading--)
+            .subscribe( pub => this.publication = pub );
         })
   }
 

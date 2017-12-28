@@ -19,28 +19,29 @@ import {QuestionBuilderComponent} from './components/question-builder/question-b
 import {ChipListComponent} from './components/chip-list/chip-list.component';
 import {QuestionComponent} from './components/app-form/question/question.component';
 import {CategoryComponent} from './components/app-form/category/category.component';
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {CategoryBuilderComponent} from './components/category-builder/category-builder.component';
-import {FormService} from "./services/form.service";
+import {FormService} from './services/form.service';
 import {BranchComponent} from './components/app-form/branch/branch.component';
-import {EncodingService} from "./services/encoding.service";
+import {EncodingService} from './services/encoding.service';
 import {FormFormComponent} from './components/forms/form-form/form-form.component';
-import {ProjectService} from "./services/project.service";
+import {ProjectService} from './services/project.service';
 import {ProjectFormComponent} from './components/forms/project-form/project-form.component';
-import {AuthGuardService} from "./auth/auth-guard.service";
+import {AuthGuardService} from './auth/auth-guard.service';
 import {PublicationFormComponent} from './components/forms/publication-form/publication-form.component';
-import {NotifyService} from "./services/notify.service";
-import {PublicationsService} from "./services/publications.service";
-import {PeopleService} from "./services/people.service";
+import {NotifyService} from './services/notify.service';
+import {PublicationsService} from './services/publications.service';
+import {PeopleService} from './services/people.service';
 import { FindTaskComponent } from './components/forms/find-task/find-task.component';
-import {SkinService} from "./services/skin.service";
-import {ConflictsService} from "./services/conflicts.service";
-import {UserSearchComponent} from "./components/forms/user-search/user-search.component";
-import {NotificationsService} from "./services/notifications.service";
-import {InvitationsService} from "./services/invitations.service";
+import {SkinService} from './services/skin.service';
+import {ConflictsService} from './services/conflicts.service';
+import {UserSearchComponent} from './components/forms/user-search/user-search.component';
+import {NotificationsService} from './services/notifications.service';
+import {InvitationsService} from './services/invitations.service';
 import { CommentsComponent } from './components/comments/comments.component';
 import { ChannelComponent } from './components/comments/channel/channel.component';
-import {CommentsService} from "./services/comments.service";
+import {CommentsService} from './services/comments.service';
+import {DynamicInputComponent} from './components/response-inputs/dynamic-input.component';
 
 @NgModule({
   imports: [
@@ -93,7 +94,8 @@ import {CommentsService} from "./services/comments.service";
     FindTaskComponent,
     UserSearchComponent,
     CommentsComponent,
-    ChannelComponent
+    ChannelComponent,
+    DynamicInputComponent
   ],
   exports: [
     NavbarComponent,
@@ -114,7 +116,8 @@ import {CommentsService} from "./services/comments.service";
     UserSearchComponent,
     CommentsComponent,
     ChannelComponent,
-    FindTaskComponent
+    FindTaskComponent,
+    DynamicInputComponent
   ]
 })
 export class SharedModule {

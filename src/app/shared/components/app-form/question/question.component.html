@@ -3,39 +3,14 @@
   <p class="card-text">{{question.prompt}}</p>
   <div class="app-question-outlet">
 
-    <div [ngSwitch]="question.default_format">
-      <app-text
-        *ngSwitchCase="'txt'"
-        [value]="getText()"
-        (appChange)="textChanged($event)"></app-text>
 
-      <app-number
-        *ngSwitchCase="'num'"
-        [value]="getNum()"
-        (appChange)="numberChanged($event)"></app-number>
+    <app-dynamic-input
+      [question]="question"
+      [response]="responseData"
+      [type]="question.default_format"
+      (onChange)="handleChange($event)">
+    </app-dynamic-input>
 
-      <app-bool
-        *ngSwitchCase="'boo'"
-        [value]="getBoo()"
-        (appChange)="boolChanged($event)"
-        [trueOption]="question.true_option"
-        [falseOption]="question.false_option">
-      </app-bool>
-
-      <app-select
-        *ngSwitchCase="'sel'"
-        [value]="getSel()"
-        (appChange)="selectChanged($event)"
-        [options]="question.options">
-      </app-select>
-
-      <app-multi-select
-        *ngSwitchCase="'multi-sel'"
-        [selections]="getMultiSelect()"
-        (appChange)="multiSelectChanged($event)"
-        [options]="question.options">
-      </app-multi-select>
-    </div>
 
   </div>
 </div>

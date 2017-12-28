@@ -14,6 +14,11 @@ export class PublicationsService {
     private http: HttpClient
   ){}
 
+  getPublication(id: number): Observable<AppPublication> {
+    return this.http.get<AppPublication>(`${api}/publications/${id}`)
+      .share();
+  }
+
   deletePublication(id: number){
     return this.http.delete(`${api}/publications/${id}`)
       .share()
