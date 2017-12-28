@@ -25,6 +25,7 @@ import {ExperimentFormComponent} from "./pub-coder/experiment-form/experiment-fo
 import { ConflictsComponent } from './conflicts/conflicts.component';
 import { CollaboratorsComponent } from './project/collaborators/collaborators.component';
 import { DiscussComponent } from './discuss/discuss.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
   {
@@ -84,8 +85,12 @@ const routes: Routes = [
         component: DiscussComponent
       },
       {
+        path: "welcome",
+        component: WelcomeComponent
+      },
+      {
         path: '',
-        redirectTo: 'home'
+        redirectTo: 'welcome'
       }
     ]
   }
@@ -123,7 +128,8 @@ const routes: Routes = [
     ExperimentFormComponent,
     ConflictsComponent,
     CollaboratorsComponent,
-    DiscussComponent
+    DiscussComponent,
+    WelcomeComponent
   ]
 })
 export class PagesModule {

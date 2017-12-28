@@ -1,55 +1,71 @@
 <div class="page">
-  <div class="page-header">
-    <h1 class="page-title">Ongoing Projects</h1>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
-      <li class="breadcrumb-item active"> Projects </li>
-    </ol>
-    <div class="page-header-actions">
-      <a [routerLink]="'/create-project'" class="btn btn-sm btn-icon btn-inverse btn-round" [placement]="'left'" ngbTooltip="New Project">
-        <i class="icon wb-plus"></i>
-      </a>
-      <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" [placement]="'left'" ngbTooltip="Invite Users">
-        <i class="icon wb-user-add"></i>
-      </button>
+  <div class="container">
+
+
+    <div class="page-header">
+      <h1 class="page-title">Ongoing Projects</h1>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
+        <li class="breadcrumb-item active"> Projects</li>
+      </ol>
+      <div class="page-header-actions">
+        <a [routerLink]="'/create-project'" class="btn btn-sm btn-icon btn-inverse btn-round" [placement]="'left'"
+           ngbTooltip="New Project">
+          <i class="icon wb-plus"></i>
+        </a>
+        <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" [placement]="'left'"
+                ngbTooltip="Invite Users">
+          <i class="icon wb-user-add"></i>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <!-- Page Content -->
-  <div class="page-content container-fluid">
-    <div class="row">
-      <mat-progress-bar mode="indeterminate" *ngIf="showLoader" style="margin-bottom: 20px"></mat-progress-bar>
 
-      <div *ngFor="let pj of projects" class="col-lg-4">
-        <div class="panel">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <i class="icon wb-book"></i>
-              <a [routerLink]="['/projects', pj.id]">{{pj.name}}</a></h3>
-            <div class="panel-actions panel-actions-keep">
-              <div class="dropdown">
-                <a class="panel-action" id="examplePanelDropdown" data-toggle="dropdown" href="#"
-                   role="button"><i class="icon wb-more-vertical"></i></a>
-                <div class="dropdown-menu dropdown-menu-bullet dropdown-menu-right" aria-labelledby="examplePanelDropdown"
-                     role="menu">
-                  <a class="dropdown-item" (click)="deleteProject(pj.id)" href="javascript:void(0)" role="menuitem">
-                    <i class="icon wb-trash" aria-hidden="true"></i> Delete</a>
-                  <div class="dropdown-divider"></div>
-                  <a (click)="editProject(pj, modal)" class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                    <i class="icon wb-settings" aria-hidden="true"></i> Edit</a>
+    <div class="page-content container-fluid">
+      <button
+        type="button"
+        routerLink="/create-project"
+        class="btn btn-raised btn-primary">
+        <i class="icon wb-pencil"></i>
+        Create New Review
+      </button>
+
+      <div class="row mt-30">
+        <mat-progress-bar mode="indeterminate" *ngIf="showLoader" style="margin-bottom: 20px"></mat-progress-bar>
+
+
+        <div *ngFor="let pj of projects" class="col-lg-4">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <i class="icon wb-book"></i>
+                <a [routerLink]="['/projects', pj.id]">{{pj.name}}</a></h3>
+              <div class="panel-actions panel-actions-keep">
+                <div class="dropdown">
+                  <a class="panel-action" id="examplePanelDropdown" data-toggle="dropdown" href="#"
+                     role="button"><i class="icon wb-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-bullet dropdown-menu-right"
+                       aria-labelledby="examplePanelDropdown"
+                       role="menu">
+                    <a class="dropdown-item" (click)="deleteProject(pj.id)" href="javascript:void(0)" role="menuitem">
+                      <i class="icon wb-trash" aria-hidden="true"></i> Delete</a>
+                    <div class="dropdown-divider"></div>
+                    <a (click)="editProject(pj, modal)" class="dropdown-item" href="javascript:void(0)" role="menuitem">
+                      <i class="icon wb-settings" aria-hidden="true"></i> Edit</a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="panel-body">
-            <p>{{pj.description}}</p>
+            <div class="panel-body">
+              <p>{{pj.description}}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+
   </div>
-
-
 
 
   <!-- EDIT PROJECT MODAL
