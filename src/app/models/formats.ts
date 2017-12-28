@@ -3,7 +3,8 @@ export const RESPONSE_FORMATS = {
   NUMBER: 'num',
   BOOLEAN: 'boo',
   MULTI_SELECT: 'multi-sel',
-  SELECT: 'sel'
+  SELECT: 'sel',
+  NOT_REPORTED: 'not-reported'
 };
 
 export function propName( type: string ){

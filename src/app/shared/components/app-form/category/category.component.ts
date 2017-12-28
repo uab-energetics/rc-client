@@ -38,7 +38,7 @@ export class CategoryComponent implements OnInit {
   }
 
   getQuestionData(question_key){
-    return this.formData[question_key] || {};
+    return this.formData[question_key] || null;
   }
 
 

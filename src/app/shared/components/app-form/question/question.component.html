@@ -1,16 +1,43 @@
-<div class="app-question">
-  <h4 class="card-title">{{question.name}}</h4>
-  <p class="card-text">{{question.prompt}}</p>
-  <div class="app-question-outlet">
 
+<div class="panel app-question">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{question.name}}</h3>
+    <div class="panel-actions">
+      <div class="dropdown">
+        <a class="panel-action" ngbTooltip="Set response type" data-toggle="dropdown">
+          <i class="icon wb-tag" aria-hidden="true"></i></a>
+        <div class="dropdown-menu dropdown-menu-bullet" role="menu">
+          <div class="text-center">
+            <label>Response Type:</label>
+          </div>
+          <a (click)="setType(fmt.TEXT)"
+             class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-text" aria-hidden="true"></i> Text</a>
+          <a (click)="setType(fmt.NUMBER)"
+             class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-medium-point" aria-hidden="true"></i> Number </a>
+          <a (click)="setType(fmt.BOOLEAN)"
+             class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-check" aria-hidden="true"></i> Binary</a>
+          <a (click)="setType(fmt.SELECT)"
+             class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-list-numbered" aria-hidden="true"></i> Select</a>
+          <a (click)="setType(fmt.MULTI_SELECT)"
+             class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-list-numbered" aria-hidden="true"></i> Multi-Select</a>
+        </div>
+      </div>
+      <a (click)="toggleNotReported()"
+        class="panel-action icon wb-alert-circle" ngbTooltip="Not Reported"></a>
+    </div>
+  </div>
+  <div class="panel-body">
+    <p>{{question.prompt}}</p>
 
-    <app-dynamic-input
+    <app-dynamic-input *ngIf="responseData.type !== fmt.NOT_REPORTED"
       [question]="question"
       [response]="responseData"
-      [type]="question.default_format"
+      [type]="responseData.type"
       (onChange)="handleChange($event)">
     </app-dynamic-input>
 
+    <h5 *ngIf="responseData.type === fmt.NOT_REPORTED"
+        style="color: red"><em>Not Reported</em></h5>
 
   </div>
 </div>

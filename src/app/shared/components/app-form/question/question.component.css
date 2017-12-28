@@ -1,0 +1,12 @@
+.app-question h3 {
+  padding: 0;
+}
+
+.app-question div {
+  padding: 0;
+  padding-top: 10px;
+}
+
+.app-question .panel-actions {
+  right: 0;
+}
