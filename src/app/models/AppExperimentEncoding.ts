@@ -9,4 +9,5 @@ export interface AppExperimentEncoding {
   publication_id: number;
   owner?: AppUser;
   experiment_branches?: AppBranch[];
+  channel_name : string;
 }

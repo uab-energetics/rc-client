@@ -67,6 +67,7 @@ export class ConflictsComponent implements OnInit {
 
   loading = 0;
   ready = false;
+  channel_name = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -109,6 +110,7 @@ export class ConflictsComponent implements OnInit {
       myEncoding.experiment_branches.map( branch =>
         hashBranch(branch)) as any;
     this.myEncoding = myEncoding;
+    this.channel_name = myEncoding.channel_name;
 
     /* hash other encodings for instant lookup */
     otherEncodings.forEach( otherEncoding => {

@@ -111,6 +111,11 @@
             Commit Changes
           </button>
 
+          <app-channel
+            *ngIf="channel_name"
+            [channelName]="channel_name">
+          </app-channel>
+
 
         </div>
       </div>
