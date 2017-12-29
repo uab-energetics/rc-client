@@ -10,13 +10,7 @@ import {CommentsService} from "../../shared/services/comments.service";
 })
 export class DiscussComponent implements OnInit {
 
-  constructor(
-    private commentService: CommentsService
-  ) { }
-
   ngOnInit() {
   }
-
-
 
 }
