@@ -46,10 +46,10 @@ export class FormLayoutTreeComponent {
     let tgtID = $event.to.parent.id;
     switch ($event.node.type){
       case "file":
-        this.formAction.emit(moveQuestion(decodeID(nodeID), tgtID));
+        this.formAction.emit(moveQuestion(decodeID(nodeID), decodeID(tgtID)));
         break;
       case "folder":
-        this.formAction.emit(moveCategory(decodeID(nodeID), tgtID));
+        this.formAction.emit(moveCategory(decodeID(nodeID), decodeID(tgtID)));
         break;
     }
   }

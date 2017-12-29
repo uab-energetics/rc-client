@@ -39,24 +39,28 @@ export class PubCoderComponent implements OnInit {
    * Load the encoding from url, and its form
    */
   ngOnInit() {
-    let encoding_id = +this.route.snapshot.paramMap.get('id');
-    this.loading++;
-    this.encodingService.getEncoding(encoding_id)
-      .finally(() => this.loading--)
-      .subscribe((encoding: AppExperimentEncoding) => {
-          this.encoding = encoding;
-          this.loading += 2;
-          this.formService.getForm(encoding.form_id)
-            .finally(() => this.loading--)
-            .subscribe( form => this.form = form);
+    this.loadEncoding().subscribe((encoding: AppExperimentEncoding) => {
+      this.loading += 2;
+      this.formService.getForm(encoding.form_id)
+        .finally(() => this.loading--)
+        .subscribe( form => this.form = form);
 
-          this.publicationService.getPublication(encoding.publication_id)
-            .finally(() => this.loading--)
-            .subscribe( pub => {
-              this.publication = pub;
-              this.embeddingURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.publication.embedding_url);
-            } );
-        })
+      this.publicationService.getPublication(encoding.publication_id)
+        .finally(() => this.loading--)
+        .subscribe( pub => {
+          this.publication = pub;
+          this.embeddingURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.publication.embedding_url);
+        } );
+    })
+  }
+
+  loadEncoding(){
+    let encoding_id = +this.route.snapshot.paramMap.get('id');
+    let src = this.encodingService.getEncoding(encoding_id)
+      .do(() => this.loading++ )
+      .finally(() => this.loading--);
+    src.subscribe( encoding => this.encoding = encoding );
+    return src;
   }
 
   handleDeleteBranch(id: number){
@@ -89,6 +93,7 @@ export class PubCoderComponent implements OnInit {
       .subscribe(() => {
         this.notify.toast('Data Saved!');
         this.changes = false;
+        this.loadEncoding();
       })
   }
 

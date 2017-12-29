@@ -166,7 +166,7 @@ export class ConflictsComponent implements OnInit {
     let branch_id = this.myEncoding.experiment_branches[0].id; // because conflicts only work with the first branch right now.
     let sources = [];
     for(let [key, val] of Object.entries(this.changes)){
-      // no need to set question id here - we are not creating responses
+      val['question_id'] = key;
       let src = this.encodingService.recordResponse(this.myEncoding.id, branch_id, val);
       sources.push(src);
     }
