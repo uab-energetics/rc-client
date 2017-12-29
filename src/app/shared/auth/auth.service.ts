@@ -66,7 +66,7 @@ export class AuthService {
 
       this.userService.setSession(jwt, user);
 
-      let url = (localStorage.redirectOnAuth || "/home");
+      let url = (localStorage.redirectOnAuth || "/");
       let params = {};
       if(localStorage.redirectOnAuthParams)
         params = JSON.parse(localStorage.redirectOnAuthParams);
