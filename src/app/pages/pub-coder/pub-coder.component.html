@@ -7,7 +7,7 @@
 
         <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
 
-        <div *ngIf="loading === 0">
+        <div *ngIf="encoding && form && publication">
           <div class="mb-20">
             <button
               [disabled]="!changes"
