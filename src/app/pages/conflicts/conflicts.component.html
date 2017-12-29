@@ -1,23 +1,21 @@
 
-<div class="page">
-  <div class="container">
-    <div class="page-header">
-      <h1 class="page-title mb-25">Showing Conflicts Report</h1>
-      <p class="page-description"><b>{{form?.name}}</b></p>
+<mat-drawer-container class="page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title mb-25">Showing Conflicts Report</h1>
+        <p class="page-description"><b>{{form?.name}}</b></p>
 
-      <div class="page-header-actions">
-        <div class="row no-space hidden-sm-down">
-          <div class="col-sm-4">
-            <div class="counter">
-              <span class="counter-number font-weight-medium">{{otherUsers.length+1}}</span>
-              <div class="counter-label">Collaborators</div>
+        <div class="page-header-actions">
+          <div class="row no-space hidden-sm-down">
+            <div class="col-sm-4">
+              <div class="counter">
+                <span class="counter-number font-weight-medium">{{otherUsers.length+1}}</span>
+                <div class="counter-label">Collaborators</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="container">
 
       <div class="row">
         <div class="col-12">
@@ -59,49 +57,49 @@
             <!-- TABLE BODY
             ========================= -->
             <tbody>
-              <tr *ngFor="let question of questions">
+            <tr *ngFor="let question of questions">
 
 
-                <!-- QUESTION POP-OUT -->
-                <ng-template #questionPopover>
-                  <app-question
-                    [key]="question.id"
-                    [question]="question"
-                    [responseData]="lookupResponse(myEncoding, question)"
-                    (questionUpdate)="handleResponseChange($event)">
-                  </app-question>
-                </ng-template>
+              <!-- QUESTION POP-OUT -->
+              <ng-template #questionPopover>
+                <app-question
+                  [key]="question.id"
+                  [question]="question"
+                  [responseData]="lookupResponse(myEncoding, question)"
+                  (questionUpdate)="handleResponseChange($event)">
+                </app-question>
+              </ng-template>
 
-                <!-- QUESTION COLUMN -->
-                <th>
-                  <button class="btn btn-sm btn-primary p-3"
-                          [ngbPopover]="questionPopover"
-                          placement="right"
-                          popoverTitle="{{question.name}}">
-                    <i class="icon fa-question"></i>
-                  </button>
-                  &nbsp;
-                  {{question.name}}
-                </th>
-
-
-                <!-- MY RESPONSE -->
-                <td class="my-response">{{renderResponse(myEncoding, question)}}</td>
+              <!-- QUESTION COLUMN -->
+              <th>
+                <button class="btn btn-sm btn-primary p-3"
+                        [ngbPopover]="questionPopover"
+                        placement="right"
+                        popoverTitle="{{question.name}}">
+                  <i class="icon fa-question"></i>
+                </button>
+                &nbsp;
+                {{question.name}}
+              </th>
 
 
-                <!-- OTHER REPSONDERS
-                ============================ -->
-                <td *ngFor="let other of otherEncodings"
-                    [ngClass]="{
+              <!-- MY RESPONSE -->
+              <td class="my-response">{{renderResponse(myEncoding, question)}}</td>
+
+
+              <!-- OTHER REPSONDERS
+              ============================ -->
+              <td *ngFor="let other of otherEncodings"
+                  [ngClass]="{
                       'conflict': conflict(other, question)?.agrees===0,
                       'agreement': conflict(other, question)?.agrees===1 }">
 
-                  {{renderResponse(other, question)}}
-                </td>
+                {{renderResponse(other, question)}}
+              </td>
 
 
 
-              </tr>
+            </tr>
             </tbody>
           </table>
 
@@ -111,14 +109,27 @@
             Commit Changes
           </button>
 
-          <app-channel
-            *ngIf="channel_name"
-            [channelName]="channel_name">
-          </app-channel>
-
 
         </div>
+
       </div>
     </div>
-  </div>
-</div>
+
+    <div class="site-action">
+      <button
+        type="button"
+        (click)="chatPanel.toggle()"
+        class="site-action-toggle btn-raised btn btn-primary btn-floating">
+        <i class="icon wb-chat-group"></i>
+      </button>
+    </div>
+
+  <mat-drawer #chatPanel mode="over" position="end" class="p-15" style="max-width: 600px">
+    <app-channel
+      *ngIf="channel_name"
+      [channelName]="channel_name">
+    </app-channel>
+  </mat-drawer>
+
+
+</mat-drawer-container>

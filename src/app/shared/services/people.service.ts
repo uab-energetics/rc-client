@@ -3,6 +3,7 @@ import {AppUser} from "../../models/AppUser";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
+import {AuthService} from '../auth/auth.service';
 
 let api = environment.api;
 
@@ -10,7 +11,8 @@ let api = environment.api;
 export class PeopleService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) { }
 
   search(nameOrEmail: string){
@@ -21,7 +23,9 @@ export class PeopleService {
   }
 
   updateMyProfile(user: AppUser){
-    return this.http.put<AppUser>(`${api}/my-profile`, user)
+    let src = this.http.put<AppUser>(`${api}/my-profile`, user).share();
+    src.subscribe( user => this.authService.subject.next(user) );
+    return src;
   }
 
 }

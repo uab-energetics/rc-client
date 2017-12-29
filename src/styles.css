@@ -58,3 +58,11 @@
 .dropdown-menu {
   transition: none;
 }
+
+
+/* COMMENTS
+========================= */
+
+.comment {
+  padding: 5px 0;
+}

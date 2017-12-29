@@ -6,6 +6,7 @@ import {DeleteEvent, ReplyEvent} from "../comments.component";
 import {NotifyService} from "../../../services/notify.service";
 import {UserService} from "../../../auth/user.service";
 import {AppUser} from "../../../../models/AppUser";
+import {AppComment} from '../../../../models/AppComment';
 
 @Component({
   selector: 'app-channel',
@@ -18,8 +19,10 @@ export class ChannelComponent implements OnInit {
   channel: AppChannel;
   user: AppUser;
 
-  loading = 0;
+  originalComments: AppComment[] = [];
+  displayComments: AppComment[] = [];
 
+  loading = 0;
   replyMessage: FormControl = new FormControl('');
 
   constructor(
@@ -34,14 +37,26 @@ export class ChannelComponent implements OnInit {
   }
 
 
-  loadChannel(){
+  loadChannel() {
     this.loading++;
     this.commentsService.getChannel(this.channelName)
       .finally(() => this.loading--)
-      .subscribe( channel => this.channel = channel);
+      .subscribe( channel => {
+        this.channel = channel;
+        this.originalComments = this.channel.root_comment.children;
+        this.originalComments.reverse();
+        this.loadComments(4);
+      });
   }
 
-  onPostComment(){
+  loadComments(limit) {
+    if(!limit)
+      return this.displayComments = [...this.originalComments];
+    limit = Math.min(limit, this.originalComments.length);
+    this.displayComments = this.originalComments.slice(0, limit);
+  }
+
+  onPostComment() {
     this.loading++;
     this.commentsService.commentInChannel(this.channel.id, this.replyMessage.value)
       .finally(() => this.loading--)

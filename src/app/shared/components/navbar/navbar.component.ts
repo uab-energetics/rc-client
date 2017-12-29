@@ -20,7 +20,9 @@ export class NavbarComponent implements OnInit {
     private userService: UserService,
     private notifications: NotificationsService,
     private notify: NotifyService
-  ) {}
+  ) {
+    this.authService.changes.subscribe( user => this.user = user );
+  }
 
 
   logout () {

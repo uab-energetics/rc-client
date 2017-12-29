@@ -6,6 +6,8 @@ import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {AppUser} from "../../models/AppUser";
 import {Observable} from "rxjs/Observable";
+import {Subject} from 'rxjs/Subject';
+import {Subscriber} from 'rxjs/Subscriber';
 
 export interface LoginRequest {
   email: string;
@@ -28,11 +30,16 @@ export interface RegisterRequest {
 @Injectable()
 export class AuthService {
 
+  changes: Observable<AppUser>;
+  subject: Subscriber<AppUser>;
+
   constructor(
     private http: HttpClient,
     private router: Router,
     private userService: UserService
-  ) { }
+  ) {
+    this.changes = Observable.create( subject => this.subject = subject );
+  }
 
   login(loginRequest: LoginRequest): Observable<any> {
     let source = this.http.post(environment.api + '/auth/login', loginRequest)
