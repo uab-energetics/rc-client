@@ -13,12 +13,13 @@ import {
 })
 export class FormLayoutTreeComponent {
 
+  @Output() formAction = new EventEmitter();
+
+
   @Input()
   set form(form: AppForm){
     this.setForm(form);
   };
-
-  @Output() formAction = new EventEmitter();
 
   @ViewChild('tree') treeview;
 

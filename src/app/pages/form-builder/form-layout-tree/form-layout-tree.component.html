@@ -9,12 +9,23 @@
   <!--<button (click)="onDelete()" class="btn btn-sm btn-danger mr-10"><i class="icon wb-plus"></i> Category </button>-->
   <br/>
   <br/>
+
+
+
+
+
+
   <tree-root #tree [nodes]="treeData"
              [options]="treeOptions"
              [focused]="true"
              (initialized)="onInitialized($event)"
              (updateData)="onInitialized($event)"
              (moveNode)="onMove($event)">
+
+
+
+
+
     <ng-template #treeNodeTemplate let-node let-index="index">
     <span>
       <i *ngIf="node.data.type==='folder'" class="icon wb-folder"></i>
@@ -22,5 +33,15 @@
       &nbsp; {{ node.data.name }}
     </span>
     </ng-template>
+
+
+
+
+
   </tree-root>
+
+
+
+
+
 </div>
