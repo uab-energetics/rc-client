@@ -79,8 +79,8 @@
                 <!-- QUESTION COLUMN -->
                 <th>
                   <button class="btn btn-sm btn-primary p-3"
-                          *ngIf="lookupResponse(branchName, myEncoding, question) !== null"
                           [ngbPopover]="questionPopover"
+                          [disabled]="lookupResponse(branchName, myEncoding, question) === null"
                           placement="right"
                           popoverTitle="{{question.name}}">
                     <i class="icon fa-question"></i>
