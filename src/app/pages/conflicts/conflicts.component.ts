@@ -113,14 +113,14 @@ export class ConflictsComponent implements OnInit {
     myEncoding.experiment_branches =
         myEncoding.experiment_branches.map( branch =>
             hashBranch(branch)) as any;
-    this.branchMap[myEncoding.id] = hashBranches(myEncoding.experiment_branches);
+    this.addEncodingToBranchMap(myEncoding);
     this.myEncoding = myEncoding;
     this.channel_name = myEncoding.channel_name;
 
     /* hash other encodings for instant lookup */
     otherEncodings.forEach( otherEncoding => {
       this.otherUsers.push(otherEncoding.owner);
-      this.branchMap[otherEncoding.id] = hashBranches(otherEncoding.experiment_branches);
+      this.addEncodingToBranchMap(otherEncoding);
       otherEncoding.experiment_branches =
         otherEncoding.experiment_branches.map(branch =>
           hashBranch(branch) as any)
@@ -136,25 +136,29 @@ export class ConflictsComponent implements OnInit {
    * ========================
    */
 
-  conflict(branch, encoding, question: AppQuestion): Conflict {
+  getBranchNames() {
+      return Object.keys(this.branchMap);
+  }
+
+  conflict(branchName, encoding, question: AppQuestion): Conflict {
     return _.get(
       this.conflictReport,
-      `${branch.id}.${question.id}.${encoding.id}`,
+      `${branchName}.${question.id}.${encoding.id}`,
       { agrees: true }
     );
   }
 
-  lookupResponse(encoding, branchID, question){
+  lookupResponse(branchName, encoding, question){
     if(encoding.experiment_branches.length === 0) return null;
-    let hashedBranch = this.branchMap[encoding.id][branchID] || null;
+    let hashedBranch = this.branchMap[branchName][encoding.id] || null;
     if (!hashedBranch) return null;
     let response = hashedBranch[question.id];
     if(!response) return null;
     return response;
   }
 
-  renderResponse(encoding, branchID, question){
-    return renderToString(this.lookupResponse(encoding, branchID, question));
+  renderResponse(branchName, encoding, question){
+    return renderToString(this.lookupResponse(branchName, encoding, question));
   }
 
 
@@ -187,14 +191,12 @@ export class ConflictsComponent implements OnInit {
       })
   }
 
-}
-
-function hashBranches(branches: AppBranch[]) {
-  let result = {};
-  for (let branch of branches) {
-    result[branch.index] = hashBranch(branch);
-  }
-  return result;
+    private addEncodingToBranchMap(encoding: AppExperimentEncoding) {
+        for (let branch of encoding.experiment_branches) {
+            if (!this.branchMap[branch.name]) this.branchMap[branch.name] = {};
+            this.branchMap[branch.name][encoding.id] = hashBranch(branch);
+        }
+    }
 }
 
 function hashBranch(branch: AppBranch){

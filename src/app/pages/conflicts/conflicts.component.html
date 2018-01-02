@@ -25,9 +25,13 @@
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
           </div>
 
+          <div *ngIf="!loading && getBranchNames().length === 0" class="text-center">
+            <em>nothing to see here</em>
+          </div>
 
-          <div *ngFor="let branch of myEncoding.experiment_branches">
-            <h2>Branch {{branch.index}} ({{branch.name}})</h2>
+
+          <div *ngFor="let branchName of getBranchNames()">
+            <h2>{{branchName}}</h2>
             <table class="table conflicts-table" *ngIf="ready">
 
 
@@ -62,18 +66,19 @@
 
 
                 <!-- QUESTION POP-OUT -->
-                <ng-template #questionPopover>
-                  <app-question
-                          [key]="question.id"
-                          [question]="question"
-                          [responseData]="lookupResponse(myEncoding, branch.index, question)"
-                          (questionUpdate)="handleResponseChange($event)">
-                  </app-question>
-                </ng-template>
+                <ng-template #questionPopover >
+                    <app-question
+                            [key]="question.id"
+                            [question]="question"
+                            [responseData]="lookupResponse(branchName, myEncoding, question)"
+                            (questionUpdate)="handleResponseChange($event)">
+                    </app-question>
+                  </ng-template>
 
                 <!-- QUESTION COLUMN -->
                 <th>
                   <button class="btn btn-sm btn-primary p-3"
+                          *ngIf="lookupResponse(branchName, myEncoding, question) !== null"
                           [ngbPopover]="questionPopover"
                           placement="right"
                           popoverTitle="{{question.name}}">
@@ -85,17 +90,17 @@
 
 
                 <!-- MY RESPONSE -->
-                <td class="my-response">{{renderResponse(myEncoding, branch.index, question)}}</td>
+                <td class="my-response">{{renderResponse(branchName, myEncoding, question)}}</td>
 
 
                 <!-- OTHER REPSONDERS
                 ============================ -->
                 <td *ngFor="let other of otherEncodings"
                     [ngClass]="{
-                      'conflict': conflict(branch, other, question)?.agrees===0,
-                      'agreement': conflict(branch, other, question)?.agrees===1 }">
+                      'conflict': conflict(branchName, other, question)?.agrees===0,
+                      'agreement': conflict(branchName, other, question)?.agrees===1 }">
 
-                  {{renderResponse(other, branch.index, question)}}
+                  {{renderResponse(branchName, other, question)}}
                 </td>
 
 
