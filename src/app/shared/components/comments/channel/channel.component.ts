@@ -32,8 +32,16 @@ export class ChannelComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadChannel();
     this.user = this.userService.user;
+
+    // TODO - fix the issue with channel name vs ID
+    this.commentsService.getChannel(this.channelName)
+      .subscribe( channel => {
+        this.commentsService.listenForComments(channel.id)
+          .subscribe( () => this.loadChannel() );
+      });
+
+    this.loadChannel();
   }
 
 
@@ -49,12 +57,23 @@ export class ChannelComponent implements OnInit {
       });
   }
 
+  loadCommentsFromChannel(){
+
+  }
+
   loadComments(limit) {
     if(!limit)
       return this.displayComments = [...this.originalComments];
     limit = Math.min(limit, this.originalComments.length);
     this.displayComments = this.originalComments.slice(0, limit);
   }
+
+
+
+
+
+
+
 
   onPostComment() {
     this.loading++;
@@ -63,7 +82,7 @@ export class ChannelComponent implements OnInit {
       .subscribe(() => {
         this.replyMessage = new FormControl('');
         this.notify.toast('Comment posted.');
-        this.loadChannel();
+        // this.loadChannel();
       })
   }
 

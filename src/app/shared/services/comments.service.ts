@@ -5,14 +5,27 @@ import {environment} from "../../../environments/environment";
 import {AppComment} from "../../models/AppComment";
 import {AppChannel} from "../../models/AppChannel";
 import {of} from 'rxjs/observable/of';
+import {PusherService} from './pusher.service';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 const api = environment.api;
+
+const CHANNEL_CHANGE_EVENT = 'channel-change';
 
 @Injectable()
 export class CommentsService {
 
+
+  listenForComments(channel_id: number): Observable<AppComment> {
+    return new Observable<AppComment>( sub => {
+      this.ps.pusher.subscribe(`comments.${channel_id}`)
+        .bind(CHANNEL_CHANGE_EVENT, (data) => sub.next(data));
+    });
+  }
+
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private ps: PusherService
   ) { }
 
   createChannel(channel: AppChannel): Observable<AppChannel> {

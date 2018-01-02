@@ -14,8 +14,10 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="!showLoader && publications.length > 0">
+  <div class="row">
     <div class="col-12">
+
+
       <table class="table">
         <thead class="thead-light">
         <tr>
@@ -38,6 +40,8 @@
         </tr>
         </tbody>
       </table>
+
+
     </div>
   </div>
   <h3 *ngIf="publications?.length === 0">No publications yet. <a href="javascript:void(0)" (click)="openModal(addPublicationForm)">Add one</a> to get started.</h3>

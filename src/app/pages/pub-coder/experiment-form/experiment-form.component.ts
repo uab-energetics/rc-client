@@ -66,7 +66,7 @@ export class ExperimentFormComponent implements OnInit {
     let branchName = this.notify.prompt("Give the new branch a name:");
     if(!branchName) return;
     this.onCreateBranch.emit({
-      index: this.branches.length,
+      // index: this.branches.length,
       name: branchName
     });
   }

@@ -7,6 +7,7 @@ import {ProjectService} from "../../../shared/services/project.service";
 import {catchError} from "rxjs/operators";
 import {PublicationsService} from "../../../shared/services/publications.service";
 import {NotifyService} from "../../../shared/services/notify.service";
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-project-publications',
@@ -29,9 +30,9 @@ export class ProjectPublicationsComponent {
     private modalService: NgbModal,
     private projectService: ProjectService,
     private publicationService: PublicationsService
-  ) {}
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.loadPublications();
   }
 
@@ -43,7 +44,7 @@ export class ProjectPublicationsComponent {
         this.publications = publications;
       },()=>{}, () => {
         this.showLoader = false;
-      } );
+      });
   }
 
   onPublicationFormSubmit(newPublication: AppPublication){

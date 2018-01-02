@@ -13,7 +13,10 @@ import { ProjectComponent } from './project/project.component';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
 import { TreeModule } from 'angular-tree-component';
 import { FormLayoutTreeComponent } from './form-builder/form-layout-tree/form-layout-tree.component';
-import {MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSidenavModule, MatSnackBarModule} from '@angular/material';
+import {
+  MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSidenavModule, MatSnackBarModule,
+  MatTableModule
+} from '@angular/material';
 import { PubCoderComponent } from './pub-coder/pub-coder.component';
 import {FormsModule} from "@angular/forms";
 import {PagesComponent} from "./page.component";
@@ -107,7 +110,8 @@ const routes: Routes = [
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatRadioModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTableModule
   ],
   declarations: [
     PagesComponent,

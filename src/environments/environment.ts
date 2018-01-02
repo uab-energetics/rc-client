@@ -10,6 +10,13 @@ let environment = {
   production: false,
   callbacks: {
     redeemInvite: window.location.origin + "/callbacks/redeem-invite"
+  },
+  pusher: {
+    key: '248705977b596a5376e1',
+    config: {
+      cluster: 'us2',
+      encrypted: true
+    }
   }
 };
 

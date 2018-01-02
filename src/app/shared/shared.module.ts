@@ -42,6 +42,7 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { ChannelComponent } from './components/comments/channel/channel.component';
 import {CommentsService} from './services/comments.service';
 import {DynamicInputComponent} from './components/response-inputs/dynamic-input.component';
+import {PusherService} from './services/pusher.service';
 
 @NgModule({
   imports: [
@@ -73,7 +74,8 @@ import {DynamicInputComponent} from './components/response-inputs/dynamic-input.
     SkinService,
     ConflictsService,
     InvitationsService,
-    CommentsService
+    CommentsService,
+    PusherService
   ],
   declarations: [
     NavbarComponent,
