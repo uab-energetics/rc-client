@@ -15,6 +15,8 @@ import {NotifyService} from "../../shared/services/notify.service";
 import {forkJoin} from "rxjs/observable/forkJoin";
 import {AppForm} from "../../models/AppForm";
 import {forEach} from "@angular/router/src/utils/collection";
+import {Router} from '@angular/router';
+
 
 /**
  * ===============================================================
@@ -74,6 +76,7 @@ export class ConflictsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private userService: UserService,
     private conflictsService: ConflictsService,
     private encodingService: EncodingService,
@@ -136,6 +139,10 @@ export class ConflictsComponent implements OnInit {
    * ========================
    */
 
+  navigateToPubCoder(encoding) {
+      this.router.navigate(['/pub-coder/'+encoding.id]);
+  }
+
   getBranchNames() {
       return Object.keys(this.branchMap);
   }
@@ -159,6 +166,13 @@ export class ConflictsComponent implements OnInit {
 
   renderResponse(branchName, encoding, question){
     return renderToString(this.lookupResponse(branchName, encoding, question));
+  }
+
+  private addEncodingToBranchMap(encoding: AppExperimentEncoding) {
+    for (let branch of encoding.experiment_branches) {
+        if (!this.branchMap[branch.name]) this.branchMap[branch.name] = {};
+        this.branchMap[branch.name][encoding.id] = hashBranch(branch);
+    }
   }
 
 
@@ -190,13 +204,6 @@ export class ConflictsComponent implements OnInit {
         this.ngOnInit();
       })
   }
-
-    private addEncodingToBranchMap(encoding: AppExperimentEncoding) {
-        for (let branch of encoding.experiment_branches) {
-            if (!this.branchMap[branch.name]) this.branchMap[branch.name] = {};
-            this.branchMap[branch.name][encoding.id] = hashBranch(branch);
-        }
-    }
 }
 
 function hashBranch(branch: AppBranch){
