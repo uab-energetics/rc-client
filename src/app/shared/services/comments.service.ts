@@ -16,7 +16,7 @@ const CHANNEL_CHANGE_EVENT = 'channel-change';
 export class CommentsService {
 
 
-  listenForComments(channel_id: number): Observable<AppComment> {
+  changes(channel_id: number): Observable<AppComment> {
     return new Observable<AppComment>( sub => {
       this.ps.pusher.subscribe(`comments.${channel_id}`)
         .bind(CHANNEL_CHANGE_EVENT, (data) => sub.next(data));

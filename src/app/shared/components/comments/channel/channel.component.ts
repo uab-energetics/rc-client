@@ -37,7 +37,7 @@ export class ChannelComponent implements OnInit {
     // TODO - fix the issue with channel name vs ID
     this.commentsService.getChannel(this.channelName)
       .subscribe( channel => {
-        this.commentsService.listenForComments(channel.id)
+        this.commentsService.changes(channel.id)
           .subscribe( () => this.loadChannel() );
       });
 
@@ -55,10 +55,6 @@ export class ChannelComponent implements OnInit {
         this.originalComments.reverse();
         this.loadComments(4);
       });
-  }
-
-  loadCommentsFromChannel(){
-
   }
 
   loadComments(limit) {
