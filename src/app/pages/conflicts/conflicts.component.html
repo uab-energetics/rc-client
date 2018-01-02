@@ -3,7 +3,7 @@
     <div class="container">
       <div class="page-header">
         <h1 class="page-title mb-25">Showing Conflicts Report</h1>
-        <p class="page-description"><b>{{form?.name}}</b></p>
+        <p class="page-description"><b>CodeBook: {{form?.name}}</b></p>
 
         <div class="page-header-actions">
           <div class="row no-space hidden-sm-down">
@@ -27,7 +27,7 @@
 
 
           <div *ngFor="let branch of myEncoding.experiment_branches">
-            <h2>{{branch.name}}</h2>
+            <h2>Branch {{branch.index}} ({{branch.name}})</h2>
             <table class="table conflicts-table" *ngIf="ready">
 
 
