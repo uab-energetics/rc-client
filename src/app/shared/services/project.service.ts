@@ -53,9 +53,9 @@ export class ProjectService {
       .share()
   }
 
-  createPublication(projectID: number, publication: AppPublication): Promise<AppPublication> {
+  createPublication(projectID: number, publication: AppPublication): Observable<AppPublication> {
     return this.http.post<AppPublication>(`${api}/projects/${projectID}/publications`, publication)
-      .toPromise();
+      .share();
   }
 
   myProjects(): Observable<AppProject[]> {
