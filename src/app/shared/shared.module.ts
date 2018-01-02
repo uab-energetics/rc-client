@@ -44,6 +44,7 @@ import {CommentsService} from './services/comments.service';
 import {DynamicInputComponent} from './components/response-inputs/dynamic-input.component';
 import {PusherService} from './services/pusher.service';
 import { QuestionTreeComponent } from './components/question-tree/question-tree.component';
+import { TreeModule } from 'angular-tree-component';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import { QuestionTreeComponent } from './components/question-tree/question-tree.
     MatChipsModule,
     MatProgressBarModule,
     MatTableModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    TreeModule
   ],
   providers: [
     AuthService,
@@ -121,7 +123,8 @@ import { QuestionTreeComponent } from './components/question-tree/question-tree.
     CommentsComponent,
     ChannelComponent,
     FindTaskComponent,
-    DynamicInputComponent
+    DynamicInputComponent,
+    QuestionTreeComponent
   ]
 })
 export class SharedModule {

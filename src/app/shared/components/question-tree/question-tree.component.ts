@@ -21,8 +21,11 @@ export class QuestionTreeComponent implements OnInit {
     this.treeNodes = mapToTreeNodes(this.rootCategory);
   }
 
-
   /* Component */
+  @Input() allowDrop: Function = () => false;
+  @Input() allowDrag = false;
+  @Output() nodeMoved = new EventEmitter<AppMoveEvent>();
+
   @ViewChild('tree') treeComponent;
   private treeNodes: any;
   private treeOptions: any = {
@@ -34,15 +37,17 @@ export class QuestionTreeComponent implements OnInit {
         }
       }
     },
-    allowDrop: (element, { parent, index }) => {
-      console.log( "authorizing drop...", element, parent, index);
-      return true;
+    allowDrop: (node, { parent, index }) => {
+      return this.allowDrop(node.data, parent.data);
     }
   };
 
   /* Event Handlers */
   onMove($event: MoveEvent) {
-    console.log('node moved..', $event);
+    this.nodeMoved.emit({
+      node: $event.node.data,
+      newParent: $event.to.parent.data
+    });
   }
 
   onInitialized(){
@@ -59,4 +64,9 @@ interface MoveEvent {
 interface To {
   parent: ITreeNode; // the parent node that contains the moved node
   index: number; // the index in the parent where the node was moved
+}
+
+interface AppMoveEvent {
+  node: AppTreeNode;
+  newParent: AppTreeNode;
 }

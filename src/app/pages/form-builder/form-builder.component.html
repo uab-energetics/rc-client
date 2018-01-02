@@ -14,41 +14,37 @@
               <br/>
             </div>
 
+            <app-question-tree
+              #tree
+              *ngIf="form"
+              (nodeSelected)="nodeSelected($event)"
+              [rootCategory]="form.root_category">
+            </app-question-tree>
+
+            <!--
             <app-form-layout-tree
               #treeView
               [form]="form"
               (formAction)="dispatch($event)">
             </app-form-layout-tree>
+            -->
 
           </div>
         </div>
       </div>
       <div class="col-lg-8">
-        <ol class="breadcrumb text-lg-center">
-          <li *ngFor="let crumb of activeCrumbs" class="breadcrumb-item">
-            <a (click)="onSelectCategory(crumb.id)" href="javascript:void(0)"><b>{{crumb.name}}</b></a>
-          </li>
-        </ol>
-
         <div class="panel">
           <div class="panel-body">
-            <h3>Sub-Categories</h3>
-            <div class="row" *ngIf="activeCategory?.children?.length > 0">
-              <div class="col-12 mb-20">
-                <button *ngFor="let sub of activeCategory?.children"
-                        (click)="onSelectCategory(sub.id)"
-                        class="btn btn-lg btn-default mr-20">
-                  <i class="icon wb-folder"></i> {{sub.name}}</button>
-              </div>
-            </div>
+
             <h2>Rendering Preview</h2>
             <hr/>
             <br/>
 
             <!-- start form render-->
-            <app-category
+            <app-category *ngIf="activeCategory"
               [root]="true"
-              [category]="activeCategory"></app-category>
+              [category]="activeCategory">
+            </app-category>
             <!-- end form render -->
 
             <br/>
