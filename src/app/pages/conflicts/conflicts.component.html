@@ -26,82 +26,86 @@
           </div>
 
 
+          <div *ngFor="let branch of myEncoding.experiment_branches">
+            <h2>{{branch.name}}</h2>
+            <table class="table conflicts-table" *ngIf="ready">
 
-          <table class="table conflicts-table" *ngIf="ready">
 
 
-
-            <!-- TABLE HEADERS
-            ======================== -->
-            <thead class="">
-            <tr class="avatar-thead">
-              <th>Questions</th>
-              <th>
+              <!-- TABLE HEADERS
+              ======================== -->
+              <thead class="">
+              <tr class="avatar-thead">
+                <th>Questions</th>
+                <th>
                 <span class="avatar avatar-sm">
                   <img [src]="user.image"/>
                 </span> &nbsp;
-                My Responses
-              </th>
-              <th *ngFor="let user of otherUsers">
+                  My Responses
+                </th>
+                <th *ngFor="let user of otherUsers">
                 <span class="avatar avatar-sm">
                   <img [src]="user.image"/>
                 </span> &nbsp;
-                {{user.name}}
-              </th>
-            </tr>
-            </thead>
+                  {{user.name}}
+                </th>
+              </tr>
+              </thead>
 
 
 
 
-            <!-- TABLE BODY
-            ========================= -->
-            <tbody>
-            <tr *ngFor="let question of questions">
+              <!-- TABLE BODY
+              ========================= -->
+              <tbody>
+              <tr *ngFor="let question of questions">
 
 
-              <!-- QUESTION POP-OUT -->
-              <ng-template #questionPopover>
-                <app-question
-                  [key]="question.id"
-                  [question]="question"
-                  [responseData]="lookupResponse(myEncoding, question)"
-                  (questionUpdate)="handleResponseChange($event)">
-                </app-question>
-              </ng-template>
+                <!-- QUESTION POP-OUT -->
+                <ng-template #questionPopover>
+                  <app-question
+                          [key]="question.id"
+                          [question]="question"
+                          [responseData]="lookupResponse(myEncoding, branch.index, question)"
+                          (questionUpdate)="handleResponseChange($event)">
+                  </app-question>
+                </ng-template>
 
-              <!-- QUESTION COLUMN -->
-              <th>
-                <button class="btn btn-sm btn-primary p-3"
-                        [ngbPopover]="questionPopover"
-                        placement="right"
-                        popoverTitle="{{question.name}}">
-                  <i class="icon fa-question"></i>
-                </button>
-                &nbsp;
-                {{question.name}}
-              </th>
-
-
-              <!-- MY RESPONSE -->
-              <td class="my-response">{{renderResponse(myEncoding, question)}}</td>
+                <!-- QUESTION COLUMN -->
+                <th>
+                  <button class="btn btn-sm btn-primary p-3"
+                          [ngbPopover]="questionPopover"
+                          placement="right"
+                          popoverTitle="{{question.name}}">
+                    <i class="icon fa-question"></i>
+                  </button>
+                  &nbsp;
+                  {{question.name}}
+                </th>
 
 
-              <!-- OTHER REPSONDERS
-              ============================ -->
-              <td *ngFor="let other of otherEncodings"
-                  [ngClass]="{
-                      'conflict': conflict(other, question)?.agrees===0,
-                      'agreement': conflict(other, question)?.agrees===1 }">
-
-                {{renderResponse(other, question)}}
-              </td>
+                <!-- MY RESPONSE -->
+                <td class="my-response">{{renderResponse(myEncoding, branch.index, question)}}</td>
 
 
+                <!-- OTHER REPSONDERS
+                ============================ -->
+                <td *ngFor="let other of otherEncodings"
+                    [ngClass]="{
+                      'conflict': conflict(branch, other, question)?.agrees===0,
+                      'agreement': conflict(branch, other, question)?.agrees===1 }">
 
-            </tr>
-            </tbody>
-          </table>
+                  {{renderResponse(other, branch.index, question)}}
+                </td>
+
+
+
+              </tr>
+
+              </tbody>
+            </table>
+
+          </div>
 
 
           <button *ngIf="changes" (click)="commitChanges()" class="btn btn-primary" >

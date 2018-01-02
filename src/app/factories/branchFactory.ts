@@ -12,6 +12,7 @@ export function factory (): AppBranch {
 
   return {
     name: 'Branch ' + _.random(0, 10000),
+    index : 0,
     responses
   }
 }

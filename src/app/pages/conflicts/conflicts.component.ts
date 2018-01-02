@@ -14,6 +14,7 @@ import {EncodingService} from "../../shared/services/encoding.service";
 import {NotifyService} from "../../shared/services/notify.service";
 import {forkJoin} from "rxjs/observable/forkJoin";
 import {AppForm} from "../../models/AppForm";
+import {forEach} from "@angular/router/src/utils/collection";
 
 /**
  * ===============================================================
@@ -59,6 +60,8 @@ export class ConflictsComponent implements OnInit {
 
   conflictReport = {};
 
+  branchMap = {};
+
   user: AppUser;
   myEncoding: any;
 
@@ -84,6 +87,7 @@ export class ConflictsComponent implements OnInit {
     this.conflictReport = {};
     this.myEncoding = {};
     this.user = this.userService.user;
+    this.branchMap = {};
 
     let id = +this.route.snapshot.paramMap.get('id');
     this.loading++;
@@ -107,20 +111,21 @@ export class ConflictsComponent implements OnInit {
 
     /* hash my encoding for instant lookup */
     myEncoding.experiment_branches =
-      myEncoding.experiment_branches.map( branch =>
-        hashBranch(branch)) as any;
+        myEncoding.experiment_branches.map( branch =>
+            hashBranch(branch)) as any;
+    this.branchMap[myEncoding.id] = hashBranches(myEncoding.experiment_branches);
     this.myEncoding = myEncoding;
     this.channel_name = myEncoding.channel_name;
 
     /* hash other encodings for instant lookup */
     otherEncodings.forEach( otherEncoding => {
       this.otherUsers.push(otherEncoding.owner);
+      this.branchMap[otherEncoding.id] = hashBranches(otherEncoding.experiment_branches);
       otherEncoding.experiment_branches =
         otherEncoding.experiment_branches.map(branch =>
           hashBranch(branch) as any)
     });
     this.otherEncodings = otherEncodings;
-
     this.conflictReport = conflicts;
   }
 
@@ -131,24 +136,25 @@ export class ConflictsComponent implements OnInit {
    * ========================
    */
 
-  conflict(encoding, question: AppQuestion): Conflict {
+  conflict(branch, encoding, question: AppQuestion): Conflict {
     return _.get(
       this.conflictReport,
-      `${question.id}.${encoding.id}`,
+      `${branch.id}.${question.id}.${encoding.id}`,
       { agrees: true }
     );
   }
 
-  lookupResponse(encoding, question){
+  lookupResponse(encoding, branchID, question){
     if(encoding.experiment_branches.length === 0) return null;
-    let hashedBranch = encoding.experiment_branches[0];    // only using the first branch
+    let hashedBranch = this.branchMap[encoding.id][branchID] || null;
+    if (!hashedBranch) return null;
     let response = hashedBranch[question.id];
     if(!response) return null;
     return response;
   }
 
-  renderResponse(encoding, question){
-    return renderToString(this.lookupResponse(encoding, question));
+  renderResponse(encoding, branchID, question){
+    return renderToString(this.lookupResponse(encoding, branchID, question));
   }
 
 
@@ -181,6 +187,14 @@ export class ConflictsComponent implements OnInit {
       })
   }
 
+}
+
+function hashBranches(branches: AppBranch[]) {
+  let result = {};
+  for (let branch of branches) {
+    result[branch.index] = hashBranch(branch);
+  }
+  return result;
 }
 
 function hashBranch(branch: AppBranch){
