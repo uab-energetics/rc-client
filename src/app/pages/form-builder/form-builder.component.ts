@@ -117,11 +117,23 @@ export class FormBuilderComponent implements OnInit {
 
   /* TODO - implement 'edit' functions in the data-service */
   editQuestion($event) {
-    return this.formService.moveCategory(this.form.id, $event.categoryID, $event.parentID);
+    return this.fulfill(
+      this.formService.editQuestion(
+        this.form.id,
+        $event.id,
+        $event.data
+      )
+    );
   }
 
   editCategory($event) {
-    return this.formService.addCategory(this.form.id, $event.data, $event.parentID);
+    return this.fulfill(
+      this.formService.editCategory(
+        this.form.id,
+        $event.id,
+        $event.data
+      )
+    );
   }
   /* TODO - implement 'edit' functions in the data-service */
 

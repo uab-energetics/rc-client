@@ -48,6 +48,18 @@ export class FormService {
       .share()
   }
 
+  editQuestion(formID: number, questionID: number, question: AppQuestion): Observable<AppForm> {
+    let url = `${api}/questions/${questionID}`;
+    return this.http.put<AppForm>(url, question)
+      .share()
+  }
+
+  editCategory(formID: number, categoryID: number, category: AppCategory): Observable<AppForm> {
+    let url = `${api}/categories/${categoryID}`;
+    return this.http.put<AppForm>(url, category)
+      .share()
+  }
+
   deleteQuestion(formID: number, questionID: number): Observable<AppForm> {
     let url = `${api}/forms/${formID}/questions/${questionID}`;
     return this.http.delete<AppForm>(url)

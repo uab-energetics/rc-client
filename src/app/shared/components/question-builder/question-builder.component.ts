@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppQuestion, makeQuestion, QuestionOption, QuestionResponseType} from "../../../models/AppQuestion";
 import {RESPONSE_FORMATS as fmt} from "../../../models/formats";
@@ -23,7 +23,7 @@ const defaultModel = {
   templateUrl: './question-builder.component.html',
   styleUrls: ['./question-builder.component.css']
 })
-export class QuestionBuilderComponent {
+export class QuestionBuilderComponent implements OnInit {
 
   /**
    * 1. set up the form model
@@ -63,14 +63,16 @@ export class QuestionBuilderComponent {
 
     accepts.push({ type: model.default_format }); // make sure it accepts the default format
 
-    return makeQuestion({
+    return Object.assign({}, this.question, {
       name: model.name,
       prompt: model.prompt,
       description: model.desc,
       default_format: model.default_format,
       true_option: model.true_option,
-      false_option: model.false_option
-    }, options, accepts);
+      false_option: model.false_option,
+      options,
+      accepts
+    });
   }
 
   setupFormModel () {

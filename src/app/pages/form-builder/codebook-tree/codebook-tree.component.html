@@ -87,6 +87,7 @@
     </div>
     <div class="modal-body">
       <app-category-builder
+        [category]="activeFormCategory"
         (appSave)="saveCategory($event)">
       </app-category-builder>
     </div>

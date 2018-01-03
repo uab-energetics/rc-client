@@ -59,8 +59,8 @@ export class CodeBookTreeComponent {
   treeEdit(node: AppTreeNode){
     switch(node.type){
       case AppNodeType.category:
-        alert("TODO - edit categories");
-        return;
+        this.activeFormCategory = this.questionTree.lookupInForm(this.activeNode.id);
+        return this.modal = this.ms.open(this.categoryModalContent);
 
       case AppNodeType.question:
         this.activeFormQuestion = this.questionTree.lookupInForm(this.activeNode.id);
@@ -84,7 +84,6 @@ export class CodeBookTreeComponent {
     if(data.id){
       return this.editQuestion.emit({
         id: data.id,
-        categoryID: this.activeNode.id,
         data
       })
     }
