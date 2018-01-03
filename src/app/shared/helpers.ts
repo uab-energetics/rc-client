@@ -1,9 +1,7 @@
-import * as _ from 'lodash';
-import {MatSnackBarConfig} from "@angular/material";
+import {Observable} from 'rxjs/Observable';
 
-export const SNACK_BAR_OPTS: MatSnackBarConfig = {
-  verticalPosition: 'top',
-  duration: 1500
-};
-
-export { _ }
+export function loadingPipe<T>(observable: Observable<T>): Observable<T> {
+  return observable
+    .do(() => this.loading++)
+    .finally(() => this.loading--);
+}

@@ -1,0 +1,101 @@
+<div *ngIf="form">
+
+
+  <!-- CONTROL PANEL
+  =========================== -->
+
+  <div>
+
+    <button
+      [disabled]="questionTree.activeNode?.isRoot"
+      (click)="treeDelete(questionTree.activeNode)"
+      class="btn btn-sm btn-danger">
+      delete
+    </button>
+
+    <button
+      [disabled]="questionTree.activeNode?.type !== 'category'"
+      (click)="treeCreate(questionTree.activeNode, 'question')"
+      class="btn btn-sm btn-success">
+      + question
+    </button>
+
+    <button
+      [disabled]="questionTree.activeNode?.type !== 'category'"
+      (click)="treeCreate(questionTree.activeNode, 'category')"
+      class="btn btn-sm btn-success">
+      + category
+    </button>
+
+    <button
+      [disabled]="!questionTree.activeNode || questionTree.activeNode?.isRoot"
+      (click)="treeEdit(questionTree.activeNode)"
+      class="btn btn-sm btn-warning">
+      edit
+    </button>
+
+
+    <hr/>
+  </div>
+
+
+
+
+  <!-- TREE COMPONENT
+  ========================== -->
+
+  <app-question-tree
+    #questionTree
+    (nodeDoubleClicked)="treeNodeDoubleClicked($event)"
+    [allowDrag]="true"
+    [allowDrop]="allowDrop"
+    (nodeMoved)="treeMove($event)"
+    [rootCategory]="form.root_category">
+  </app-question-tree>
+
+
+
+
+
+
+
+
+  <!-- FORM MODALS
+  ======================== -->
+
+  <ng-template #questionModalContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">New Question</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-question-builder
+        [question]="activeFormQuestion"
+        (appSave)="saveQuestion($event)">
+      </app-question-builder>
+    </div>
+  </ng-template>
+
+  <ng-template #categoryModalContent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">New Category</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-category-builder
+        [category]="activeFormCategory"
+        (appSave)="saveCategory($event)">
+      </app-category-builder>
+    </div>
+  </ng-template>
+
+
+
+
+
+
+</div>

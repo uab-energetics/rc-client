@@ -11,8 +11,6 @@ import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectComponent } from './project/project.component';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
-import { TreeModule } from 'angular-tree-component';
-import { FormLayoutTreeComponent } from './form-builder/form-layout-tree/form-layout-tree.component';
 import {
   MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSidenavModule, MatSnackBarModule,
   MatTableModule
@@ -28,6 +26,8 @@ import { ConflictsComponent } from './conflicts/conflicts.component';
 import { CollaboratorsComponent } from './project/collaborators/collaborators.component';
 import { DiscussComponent } from './discuss/discuss.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import {TreeModule} from 'angular-tree-component';
+import { CodeBookTreeComponent } from './form-builder/codebook-tree/codebook-tree.component';
 
 const routes: Routes = [
   {
@@ -124,7 +124,6 @@ const routes: Routes = [
     CreateProjectComponent,
     ProjectComponent,
     FormBuilderComponent,
-    FormLayoutTreeComponent,
     ProjectFormsComponent,
     ProjectPublicationsComponent,
     PubCoderComponent,
@@ -132,7 +131,8 @@ const routes: Routes = [
     ConflictsComponent,
     CollaboratorsComponent,
     DiscussComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    CodeBookTreeComponent
   ]
 })
 export class PagesModule {

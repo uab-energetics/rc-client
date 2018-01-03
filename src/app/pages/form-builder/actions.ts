@@ -1,71 +1,74 @@
 import {AppQuestion} from "../../models/AppQuestion";
 import {AppCategory} from "../../models/AppCategory";
 
-export const DEL_QUESTION = 'del_q';
-export const DEL_CATEGORY = 'del_c';
-export const MOVE_QUESTION = 'mv_q';
-export const MOVE_CATEGORY = 'mv_c';
-export const SELECT_CATEGORY = 'sel_c';
-export const ADD_QUESTION = 'add_q';
-export const ADD_CATEGORY = 'add_c';
-export const SHOW_ADD_QUESTION = 'show_add_q';
+export const enum CodeBookActions {
+  DEL_QUESTION,
+  DEL_CATEGORY,
+  MOVE_QUESTION,
+  MOVE_CATEGORY,
+  ADD_QUESTION,
+  ADD_CATEGORY,
+  EDIT_QUESTION,
+  EDIT_CATEGORY
+}
 
-export function deleteQuestion(questionID: number) {
+export function deleteQuestion(id: number) {
   return {
-    type: DEL_QUESTION,
-    questionID
+    type: CodeBookActions.DEL_QUESTION,
+    id
+  }
+}
+export function deleteCategory(id: number) {
+  return {
+    type: CodeBookActions.DEL_CATEGORY,
+    id
   }
 }
 
-export function deleteCategory(categoryID: number) {
+
+export function moveQuestion(id: number, newCategoryID: number) {
   return {
-    type: DEL_CATEGORY,
+    type: CodeBookActions.MOVE_QUESTION,
+    id,
+    newCategoryID
+  }
+}
+export function moveCategory(id: number, newParentID: number) {
+  return {
+    type: CodeBookActions.MOVE_CATEGORY,
+    id,
+    newParentID
+  }
+}
+
+
+export function addQuestion(data: AppQuestion, categoryID: number) {
+  return {
+    type: CodeBookActions.ADD_QUESTION,
+    data,
     categoryID
   }
 }
-
-export function moveQuestion(questionID: number, categoryID: number) {
+export function addCategory(data: AppCategory, parentID: number) {
   return {
-    type: MOVE_QUESTION,
-    questionID,
-    categoryID
-  }
-}
-
-export function moveCategory(categoryID: number, parentID: number) {
-  return {
-    type: MOVE_CATEGORY,
-    categoryID,
+    type: CodeBookActions.ADD_CATEGORY,
+    data,
     parentID
   }
 }
 
-export function selectCategory(categoryID: number) {
+
+export function editQuestion(id: number, data: AppQuestion){
   return {
-    type: SELECT_CATEGORY,
-    categoryID
+    type: CodeBookActions.EDIT_QUESTION,
+    id,
+    data
   }
 }
-
-export function addQuestion(question: AppQuestion, parentID: number) {
+export function editCategory(id: number, data: AppCategory){
   return {
-    type: ADD_QUESTION,
-    question,
-    parentID
-  }
-}
-
-export function addCategory(category: AppCategory, parentID: number) {
-  return {
-    type: ADD_CATEGORY,
-    category,
-    parentID
-  }
-}
-
-export function showAddQuestionForm(categoryID: number) {
-  return {
-    type: SHOW_ADD_QUESTION,
-    categoryID
+    type: CodeBookActions.EDIT_CATEGORY,
+    id,
+    data
   }
 }
