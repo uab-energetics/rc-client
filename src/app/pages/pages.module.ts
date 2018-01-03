@@ -8,6 +8,7 @@ import {AccountComponent} from './settings/account/account.component';
 import {SharedModule} from '../shared/shared.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProjectsComponent } from './projects/projects.component';
+import { ProjectFormComponent } from './project-form/project-form.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectComponent } from './project/project.component';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
@@ -64,6 +65,10 @@ const routes: Routes = [
       {
         path: "projects/:id",
         component: ProjectComponent
+      },
+      {
+        path: "projects/:pid/forms/:fid",
+        component: ProjectFormComponent
       },
       {
         path: 'forms/:id',
