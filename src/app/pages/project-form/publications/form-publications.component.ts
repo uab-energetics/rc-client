@@ -1,13 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {AppProject} from "../../../models/AppProject";
 import {SweetAlertService} from "ng2-sweetalert2";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AppPublication} from "../../../models/AppPublication";
 import {ProjectService} from "../../../shared/services/project.service";
-import {catchError} from "rxjs/operators";
 import {PublicationsService} from "../../../shared/services/publications.service";
 import {NotifyService} from "../../../shared/services/notify.service";
-import {MatTableDataSource} from '@angular/material';
+import {loadingPipe} from '../../../shared/helpers';
 
 @Component({
   selector: 'app-project-publications',
@@ -18,7 +17,7 @@ export class ProjectPublicationsComponent {
 
   @Input() project: AppProject;
 
-  showLoader = false;
+  loading = 0;
 
   publications: AppPublication[];
 
@@ -37,29 +36,21 @@ export class ProjectPublicationsComponent {
   }
 
   loadPublications(){
-    this.showLoader = true;
     this.projectService.getPublications(this.project.id)
-      .pipe(catchError((err) => [] ))
-      .subscribe( publications => {
-        this.publications = publications;
-      },()=>{}, () => {
-        this.showLoader = false;
-      });
+      .pipe<AppPublication[]>(loadingPipe.bind(this))
+      .subscribe( pubs => this.publications = pubs );
   }
 
   onPublicationFormSubmit(newPublication: AppPublication){
-    this.showLoader = true;
     this.modal.close();
     this.projectService.createPublication(this.project.id, newPublication)
-      .then( () => this.loadPublications() )
-      .catch( err => console.log(err) )
-      .then( () => this.showLoader = false );
+      .pipe(loadingPipe.bind(this))
+      .subscribe(() => this.loadPublications())
   }
 
   onDeletePublication(publication){
-    this.showLoader = true;
     this.publicationService.deletePublication(publication.id)
-      .finally(() => this.showLoader = false)
+      .pipe(loadingPipe.bind(this))
       .subscribe(() => {
         this.notify.toast('Publication deleted');
         this.loadPublications();

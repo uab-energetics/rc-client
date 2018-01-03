@@ -8,7 +8,7 @@ import {AppProject} from "../../models/AppProject";
 import {AppPublication} from "../../models/AppPublication";
 import {LoggerService} from "../../shared/logger.service";
 import {NotifyService} from "../../shared/services/notify.service";
-import {FormService} from "../../../../../../../Desktop/Link to Projects/research-coder/src/app/shared/services/form.service";
+import {FormService} from "../../shared/services/form.service";
 
 @Component({
   selector: 'app-project-form',

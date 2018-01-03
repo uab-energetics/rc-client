@@ -18,7 +18,7 @@ export class ProjectFormService {
   constructor(private http: HttpClient) {
   }
 
-  protected getPrefix(project: AppProject, form: AppForm) {
+  public getPrefix(project: AppProject, form: AppForm) {
     return api + "/projects/" + project.id + "/forms/" + form.id;
   }
 
@@ -38,7 +38,7 @@ export class ProjectFormService {
       priority : priority,
       publications : publications.map( pub => pub.id )
     };
-    return this.http.post<AppFormPublication>(this.getPrefix(project, form)+"/publications")
+    return this.http.post<AppFormPublication>(this.getPrefix(project, form)+"/publications", data)
       .share();
   }
 
@@ -47,15 +47,14 @@ export class ProjectFormService {
       .share();
   }
 
-  addEncoder(project: AppProject, form: AppForm, encoder: AppUser, priority) {
-    let data = {priority:priority};
-    return this.http.post<any>(this.getPrefix(project, form)+"/encoders/"+encoder.id, data)
+  addEncoder(project: AppProject, form: AppForm, encoder: AppUser) {
+    return this.http.post<any>(this.getPrefix(project, form)+"/encoders/"+encoder.id)
       .share();
   }
 
   addEncoders(project: AppProject, form: AppForm, encoders: AppUser[]) {
     let data = { encoders : encoders.map( user => user.id ) };
-    return this.http.post<any>(this.getPrefix(project, form)+"/encoders")
+    return this.http.post<any>(this.getPrefix(project, form)+"/encoders", data)
       .share();
   }
 
