@@ -1,114 +1,128 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {AppCategory} from "../../models/AppCategory";
-import {AppQuestion} from "../../models/AppQuestion";
-import * as _ from 'lodash';
+import {Component, OnInit} from '@angular/core';
 import {AppForm} from "../../models/AppForm";
-import {
-  ADD_CATEGORY, ADD_QUESTION, addCategory, addQuestion, DEL_CATEGORY, DEL_QUESTION, deleteCategory, deleteQuestion, MOVE_CATEGORY,
-  MOVE_QUESTION,
-  moveCategory,
-  moveQuestion,
-  SELECT_CATEGORY,
-  selectCategory, SHOW_ADD_QUESTION
-} from './actions';
 import {MatSnackBar} from "@angular/material";
 import {FormService} from "../../shared/services/form.service";
-import {catchError} from "rxjs/operators";
-import {Observable} from "rxjs/Observable";
 import {ActivatedRoute} from "@angular/router";
-import {FormStore} from './FormStore';
-import {of} from 'rxjs/observable/of';
-import {AppNodeType, AppTreeNode} from '../../shared/components/question-tree/dataModel';
+import {AppCategory} from "../../models/AppCategory";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-form-builder',
   templateUrl: './form-builder.component.html',
-  styleUrls: ['./form-builder.component.css'],
   providers: [MatSnackBar, FormService]
 })
 export class FormBuilderComponent implements OnInit {
 
-  activeModal: NgbModalRef;
-
-  @ViewChild('treeView') treeView;
-  @ViewChild('questionModalContent') questionModalContent;
-
-  activeCategory: AppCategory;
-
-  formStore: FormStore;
+  previewingCategory: AppCategory;
   form: AppForm;
+  loading = false;
 
   constructor(
-    private modalService: NgbModal,
     private route: ActivatedRoute,
-    public snackBar: MatSnackBar,
-    public formService: FormService
-  ) { }
+    private formService: FormService
+  ) {}
 
   ngOnInit() {
     let formID = +this.route.snapshot.paramMap.get('id');
-    this.formStore = new FormStore(this.formService, formID);
-    this.formStore.changes.subscribe( form => {
-      this.form = form;
-    });
+    this.loadForm(formID)
+      .subscribe(form => this.categorySelected(form.root_category.id))
   }
 
-
-
-
-  open(content) {
-    this.activeModal = this.modalService.open(content)
+  loadForm(id) {
+    this.loading = true;
+    let src = this.formService.getForm(id)
+      .finally(() => this.loading = false);
+    src.subscribe(form => this.form = form);
+    return src;
   }
 
-
-  /**
-   * Form Builder Operations
-   * ==================================
-   */
-
-  nodeSelected(node: AppTreeNode) {
-    if(node.type !== AppNodeType.category) return;
-
-    this.formService.getCategory(this.form.id, node.id)
-      .subscribe( category => this.activeCategory = category );
+  private fulfill(observable: Observable<any>) {
+    this.loading = true;
+    return observable
+      .finally(() => this.loading = false)
+      .subscribe(
+        data => {
+          this.loadForm(this.form.id);
+          if(this.previewingCategory)
+            this.categorySelected(this.previewingCategory.id);
+        },
+        err => {
+          // TODO - decide on an elegant way to handle errors
+        }
+      )
   }
 
-  onAddQuestion(question: AppQuestion) {
-    this.formStore.dispatch(addQuestion(question, this.activeCategory.id));
+  createQuestion($event) {
+    return this.fulfill(
+      this.formService.addQuestion(
+        this.form.id,
+        $event.data,
+        $event.categoryID
+      )
+    );
   }
 
-  onAddCategory(category: AppCategory) {
-    this.formStore.dispatch(addCategory(category, this.activeCategory.id));
+  deleteQuestion($event) {
+    return this.fulfill(
+      this.formService.deleteQuestion(
+        this.form.id,
+        $event.id
+      )
+    );
   }
 
-  selectCategory(id: number): Observable<any> {
-    // TODO - categories
-    return of();
+  moveQuestion($event) {
+    return this.fulfill(
+      this.formService.moveQuestion(
+        this.form.id,
+        $event.id,
+        $event.categoryID
+      )
+    )
   }
 
-  addQuestion(question, categoryID) {
-    this.formStore.dispatch(addQuestion(question, categoryID));
+  createCategory($event) {
+    return this.fulfill(
+      this.formService.addCategory(
+        this.form.id,
+        $event.data,
+        $event.parentID
+      )
+    )
   }
 
-  addCategory(category, parentID){
-    this.formStore.dispatch(addCategory(category, parentID));
+  deleteCategory($event) {
+    return this.fulfill(
+      this.formService.deleteCategory(
+        this.form.id,
+        $event.id
+      )
+    )
   }
 
-  moveQuestion(questionID, categoryID) {
-    this.formStore.dispatch(moveQuestion(questionID, categoryID));
+  moveCategory($event) {
+    return this.fulfill(
+      this.formService.moveCategory(
+        this.form.id,
+        $event.id,
+        $event.newParentID
+      )
+    )
   }
 
-  moveCategory(categoryID: number, parentID: number) {
-    this.formStore.dispatch(moveCategory(categoryID, parentID));
+  categorySelected($event: number) {
+    this.formService.getCategory(this.form.id, $event)
+      .subscribe(category => this.previewingCategory = category)
   }
 
-  deleteCategory(id: number){
-    this.formStore.dispatch(deleteCategory(id));
+  /* TODO - implement 'edit' functions in the data-service */
+  editQuestion($event) {
+    return this.formService.moveCategory(this.form.id, $event.categoryID, $event.parentID);
   }
 
-  deleteQuestion(id: number){
-    this.formStore.dispatch(deleteQuestion(id));
+  editCategory($event) {
+    return this.formService.addCategory(this.form.id, $event.data, $event.parentID);
   }
+  /* TODO - implement 'edit' functions in the data-service */
 
 }

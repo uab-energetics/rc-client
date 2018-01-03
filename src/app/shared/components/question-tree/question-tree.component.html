@@ -4,6 +4,7 @@
   [options]="treeOptions"
   [focused]="true"
   (initialized)="onInitialized($event)"
+  (activate)="onActivate($event)"
   (updateData)="onInitialized($event)"
   (moveNode)="onMove($event)">
 
@@ -13,8 +14,8 @@
 
   <ng-template #treeNodeTemplate let-node let-index="index">
     <span>
-      <i *ngIf="node.data.type==='folder'" class="icon wb-folder"></i>
-      <i *ngIf="node.data.type==='file'" class="icon fa-question"></i>
+      <i *ngIf="node.data.type==='category'" class="icon wb-folder"></i>
+      <i *ngIf="node.data.type==='question'" class="icon fa-question"></i>
       &nbsp; {{ node.data.name }}
     </span>
   </ng-template>
