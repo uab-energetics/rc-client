@@ -55,7 +55,8 @@ export class QuestionTreeComponent implements OnChanges {
    * ==================================================
    */
   public get activeNode(): AppTreeNode {
-    return this.active;
+    if(this.active) return this.active;
+    return null;
   }
 
   public syncWithForm() {
@@ -102,12 +103,12 @@ export class QuestionTreeComponent implements OnChanges {
     actionMapping: {
       mouse: {
         dblClick: (tree, node, $event) => {
-          this.nodeDoubleClicked.emit(node.data);
+          this.nodeDoubleClicked.emit(node.data.withOriginalID());
         }
       }
     },
     allowDrop: (node, { parent, index }) => {
-      return this.allowDrop(node.data, parent.data);
+      return this.allowDrop(node.data.withOriginalID(), parent.data.withOriginalID());
     }
   };
 
