@@ -4,6 +4,7 @@ import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs/Observable";
 import {AppPublication} from "../../models/AppPublication";
 import 'rxjs/add/operator/share';
+import {List} from "lodash";
 
 const api = environment.api;
 
@@ -29,6 +30,12 @@ export class PublicationsService {
     if(query) params['search'] = query;
     return this.http.get<AppPublication[]>(`${api}/publications`, {params})
       .share()
+  }
+
+  uploadFromCSV(projectID: number, data: Array<any>): Observable<any> {
+    return this.http.post(`${api}/projects/${projectID}/publications/csv`, {
+      data: data
+    }).share();
   }
 
 }

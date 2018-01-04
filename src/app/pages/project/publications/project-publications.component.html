@@ -1,10 +1,19 @@
 <div class="container">
   <div class="row mb-25">
     <div class="col-12">
+
       <button (click)="openModal(addPublicationForm)"
               class="btn btn-success btn-outline">
         <i class="icon wb-plus"></i>
-        New Publication </button>
+        New Publication
+      </button>
+
+      <div class="float-right">
+        <input type="file" (change)="handleFileInput($event.target.files)">
+        <button (click)="uploadFile()" class="btn btn-success">
+          <i class="icon wb-table"></i>  Upload CSV </button>
+      </div>
+
     </div>
   </div>
 
@@ -46,7 +55,6 @@
   </div>
   <h3 *ngIf="publications?.length === 0">No publications yet. <a href="javascript:void(0)" (click)="openModal(addPublicationForm)">Add one</a> to get started.</h3>
 
-
   <ng-template #addPublicationForm let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title">Add a Publication</h4>
@@ -55,7 +63,8 @@
       </button>
     </div>
     <div class="modal-body">
-      <app-publication-form (appSubmit)="onPublicationFormSubmit($event)"></app-publication-form>
+      <app-publication-form (appSubmit)="onPublicationFormSubmit($event)">
+      </app-publication-form>
     </div>
   </ng-template>
 

@@ -7,6 +7,7 @@ import {ProjectService} from "../../../shared/services/project.service";
 import {PublicationsService} from "../../../shared/services/publications.service";
 import {NotifyService} from "../../../shared/services/notify.service";
 import {loadingPipe} from '../../../shared/helpers';
+import * as PapaParse from 'papaparse';
 
 @Component({
   selector: 'app-project-publications',
@@ -55,6 +56,35 @@ export class ProjectPublicationsComponent {
         this.notify.toast('Publication deleted');
         this.loadPublications();
       })
+  }
+
+
+  selectedFile: File;
+  handleFileInput(fileList: FileList){
+    this.selectedFile = fileList[0];
+  }
+
+  uploadFile(){
+    if(!this.selectedFile)
+      return alert('No file selected!');
+
+    PapaParse.parse(this.selectedFile, {
+      complete: (results, file) => {
+        console.log("Parsing complete:", results, file);
+        if(results.errors.length > 0)
+          return alert('Could not parse file. Please check format and try again. (Details in console)');
+
+        this.publicationService.uploadFromCSV(this.project.id, results.data)
+          .finally(() => this.loading--)
+          .subscribe( res => {
+            this.notify.toast('CSV Uploaded');
+            this.loadPublications();
+          }, err => {
+            this.notify.alert('Error', err.error.details, 'error');
+            return []
+          });
+      }
+    });
   }
 
   openModal(content){
