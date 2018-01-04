@@ -20,23 +20,24 @@ export class Paginator<T = any> {
   public next(): void {
     if(!this.hasNext())
       return;
-    this.page++;
+    this.offset += this.limit;
     this.updateActiveRows();
   }
 
   public prev(): void {
     if(!this.hasPrev())
       return;
-    this.page--;
+    this.offset -= this.limit;
+    this.offset = Math.max(this.offset, 0);
     this.updateActiveRows();
   }
 
   public hasNext(): boolean {
-    return offset + limit < this.dataBuffer.length;
+    return this.offset + this.limit < this.dataBuffer.length;
   }
 
   public hasPrev(): boolean {
-      return this.page > 0;
+      return this.offset > 0;
   }
 
   public setRowsPerPage(rowsPerPage: number): void {
@@ -54,8 +55,8 @@ export class Paginator<T = any> {
 
   private updateActiveRows() {
     this.activeRows = this.dataBuffer.slice(
-      offset,
-      offset + limit
+      this.offset,
+      this.offset + this.limit
     );
     this._source.next(this.activeRows);
   }

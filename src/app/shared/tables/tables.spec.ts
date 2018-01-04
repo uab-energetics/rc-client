@@ -5,17 +5,24 @@ declare let window: any;
 describe("Paginator Test", () => {
   it("Should work", () => {
 
-    console.log("total records: ", data.length);
+    expect(data.length).toBe(30);
 
-    let dataSource = new Paginator(data);
+    let dataSource = new Paginator(data, 10);
 
-    dataSource.changes.subscribe( newRows => console.log("New Data...", newRows));
+    let rows = [];
+    dataSource.changes.subscribe( newRows => rows = newRows);
 
-    dataSource.setRowsPerPage(10);
+    expect(rows.length).toBe(10);
 
-    let intervalID = setInterval(() => {
-      dataSource.next();
-    }, 2500);
+    dataSource.setRowsPerPage(11);
+    expect(rows.length).toBe(11);
+
+    dataSource.next();
+    dataSource.next();
+    expect(rows.length).toBe(8);
+    expect(dataSource.hasNext()).toBe(false);
+
+
   })
 });
 
