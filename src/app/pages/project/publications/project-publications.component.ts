@@ -69,6 +69,7 @@ export class ProjectPublicationsComponent {
       return alert('No file selected!');
 
     PapaParse.parse(this.selectedFile, {
+      skipEmptyLines: true,
       complete: (results, file) => {
         console.log("Parsing complete:", results, file);
         if(results.errors.length > 0)
