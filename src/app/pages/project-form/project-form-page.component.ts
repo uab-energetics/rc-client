@@ -11,11 +11,11 @@ import {NotifyService} from "../../shared/services/notify.service";
 import {FormService} from "../../shared/services/form.service";
 
 @Component({
-  selector: 'app-project-form',
-  templateUrl: './project-form.component.html',
-  styleUrls: ['./project-form.component.css']
+  selector: 'app-project-form-page',
+  templateUrl: './project-form-page.component.html',
+  styleUrls: ['./project-form-page.component.css']
 })
-export class ProjectFormComponent implements OnInit {
+export class ProjectFormPageComponent implements OnInit {
 
   /* Data */
   form: AppForm;

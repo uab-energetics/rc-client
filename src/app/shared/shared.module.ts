@@ -45,6 +45,7 @@ import {DynamicInputComponent} from './components/response-inputs/dynamic-input.
 import {PusherService} from './services/pusher.service';
 import { QuestionTreeComponent } from './components/question-tree/question-tree.component';
 import { TreeModule } from 'angular-tree-component';
+import {ProjectFormService} from "./services/project-form.service";
 
 @NgModule({
   imports: [
@@ -70,6 +71,7 @@ import { TreeModule } from 'angular-tree-component';
     FormService,
     EncodingService,
     ProjectService,
+    ProjectFormService,
     NotifyService,
     PublicationsService,
     NotificationsService,

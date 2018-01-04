@@ -8,7 +8,6 @@ import {AccountComponent} from './settings/account/account.component';
 import {SharedModule} from '../shared/shared.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProjectsComponent } from './projects/projects.component';
-import { ProjectFormComponent } from './project-form/project-form.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectComponent } from './project/project.component';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
@@ -29,6 +28,7 @@ import { DiscussComponent } from './discuss/discuss.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import {TreeModule} from 'angular-tree-component';
 import { CodeBookTreeComponent } from './form-builder/codebook-tree/codebook-tree.component';
+import {ProjectFormPageComponent} from "./project-form/project-form-page.component";
 
 const routes: Routes = [
   {
@@ -68,7 +68,7 @@ const routes: Routes = [
       },
       {
         path: "projects/:pid/forms/:fid",
-        component: ProjectFormComponent
+        component: ProjectFormPageComponent
       },
       {
         path: 'forms/:id',
@@ -130,6 +130,7 @@ const routes: Routes = [
     ProjectComponent,
     FormBuilderComponent,
     ProjectFormsComponent,
+    ProjectFormPageComponent,
     ProjectPublicationsComponent,
     PubCoderComponent,
     ExperimentFormComponent,
