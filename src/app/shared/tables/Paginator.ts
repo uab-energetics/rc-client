@@ -1,9 +1,9 @@
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 
-export class Paginator {
+export class Paginator<T = any> {
 
-  private _source = new BehaviorSubject([]);
+  private _source = new BehaviorSubject<T[]>([]);
   public changes = this._source.asObservable();
 
   private limit: number;
@@ -44,7 +44,7 @@ export class Paginator {
     this.updateActiveRows();
   }
 
-  constructor({ data = [], rowsPerPage = 10, page = 0 }) {
+  constructor( data: T[] = [], rowsPerPage = 10, page = 0 ) {
   	this.dataBuffer = data;
     this.limit = rowsPerPage;
     this.offset = page * rowsPerPage;
