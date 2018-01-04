@@ -22,6 +22,16 @@ describe("Paginator Test", () => {
     expect(rows.length).toBe(8);
     expect(dataSource.hasNext()).toBe(false);
 
+    dataSource.next();
+    expect(rows.length).toBe(8);
+
+    expect(dataSource.hasPrev()).toBe(true);
+
+    dataSource.setRowsPerPage(50);
+    expect(dataSource.hasPrev()).toBe(false);
+    expect(dataSource.hasNext()).toBe(false);
+    expect(data.length).toBe(30);
+
 
   })
 });

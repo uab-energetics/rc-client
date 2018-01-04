@@ -42,6 +42,7 @@ export class Paginator<T = any> {
 
   public setRowsPerPage(rowsPerPage: number): void {
     this.limit = rowsPerPage;
+    this.offset -= this.offset % this.limit;
     this.updateActiveRows();
   }
 
