@@ -23,7 +23,7 @@ export class ProjectFormService {
   }
 
   getPublications(project: AppProject, form: AppForm) {
-    return this.http.get<AppPublication>(this.getPrefix(project, form) + "/publications")
+    return this.http.get<AppPublication[]>(this.getPrefix(project, form) + "/publications")
       .share();
   }
 
@@ -43,12 +43,12 @@ export class ProjectFormService {
   }
 
   getEncoderss(project: AppProject, form: AppForm) {
-    return this.http.get<AppUser>(this.getPrefix(project, form) + "/encoders")
+    return this.http.get<AppUser[]>(this.getPrefix(project, form) + "/encoders")
       .share();
   }
 
   addEncoder(project: AppProject, form: AppForm, encoder: AppUser) {
-    return this.http.post<any>(this.getPrefix(project, form)+"/encoders/"+encoder.id)
+    return this.http.post<any>(this.getPrefix(project, form)+"/encoders/"+encoder.id, {})
       .share();
   }
 

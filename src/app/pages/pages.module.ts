@@ -29,6 +29,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import {TreeModule} from 'angular-tree-component';
 import { CodeBookTreeComponent } from './form-builder/codebook-tree/codebook-tree.component';
 import {ProjectFormPageComponent} from "./project-form/project-form-page.component";
+import {FormPublicationsComponent} from "./project-form/publications/form-publications.component";
 
 const routes: Routes = [
   {
@@ -131,6 +132,7 @@ const routes: Routes = [
     FormBuilderComponent,
     ProjectFormsComponent,
     ProjectFormPageComponent,
+    FormPublicationsComponent,
     ProjectPublicationsComponent,
     PubCoderComponent,
     ExperimentFormComponent,

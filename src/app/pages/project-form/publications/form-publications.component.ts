@@ -7,19 +7,23 @@ import {ProjectService} from "../../../shared/services/project.service";
 import {PublicationsService} from "../../../shared/services/publications.service";
 import {NotifyService} from "../../../shared/services/notify.service";
 import {loadingPipe} from '../../../shared/helpers';
+import {ProjectFormService} from "../../../shared/services/project-form.service";
+import {AppForm} from "../../../models/AppForm";
+import {AppFormPublication} from "../../../models/AppFormPublication";
 
 @Component({
-  selector: 'app-project-publications',
-  templateUrl: './project-publications.component.html',
-  styleUrls: ['./project-publications.component.css']
+  selector: 'app-form-publications',
+  templateUrl: './form-publications.component.html',
+  styleUrls: ['./form-publications.component.css']
 })
-export class ProjectPublicationsComponent {
+export class FormPublicationsComponent {
 
   @Input() project: AppProject;
+  @Input() form: AppForm;
 
   loading = 0;
 
-  publications: AppPublication[];
+  publications: AppFormPublication[];
 
   /* UI Data */
   modal;
@@ -27,6 +31,7 @@ export class ProjectPublicationsComponent {
   constructor(
     private notify: NotifyService,
     private modalService: NgbModal,
+    private projectFormService: ProjectFormService,
     private projectService: ProjectService,
     private publicationService: PublicationsService
   ) { }
@@ -36,19 +41,21 @@ export class ProjectPublicationsComponent {
   }
 
   loadPublications(){
-    this.projectService.getPublications(this.project.id)
-      .pipe<AppPublication[]>(loadingPipe.bind(this))
+    this.projectFormService.getPublications(this.project, this.form)
+      .pipe<AppFormPublication[]>(loadingPipe.bind(this))
       .subscribe( pubs => this.publications = pubs );
   }
 
-  onPublicationFormSubmit(newPublication: AppPublication){
+  onPublicationFormSubmit(publication: AppPublication, priority: number){
     this.modal.close();
-    this.projectService.createPublication(this.project.id, newPublication)
+    this.projectFormService.addPublications(this.project, this.form, publications, priority)
       .pipe(loadingPipe.bind(this))
       .subscribe(() => this.loadPublications())
   }
 
   onDeletePublication(publication){
+    this.notify.alert("TODO");
+    return;
     this.publicationService.deletePublication(publication.id)
       .pipe(loadingPipe.bind(this))
       .subscribe(() => {

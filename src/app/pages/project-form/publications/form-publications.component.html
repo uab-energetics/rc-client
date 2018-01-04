@@ -4,7 +4,7 @@
       <button (click)="openModal(addPublicationForm)"
               class="btn btn-success btn-outline">
         <i class="icon wb-plus"></i>
-        New Publication </button>
+        Add Publication </button>
     </div>
   </div>
 
@@ -24,14 +24,16 @@
           <th scope="col">#</th>
           <th scope="col">Publication Name</th>
           <th scope="col">Embedding URL</th>
+          <th scope="col">Priority</th>
           <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let pub of publications">
-          <th>{{pub.id}}</th>
-          <td>{{pub.name}}</td>
-          <td>{{pub.embedding_url}}</td>
+          <th>{{pub.publication?.id}}</th>
+          <td>{{pub.publication?.name}}</td>
+          <td>{{pub.publication?.embedding_url}}</td>
+          <td>{{pub.priority}}</td>
           <td>
             <button class="btn btn-danger btn-sm" (click)="onDeletePublication(pub)">
               <i class="icon wb-trash"></i>
