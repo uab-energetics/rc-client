@@ -6,45 +6,56 @@ export class Paginator {
   private _source = new BehaviorSubject([]);
   public changes = this._source.asObservable();
 
-  rowsPerPage;
-  page;
+  private limit: number;
+  private offset: number;
+
 
   dataBuffer;
   activeRows;
 
+  public page(): number {
+    return Math.floor(this.offset / this.limit);
+  }
+
   public next(): void {
-    let startRecord = (this.page+1) * this.rowsPerPage;
-    if(startRecord >= this.dataBuffer.length)
+    if(!this.hasNext())
       return;
     this.page++;
     this.updateActiveRows();
   }
 
   public prev(): void {
-    if(this.page === 0)
+    if(!this.hasPrev())
       return;
     this.page--;
     this.updateActiveRows();
   }
 
+  public hasNext(): boolean {
+    return offset + limit < this.dataBuffer.length;
+  }
+
+  public hasPrev(): boolean {
+      return this.page > 0;
+  }
+
   public setRowsPerPage(rowsPerPage: number): void {
-    this.rowsPerPage = rowsPerPage;
+    this.limit = rowsPerPage;
     this.updateActiveRows();
   }
 
   constructor({ data = [], rowsPerPage = 10, page = 0 }) {
   	this.dataBuffer = data;
-	this.rowsPerPage = rowsPerPage;
-	this.page = page;
-	this.updateActiveRows();
+    this.limit = rowsPerPage;
+    this.offset = page * rowsPerPage;
+    this.updateActiveRows();
   }
 
 
   private updateActiveRows() {
-    let start = this.page * this.rowsPerPage;
     this.activeRows = this.dataBuffer.slice(
-      start,
-      start + this.rowsPerPage
+      offset,
+      offset + limit
     );
     this._source.next(this.activeRows);
   }
