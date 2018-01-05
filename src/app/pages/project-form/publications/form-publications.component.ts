@@ -46,7 +46,7 @@ export class FormPublicationsComponent {
       .subscribe( pubs => this.publications = pubs );
   }
 
-  onPublicationFormSubmit(publication: AppPublication, priority: number){
+  onPublicationFormSubmit(publications: AppPublication[], priority: number){
     this.modal.close();
     this.projectFormService.addPublications(this.project, this.form, publications, priority)
       .pipe(loadingPipe.bind(this))
@@ -56,12 +56,12 @@ export class FormPublicationsComponent {
   onDeletePublication(publication){
     this.notify.alert("TODO");
     return;
-    this.publicationService.deletePublication(publication.id)
-      .pipe(loadingPipe.bind(this))
-      .subscribe(() => {
-        this.notify.toast('Publication deleted');
-        this.loadPublications();
-      })
+    // this.publicationService.deletePublication(publication.id)
+    //   .pipe(loadingPipe.bind(this))
+    //   .subscribe(() => {
+    //     this.notify.toast('Publication deleted');
+    //     this.loadPublications();
+    //   })
   }
 
   openModal(content){
