@@ -34,7 +34,7 @@ export class ProjectFormService {
   }
 
   getPublications(project: AppProject, form: AppForm) {
-    return this.http.get<AppPublication[]>(this.getPrefix(project, form) + "/publications")
+    return this.http.get<AppFormPublication[]>(this.getPrefix(project, form) + "/publications")
       .share();
   }
 

@@ -20,8 +20,8 @@ export class ProjectFormSettingsComponent {
   @Input() form: AppForm;
 
   settings: AppProjectFormSettings = {
-    task_target_publication: '',
-    task_target_encoder: ''
+    task_target_publication: 0,
+    task_target_encoder: 0
   };
 
   loading = 0;
