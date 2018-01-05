@@ -42,6 +42,10 @@ export class ProjectFormService {
       .share();
   }
 
+  removePublication(project: AppProject, form: AppForm, publication: AppPublication) {
+    return this.http.delete<any>(this.getPrefix(project, form)+"/publications/"+publication.id);
+  }
+
   getEncoders(project: AppProject, form: AppForm) {
     return this.http.get<AppUser[]>(this.getPrefix(project, form) + "/encoders")
       .share();

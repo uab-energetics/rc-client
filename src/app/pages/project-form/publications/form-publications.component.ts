@@ -54,14 +54,12 @@ export class FormPublicationsComponent {
   }
 
   onDeletePublication(publication){
-    this.notify.alert("TODO");
-    return;
-    // this.publicationService.deletePublication(publication.id)
-    //   .pipe(loadingPipe.bind(this))
-    //   .subscribe(() => {
-    //     this.notify.toast('Publication deleted');
-    //     this.loadPublications();
-    //   })
+    this.projectFormService.removePublication(this.project, this.form, publication)
+      .pipe(loadingPipe.bind(this))
+      .subscribe(() => {
+        this.notify.toast('Publication removed');
+        this.loadPublications();
+      })
   }
 
   changePriority(publication: AppPublication, priority: number) {
