@@ -10,7 +10,7 @@
 
       <div class="float-right">
         <input type="file" (change)="handleFileInput($event.target.files)">
-        <button (click)="uploadFile()" class="btn btn-success">
+        <button (click)="onUploadFile()" class="btn btn-success">
           <i class="icon wb-table"></i>  Upload CSV </button>
       </div>
 
@@ -26,15 +26,24 @@
   <div class="row">
     <div class="col-12">
 
-      <app-paginator class="float-right"
-        [currentPage]="page"
-        [lastPage]="total"
-        (goto)="handleGotoPage($event)">
-      </app-paginator>
+      <div class="row">
+        <input
+          type="search"
+          #term (keyup)="onSearchInput(term.value)"
+          class="form-control form-inline col-lg-4"
+          placeholder="Search by name..">
+
+        <app-paginator class="col-lg-8"
+          [currentPage]="currentPage"
+          [lastPage]="lastPage"
+          (goto)="handleGotoPage($event)">
+        </app-paginator>
+      </div>
 
       <table class="table">
         <thead class="thead-light">
         <tr>
+          <th></th>
           <th scope="col">#</th>
           <th scope="col">Publication Name</th>
           <th scope="col">Embedding URL</th>
@@ -43,9 +52,12 @@
         </thead>
         <tbody>
         <tr *ngFor="let pub of publications">
+          <th><mat-checkbox
+            [checked]="isSelected(pub.id)"
+            (change)="toggleSelection(pub.id)"></mat-checkbox></th>
           <th>{{pub.id}}</th>
           <td>{{pub.name}}</td>
-          <td>{{pub.embedding_url}}</td>
+          <td><a href="{{pub.embedding_url}}">{{pub.embedding_url}}</a> </td>
           <td>
             <button class="btn btn-danger btn-sm" (click)="onDeletePublication(pub)">
               <i class="icon wb-trash"></i>

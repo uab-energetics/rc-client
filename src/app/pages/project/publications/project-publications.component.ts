@@ -6,9 +6,24 @@ import {AppPublication} from "../../../models/AppPublication";
 import {ProjectService} from "../../../shared/services/project.service";
 import {PublicationsService} from "../../../shared/services/publications.service";
 import {NotifyService} from "../../../shared/services/notify.service";
-import {loadingPipe} from '../../../shared/helpers';
 import * as PapaParse from 'papaparse';
-import {PaginatedResult} from "../../../models/PaginatedResult";
+import {Subject} from "rxjs/Subject";
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/mergeMap';
+
+
+
+/*
+* TODO
+* This class is too big, and needs a refactor.
+* 1.) Move the table into its own component, along with the pagination
+*
+* */
+
+
+
+
+
 
 @Component({
   selector: 'app-project-publications',
@@ -19,11 +34,19 @@ export class ProjectPublicationsComponent {
 
   @Input() project: AppProject;
 
-  loading = 0;
-
   publications: AppPublication[];
 
-  /* UI Data */
+  searchPhrase = "";
+  currentPage = 1;
+  lastPage = 0;
+
+  selectedPublications: Set<number> = new Set();
+  selectedFile: File;
+
+  searchStream = new Subject<string>();
+  clickStream = new Subject<number>();
+
+  loading = 0;
   modal;
 
   constructor(
@@ -34,56 +57,60 @@ export class ProjectPublicationsComponent {
   ) { }
 
   ngOnInit() {
-    this.loadPublications();
-  }
-
-  page;
-  total;
-  loadPublications(){
-    this.loading++;
-    this.projectService.getPublications(this.project.id, { page: 1, page_size: 15 })
-      .finally(() => this.loading--)
-      .subscribe( res => {
-        this.publications = res.data;
-        this.page = res.current_page;
-        this.total = res.last_page;
-        console.log(this.page, this.total);
+    const searchSource = this.searchStream
+      .do(() => this.loading = 1)
+      .debounceTime(1000)
+      .distinctUntilChanged()
+      .map( searchTerm => {
+        this.searchPhrase = searchTerm;
+        return { search: searchTerm, page: 1 }
       });
+
+    const clickSource = this.clickStream
+      .map( page => { return { search: this.searchPhrase, page }});
+
+    const source = searchSource.merge(clickSource)
+      .startWith({ search: "", page: 1 })
+      .mergeMap(( paginationOptions ) => {
+        return this.projectService.getPublications(this.project.id, {
+          page: paginationOptions.page,
+          search: paginationOptions.search,
+          page_size: 15
+        })
+      });
+
+    source.subscribe( data => {
+      this.loading = 0;
+      this.currentPage = data.current_page;
+      this.lastPage = data.last_page;
+      this.publications = data.data;
+    });
   }
 
-  handleGotoPage(page: number){
-    this.projectService.getPublications(this.project.id, { page: page, page_size: 15 })
-      .subscribe( res => {
-        this.publications = res.data;
-        this.page = res.current_page;
-        this.total = res.last_page;
-        console.log(this.page, this.total);
-      })
-  }
+  handleGotoPage = (page: number) => this.clickStream.next(page);
+  onSearchInput = (searchPhrase) => this.searchStream.next(searchPhrase);
+  toggleSelection = (id) => this.selectedPublications.add(id);
+  isSelected = (id) => this.selectedPublications.has(id);
+  handleFileInput = (fileList: FileList) => this.selectedFile = fileList[0];
+  openModal = (content) => this.modal = this.modalService.open(content);
 
   onPublicationFormSubmit(newPublication: AppPublication){
     this.modal.close();
     this.projectService.createPublication(this.project.id, newPublication)
-      .pipe(loadingPipe.bind(this))
-      .subscribe(() => this.loadPublications())
+      .subscribe( pub => this.publications.push(pub));
   }
 
   onDeletePublication(publication){
+    this.loading++;
     this.publicationService.deletePublication(publication.id)
-      .pipe(loadingPipe.bind(this))
+      .finally(() => this.loading--)
       .subscribe(() => {
         this.notify.toast('Publication deleted');
-        this.loadPublications();
+        this.publications.filter( pub => pub.id !== publication.id );
       })
   }
 
-
-  selectedFile: File;
-  handleFileInput(fileList: FileList){
-    this.selectedFile = fileList[0];
-  }
-
-  uploadFile(){
+  onUploadFile(){
     if(!this.selectedFile)
       return alert('No file selected!');
 
@@ -98,7 +125,7 @@ export class ProjectPublicationsComponent {
           .finally(() => this.loading--)
           .subscribe( res => {
             this.notify.toast('CSV Uploaded');
-            this.loadPublications();
+            this.searchStream.next('');
           }, err => {
             this.notify.alert('Error', err.error.details, 'error');
             return []
@@ -106,9 +133,4 @@ export class ProjectPublicationsComponent {
       }
     });
   }
-
-  openModal(content){
-    this.modal = this.modalService.open(content);
-  }
-
 }
