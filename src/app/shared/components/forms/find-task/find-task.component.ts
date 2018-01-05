@@ -37,7 +37,7 @@ export class FindTaskComponent implements OnInit {
       .subscribe( forms => this.forms = forms );
     this.pubService.searchPublications()
       .finally(() => this.loading--)
-      .subscribe(pubs => this.publications = pubs);
+      .subscribe(pubs => this.publications = pubs.data);
   }
 
   exportForm(){
