@@ -65,7 +65,7 @@ export class FormPublicationsComponent {
   }
 
   changePriority(publication: AppPublication, priority: number) {
-    this.projectFormService.addPublication(this.project, this.form, publication);
+    this.projectFormService.addPublication(this.project, this.form, publication, null);
     this.loadPublications();
   }
 
