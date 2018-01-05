@@ -22,6 +22,7 @@ export class ExperimentFormComponent implements OnInit {
   @Output() saveResponses = new EventEmitter();
   @Output() onDeleteBranch = new EventEmitter<number>();
   @Output() onCreateBranch = new EventEmitter<object>();
+  @Output() onBranchChange = new EventEmitter<object>();
 
   branches = [];
   originalData = {};
@@ -93,5 +94,19 @@ export class ExperimentFormComponent implements OnInit {
    */
   private getBranchData(branch_key): object {
     return this.originalData[branch_key] || {};
+  }
+
+  /**
+   * ==============================
+   * COMPONENT STATE
+   * ==============================
+   */
+  branchState = {};
+
+  editBranch = (branch) => this.branchState[branch.id] = branch;
+  stopEditingBranch = (branch, newName) => {
+    if(branch.name === newName) return;
+    this.onBranchChange.emit({ id: branch.id, name: newName });
+    this.branchState[branch.id] = null;
   }
 }

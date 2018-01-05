@@ -50,7 +50,7 @@ export class PubCoderComponent implements OnInit {
         .subscribe( pub => {
           this.publication = pub;
           this.embeddingURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.publication.embedding_url);
-        } );
+        });
     })
   }
 
@@ -75,6 +75,13 @@ export class PubCoderComponent implements OnInit {
     this.encodingService.recordBranch(this.encoding.id, data as AppBranch)
       .finally(() => this.loading--)
       .subscribe(() => this.ngOnInit());
+  }
+
+  handleChangeBranch(data: object){
+    this.loading++;
+    this.encodingService.recordBranch(this.encoding.id, data as AppBranch)
+      .finally(() => this.loading--)
+      .subscribe(() => this.loadEncoding());
   }
 
   handleSaveResponses(response_array){

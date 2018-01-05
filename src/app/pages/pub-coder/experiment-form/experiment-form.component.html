@@ -9,12 +9,24 @@
             [destroyOnHide]="false">
   <ngb-tab *ngFor="let branch of branches;">
     <ng-template ngbTabTitle>
-      <i class="icon wb-share"></i>
-      {{getBranchData(branch.id).name}}
-      &nbsp;
-      <button (click)="deleteBranch(branch)" class="btn btn-sm btn-warning btn-outline p-3">
-        <i class="icon wb-pencil"></i>
-      </button>
+
+      <div *ngIf="branchState[branch.id]">
+        <!-- when editing-->
+        <input (blur)="stopEditingBranch(branch, $event.target.value)" [value]="branch.name"/>
+        <button (click)="deleteBranch(branch)" class="btn btn-sm btn-warning btn-outline p-3">
+          <i class="icon wb-pencil"></i>
+        </button>
+      </div>
+
+      <div *ngIf="!branchState[branch.id]">
+        <i class="icon wb-share"></i>
+        {{getBranchData(branch.id).name}}
+        &nbsp;
+        <button (click)="editBranch(branch)" class="btn btn-sm btn-warning btn-outline p-3">
+          <i class="icon wb-pencil"></i>
+        </button>
+      </div>
+
     </ng-template>
     <ng-template ngbTabContent>
       <div class="mt-25">
