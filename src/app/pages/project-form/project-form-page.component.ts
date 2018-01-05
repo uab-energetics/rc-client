@@ -20,12 +20,14 @@ export class ProjectFormPageComponent implements OnInit {
   /* Data */
   form: AppForm;
   project: AppProject;
+  modal;
 
   /* UI */
   loading = 0;
 
   constructor(
     private route: ActivatedRoute,
+    private modalService: NgbModal,
     public notify: NotifyService,
     private projectService: ProjectService,
     private formService: FormService,
@@ -51,6 +53,24 @@ export class ProjectFormPageComponent implements OnInit {
     this.formService.getForm(formID)
       .finally(() => this.loading--)
       .subscribe(form => this.form = form);
+  }
+
+  updateForm(form: AppForm) {
+    this.projectService.updateForm(form)
+      .finally(() => this.loading--)
+      .subscribe(() => {
+        this.notify.toast('Form updated.');
+        this.loadForm();
+      })
+  }
+
+  editForm(content){
+    this.modal = this.modalService.open(content)
+  }
+
+  formFormSubmit(form: AppForm){
+    this.modal.close();
+    this.updateForm(form);
   }
 }
 

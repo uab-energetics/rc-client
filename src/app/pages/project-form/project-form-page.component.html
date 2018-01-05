@@ -3,11 +3,17 @@
     <div class="page-header">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/projects">Projects</a></li>
-        <li class="breadcrumb-item active">{{project?.name}}</li>
+        <li class="breadcrumb-item"><a routerLink="/projects/{{project?.id}}">{{project?.name}}</a></li>
         <li class="breadcrumb-item"><a routerLink="/projects/{{project?.id}}">Forms</a></li>
         <li class="breadcrumb-item active">{{form?.name}}</li>
       </ol>
-      <h1 class="page-title mb-25">{{form?.name}}</h1>
+      <h1 class="page-title mb-25" *ngIf="form">
+        {{form.name}}
+        <a href="javascript:void(0);" (click)="editForm(formFormModal)" class="btn-sm btn-outline p-3">
+          <i class="icon wb-pencil"></i>
+        </a>
+      </h1>
+
       <!--<p class="page-description">{{project.description}}</p>-->
 
       <div class="page-header-actions">
@@ -64,6 +70,22 @@
         </ng-template>
       </ngb-tab>
     </ngb-tabset>
+
+    <ng-template #formFormModal let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Rename Form</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar>
+        <app-form-form
+                [appForm]="form"
+                (appSubmit)="formFormSubmit($event)">
+        </app-form-form>
+      </div>
+    </ng-template>
 
   </div>
 </div>
