@@ -30,6 +30,7 @@ import {TreeModule} from 'angular-tree-component';
 import { CodeBookTreeComponent } from './form-builder/codebook-tree/codebook-tree.component';
 import {ProjectFormPageComponent} from "./project-form/project-form-page.component";
 import {FormPublicationsComponent} from "./project-form/publications/form-publications.component";
+import {EncodersComponent} from "./project-form/encoders/encoders.component";
 
 const routes: Routes = [
   {
@@ -138,6 +139,7 @@ const routes: Routes = [
     ExperimentFormComponent,
     ConflictsComponent,
     CollaboratorsComponent,
+    EncodersComponent,
     DiscussComponent,
     WelcomeComponent,
     CodeBookTreeComponent

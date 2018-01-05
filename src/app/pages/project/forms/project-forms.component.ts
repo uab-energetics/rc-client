@@ -7,6 +7,7 @@ import {SweetAlertService} from "ng2-sweetalert2";
 import 'rxjs/add/operator/finally';
 import {NotifyService} from "../../../shared/services/notify.service";
 import {FormService} from "../../../shared/services/form.service";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-project-forms',
@@ -25,6 +26,7 @@ export class ProjectFormsComponent {
 
   constructor(
     private modalService: NgbModal,
+    private router: Router,
     private notify: NotifyService,
     private projectService: ProjectService,
     private formService: FormService
@@ -88,6 +90,10 @@ export class ProjectFormsComponent {
 
   exportForm(id: number) {
     this.formService.saveExport(id);
+  }
+
+  manageForm(form: AppForm) {
+    this.router.navigate(['/projects/'+this.project.id+"/forms/"+form.id]);
   }
 
 

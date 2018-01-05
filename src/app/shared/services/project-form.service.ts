@@ -42,7 +42,7 @@ export class ProjectFormService {
       .share();
   }
 
-  getEncoderss(project: AppProject, form: AppForm) {
+  getEncoders(project: AppProject, form: AppForm) {
     return this.http.get<AppUser[]>(this.getPrefix(project, form) + "/encoders")
       .share();
   }
