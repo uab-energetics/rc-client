@@ -41,15 +41,17 @@ export class FormPublicationsComponent {
   }
 
   loadPublications(){
+    this.loading++;
     this.projectFormService.getPublications(this.project, this.form)
-      .pipe<AppFormPublication[]>(loadingPipe.bind(this))
+      .finally(() => this.loading--)
       .subscribe( pubs => this.publications = pubs );
   }
 
   onPublicationFormSubmit(publications: AppPublication[], priority: number){
     this.modal.close();
+    this.loading++;
     this.projectFormService.addPublications(this.project, this.form, publications, priority)
-      .pipe(loadingPipe.bind(this))
+      .finally(() => this.loading--)
       .subscribe(() => this.loadPublications())
   }
 

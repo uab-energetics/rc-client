@@ -9,6 +9,7 @@ import {AppPublication} from "../../models/AppPublication";
 import * as _ from "lodash";
 import {AppUser} from "../../models/AppUser";
 import {AppFormPublication} from "../../models/AppFormPublication";
+import {AppProjectFormSettings} from "../../models/AppProjectFormSettings";
 
 const api = environment.api;
 
@@ -20,6 +21,16 @@ export class ProjectFormService {
 
   public getPrefix(project: AppProject, form: AppForm) {
     return api + "/projects/" + project.id + "/forms/" + form.id;
+  }
+
+  getSettings(project: AppProject, form: AppForm) {
+    return this.http.get<AppProjectFormSettings>(this.getPrefix(project, form))
+      .share();
+  }
+
+  updateSettings(project: AppProject, form: AppForm, settings:AppProjectFormSettings) {
+    return this.http.put<AppProjectFormSettings>(this.getPrefix(project, form), settings)
+      .share();
   }
 
   getPublications(project: AppProject, form: AppForm) {

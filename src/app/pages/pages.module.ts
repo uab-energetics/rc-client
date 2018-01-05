@@ -32,6 +32,7 @@ import { CodeBookTreeComponent } from './form-builder/codebook-tree/codebook-tre
 import {ProjectFormPageComponent} from "./project-form/project-form-page.component";
 import {FormPublicationsComponent} from "./project-form/publications/form-publications.component";
 import {EncodersComponent} from "./project-form/encoders/encoders.component";
+import {ProjectFormSettingsComponent} from "./project-form/settings/project-form-settings.component";
 
 const routes: Routes = [
   {
@@ -141,6 +142,7 @@ const routes: Routes = [
     ExperimentFormComponent,
     ConflictsComponent,
     CollaboratorsComponent,
+    ProjectFormSettingsComponent,
     EncodersComponent,
     DiscussComponent,
     WelcomeComponent,

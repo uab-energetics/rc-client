@@ -66,7 +66,10 @@
       <ngb-tab>
         <ng-template ngbTabTitle><i class="icon wb-settings"></i> Settings </ng-template>
         <ng-template ngbTabContent>
-          TODO
+          <app-project-form-settings
+            [project]="project"
+            [form]="form">
+          </app-project-form-settings>
         </ng-template>
       </ngb-tab>
     </ngb-tabset>
