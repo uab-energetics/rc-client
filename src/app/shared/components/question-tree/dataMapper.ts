@@ -1,6 +1,7 @@
 import {AppQuestion} from '../../../models/AppQuestion';
 import {AppCategory} from '../../../models/AppCategory';
 import {AppNodeType, AppTreeNode} from './dataModel';
+import {type} from "os";
 
 export function mapToTreeNodes(rootCategory: AppCategory): AppTreeNode[] {
   let root = mapCategory(rootCategory);

@@ -46,6 +46,7 @@ import {PusherService} from './services/pusher.service';
 import { QuestionTreeComponent } from './components/question-tree/question-tree.component';
 import { TreeModule } from 'angular-tree-component';
 import {ProjectFormService} from "./services/project-form.service";
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   imports: [
@@ -103,7 +104,8 @@ import {ProjectFormService} from "./services/project-form.service";
     CommentsComponent,
     ChannelComponent,
     DynamicInputComponent,
-    QuestionTreeComponent
+    QuestionTreeComponent,
+    PaginatorComponent
   ],
   exports: [
     NavbarComponent,
@@ -126,7 +128,8 @@ import {ProjectFormService} from "./services/project-form.service";
     ChannelComponent,
     FindTaskComponent,
     DynamicInputComponent,
-    QuestionTreeComponent
+    QuestionTreeComponent,
+    PaginatorComponent
   ]
 })
 export class SharedModule {

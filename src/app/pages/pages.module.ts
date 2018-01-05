@@ -12,6 +12,7 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { ProjectComponent } from './project/project.component';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
 import {
+  MatCheckbox, MatCheckboxModule,
   MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSidenavModule, MatSnackBarModule,
   MatTableModule
 } from '@angular/material';
@@ -118,7 +119,8 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     MatRadioModule,
     MatSidenavModule,
-    MatTableModule
+    MatTableModule,
+    MatCheckboxModule
   ],
   declarations: [
     PagesComponent,

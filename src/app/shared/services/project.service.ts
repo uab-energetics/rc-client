@@ -8,6 +8,8 @@ import {catchError, share} from "rxjs/operators";
 import {AppPublication} from "../../models/AppPublication";
 import * as _ from "lodash";
 import {AppUser} from "../../models/AppUser";
+import {PaginatedResult} from "../../models/PaginatedResult";
+import {PaginationOptions} from "../../models/PaginationOptions";
 
 const api = environment.api;
 
@@ -25,12 +27,12 @@ export class ProjectService {
 
   createProject(project: AppProject): Observable<AppProject> {
     return this.http.post<AppProject>(api + "/projects", project)
-      .pipe(share())
+      .share()
   }
 
   deleteProject(id: number): Observable<any> {
     return this.http.delete(`${api}/projects/${id}`)
-      .pipe(share())
+      .share()
   }
 
   updateProject(project: AppProject): Observable<AppProject> {
@@ -66,12 +68,14 @@ export class ProjectService {
 
   getForms(projectID: number): Observable<AppForm[]> {
     return this.http.get<AppForm[]>(`${api}/projects/${projectID}/forms`)
-      .pipe(share())
+      .share()
   }
 
-  getPublications(projectID: number): Observable<AppPublication[]> {
-    return this.http.get<AppPublication[]>(`${api}/projects/${projectID}/publications`)
-      .pipe(share())
+  getPublications(projectID: number, options: PaginationOptions = { page: 1, page_size: 20 }): Observable<PaginatedResult<AppPublication>> {
+    let params: any = Object.assign({}, options);
+    return this.http.get<PaginatedResult<AppPublication>>(
+      `${api}/projects/${projectID}/publications`,
+      { params }).share()
   }
 
   inviteCollaborator(projectID: number, userID: number): Observable<void> {
