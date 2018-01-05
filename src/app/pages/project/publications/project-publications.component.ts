@@ -8,6 +8,7 @@ import {PublicationsService} from "../../../shared/services/publications.service
 import {NotifyService} from "../../../shared/services/notify.service";
 import {loadingPipe} from '../../../shared/helpers';
 import * as PapaParse from 'papaparse';
+import {PaginatedResult} from "../../../models/PaginatedResult";
 
 @Component({
   selector: 'app-project-publications',
@@ -37,9 +38,10 @@ export class ProjectPublicationsComponent {
   }
 
   loadPublications(){
+    this.loading++;
     this.projectService.getPublications(this.project.id)
-      .pipe<AppPublication[]>(loadingPipe.bind(this))
-      .subscribe( pubs => this.publications = pubs );
+      .finally(() => this.loading--)
+      .subscribe( (res: PaginatedResult<AppPublication>) => console.log(res.data));
   }
 
   onPublicationFormSubmit(newPublication: AppPublication){

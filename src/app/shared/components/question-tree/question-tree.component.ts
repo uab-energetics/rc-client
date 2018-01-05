@@ -100,6 +100,7 @@ export class QuestionTreeComponent implements OnChanges {
   private treeNodes: any;
   private treeOptions: any = {
     allowDrag: true,
+    idField: 'treeID',
     actionMapping: {
       mouse: {
         dblClick: (tree, node, $event) => {

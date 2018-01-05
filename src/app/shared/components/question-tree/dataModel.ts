@@ -5,6 +5,7 @@ export enum AppNodeType {
 }
 
 export class AppTreeNode {
+  treeID: string;
   id: number;
   type: AppNodeType;
   name: string;
@@ -17,6 +18,7 @@ export class AppTreeNode {
     this.children = children;
     this.isRoot = isRoot;
     this.id = id;
+    this.treeID = `${type}-${id}`;
   }
 
 }
