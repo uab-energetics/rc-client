@@ -27,6 +27,11 @@ describe("Paginator Test", () => {
 
     expect(dataSource.hasPrev()).toBe(true);
 
+    dataSource.goto(-1);
+    expect(dataSource.page()).toBe(0);
+    dataSource.goto(10);
+    expect(dataSource.page()).toBe(2);
+
     dataSource.setRowsPerPage(50);
     expect(dataSource.hasPrev()).toBe(false);
     expect(dataSource.hasNext()).toBe(false);

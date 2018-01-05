@@ -17,6 +17,11 @@ export class Paginator<T = any> {
     return Math.floor(this.offset / this.limit);
   }
 
+  public goto(page: number) {
+    this.offset = Math.min(this.calculateOffset(page, this.limit), this.maxOffset());
+    this.updateActiveRows();
+  }
+
   public next(): void {
     if(!this.hasNext())
       return;
@@ -48,10 +53,17 @@ export class Paginator<T = any> {
   constructor( data: T[] = [], rowsPerPage = 10, page = 0 ) {
   	this.dataBuffer = data;
     this.limit = rowsPerPage;
-    this.offset = page * rowsPerPage;
+    this.offset = this.calculateOffset(page, this.limit);
     this.updateActiveRows();
   }
 
+  private calculateOffset(page, pageSize) {
+    return Math.max(page, 0) * pageSize;
+  }
+
+  private maxOffset() {
+    return this.dataBuffer.length - this.dataBuffer.length % this.limit;
+  }
 
   private updateActiveRows() {
     this.activeRows = this.dataBuffer.slice(
