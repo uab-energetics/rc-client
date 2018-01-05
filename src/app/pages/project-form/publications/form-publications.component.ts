@@ -64,6 +64,11 @@ export class FormPublicationsComponent {
     //   })
   }
 
+  changePriority(publication: AppPublication, priority: number) {
+    this.projectFormService.addPublication(this.project, this.form, publication);
+    this.loadPublications();
+  }
+
   openModal(content){
     this.modal = this.modalService.open(content);
   }
