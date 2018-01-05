@@ -10,14 +10,18 @@ import * as _ from "lodash";
 import {AppUser} from "../../models/AppUser";
 import {AppFormPublication} from "../../models/AppFormPublication";
 import {AppProjectFormSettings} from "../../models/AppProjectFormSettings";
+import {AppProjectForm} from "../../models/AppProjectForm";
+import {UserService} from "../auth/user.service";
 
 const api = environment.api;
 
 @Injectable()
 export class ProjectFormService {
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(
+    private http: HttpClient,
+    private userService : UserService
+  ) {}
 
   public getPrefix(project: AppProject, form: AppForm) {
     return api + "/projects/" + project.id + "/forms/" + form.id;
@@ -70,6 +74,23 @@ export class ProjectFormService {
   addEncoders(project: AppProject, form: AppForm, encoders: AppUser[]) {
     let data = { encoders : encoders.map( user => user.id ) };
     return this.http.post<any>(this.getPrefix(project, form)+"/encoders", data)
+      .share();
+  }
+
+  getProjectFormsEncoder() {
+    return this.http.get<AppProjectForm[]>(api + "/users/forms")
+      .share();
+  }
+
+  requestMyTasks(project: AppProject, form: AppForm, count = null) {
+    let user = this.userService.user;
+    return this.requestTasks(project, form, user, count);
+  }
+
+  requestTasks(project: AppProject, form: AppForm, encoder: AppUser, count = null) {
+    let data = {};
+    if (count) {data['count'] = count};
+    return this.http.post<any>(this.getPrefix(project, form)+"/encoders/"+encoder.id, data)
       .share();
   }
 
