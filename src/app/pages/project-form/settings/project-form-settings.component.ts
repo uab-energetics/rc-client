@@ -19,7 +19,10 @@ export class ProjectFormSettingsComponent {
   @Input() project: AppProject;
   @Input() form: AppForm;
 
-  settings: AppProjectFormSettings;
+  settings: AppProjectFormSettings = {
+    task_target_publication: '',
+    task_target_encoder: ''
+  };
 
   loading = 0;
 
@@ -46,14 +49,15 @@ export class ProjectFormSettingsComponent {
     this.loading++;
     this.projectFormService.updateSettings(this.project, this.form, this.settings)
       .finally(() => this.loading--)
-      .subscribe(settings => this.settings = settings);
+      .subscribe(settings => {
+        this.notify.toast('Settings updated');
+        this.settings = settings;
+      });
   }
 
   onFormSubmit() {
     this.updateSettings();
   }
-
-
 
 
 }
