@@ -27,8 +27,7 @@ export class Paginator<T = any> {
   public prev(): void {
     if(!this.hasPrev())
       return;
-    this.offset -= this.limit;
-    this.offset = Math.max(this.offset, 0);
+    this.offset -= Math.min(this.limit, this.offset);
     this.updateActiveRows();
   }
 
