@@ -37,11 +37,28 @@ export class ProjectPublicationsComponent {
     this.loadPublications();
   }
 
+  page;
+  total;
   loadPublications(){
     this.loading++;
-    this.projectService.getPublications(this.project.id)
+    this.projectService.getPublications(this.project.id, { page: 1, page_size: 15 })
       .finally(() => this.loading--)
-      .subscribe( (res: PaginatedResult<AppPublication>) => console.log(res.data));
+      .subscribe( res => {
+        this.publications = res.data;
+        this.page = res.current_page;
+        this.total = res.last_page;
+        console.log(this.page, this.total);
+      });
+  }
+
+  handleGotoPage(page: number){
+    this.projectService.getPublications(this.project.id, { page: page, page_size: 15 })
+      .subscribe( res => {
+        this.publications = res.data;
+        this.page = res.current_page;
+        this.total = res.last_page;
+        console.log(this.page, this.total);
+      })
   }
 
   onPublicationFormSubmit(newPublication: AppPublication){

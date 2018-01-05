@@ -26,6 +26,11 @@
   <div class="row">
     <div class="col-12">
 
+      <app-paginator class="float-right"
+        [currentPage]="page"
+        [lastPage]="total"
+        (goto)="handleGotoPage($event)">
+      </app-paginator>
 
       <table class="table">
         <thead class="thead-light">
@@ -49,7 +54,6 @@
         </tr>
         </tbody>
       </table>
-
 
     </div>
   </div>

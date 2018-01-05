@@ -45,6 +45,7 @@ import {DynamicInputComponent} from './components/response-inputs/dynamic-input.
 import {PusherService} from './services/pusher.service';
 import { QuestionTreeComponent } from './components/question-tree/question-tree.component';
 import { TreeModule } from 'angular-tree-component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   imports: [
@@ -101,7 +102,8 @@ import { TreeModule } from 'angular-tree-component';
     CommentsComponent,
     ChannelComponent,
     DynamicInputComponent,
-    QuestionTreeComponent
+    QuestionTreeComponent,
+    PaginatorComponent
   ],
   exports: [
     NavbarComponent,
@@ -124,7 +126,8 @@ import { TreeModule } from 'angular-tree-component';
     ChannelComponent,
     FindTaskComponent,
     DynamicInputComponent,
-    QuestionTreeComponent
+    QuestionTreeComponent,
+    PaginatorComponent
   ]
 })
 export class SharedModule {

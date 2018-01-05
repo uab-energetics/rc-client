@@ -9,6 +9,7 @@ import {AppPublication} from "../../models/AppPublication";
 import * as _ from "lodash";
 import {AppUser} from "../../models/AppUser";
 import {PaginatedResult} from "../../models/PaginatedResult";
+import {PaginationOptions} from "../../models/PaginationOptions";
 
 const api = environment.api;
 
@@ -70,9 +71,11 @@ export class ProjectService {
       .share()
   }
 
-  getPublications(projectID: number): Observable<PaginatedResult<AppPublication>> {
-    return this.http.get<PaginatedResult<AppPublication>>(`${api}/projects/${projectID}/publications`)
-      .share()
+  getPublications(projectID: number, options: PaginationOptions = { page: 1, page_size: 20 }): Observable<PaginatedResult<AppPublication>> {
+    let params: any = Object.assign({}, options);
+    return this.http.get<PaginatedResult<AppPublication>>(
+      `${api}/projects/${projectID}/publications`,
+      { params }).share()
   }
 
   inviteCollaborator(projectID: number, userID: number): Observable<void> {
