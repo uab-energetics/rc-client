@@ -68,6 +68,10 @@ export class ProjectFormPageComponent implements OnInit {
     this.modal = this.modalService.open(content)
   }
 
+  exportForm(id: number) {
+    this.formService.saveExport(id);
+  }
+
   formFormSubmit(form: AppForm){
     this.modal.close();
     this.updateForm(form);
