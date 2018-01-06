@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ConflictsService} from "../../shared/services/conflicts.service";
-import {NO_RESPONSE, renderToString} from "../../shared/responses/converters";
+import {renderToString} from "../../shared/responses/converters";
 import {AppUser} from "../../models/AppUser";
 import {UserService} from "../../shared/auth/user.service";
 import * as _ from 'lodash';
@@ -87,6 +87,12 @@ export class ConflictsComponent implements OnInit {
         this.channel_name = data.encoding.channel_name;
         this.ready = true;
 
+        // BUILD THE BRANCH GROUPS OBJECT
+        let set = new Set();
+        this.myEncoding.experiment_branches.forEach( b => set.add(b.name) );
+        this.otherEncodings.forEach( e => e.experiment_branches.forEach( b => set.add(b.name)));
+        this.branchGroups = Array.from(set);
+
         console.log(
           this.branchGroups,
           this.myEncodingData,
@@ -113,12 +119,12 @@ export class ConflictsComponent implements OnInit {
 
   lookupResponse(branchName: string, encoding: AppExperimentEncoding, question: AppQuestion){
     if(!encoding.experiment_branches[branchName])
-      return "NO_BRANCH";
+      return "DOESNT_HAVE_BRANCH";
     let response_path = `experiment_branches['${branchName}']['responses']['${question.id}']`;
     return _.get(
       encoding,
       response_path,
-      null
+      "NO_RESPONSE"
     );
   }
 
@@ -132,19 +138,6 @@ export class ConflictsComponent implements OnInit {
    * ========================
    */
 
-  // branch name changes ------------------------------------
-
-  branchState = {};
-  editBranch(branch){
-    this.branchState[branch.id] = branch;
-  }
-  stopEditingBranch(branch, newName){
-    if(branch.name === newName) return;
-    this.encodingService.recordBranch(this.myEncoding.id, { id: branch.id, name: newName } as AppBranch)
-      .subscribe( res => this.ngOnInit() );
-    this.branchState[branch.id] = null;
-  }
-
   // response data changes ------------------------------------
 
   changes = null;
@@ -152,6 +145,16 @@ export class ConflictsComponent implements OnInit {
     this.changes = reduceResponses(this.changes, $event.key, $event.response);
   }
 
+  changeName(branchGroup: string){
+    let newName = this.notify.prompt('Enter a new name:', branchGroup);
+    if(!newName || newName === branchGroup ) return;
+    let update = { name: newName };
+    let original = this.myEncodingData.experiment_branches[branchGroup];
+    if(!original) return;
+    update = Object.assign(update, { id: original.id });
+    this.encodingService.recordBranch(this.myEncoding.id, update as AppBranch)
+      .subscribe(() => this.ngOnInit());
+  }
 
   commitChanges(){
     this.loading++;
@@ -182,23 +185,6 @@ export class ConflictsComponent implements OnInit {
 * ============================
 * */
 
-// const hashEncodings = (encodings: AppExperimentEncoding[]): HashedEncodings =>
-//   encodings.reduce( (hashed, encoding) => hashed[encoding.id] = encoding, {});
-
-// const hashEncoding = (encoding: AppExperimentEncoding): HashedEncoding =>
-//   encoding.experiment_branches.reduce(
-//     (hashedEncoding: any, branch: AppBranch) =>
-//       hashedEncoding.experiment_branches[branch.id] = hashBranch(branch),
-//     Object.assign({}, encoding, { experiment_branches: [] })
-//   );
-
-// const hashBranch = (branch: AppBranch): HashedBranch =>
-//   branch.responses.reduce(
-//     (hashedBranch: any, response) =>
-//       hashedBranch.responses[response.id] = response,
-//     Object.assign({}, branch, { responses: [] })
-//   );
-
 const hashEncodings = (encodings: AppExperimentEncoding[]): HashedEncodings =>{
   let hashed = {};
   encodings.forEach( encoding => {
@@ -222,3 +208,10 @@ const hashBranch = (branch: AppBranch): HashedBranch => {
   });
   return hashed;
 };
+
+
+/* IMPLEMENTATION NOTES */
+
+/* There were a couple of 'gotcha' moments during implementation */
+// + the branch key used during hashing must be the _name_ of the branch, not the branch's ID
+// + the response key is the _question key_, not the response's ID

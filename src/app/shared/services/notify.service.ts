@@ -16,8 +16,8 @@ export class NotifyService {
     this.materialSnackBar.open(message, action, options);
   }
 
-  prompt(message){
-    return prompt(message);
+  prompt(message, def = null){
+    return prompt(message, def);
   }
 
   alert(title, message = '', type = 'success'){

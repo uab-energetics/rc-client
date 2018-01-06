@@ -31,3 +31,11 @@ td.conflict {
 td.agreement {
   background-color: rgba(16, 255, 0, 0.14);
 }
+
+
+
+/* POP-OVERS ( INLINE QUESTION EDITING ) */
+.popover {
+  width: 400px !important;
+  max-width: 1000px !important;
+}

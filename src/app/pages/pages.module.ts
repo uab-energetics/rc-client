@@ -13,8 +13,8 @@ import { ProjectComponent } from './project/project.component';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
 import {
   MatCheckbox, MatCheckboxModule,
-  MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSidenavModule, MatSnackBarModule,
-  MatTableModule
+  MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatSidenavModule, MatSnackBarModule,
+  MatTableModule, MatTabsModule
 } from '@angular/material';
 import { PubCoderComponent } from './pub-coder/pub-coder.component';
 import {FormsModule} from "@angular/forms";
@@ -121,7 +121,9 @@ const routes: Routes = [
     MatRadioModule,
     MatSidenavModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSelectModule,
+    MatTabsModule
   ],
   declarations: [
     PagesComponent,

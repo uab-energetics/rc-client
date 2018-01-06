@@ -42,106 +42,127 @@
           =============================================
           -->
 
-          <div *ngFor="let branchGroup of branchGroups">
+          <h2>Showing the branches of all coders: </h2>
+          <mat-tab-group>
+            <mat-tab *ngFor="let branchGroup of branchGroups">
 
+              <ng-template mat-tab-label>
 
+                <!-- Not Editing -->
+                <div>
+                  {{branchGroup}}
+                  &nbsp; &nbsp;
+                  <button
+                    *ngIf="myEncodingData.experiment_branches[branchGroup]"
+                    (click)="changeName(branchGroup)"
+                    class="btn btn-sm btn-warning btn-outline p-3">
+                    <i class="icon wb-pencil"></i>
+                  </button>
+                </div>
 
+              </ng-template>
 
-            <!-- Title -->
-            <div class="title-wrapper">
-              <h2>{{branchGroup}}</h2>
-            </div>
-
-
-
-            <!--
-            =============================================
-            SECOND DIMENSION: QUESTIONS
-            =============================================
-            -->
-            <table class="table conflicts-table">
 
 
 
               <!--
               =============================================
-              THIRD DIMENSION: OTHER CODER'S RESPONSES
+              SECOND DIMENSION: QUESTIONS
               =============================================
               -->
-              <thead class="">
-              <tr class="avatar-thead">
-                <th>Questions</th>
-                <th>
+
+              <div>
+                <br/>
+
+                <table class="table conflicts-table">
+
+
+
+                  <!--
+                  =============================================
+                  THIRD DIMENSION: OTHER CODER'S RESPONSES
+                  =============================================
+                  -->
+                  <thead class="">
+                  <tr class="avatar-thead">
+                    <th>Questions</th>
+                    <th>
                 <span class="avatar avatar-sm">
                   <img [src]="me.image"/>
                 </span> &nbsp;
-                  My Responses
-                </th>
-                <th *ngFor="let otherEncoding of otherEncodings">
-                <span class="avatar avatar-sm">
-                  <img [src]="otherEncoding.owner.image"/>
-                </span> &nbsp;
-                  {{otherEncoding.owner.name}}
-                </th>
-              </tr>
-              </thead>
+                      My Responses
+                    </th>
+                    <th *ngFor="let otherEncoding of otherEncodings">
+                      <span class="avatar avatar-sm">
+                        <img [src]="otherEncoding.owner.image"/>
+                      </span> &nbsp;
+                      {{otherEncoding.owner.name}}
+                    </th>
+                  </tr>
+                  </thead>
 
 
 
 
 
 
-              <tbody>
-              <tr *ngFor="let question of questions">
+                  <tbody>
+                  <tr *ngFor="let question of questions">
 
 
-                <!-- QUESTION POP-OUT -->
-                <ng-template #questionPopover >
-                    <app-question
-                            [key]="question.id"
-                            [question]="question"
-                            [responseData]="lookupResponse(branchGroup, myEncoding, question)"
-                            (questionUpdate)="handleResponseChange($event)">
-                    </app-question>
-                  </ng-template>
+                    <!-- QUESTION POP-OUT -->
+                    <ng-template #questionPopover>
+                      <app-question
+                        [key]="question.id"
+                        [question]="question"
+                        [responseData]="lookupResponse(branchGroup, myEncodingData, question)"
+                        (questionUpdate)="handleResponseChange($event)">
+                      </app-question>
+                    </ng-template>
 
-                <!-- QUESTION COLUMN -->
-                <th>
-                  <button class="btn btn-sm btn-primary p-3"
-                          [ngbPopover]="questionPopover"
-                          [disabled]="lookupResponse(branchGroup, myEncodingData, question) === null"
-                          placement="right"
-                          popoverTitle="{{question.name}}">
-                    <i class="icon fa-question"></i>
-                  </button>
-                  &nbsp;
-                  {{question.name}}
-                </th>
-
-
-                <!-- MY RESPONSE -->
-                <td class="my-response">{{renderResponse(branchGroup, myEncodingData, question)}}</td>
+                    <!-- QUESTION COLUMN -->
+                    <th>
+                      <button class="btn btn-sm btn-primary p-3"
+                              [ngbPopover]="questionPopover"
+                              [disabled]="!myEncodingData.experiment_branches[branchGroup]"
+                              placement="right"
+                              popoverTitle="{{question.name}}">
+                        <i class="icon fa-question"></i>
+                      </button>
+                      &nbsp;
+                      {{question.name}}
+                    </th>
 
 
-                <!-- OTHER REPSONDERS
-                ============================ -->
-                <td *ngFor="let other of otherEncodings"
-                    [ngClass]="{
+                    <!-- MY RESPONSE -->
+                    <td class="my-response">{{renderResponse(branchGroup, myEncodingData, question)}}</td>
+
+
+                    <!-- OTHER REPSONDERS
+                    ============================ -->
+                    <td *ngFor="let other of otherEncodings"
+                        [ngClass]="{
                       'conflict': conflict(branchGroup, otherEncodingsData[other.id], question)?.agrees===0,
                       'agreement': conflict(branchGroup, otherEncodingsData[other.id], question)?.agrees===1
                       }">
 
-                  {{renderResponse(branchGroup, otherEncodingsData[other.id], question)}}
-                </td>
+                      {{renderResponse(branchGroup, otherEncodingsData[other.id], question)}}
+                    </td>
 
 
-              </tr>
+                  </tr>
 
-              </tbody>
-            </table>
+                  </tbody>
+                </table>
+                <br/>
+                <br/>
+                <br/><!-- this spacing is for the question pop-over -->
 
-          </div>
+              </div>
 
+
+            </mat-tab>
+          </mat-tab-group>
 
           <button *ngIf="changes" (click)="commitChanges()" class="btn btn-primary" >
             <i class="icon wb-upload"></i> &nbsp;
