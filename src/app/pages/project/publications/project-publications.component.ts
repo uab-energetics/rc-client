@@ -121,6 +121,7 @@ export class ProjectPublicationsComponent {
         if(results.errors.length > 0)
           return alert('Could not parse file. Please check format and try again. (Details in console)');
 
+        this.loading++;
         this.publicationService.uploadFromCSV(this.project.id, results.data)
           .finally(() => this.loading--)
           .subscribe( res => {

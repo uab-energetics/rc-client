@@ -144,7 +144,9 @@ export class ConflictsComponent implements OnInit {
   }
 
   getBranchNames() {
-      return Object.keys(this.branchMap);
+      let entries = Object.entries(this.branchMap);
+      console.log(entries);
+      return entries;
   }
 
   conflict(branchName, encoding, question: AppQuestion): Conflict {
@@ -170,17 +172,24 @@ export class ConflictsComponent implements OnInit {
 
   private addEncodingToBranchMap(encoding: AppExperimentEncoding) {
     for (let branch of encoding.experiment_branches) {
-        if (!this.branchMap[branch.name]) this.branchMap[branch.name] = {};
+        this.branchMap[branch.name] = this.branchMap[branch.name] || {};
         this.branchMap[branch.name][encoding.id] = hashBranch(branch);
     }
   }
-
 
   /**
    * ========================
    * CHANGE DETECTION
    * ========================
    */
+  branchState = {};
+  editBranch = (branch) => this.branchState[branch.id] = branch;
+  stopEditingBranch = (branch, newName) => {
+    if(branch.name === newName) return;
+    this.encodingService.recordBranch(this.myEncoding.id, { id: branch.id, name: newName } as AppBranch)
+      .subscribe( res => this.ngOnInit() );
+    this.branchState[branch.id] = null;
+  }
 
   changes = null;
   handleResponseChange($event: QuestionUpdate){

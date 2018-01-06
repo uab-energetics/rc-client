@@ -31,8 +31,21 @@
           </div>
 
 
-          <div *ngFor="let branchName of getBranchNames()">
-            <h2>{{branchName}}</h2>
+          <div *ngFor="let branchEntry of getBranchNames()">
+
+            <div class="title-wrapper">
+
+              <div *ngIf="branchState[branchEntry[1].id]">
+                <!-- Editing -->
+                <input (blur)="stopEditingBranch(branchEntry[1], $event.target.value)" [value]="branchEntry[0]" />
+              </div>
+              <div *ngIf="!branchState[branchEntry[1].id]">
+                <!-- Not Editing -->
+                <h2>{{branchEntry[0]}} <small><i class="icon wb-edit" (click)="editBranch(branchEntry[1])"></i></small></h2>
+              </div>
+
+            </div>
+
             <table class="table conflicts-table" *ngIf="ready">
 
 
@@ -71,7 +84,7 @@
                     <app-question
                             [key]="question.id"
                             [question]="question"
-                            [responseData]="lookupResponse(branchName, myEncoding, question)"
+                            [responseData]="lookupResponse(branchEntry[0], myEncoding, question)"
                             (questionUpdate)="handleResponseChange($event)">
                     </app-question>
                   </ng-template>
@@ -80,7 +93,7 @@
                 <th>
                   <button class="btn btn-sm btn-primary p-3"
                           [ngbPopover]="questionPopover"
-                          [disabled]="lookupResponse(branchName, myEncoding, question) === null"
+                          [disabled]="lookupResponse(branchEntry[0], myEncoding, question) === null"
                           placement="right"
                           popoverTitle="{{question.name}}">
                     <i class="icon fa-question"></i>
@@ -91,17 +104,17 @@
 
 
                 <!-- MY RESPONSE -->
-                <td class="my-response">{{renderResponse(branchName, myEncoding, question)}}</td>
+                <td class="my-response">{{renderResponse(branchEntry[0], myEncoding, question)}}</td>
 
 
                 <!-- OTHER REPSONDERS
                 ============================ -->
                 <td *ngFor="let other of otherEncodings"
                     [ngClass]="{
-                      'conflict': conflict(branchName, other, question)?.agrees===0,
-                      'agreement': conflict(branchName, other, question)?.agrees===1 }">
+                      'conflict': conflict(branchEntry[0], other, question)?.agrees===0,
+                      'agreement': conflict(branchEntry[0], other, question)?.agrees===1 }">
 
-                  {{renderResponse(branchName, other, question)}}
+                  {{renderResponse(branchEntry[0], other, question)}}
                 </td>
 
 
