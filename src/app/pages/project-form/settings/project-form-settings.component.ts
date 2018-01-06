@@ -21,7 +21,8 @@ export class ProjectFormSettingsComponent {
 
   settings: AppProjectFormSettings = {
     task_target_publication: 0,
-    task_target_encoder: 0
+    task_target_encoder: 0,
+    auto_enroll: true,
   };
 
   loading = 0;
@@ -47,6 +48,7 @@ export class ProjectFormSettingsComponent {
 
   updateSettings() {
     this.loading++;
+    this.settings.auto_enroll = String(this.settings.auto_enroll) === 'true';
     this.projectFormService.updateSettings(this.project, this.form, this.settings)
       .finally(() => this.loading--)
       .subscribe(settings => {
