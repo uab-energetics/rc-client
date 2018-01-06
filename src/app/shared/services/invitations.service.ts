@@ -15,24 +15,46 @@ export class InvitationsService {
     private http: HttpClient
   ){}
 
-  validateInvitation(inviteToken: string): Observable<any> {
-      return this.http.get(`${api}/validate-invite`, {
-        params: {
-          token: inviteToken
-        }
-      }).share()
-  }
-
-  sendEmailInvite(project_id: number, email: string){
-      return this.http.post(`${api}/invite-to-project`, {
+  sendResearcherEmailInvite(project_id: number, email: string){
+      return this.http.post(`${api}/invite-researcher-to-project`, {
         project_id: project_id,
         to_email: email,
-        callback_url: environment.callbacks.redeemInvite
+        callback_url: environment.callbacks.redeemResearcherInvite
       }).share();
   }
 
-  acceptInvite(token): Observable<any> {
-    return this.http.post(`${api}/redeem-invite-token`, {
+  sendEncoderEmailInvite(project_id: number, email: string){
+    return this.http.post(`${api}/invite-encoder-to-project`, {
+      project_id: project_id,
+      to_email: email,
+      callback_url: environment.callbacks.redeemEncoderInvite
+    }).share();
+  }
+
+  validateResearcherInvitation(inviteToken: string): Observable<any> {
+    return this.http.get(`${api}/validate-researcher-invite`, {
+      params: {
+        token: inviteToken
+      }
+    }).share()
+  }
+
+  validateEncoderInvitation(inviteToken: string): Observable<any> {
+    return this.http.get(`${api}/validate-encoder-invite`, {
+      params: {
+        token: inviteToken
+      }
+    }).share()
+  }
+
+  acceptResearcherInvite(token): Observable<any> {
+    return this.http.post(`${api}/redeem-researcher-invite`, {
+      token
+    }).share()
+  }
+
+  acceptEncoderInvite(token): Observable<any> {
+    return this.http.post(`${api}/redeem-encoder-invite`, {
       token
     }).share()
   }

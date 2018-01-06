@@ -9,7 +9,8 @@ let environment = {
   showLog: true,
   production: false,
   callbacks: {
-    redeemInvite: window.location.origin + "/callbacks/redeem-invite"
+    redeemResearcherInvite: window.location.origin + "/callbacks/redeem-researcher-invite",
+    redeemEncoderInvite: window.location.origin + "/callbacks/redeem-encoder-invite"
   },
   pusher: {
     key: '248705977b596a5376e1',

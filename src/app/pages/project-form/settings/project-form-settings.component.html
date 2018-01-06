@@ -24,6 +24,18 @@
                type="number" name="task_target_encoder" [(ngModel)]="settings.task_target_encoder" />
     </div>
 
+    <div class="form-group">
+        <label> <strong>Automatic Encoder Enrollment</strong> </label>
+        <p class="description-content">
+            <em>Whether encoders added to the project should automatically be enrolled in this form</em>
+        </p>
+        <select #targetEnc class="form-control" required
+                name="auto_enroll" [(ngModel)]="settings.auto_enroll" >
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select>
+    </div>
+
     <button class="btn btn-success"> Submit </button>
 
 </form>

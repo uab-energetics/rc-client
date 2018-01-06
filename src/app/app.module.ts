@@ -14,7 +14,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthGuardService} from './shared/auth/auth-guard.service';
 import {LoggerService} from './shared/logger.service';
 import { SweetAlertService } from 'ng2-sweetalert2';
-import { RedeemInviteComponent } from './callbacks/redeem-invite/redeem-invite.component';
+import { RedeemResearcherInviteComponent } from './callbacks/redeem-invite/redeem-researcher-invite.component';
+import { RedeemEncoderInviteComponent } from './callbacks/redeem-invite/redeem-encoder-invite.component';
 
 const routes: Routes = [
   {

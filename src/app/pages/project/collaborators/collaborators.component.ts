@@ -35,7 +35,7 @@ export class CollaboratorsComponent implements OnInit {
 
   inviteByEmail(email: string){
     this.loading++;
-    this.invitations.sendEmailInvite(this.project.id, email)
+    this.invitations.sendResearcherEmailInvite(this.project.id, email)
       .finally(() => this.loading--)
       .catch(err => {
         this.notify.alert('Oops', "Invite couldn't be sent", "error");
@@ -50,7 +50,7 @@ export class CollaboratorsComponent implements OnInit {
   sendInvite(user: AppUser){
     console.log(user);
     this.loading++;
-    this.projectService.inviteCollaborator(this.project.id, user.id)
+    this.projectService.inviteResearcher(this.project.id, user.id)
       .finally(() => this.loading--)
       .catch( err => { this.notify.toast("Invalid User..", "But why?"); return [] } )
       .subscribe(() => {

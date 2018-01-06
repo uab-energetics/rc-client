@@ -1,14 +1,10 @@
 <div class="container">
-  <button (click)="addProjectEncoders()"
-          class="btn btn-success btn-outline">
-    <i class="icon wb-plus"></i>
-    Add All Project Encoders </button>
   <div class="row">
     <div class="col-md-6 col-xl-4">
       <!-- Example User -->
       <div class="example-wrap m-lg-0">
         <h4 class="example-title">User List</h4>
-        <p>A list of the project's active users</p>
+        <p>A list of the project's active encoders</p>
         <ul class="list-group list-group-full">
           <li *ngFor="let user of users" class="list-group-item">
             <div class="media">
@@ -44,20 +40,32 @@
 
 
         <div>
-          <h4 class="example-title">Invite an Encoder</h4>
+          <h4 class="example-title">Invite a Collaborator</h4>
           <p>Start typing a user's name to search</p>
 
-          <app-encoder-search [project]="project" #userSearch></app-encoder-search>
+          <app-user-search #userSearch></app-user-search>
 
           <p></p>
           <!--<pre>{{userSearch.model | json}}</pre>-->
 
-          <button (click)="sendInvite(userSearch.model)" class="btn btn-primary">Delegate</button>
+          <button (click)="sendInvite(userSearch.model)" class="btn btn-primary">Send Invite</button>
         </div>
 
         <br/>
         <br/>
 
+        <div>
+          <h4 class="example-title">..or invite via email!</h4>
+          <p>Enter an email address: </p>
+
+          <form (ngSubmit)="inviteByEmail(inviteEmail)">
+            <div class="form-group">
+              <input [(ngModel)]="inviteEmail" name="inviteEmail" class="form-control">
+            </div>
+            <br/>
+            <button class="btn btn-primary">Send Invite</button>
+          </form>
+        </div>
 
 
 

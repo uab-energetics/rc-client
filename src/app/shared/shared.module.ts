@@ -48,6 +48,7 @@ import { QuestionTreeComponent } from './components/question-tree/question-tree.
 import { TreeModule } from 'angular-tree-component';
 import {ProjectFormService} from "./services/project-form.service";
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import {EncoderSearchComponent} from "./components/forms/user-search/encoder-search.component";
 import {EncodingTreeComponent} from "../pages/pub-coder/encoding-tree/encoding-tree.component";
 import {BranchQuestionsService} from "./services/branch-questions.service";
 
@@ -106,6 +107,7 @@ import {BranchQuestionsService} from "./services/branch-questions.service";
     PublicationFormComponent,
     FindTaskComponent,
     UserSearchComponent,
+    EncoderSearchComponent,
     CommentsComponent,
     ChannelComponent,
     DynamicInputComponent,
@@ -129,6 +131,7 @@ import {BranchQuestionsService} from "./services/branch-questions.service";
     ProjectFormComponent,
     PublicationFormComponent,
     UserSearchComponent,
+    EncoderSearchComponent,
     CommentsComponent,
     ChannelComponent,
     FindTaskComponent,
