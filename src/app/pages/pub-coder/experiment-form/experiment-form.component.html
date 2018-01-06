@@ -34,6 +34,7 @@
           [key]="branch.id"
           (appBranchUpdate)="onResponseChanged($event)"
           [branchData]="getBranchData(branch.id)"
+          [branchModel]="branch"
           [appForm]="appForm">
         </app-branch>
       </div>

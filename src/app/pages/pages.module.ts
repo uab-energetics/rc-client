@@ -12,8 +12,9 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { ProjectComponent } from './project/project.component';
 import { FormBuilderComponent } from './form-builder/form-builder.component';
 import {
-  MatCheckbox, MatCheckboxModule,
-  MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatSidenavModule, MatSnackBarModule,
+  MatCheckbox, MatCheckboxModule, MatMenuModule,
+  MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule, MatSidenavModule,
+  MatSlideToggleModule, MatSnackBarModule,
   MatTableModule, MatTabsModule
 } from '@angular/material';
 import { PubCoderComponent } from './pub-coder/pub-coder.component';
@@ -33,6 +34,8 @@ import {ProjectFormPageComponent} from "./project-form/project-form-page.compone
 import {FormPublicationsComponent} from "./project-form/publications/form-publications.component";
 import {EncodersComponent} from "./project-form/encoders/encoders.component";
 import {ProjectFormSettingsComponent} from "./project-form/settings/project-form-settings.component";
+import {EncodingTreeComponent} from "./pub-coder/encoding-tree/encoding-tree.component";
+import { StructureEditorComponent } from './pub-coder/structure-editor/structure-editor.component';
 
 const routes: Routes = [
   {
@@ -123,7 +126,9 @@ const routes: Routes = [
     MatTableModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
+    MatMenuModule,
+    MatSlideToggleModule
   ],
   declarations: [
     PagesComponent,
@@ -148,7 +153,9 @@ const routes: Routes = [
     EncodersComponent,
     DiscussComponent,
     WelcomeComponent,
-    CodeBookTreeComponent
+    CodeBookTreeComponent,
+    EncodingTreeComponent,
+    StructureEditorComponent
   ]
 })
 export class PagesModule {

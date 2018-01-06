@@ -1,14 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
-import {AppCategory} from '../../../models/AppCategory';
-import {AppTreeNode} from './dataModel';
-import {mapToTreeNodes} from './dataMapper';
-import {ITreeNode} from 'angular-tree-component/dist/defs/api';
-import {AppQuestion} from "../../../models/AppQuestion";
-
-export interface AppMoveEvent {
-  node: AppTreeNode;
-  newParent: AppTreeNode;
-}
+import {EncodingNode, EncodingNodeType} from "./dataModel";
+import {mapToEncodingNode} from "./dataMapper";
+import {AppExperimentEncoding} from "../../../models/AppExperimentEncoding";
+import {MatMenuTrigger} from "@angular/material";
 
 
 /**
@@ -23,11 +17,11 @@ export interface AppMoveEvent {
  * ====================================
  */
 @Component({
-  selector: 'app-question-tree',
-  templateUrl: './question-tree.component.html',
-  styleUrls: ['./question-tree.component.css']
+  selector: 'app-encoding-tree',
+  templateUrl: './encoding-tree.component.html',
+  styleUrls: ['./encoding-tree.component.css']
 })
-export class QuestionTreeComponent implements OnChanges {
+export class EncodingTreeComponent implements OnChanges {
 
   /**
    * ======================================
@@ -35,7 +29,7 @@ export class QuestionTreeComponent implements OnChanges {
    * ( this is the most important part )
    * ======================================
    */
-  @Input() rootCategory: AppCategory;
+  @Input() encoding: AppExperimentEncoding;
 
 
   /**
@@ -44,9 +38,12 @@ export class QuestionTreeComponent implements OnChanges {
    * ( for your event-binding needs )
    * ======================================
    */
-  @Output() nodeDoubleClicked = new EventEmitter<AppTreeNode>();
-  @Output() nodeMoved = new EventEmitter<AppMoveEvent>();
+  @Output() nodeDoubleClicked = new EventEmitter<EncodingNode>();
+  @Output() nodeMoved = new EventEmitter();
 
+
+  types = EncodingNodeType;
+  sourceMap;
 
   /**
    * ==================================================
@@ -54,39 +51,20 @@ export class QuestionTreeComponent implements OnChanges {
    * ( These might be exported by parent component )
    * ==================================================
    */
-  public get activeNode(): AppTreeNode {
+  public get activeNode(): EncodingNode {
     if(this.active) return this.active;
     return null;
   }
 
   public syncWithForm() {
-    this.treeNodes = mapToTreeNodes(this.rootCategory);
+    let { nodes, sourceMap } = mapToEncodingNode(this.encoding);
+    this.treeNodes = nodes;
+    this.sourceMap = sourceMap;
   }
 
-  public lookupInForm(nodeID: number): AppQuestion | AppCategory {
-    // BFS
-    let start = this.rootCategory;
-    let queue: AppCategory[] = [start];
-    while(queue.length > 0){
-      let current = queue.pop();
-      if(current.id == nodeID) return current;
-      for(let i = 0; i < current.questions.length; i++)
-        if(nodeID === current.questions[i].id)
-          return current.questions[i];
-      queue.push(...current.children);
-    }
-    return null;
+  public lookupInForm(nodeID: number) {
+    alert("Lookup not implemented");
   }
-
-
-  /**
-   * ===========================================================
-   * INPUT OPTIONS
-   * ( Use these input properties to configure behavior )
-   * ===========================================================
-   */
-  @Input() allowDrop = (node, parent) => false;
-  @Input() allowDrag = false;
 
 
   /**
@@ -96,6 +74,7 @@ export class QuestionTreeComponent implements OnChanges {
    * ======================
    */
   @ViewChild('tree') treeComponent;
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   private treeNodes: any;
   private treeOptions: any = {
@@ -105,16 +84,22 @@ export class QuestionTreeComponent implements OnChanges {
       mouse: {
         dblClick: (tree, node, $event) => {
           this.nodeDoubleClicked.emit(node.data);
+        },
+        contextMenu: (tree, node, $event) => {
+          $event.preventDefault();
+          this.trigger.openMenu();
         }
       }
     },
     allowDrop: (node, { parent, index }) => {
-      return this.allowDrop(node.data, parent.data);
+      return true;
     }
   };
 
-  active: AppTreeNode;
-  onActivate = ($event) => this.active = $event.node.data;
+  active: EncodingNode;
+  onActivate($event){
+    this.active = $event.node.data;
+  }
 
   onMove($event: MoveEvent) {
     this.nodeMoved.emit({
@@ -133,18 +118,12 @@ export class QuestionTreeComponent implements OnChanges {
 }
 
 
-/**
- * =============================
- * PACKAGE INTERFACE REFERENCES
- * =============================
- */
-
 interface MoveEvent {
-  node: AppTreeNode; // the node that was moved
+  node: EncodingNode; // the node that was moved
   to: To; // can't say I like this schema. at least I have TypeScript to help out
 }
 
 interface To {
-  parent: AppTreeNode; // the parent node that contains the moved node
+  parent: EncodingNode; // the parent node that contains the moved node
   index: number; // the index in the parent where the node was moved
 }

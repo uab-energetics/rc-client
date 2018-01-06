@@ -1,7 +1,18 @@
 <div class="page">
   <div class="page-content">
 
-    <div class="row">
+    <div class="row mb-30">
+      <button (click)="view='structure'"
+              [disabled]="view==='structure'"
+              class="btn btn-primary mr-20"> Structure View </button>
+
+      <button (click)="view='code'"
+              [disabled]="view==='code'"
+              class="btn btn-primary"> Code View </button>
+    </div>
+
+    <div class="row"
+         [hidden]="view==='structure'">
 
       <div class="col-lg-6">
 
@@ -30,9 +41,20 @@
         </div>
 
       </div>
+
       <div class="col-lg-6">
         <iframe *ngIf="embeddingURL" [src]="embeddingURL" style="width: 100%; height: 700px;"></iframe>
       </div>
+
     </div>
+
+    <app-structure-editor
+      [hidden]="view==='code'"
+      [encoding]="encoding"
+      (branchUpdate)="loadEncoding()"
+      (branchCreate)="handleChangeBranch($event)"
+      [codebook]="form">
+    </app-structure-editor>
+
   </div>
 </div>

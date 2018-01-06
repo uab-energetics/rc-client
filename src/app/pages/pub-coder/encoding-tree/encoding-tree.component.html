@@ -1,0 +1,29 @@
+<tree-root
+  #tree
+  [nodes]="treeNodes"
+  [options]="treeOptions"
+  [focused]="true"
+  (initialized)="onInitialized($event)"
+  (activate)="onActivate($event)"
+  (updateData)="onInitialized($event)"
+  (moveNode)="onMove($event)">
+
+
+  <ng-template #treeNodeTemplate let-node let-index="index">
+    <span>
+      <span [matMenuTriggerFor]="contextMenu"></span>
+      <mat-menu #contextMenu="matMenu" yPosition="below" xPosition="after">
+        <button mat-menu-item> Edit </button>
+        <button mat-menu-item> Delete </button>
+      </mat-menu>
+
+      <i *ngIf="node.data.type===types.root" class="icon wb-plus-circle"></i>
+      <i *ngIf="node.data.type===types.branch" class="icon wb-share"></i>
+      <i *ngIf="node.data.type===types.question" class="icon fa-question"></i>
+      &nbsp; {{ node.data.name }}
+    </span>
+
+  </ng-template>
+
+
+</tree-root>

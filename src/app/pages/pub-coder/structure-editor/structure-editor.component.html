@@ -1,0 +1,103 @@
+<div class="row" *ngIf="encoding && codebook">
+
+  <div class="col-lg-4">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Encoding Structure</h3>
+      </div>
+      <div class="panel-body">
+
+        <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
+
+        <app-encoding-tree
+          (nodeDoubleClicked)="nodeSelected($event)"
+          [encoding]="encoding">
+        </app-encoding-tree>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">CodeBook Structure</h3>
+      </div>
+      <div class="panel-body">
+        <app-question-tree [rootCategory]="codebook.root_category">
+        </app-question-tree>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="col-lg-7">
+
+    <div class="panel" *ngIf="view()==='B'">
+      <div class="panel-heading">
+        <h3 class="panel-title">Selected Questions for Branch <em>{{selectedBranch.name}}</em></h3>
+      </div>
+      <div class="panel-body">
+
+        <!-- Question List -->
+        <div>
+
+          <section *ngFor="let question of codebook.questions" class="example-section mb-20" >
+            <mat-slide-toggle
+              (change)="questionChange(question, $event)"
+              [checked]="structureState[selectedBranch.id][question.id]">
+              {{question.name}}
+            </mat-slide-toggle>
+          </section>
+
+        </div>
+
+      </div>
+      <div class="panel-footer">
+        <button *ngIf="structureUpdates" (click)="commitChanges()" class="btn btn-success">Commit Changes</button>
+      </div>
+    </div>
+
+    <div class="panel" *ngIf="view()==='E'">
+      <div class="panel-heading">
+        <h3 class="panel-title">Encoding Branches</h3>
+      </div>
+      <div class="panel-body">
+
+        <!-- Branch List -->
+        <div>
+
+          <button
+            *ngFor="let branch of encoding.experiment_branches"
+            class="btn btn-lg mr-20" [disabled]="true">
+            {{branch.name}}
+          </button>
+
+          <br/>
+          <hr/>
+
+          <button (click)="createBranch()" class="btn btn-sm btn-success">+ Add Branch</button>
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">CodeBook Preview</h3>
+      </div>
+      <div class="panel-body">
+
+        <app-category [category]="codebook.root_category" [root]="true">
+        </app-category>
+
+      </div>
+    </div>
+
+  </div>
+
+
+</div>

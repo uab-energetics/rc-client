@@ -1,4 +1,6 @@
 
+import {HashedBranch} from "../../conflicts/definitions";
+
 export interface EncodingUpdate {
   branch_key,
   question_key,
@@ -21,20 +23,6 @@ export function reduceBranch(branch, update: EncodingUpdate){
 }
 
 
-/**
- *
- * @param responses
- *  {
- *    [question_key]: response: AppResponse
- *  }
- *
- *
- * @param question_key - probably the question ID, but not required.
- *
- * @param response: AppResponse
- *
- * @returns {{} & any & {}} - same format as responses parameter. ( detailed above )
- */
 export function reduceResponses(responses, question_key, response){
   responses = responses || {};
   return Object.assign({}, responses, {
