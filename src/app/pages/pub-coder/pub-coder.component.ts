@@ -24,6 +24,7 @@ export class PubCoderComponent implements OnInit {
   encoding: AppExperimentEncoding;
 
   loading = 0;
+  view = 'structure';
   embeddingURL;
 
   constructor(
@@ -103,6 +104,16 @@ export class PubCoderComponent implements OnInit {
         this.loadEncoding();
       })
   }
+
+
+  /**
+   * STRUCTURE
+   *
+   */
+
+
+
+
 
   changes = false;
   onChange(){

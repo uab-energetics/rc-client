@@ -105,8 +105,8 @@ export class ExperimentFormComponent implements OnInit {
 
   editBranch = (branch) => this.branchState[branch.id] = branch;
   stopEditingBranch = (branch, newName) => {
+    this.branchState[branch.id] = null;
     if(branch.name === newName) return;
     this.onBranchChange.emit({ id: branch.id, name: newName });
-    this.branchState[branch.id] = null;
   }
 }

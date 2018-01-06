@@ -1,11 +1,13 @@
 
 import {AppCategory, makeCategory} from "./AppCategory";
+import {AppQuestion} from "./AppQuestion";
 
 export interface AppForm {
   id?: number;
   type: string;
   name: string;
   description: string;
+  questions?: AppQuestion[];
   published: boolean;
   root_category?: AppCategory;
 }

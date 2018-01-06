@@ -9,7 +9,8 @@ import {SelectComponent} from './components/response-inputs/select/select.compon
 import {MultiSelectComponent} from './components/response-inputs/multi-select/multi-select.component';
 import {
   MatChipsModule,
-  MatIconModule, MatInputModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSelectModule,
+  MatIconModule, MatInputModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule,
+  MatSelectModule,
   MatSlider,
   MatSliderModule, MatTableDataSource, MatTableModule
 } from '@angular/material';
@@ -48,6 +49,8 @@ import { TreeModule } from 'angular-tree-component';
 import {ProjectFormService} from "./services/project-form.service";
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import {EncoderSearchComponent} from "./components/forms/user-search/encoder-search.component";
+import {EncodingTreeComponent} from "../pages/pub-coder/encoding-tree/encoding-tree.component";
+import {BranchQuestionsService} from "./services/branch-questions.service";
 
 @NgModule({
   imports: [
@@ -65,6 +68,7 @@ import {EncoderSearchComponent} from "./components/forms/user-search/encoder-sea
     MatProgressBarModule,
     MatTableModule,
     MatProgressSpinnerModule,
+    MatMenuModule,
     TreeModule
   ],
   providers: [
@@ -82,6 +86,7 @@ import {EncoderSearchComponent} from "./components/forms/user-search/encoder-sea
     ConflictsService,
     InvitationsService,
     CommentsService,
+    BranchQuestionsService,
     PusherService
   ],
   declarations: [

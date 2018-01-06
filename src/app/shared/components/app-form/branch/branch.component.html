@@ -1,8 +1,17 @@
 <div class="app-branch">
-  <app-category
+
+  <app-question
+    *ngFor="let question of branchModel.question_map; let i = index"
+    [key]="question.id"
+    [responseData]="getQuestionData(question.id)"
+    [question]="question"
+    (questionUpdate)="onCategoryUpdate($event)">
+  </app-question>
+
+  <!--<app-category
     [root]="true"
     [formData]="getCategoryFormData()"
     [category]="appForm.root_category"
     (appCategoryUpdate)="onCategoryUpdate($event)">
-  </app-category>
+  </app-category>-->
 </div>

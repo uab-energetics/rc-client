@@ -4,6 +4,7 @@ import {CategoryUpdate} from "../category/category.component";
 import {LoggerService} from "../../../logger.service";
 import {EncodingUpdate} from "../../../../pages/pub-coder/experiment-form/encodingReduce";
 import * as _ from 'lodash';
+import {AppBranch} from "../../../../models/AppBranch";
 
 @Component({
   selector: 'app-branch',
@@ -14,6 +15,7 @@ export class BranchComponent implements OnInit {
 
   @Input() key;
   @Input() branchData = {};
+  @Input() branchModel: AppBranch;
   @Input() appForm: AppForm;
   @Output() appBranchUpdate = new EventEmitter<EncodingUpdate>();
 
@@ -36,6 +38,10 @@ export class BranchComponent implements OnInit {
       branch: this.branchData,
       response: $event.response
     });
+  }
+
+  getQuestionData(question_key){
+    return this.branchData[question_key] || null;
   }
 
 }
