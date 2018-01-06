@@ -4,6 +4,7 @@ import {UserService} from "../../auth/user.service";
 import {AppUser} from "../../../models/AppUser";
 import {NotificationsService} from "../../services/notifications.service";
 import {NotifyService} from "../../services/notify.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,8 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private notifications: NotificationsService,
-    private notify: NotifyService
+    private notify: NotifyService,
+    private router: Router
   ) {
     this.authService.changes.subscribe( user => this.user = user );
   }
@@ -44,4 +46,7 @@ export class NavbarComponent implements OnInit {
       })
   }
 
+  navigateHome() {
+    this.router.navigate(['/']);
+  }
 }

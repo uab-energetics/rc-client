@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
 import {AuthService} from '../../shared/auth/auth.service';
 import {UserService} from "../../shared/auth/user.service";
+import {NotifyService} from "../../shared/services/notify.service";
 
 class LoginFormModel {
   constructor(public email: string,
@@ -20,16 +21,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private notify: NotifyService,
   ) {}
 
   onSubmit() {
-    console.log(this.model);
     this.authService.login({
       email: this.model.email,
       password: this.model.password
     }).subscribe(( data ) => {
       console.log('logged in!', data);
+    }, error => {
+      this.notify.alert("Invalid Credentials", "Please check your email and password and try again", "error")
     });
   }
 

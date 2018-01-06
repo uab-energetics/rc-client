@@ -48,11 +48,11 @@ export class ProjectFormService {
       .share();
   }
 
-  addPublications(project: AppProject, form: AppForm, publications: AppPublication[], priority) {
+  addPublications(project: AppProject, form: AppForm, publicationIDs: number[], priority = null) {
     let data = {
-      priority : priority,
-      publications : publications.map( pub => pub.id )
+      publications : publicationIDs
     };
+    if (priority) data['priority'] = priority;
     return this.http.post<AppFormPublication>(this.getPrefix(project, form)+"/publications", data)
       .share();
   }

@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService, RegisterRequest} from "../../shared/auth/auth.service";
+import {NotifyService} from "../../shared/services/notify.service";
 
 class RegisterFormModel {
   constructor(
@@ -19,14 +20,20 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   model = new RegisterFormModel('', '', '', '');
 
-  constructor(private router: Router, private authService : AuthService) { }
+  constructor(
+    private router: Router,
+    private authService : AuthService,
+    private notify: NotifyService
+  ) { }
 
   onSubmit() {
     let formData = this.exportFormData();
-    console.log(formData);
     this.authService.register(formData)
       .subscribe((data) => {
         console.log("registered and logged in!", data);
+      }, error => {
+        console.log(error);
+        this.notify.alert("Invalid", error.error.msg, "error");
       });
   }
 

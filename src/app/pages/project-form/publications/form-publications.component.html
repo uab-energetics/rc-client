@@ -5,6 +5,13 @@
               class="btn btn-success btn-outline">
         <i class="icon wb-plus"></i>
         Add Project Publications </button>
+
+      <div class="float-right">
+        <input type="file" (change)="handleFileInput($event.target.files)">
+        <button (click)="onUploadFile()" class="btn btn-success">
+          <i class="icon wb-table"></i>  Upload CSV of IDs </button>
+      </div>
+
     </div>
   </div>
 
