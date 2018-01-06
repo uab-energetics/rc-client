@@ -57,6 +57,11 @@ export class ProjectFormService {
       .share();
   }
 
+  inheritProjectPublications(project: AppProject, form: AppForm) {
+    return this.http.get<any>(this.getPrefix(project, form)+"/inherit-project-publications")
+      .share();
+  }
+
   removePublication(project: AppProject, form: AppForm, publication: AppPublication) {
     return this.http.delete<any>(this.getPrefix(project, form)+"/publications/"+publication.id);
   }

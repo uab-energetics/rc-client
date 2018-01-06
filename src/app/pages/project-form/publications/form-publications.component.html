@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row mb-25">
     <div class="col-12">
-      <button (click)="openModal(addPublicationForm)"
+      <button (click)="addProjectPublications()"
               class="btn btn-success btn-outline">
         <i class="icon wb-plus"></i>
         Add Project Publications </button>
@@ -46,7 +46,7 @@
 
     </div>
   </div>
-  <h3 *ngIf="publications?.length === 0"><em>nothing to see here..</em><a href="javascript:void(0)" (click)="openModal(addPublicationForm)">Add one</a> to get started.</h3>
+  <p class="text-center" *ngIf="publications?.length === 0"><em>nothing to see here</em></p>
 
 
   <ng-template #addPublicationForm let-c="close" let-d="dismiss">

@@ -69,8 +69,10 @@ export class FormPublicationsComponent {
     this.loadPublications();
   }
 
-  openModal(content){
-    this.modal = this.modalService.open(content);
+  addProjectPublications() {
+    this.projectFormService.inheritProjectPublications(this.project, this.form)
+      .subscribe(() => this.loadPublications());
   }
+
 
 }
