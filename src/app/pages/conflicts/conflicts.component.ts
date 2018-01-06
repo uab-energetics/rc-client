@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ConflictsService} from "../../shared/services/conflicts.service";
-import {renderToString} from "../../shared/responses/converters";
+import {NO_RESPONSE, renderToString} from "../../shared/responses/converters";
 import {AppUser} from "../../models/AppUser";
 import {UserService} from "../../shared/auth/user.service";
 import * as _ from 'lodash';
@@ -14,8 +14,11 @@ import {EncodingService} from "../../shared/services/encoding.service";
 import {NotifyService} from "../../shared/services/notify.service";
 import {forkJoin} from "rxjs/observable/forkJoin";
 import {AppForm} from "../../models/AppForm";
-import {forEach} from "@angular/router/src/utils/collection";
 import {Router} from '@angular/router';
+import {
+  ConflictReport, ConflictsResponse, HashedBranch, HashedEncoding,
+  HashedEncodings
+} from "./definitions";
 
 
 interface Conflict {
@@ -30,21 +33,20 @@ interface Conflict {
 })
 export class ConflictsComponent implements OnInit {
 
-  questions = [];
-
-  otherUsers = [];
-  otherEncodings = [];
-
-  conflictReport = {};
-
-  branchMap = {};
-
-  user: AppUser;
-  myEncoding: any;
-
-
+  // FORM MODEL
   form: AppForm;
+  branchGroups: string[];
+  questions: AppQuestion[];
+  myEncoding: AppExperimentEncoding;
+  otherEncodings: AppExperimentEncoding[];
 
+  // DATA MODEL
+  me: AppUser;
+  conflictReport: ConflictReport;
+  myEncodingData: HashedEncoding;
+  otherEncodingsData: HashedEncodings;
+
+  // COMPONENT PROPS
   loading = 0;
   ready = false;
   channel_name = null;
@@ -59,54 +61,40 @@ export class ConflictsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.questions = [];
-    this.otherUsers = [];
-    this.otherEncodings = [];
-    this.conflictReport = {};
-    this.myEncoding = {};
-    this.user = this.userService.user;
-    this.branchMap = {};
-
     let id = +this.route.snapshot.paramMap.get('id');
+
+    this.me = this.userService.user;
+
     this.loading++;
     this.conflictsService.getConflictsReport(id)
       .finally(() => this.loading--)
-      .subscribe( data => {
+      .subscribe( (data: ConflictsResponse) => {
+
+        // SETTING UP FORM MODEL
         this.form = data.encoding.form;
-        this.setupTable(
-          data.encoding,
-          data.other_encodings,
-          data.questions,
-          data.conflicts
-        );
+        this.questions = data.questions;
+        this.branchGroups = data.groups;
+        this.myEncoding = data.encoding;
+        this.otherEncodings = data.other_encodings;
+
+        // SETTING UP DATA MODEL
+        this.conflictReport = data.conflicts;
+        this.myEncodingData = hashEncoding(data.encoding);
+        this.otherEncodingsData = hashEncodings(data.other_encodings);
+
+        // COMPONENT PROPS
+        // chat system
+        this.channel_name = data.encoding.channel_name;
         this.ready = true;
+
+        console.log(
+          this.branchGroups,
+          this.myEncodingData,
+          this.otherEncodingsData,
+          this.conflictReport
+        )
       });
   }
-
-  setupTable(myEncoding: AppExperimentEncoding, otherEncodings: AppExperimentEncoding[], questions: AppQuestion[], conflicts){
-
-    this.questions = questions;
-
-    /* hash my encoding for instant lookup */
-    myEncoding.experiment_branches =
-        myEncoding.experiment_branches.map( branch =>
-            hashBranch(branch)) as any;
-    this.addEncodingToBranchMap(myEncoding);
-    this.myEncoding = myEncoding;
-    this.channel_name = myEncoding.channel_name;
-
-    /* hash other encodings for instant lookup */
-    otherEncodings.forEach( otherEncoding => {
-      this.otherUsers.push(otherEncoding.owner);
-      this.addEncodingToBranchMap(otherEncoding);
-      otherEncoding.experiment_branches =
-        otherEncoding.experiment_branches.map(branch =>
-          hashBranch(branch) as any)
-    });
-    this.otherEncodings = otherEncodings;
-    this.conflictReport = conflicts;
-  }
-
 
   /**
    * ========================
@@ -114,17 +102,8 @@ export class ConflictsComponent implements OnInit {
    * ========================
    */
 
-  navigateToPubCoder(encoding) {
-      this.router.navigate(['/pub-coder/'+encoding.id]);
-  }
-
-  getBranchNames() {
-      let entries = Object.entries(this.branchMap);
-      console.log(entries);
-      return entries;
-  }
-  
   conflict(branchName, encoding, question: AppQuestion): Conflict {
+    if(!encoding) return { agrees: true };
     return _.get(
       this.conflictReport,
       `${branchName}.${question.id}.${encoding.id}`,
@@ -132,24 +111,19 @@ export class ConflictsComponent implements OnInit {
     );
   }
 
-  lookupResponse(branchName, encoding, question){
-    if(encoding.experiment_branches.length === 0) return null;
-    let hashedBranch = this.branchMap[branchName][encoding.id] || null;
-    if (!hashedBranch) return null;
-    let response = hashedBranch[question.id];
-    if(!response) return null;
-    return response;
+  lookupResponse(branchName: string, encoding: AppExperimentEncoding, question: AppQuestion){
+    if(!encoding.experiment_branches[branchName])
+      return "NO_BRANCH";
+    let response_path = `experiment_branches['${branchName}']['responses']['${question.id}']`;
+    return _.get(
+      encoding,
+      response_path,
+      null
+    );
   }
 
-  renderResponse(branchName, encoding, question){
+  renderResponse(branchName: string, encoding: AppExperimentEncoding, question: AppQuestion){
     return renderToString(this.lookupResponse(branchName, encoding, question));
-  }
-
-  private addEncodingToBranchMap(encoding: AppExperimentEncoding) {
-    for (let branch of encoding.experiment_branches) {
-        this.branchMap[branch.name] = this.branchMap[branch.name] || {};
-        this.branchMap[branch.name][encoding.id] = hashBranch(branch);
-    }
   }
 
   /**
@@ -157,19 +131,27 @@ export class ConflictsComponent implements OnInit {
    * CHANGE DETECTION
    * ========================
    */
+
+  // branch name changes ------------------------------------
+
   branchState = {};
-  editBranch = (branch) => this.branchState[branch.id] = branch;
-  stopEditingBranch = (branch, newName) => {
+  editBranch(branch){
+    this.branchState[branch.id] = branch;
+  }
+  stopEditingBranch(branch, newName){
     if(branch.name === newName) return;
     this.encodingService.recordBranch(this.myEncoding.id, { id: branch.id, name: newName } as AppBranch)
       .subscribe( res => this.ngOnInit() );
     this.branchState[branch.id] = null;
   }
 
+  // response data changes ------------------------------------
+
   changes = null;
   handleResponseChange($event: QuestionUpdate){
     this.changes = reduceResponses(this.changes, $event.key, $event.response);
   }
+
 
   commitChanges(){
     this.loading++;
@@ -190,10 +172,53 @@ export class ConflictsComponent implements OnInit {
   }
 }
 
-function hashBranch(branch: AppBranch){
-  let hashedBranch = Object.assign({}, branch);
-  branch.responses.forEach(response => {
-    hashedBranch[response.question_id] = response;
+
+
+
+
+/*
+* ============================
+* HASHING FUNCTIONS
+* ============================
+* */
+
+// const hashEncodings = (encodings: AppExperimentEncoding[]): HashedEncodings =>
+//   encodings.reduce( (hashed, encoding) => hashed[encoding.id] = encoding, {});
+
+// const hashEncoding = (encoding: AppExperimentEncoding): HashedEncoding =>
+//   encoding.experiment_branches.reduce(
+//     (hashedEncoding: any, branch: AppBranch) =>
+//       hashedEncoding.experiment_branches[branch.id] = hashBranch(branch),
+//     Object.assign({}, encoding, { experiment_branches: [] })
+//   );
+
+// const hashBranch = (branch: AppBranch): HashedBranch =>
+//   branch.responses.reduce(
+//     (hashedBranch: any, response) =>
+//       hashedBranch.responses[response.id] = response,
+//     Object.assign({}, branch, { responses: [] })
+//   );
+
+const hashEncodings = (encodings: AppExperimentEncoding[]): HashedEncodings =>{
+  let hashed = {};
+  encodings.forEach( encoding => {
+    hashed[encoding.id] = hashEncoding(encoding);
   });
-  return hashedBranch;
-}
+  return hashed;
+};
+
+const hashEncoding = (encoding: AppExperimentEncoding): HashedEncoding => {
+  let hashed: any = Object.assign({}, encoding, { experiment_branches: {} });
+  encoding.experiment_branches.forEach( branch => {
+    hashed.experiment_branches[branch.name] = hashBranch(branch) as any;
+  });
+  return hashed;
+};
+
+const hashBranch = (branch: AppBranch): HashedBranch => {
+  let hashed: any = Object.assign({}, branch, { responses: {} });
+  branch.responses.forEach( res => {
+    hashed.responses[res.question_id] = res;
+  });
+  return hashed;
+};

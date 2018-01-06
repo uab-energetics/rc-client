@@ -4,13 +4,13 @@
       <div class="page-header">
         <h1 class="page-title mb-25">Showing Conflicts Report</h1>
         <p class="page-description"><b>CodeBook: {{form?.name}}</b></p>
-        <a (click)="navigateToPubCoder(myEncoding)" href="javascript:void(0)">to PubCoder</a>
+        <a *ngIf="myEncoding" [routerLink]="['/pub-coder', myEncoding.id]">to PubCoder</a>
 
         <div class="page-header-actions">
           <div class="row no-space hidden-sm-down">
             <div class="col-sm-4">
               <div class="counter">
-                <span class="counter-number font-weight-medium">{{otherUsers.length+1}}</span>
+                <span class="counter-number font-weight-medium">{{otherEncodings?.length+1}}</span>
                 <div class="counter-label">Collaborators</div>
               </div>
             </div>
@@ -27,49 +27,61 @@
           </div>
 
 
-          <div *ngIf="!loading && getBranchNames().length === 0" class="text-center">
+          <div *ngIf="ready && branchGroups?.length === 0" class="text-center">
             <em>nothing to see here</em>
           </div>
 
 
-          <div *ngFor="let branchEntry of getBranchNames()">
 
+
+
+
+          <!--
+          =============================================
+          FIRST DIMENSION: DISTINCT BRANCH NAMES
+          =============================================
+          -->
+
+          <div *ngFor="let branchGroup of branchGroups">
+
+
+
+
+            <!-- Title -->
             <div class="title-wrapper">
-
-              <!-- Editing -->
-              <div *ngIf="branchState[branchEntry[1].id]">
-                <input (blur)="stopEditingBranch(branchEntry[1], $event.target.value)" [value]="branchEntry[0]" />
-              </div>
-
-
-
-              <!-- Not Editing -->
-              <div *ngIf="!branchState[branchEntry[1].id]">
-                <h2>{{branchEntry[0]}} <small><i class="icon wb-edit" (click)="editBranch(branchEntry[1])"></i></small></h2>
-              </div>
-
+              <h2>{{branchGroup}}</h2>
             </div>
 
-            <table class="table conflicts-table" *ngIf="ready">
+
+
+            <!--
+            =============================================
+            SECOND DIMENSION: QUESTIONS
+            =============================================
+            -->
+            <table class="table conflicts-table">
 
 
 
-              <!-- TABLE HEADERS
-              ======================== -->
+              <!--
+              =============================================
+              THIRD DIMENSION: OTHER CODER'S RESPONSES
+              =============================================
+              -->
               <thead class="">
               <tr class="avatar-thead">
                 <th>Questions</th>
                 <th>
                 <span class="avatar avatar-sm">
-                  <img [src]="user.image"/>
+                  <img [src]="me.image"/>
                 </span> &nbsp;
                   My Responses
                 </th>
-                <th *ngFor="let user of otherUsers">
+                <th *ngFor="let otherEncoding of otherEncodings">
                 <span class="avatar avatar-sm">
-                  <img [src]="user.image"/>
+                  <img [src]="otherEncoding.owner.image"/>
                 </span> &nbsp;
-                  {{user.name}}
+                  {{otherEncoding.owner.name}}
                 </th>
               </tr>
               </thead>
@@ -77,8 +89,8 @@
 
 
 
-              <!-- TABLE BODY
-              ========================= -->
+
+
               <tbody>
               <tr *ngFor="let question of questions">
 
@@ -88,7 +100,7 @@
                     <app-question
                             [key]="question.id"
                             [question]="question"
-                            [responseData]="lookupResponse(branchEntry[0], myEncoding, question)"
+                            [responseData]="lookupResponse(branchGroup, myEncoding, question)"
                             (questionUpdate)="handleResponseChange($event)">
                     </app-question>
                   </ng-template>
@@ -97,7 +109,7 @@
                 <th>
                   <button class="btn btn-sm btn-primary p-3"
                           [ngbPopover]="questionPopover"
-                          [disabled]="lookupResponse(branchEntry[0], myEncoding, question) === null"
+                          [disabled]="lookupResponse(branchGroup, myEncodingData, question) === null"
                           placement="right"
                           popoverTitle="{{question.name}}">
                     <i class="icon fa-question"></i>
@@ -108,19 +120,19 @@
 
 
                 <!-- MY RESPONSE -->
-                <td class="my-response">{{renderResponse(branchEntry[0], myEncoding, question)}}</td>
+                <td class="my-response">{{renderResponse(branchGroup, myEncodingData, question)}}</td>
 
 
                 <!-- OTHER REPSONDERS
                 ============================ -->
                 <td *ngFor="let other of otherEncodings"
                     [ngClass]="{
-                      'conflict': conflict(branchEntry[0], other, question)?.agrees===0,
-                      'agreement': conflict(branchEntry[0], other, question)?.agrees===1 }">
+                      'conflict': conflict(branchGroup, otherEncodingsData[other.id], question)?.agrees===0,
+                      'agreement': conflict(branchGroup, otherEncodingsData[other.id], question)?.agrees===1
+                      }">
 
-                  {{renderResponse(branchEntry[0], other, question)}}
+                  {{renderResponse(branchGroup, otherEncodingsData[other.id], question)}}
                 </td>
-
 
 
               </tr>
