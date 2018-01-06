@@ -24,7 +24,7 @@ export class PubCoderComponent implements OnInit {
   encoding: AppExperimentEncoding;
 
   loading = 0;
-  view = 'structure';
+  view = 'code';
   embeddingURL;
 
   constructor(

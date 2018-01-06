@@ -78,7 +78,7 @@ export class EncodingTreeComponent implements OnChanges {
 
   private treeNodes: any;
   private treeOptions: any = {
-    allowDrag: true,
+    allowDrag: false,
     idField: '_id',
     actionMapping: {
       mouse: {

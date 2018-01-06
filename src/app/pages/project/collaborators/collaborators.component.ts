@@ -41,7 +41,10 @@ export class CollaboratorsComponent implements OnInit {
         this.notify.alert('Oops', "Invite couldn't be sent", "error");
         return [];
       })
-      .subscribe( res => this.notify.alert('Invitation Sent!'))
+      .subscribe( res => {
+        this.notify.alert('Invitation Sent!');
+        this.inviteEmail = "";
+      })
   }
 
   sendInvite(user: AppUser){

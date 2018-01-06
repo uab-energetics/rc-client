@@ -50,12 +50,9 @@ export class StructureEditorComponent implements OnInit {
 
   nodeSelected(node: EncodingNode){
     this.selectedNode = node;
-    console.log("node selected: ", node);
     switch (node.type){
       case EncodingNodeType.branch:
-        console.log('..of type branch');
         this.selectedBranch = this.encodingTree.sourceMap['branches'][node.id];
-        console.log(this.selectedBranch);
         break;
       case EncodingNodeType.question:
         this.selectedQuestion = this.encodingTree.sourceMap['questions'][node.id];
@@ -83,6 +80,10 @@ export class StructureEditorComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  isChecked(question){
+    return this.structureState[this.selectedBranch.id][question.id]
   }
 
   commitChanges(){

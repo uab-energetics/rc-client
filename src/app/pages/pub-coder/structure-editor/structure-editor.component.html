@@ -44,7 +44,7 @@
           <section *ngFor="let question of codebook.questions" class="example-section mb-20" >
             <mat-slide-toggle
               (change)="questionChange(question, $event)"
-              [checked]="structureState[selectedBranch.id][question.id]">
+              [checked]="isChecked(question)">
               {{question.name}}
             </mat-slide-toggle>
           </section>
@@ -68,7 +68,7 @@
 
           <button
             *ngFor="let branch of encoding.experiment_branches"
-            class="btn btn-lg mr-20" [disabled]="true">
+            class="btn btn-lg mr-20 mb-20" [disabled]="true">
             {{branch.name}}
           </button>
 
@@ -87,7 +87,10 @@
 
     <div class="panel">
       <div class="panel-heading">
-        <h3 class="panel-title">CodeBook Preview</h3>
+        <h3 class="panel-title">
+          CodeBook Preview
+          <small>This is only a preview. Responses made here are not saved.</small>
+        </h3>
       </div>
       <div class="panel-body">
 

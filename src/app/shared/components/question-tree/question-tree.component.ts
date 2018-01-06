@@ -99,7 +99,7 @@ export class QuestionTreeComponent implements OnChanges {
 
   private treeNodes: any;
   private treeOptions: any = {
-    allowDrag: true,
+    allowDrag: this.allowDrag,
     idField: '_id',
     actionMapping: {
       mouse: {
