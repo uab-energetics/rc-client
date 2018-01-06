@@ -41,7 +41,7 @@ export class BranchComponent implements OnInit {
   }
 
   getQuestionData(question_key){
-    return this.branchData[question_key] || null;
+    return this.branchData['responses'][question_key] || null;
   }
 
 }
