@@ -47,6 +47,7 @@ import { QuestionTreeComponent } from './components/question-tree/question-tree.
 import { TreeModule } from 'angular-tree-component';
 import {ProjectFormService} from "./services/project-form.service";
 import { PaginatorComponent } from './components/paginator/paginator.component';
+import {EncoderSearchComponent} from "./components/forms/user-search/encoder-search.component";
 
 @NgModule({
   imports: [
@@ -101,6 +102,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     PublicationFormComponent,
     FindTaskComponent,
     UserSearchComponent,
+    EncoderSearchComponent,
     CommentsComponent,
     ChannelComponent,
     DynamicInputComponent,
@@ -124,6 +126,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     ProjectFormComponent,
     PublicationFormComponent,
     UserSearchComponent,
+    EncoderSearchComponent,
     CommentsComponent,
     ChannelComponent,
     FindTaskComponent,

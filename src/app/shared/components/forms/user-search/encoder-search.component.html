@@ -1,0 +1,16 @@
+<div class="form-group">
+
+  <ng-template #rt let-r="result" let-t="term">
+    <img [src]="r.image" width="16">
+    {{ r.name}}
+  </ng-template>
+
+  <label for="typeahead-http">Search for a project encoder:</label>
+  <input id="typeahead-http" type="text" class="form-control"
+         [class.is-invalid]="searchFailed"
+         [resultTemplate]="rt"
+         [inputFormatter]="formatter"
+         [(ngModel)]="model" [ngbTypeahead]="search" placeholder="User search"/>
+  <span *ngIf="searching">searching...</span>
+  <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+</div>
