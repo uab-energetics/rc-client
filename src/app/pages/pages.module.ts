@@ -25,13 +25,14 @@ import {TaskListComponent} from "./task-list/task-list.component";
 import {ExperimentFormComponent} from "./pub-coder/experiment-form/experiment-form.component";
 import { ConflictsComponent } from './conflicts/conflicts.component';
 import { CollaboratorsComponent } from './project/collaborators/collaborators.component';
+import { EncodersComponent } from './project/collaborators/encoders.component';
 import { DiscussComponent } from './discuss/discuss.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import {TreeModule} from 'angular-tree-component';
 import { CodeBookTreeComponent } from './form-builder/codebook-tree/codebook-tree.component';
 import {ProjectFormPageComponent} from "./project-form/project-form-page.component";
 import {FormPublicationsComponent} from "./project-form/publications/form-publications.component";
-import {EncodersComponent} from "./project-form/encoders/encoders.component";
+import {FormEncodersComponent} from "./project-form/encoders/encoders.component";
 import {ProjectFormSettingsComponent} from "./project-form/settings/project-form-settings.component";
 
 const routes: Routes = [
@@ -144,8 +145,9 @@ const routes: Routes = [
     ExperimentFormComponent,
     ConflictsComponent,
     CollaboratorsComponent,
-    ProjectFormSettingsComponent,
     EncodersComponent,
+    ProjectFormSettingsComponent,
+    FormEncodersComponent,
     DiscussComponent,
     WelcomeComponent,
     CodeBookTreeComponent

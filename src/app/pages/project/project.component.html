@@ -61,17 +61,15 @@
         </ng-template>
       </ngb-tab>
       <ngb-tab>
-        <ng-template ngbTabTitle><i class="icon wb-tag"></i> Ongoing Tasks </ng-template>
+        <ng-template ngbTabTitle><i class="icon wb-users"></i> Encoders </ng-template>
         <ng-template ngbTabContent>
-          <div class="container mt-2">
-            <p> Working </p>
-          </div>
+          <app-encoders [project]="project"></app-encoders>
         </ng-template>
       </ngb-tab>
       <ngb-tab>
         <ng-template ngbTabTitle><i class="icon wb-settings"></i> Settings </ng-template>
         <ng-template ngbTabContent>
-          TODO
+          <em>nothing to see here</em>
         </ng-template>
       </ngb-tab>
     </ngb-tabset>
