@@ -57,7 +57,7 @@ export class AuthService {
         params = JSON.parse(localStorage.redirectOnAuthParams);
       console.log(params);
       this.router.navigate([url], {queryParams: params})
-    });
+    }, err => {});
 
     return source;
   }
@@ -78,7 +78,7 @@ export class AuthService {
       if(localStorage.redirectOnAuthParams)
         params = JSON.parse(localStorage.redirectOnAuthParams);
       this.router.navigate([url], {queryParams: params})
-    });
+    }, err => {});
 
     return source;
   }

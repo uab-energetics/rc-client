@@ -5,6 +5,12 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {FormsModule} from '@angular/forms';
 import {AuthComponent} from './auth.component';
+import {NotifyService} from "../shared/services/notify.service";
+import {
+  MatCheckbox, MatCheckboxModule,
+  MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSidenavModule, MatSnackBarModule,
+  MatTableModule
+} from '@angular/material';
 
 const routes: Routes = [
   {
@@ -27,7 +33,11 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MatSnackBarModule
+  ],
+  providers: [
+    NotifyService
   ],
   declarations: [
     AuthComponent,
