@@ -26,6 +26,7 @@
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
           </div>
 
+
           <div *ngIf="!loading && getBranchNames().length === 0" class="text-center">
             <em>nothing to see here</em>
           </div>
@@ -35,12 +36,15 @@
 
             <div class="title-wrapper">
 
+              <!-- Editing -->
               <div *ngIf="branchState[branchEntry[1].id]">
-                <!-- Editing -->
                 <input (blur)="stopEditingBranch(branchEntry[1], $event.target.value)" [value]="branchEntry[0]" />
               </div>
+
+
+
+              <!-- Not Editing -->
               <div *ngIf="!branchState[branchEntry[1].id]">
-                <!-- Not Editing -->
                 <h2>{{branchEntry[0]}} <small><i class="icon wb-edit" (click)="editBranch(branchEntry[1])"></i></small></h2>
               </div>
 

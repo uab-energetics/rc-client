@@ -18,31 +18,6 @@ import {forEach} from "@angular/router/src/utils/collection";
 import {Router} from '@angular/router';
 
 
-/**
- * ===============================================================
- * DATA FORMATS REFERENCE
- * ===============================================================
- *
- * Encoding ---------------------
- *  {
- *    id: number,
- *    owner: AppUser,
- *    branches: {
- *      [branch_id]: {
- *        [question_id]: response: AppResponse
- *      }
- *    }
- *  }
- *
- * Conflicts --------------------
- *  {
- *    [question_id]: {
- *      [other_encoding_id]: Conflict
- *    }
- *  }
- *
- */
-
 interface Conflict {
   agrees: boolean;
   message?: string;
@@ -148,7 +123,7 @@ export class ConflictsComponent implements OnInit {
       console.log(entries);
       return entries;
   }
-
+  
   conflict(branchName, encoding, question: AppQuestion): Conflict {
     return _.get(
       this.conflictReport,
