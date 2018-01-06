@@ -14,34 +14,20 @@
         </a>
       </h1>
 
-      <div *ngIf="form">
-        <button class="btn btn-primary" (click)="exportForm(form.id)">
-          <i class="icon wb-briefcase"></i> Export
-        </button>
-
-        <a [routerLink]="['/forms', form.id]"
-           class="btn btn-warning">
-          <i class="icon wb-extension"></i>
-          <b> Open Form Builder</b>
-        </a>
-      </div>
 
       <!--<p class="page-description">{{project.description}}</p>-->
 
       <div class="page-header-actions">
-        <div class="row no-space w-250 hidden-sm-down">
-          <div class="col-sm-4">
-            <div class="counter">
-              <span class="counter-number font-weight-medium">6000</span>
-              <div class="counter-label"> Articles </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="counter">
-              <span class="counter-number font-weight-medium">25</span>
-              <div class="counter-label"> Encoders </div>
-            </div>
-          </div>
+        <div *ngIf="form">
+          <button class="btn btn-primary" (click)="exportForm(form.id)">
+            <i class="icon wb-briefcase"></i> Export
+          </button>
+
+          <a [routerLink]="['/forms', form.id]"
+             class="btn btn-warning">
+            <i class="icon wb-extension"></i>
+            <b> Open Form Builder</b>
+          </a>
         </div>
       </div>
     </div>
