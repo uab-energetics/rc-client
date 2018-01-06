@@ -7,11 +7,11 @@ import {AuthService} from "../../shared/auth/auth.service";
 
 
 @Component({
-  selector: 'app-redeem-invite',
-  templateUrl: './redeem-invite.component.html',
-  styleUrls: ['./redeem-invite.component.css']
+  selector: 'app-redeem-encoder-invite',
+  templateUrl: './redeem-encoder-invite.component.html',
+  styleUrls: ['./redeem-encoder-invite.component.css']
 })
-export class RedeemInviteComponent implements OnInit {
+export class RedeemEncoderInviteComponent implements OnInit {
 
   invitation: any;
 
@@ -30,9 +30,9 @@ export class RedeemInviteComponent implements OnInit {
     private sweetAlerts: SweetAlertService
   ) { }
 
-  validateInvite(token) {
+  validateEncoderInvite(token) {
     this.loading++;
-    this.invites.validateInvitation(token)
+    this.invites.validateEncoderInvitation(token)
       .finally(() => this.loading--)
       .catch(err => {
         this.tokenIsValid = false;
@@ -56,14 +56,14 @@ export class RedeemInviteComponent implements OnInit {
    *  ===========================================
    */
 
-  acceptInvite(){
-    this.invites.acceptInvite(this.queryParams.token)
+  acceptEncoderInvite(){
+    this.invites.acceptEncoderInvite(this.queryParams.token)
       .subscribe(() => {
         this.sweetAlerts.swal({
           title: "Success!",
           text: "You have joined the project.",
           confirmButtonText: "Take me there!",
-          onClose: () => this.router.navigate(['/projects'])
+          onClose: () => this.router.navigate(['/tasks'])
         })
       })
   }
@@ -82,7 +82,7 @@ export class RedeemInviteComponent implements OnInit {
 
         this.loading = 1;
         setTimeout(() => {
-          this.validateInvite(this.queryParams.token);
+          this.validateEncoderInvite(this.queryParams.token);
           this.loading--;
         }, 2000); // so you can see the animation
       });

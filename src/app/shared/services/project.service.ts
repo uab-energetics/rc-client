@@ -78,7 +78,7 @@ export class ProjectService {
       { params }).share()
   }
 
-  inviteCollaborator(projectID: number, userID: number): Observable<void> {
+  inviteResearcher(projectID: number, userID: number): Observable<void> {
     return this.http.post<void>(`${api}/projects/${projectID}/researchers`, {
       user_id: userID,
       notification_payload: {
@@ -87,8 +87,26 @@ export class ProjectService {
     }).share();
   }
 
-  getResearchers(projectID: number): Observable<AppUser[]> {
-    return this.http.get<AppUser[]>(`${api}/projects/${projectID}/researchers`)
+  inviteEncoder(projectID: number, userID: number): Observable<void> {
+    return this.http.post<void>(`${api}/projects/${projectID}/encoders`, {
+      user_id: userID,
+      notification_payload: {
+        projectID: projectID
+      }
+    }).share();
+  }
+
+  getResearchers(projectID: number, searchTerm = null): Observable<AppUser[]> {
+    let params = {};
+    if (searchTerm) params['search'] = searchTerm;
+    return this.http.get<AppUser[]>(`${api}/projects/${projectID}/researchers`, {params})
+      .share()
+  }
+
+  getEncoders(projectID: number, searchTerm = null): Observable<AppUser[]> {
+    let params = {};
+    if (searchTerm) params['search'] = searchTerm;
+    return this.http.get<AppUser[]>(`${api}/projects/${projectID}/encoders`, {params})
       .share()
   }
 

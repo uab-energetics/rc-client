@@ -1,0 +1,115 @@
+<div class="page vertical-align text-center">
+  <div class="page-content vertical-align-middle">
+
+
+
+
+
+    <div *ngIf="loading > 0 && tokenIsValid && isAuthenticated">
+      <h2> Validating Invitation... </h2>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <br/>
+      <br/>
+
+      <button type="button" disabled class="btn btn-primary btn-block"> Please Wait </button>
+    </div>
+
+    <div *ngIf="loading === 0">
+
+      <div *ngIf="tokenIsValid">
+        <div>
+          <div class="panel bg-grey-300" style="width: 400px; margin: auto;">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <i class="icon wb-book"></i>
+                <a [routerLink]="['/projects', invitation.project.id]">{{invitation.project.name}}</a></h3>
+              <div class="panel-actions panel-actions-keep">
+                <div class="dropdown">
+                  <a class="panel-action" id="examplePanelDropdown" data-toggle="dropdown" href="#"
+                     role="button"><i class="icon wb-more-vertical"></i></a>
+                  <div class="dropdown-menu dropdown-menu-bullet dropdown-menu-right" aria-labelledby="examplePanelDropdown"
+                       role="menu">
+                    <a (click)="editProject(invitation.project, modal)" class="dropdown-item" href="javascript:void(0)" role="menuitem">
+                      <i class="icon wb-settings" aria-hidden="true"></i> Edit</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-body">
+              <p>{{invitation.project.description}}</p>
+            </div>
+          </div>
+
+          <hr/>
+        </div>
+
+
+        <div *ngIf="!isAuthenticated">
+          <h2> Hi there! Welcome to Research Coder.</h2>
+          <p><b>To redeem this invite, you'll need to create an account first.</b></p>
+          <p>It only takes a few seconds, we won't send a link to your email, and
+            we'll bring you right back here when you're done!</p>
+          <br/>
+          <p>Already have an account? <a routerLink="/auth/login">Click here to login</a> </p>
+
+          <div class="form-group">
+            <button routerLink="/auth/register" class="btn btn-primary"> Create My Account</button>
+          </div>
+        </div>
+
+
+
+
+        <div *ngIf="isAuthenticated">
+          <h2><i class="icon wb-check"></i> All Clear!</h2>
+          <br/>
+          <br/>
+
+          <form (ngSubmit)="acceptResearcherInvite()">
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block"> Accept Invitation</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+
+
+      <div *ngIf="!tokenIsValid">
+        <h2><i class="icon wb-link-broken"></i> Oops.. This invite is no good!</h2>
+        <br/>
+        <br/>
+
+        <div class="form-group">
+          <button routerLink="/" class="btn btn-primary"> Go Home </button>
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+    <footer class="page-copyright">
+      <p>WEBSITE BY Chris Rocco</p>
+      <p>© 2018. Research Coder.</p>
+      <div class="social">
+        <a class="btn btn-icon btn-pure" href="javascript:void(0)">
+          <i class="icon bd-linkedin" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn-icon btn-pure" href="javascript:void(0)">
+          <i class="icon bd-facebook" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn-icon btn-pure" href="javascript:void(0)">
+          <i class="icon bd-github" aria-hidden="true"></i>
+        </a>
+      </div>
+    </footer>
+  </div>
+</div>
