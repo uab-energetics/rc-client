@@ -43,7 +43,6 @@
       <table class="table">
         <thead class="thead-light">
         <tr>
-          <th></th>
           <th scope="col">#</th>
           <th scope="col">Publication Name</th>
           <th scope="col">Embedding URL</th>
@@ -52,9 +51,9 @@
         </thead>
         <tbody>
         <tr *ngFor="let pub of publications">
-          <th><mat-checkbox
+          <!--<th><mat-checkbox
             [checked]="isSelected(pub.id)"
-            (change)="toggleSelection(pub.id)"></mat-checkbox></th>
+            (change)="toggleSelection(pub.id)"></mat-checkbox></th>-->
           <th>{{pub.id}}</th>
           <td>{{pub.name}}</td>
           <td><a href="{{pub.embedding_url}}">{{pub.embedding_url}}</a> </td>

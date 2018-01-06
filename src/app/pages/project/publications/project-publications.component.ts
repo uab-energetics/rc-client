@@ -106,7 +106,7 @@ export class ProjectPublicationsComponent {
       .finally(() => this.loading--)
       .subscribe(() => {
         this.notify.toast('Publication deleted');
-        this.publications.filter( pub => pub.id !== publication.id );
+        this.publications = this.publications.filter( pub => pub.id !== publication.id );
       })
   }
 
