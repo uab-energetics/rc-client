@@ -4,6 +4,8 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {EncodingService} from "../../shared/services/encoding.service";
 import {LoggerService} from "../../shared/logger.service";
 import {NotifyService} from "../../shared/services/notify.service";
+import {ProjectFormService} from "../../shared/services/project-form.service";
+import {AppProjectForm} from "../../models/AppProjectForm";
 
 @Component({
   selector: 'app-task-list',
@@ -19,6 +21,7 @@ export class TaskListComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private encodingService: EncodingService,
+    private projectFormService: ProjectFormService,
     private notify: NotifyService
   ) { }
 
@@ -47,13 +50,13 @@ export class TaskListComponent implements OnInit {
     this.notify.confirm(onComfirm);
   }
 
-  onTaskFormSubmit(task){
+  onTaskFormSubmit(projectForm: AppProjectForm){
     this.loading++;
-    this.encodingService.selfAssign(task.formID, task.publicationID)
+    this.projectFormService.requestMyTasks(projectForm.project, projectForm.form)
       .finally(() => this.loading--)
       .subscribe( () => {
         this.closeModal();
-        this.notify.toast('Assignment Created.');
+        this.notify.toast('Tasks requested');
         this.loadEncodings();
       } );
   }

@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row mb-25">
+    <div class="col-12">
+      <button (click)="addProjectPublications()"
+              class="btn btn-success btn-outline">
+        <i class="icon wb-plus"></i>
+        Add Project Publications </button>
+    </div>
+  </div>
+
+  <div class="text-center" *ngIf="loading > 0">
+    <div class="loading-wrapper" style="width: 100px; margin: auto">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+  </div>
+
+  <div *ngIf="publications?.length > 0" class="row">
+    <div class="col-12">
+
+
+      <table class="table">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Publication Name</th>
+          <th scope="col">Embedding URL</th>
+          <th scope="col">Priority</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let pub of publications">
+          <th>{{pub.publication?.id}}</th>
+          <td>{{pub.publication?.name}}</td>
+          <td>{{pub.publication?.embedding_url}}</td>
+          <td>{{pub.priority}}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="onDeletePublication(pub.publication)">
+              <i class="icon wb-trash"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+  <p class="text-center" *ngIf="publications?.length === 0"><em>nothing to see here</em></p>
+
+
+  <ng-template #addPublicationForm let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Add a Publication</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-publication-form (appSubmit)="onPublicationFormSubmit($event)"></app-publication-form>
+    </div>
+  </ng-template>
+
+</div>

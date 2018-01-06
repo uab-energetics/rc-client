@@ -4,6 +4,8 @@ import {AppPublication} from "../../../../models/AppPublication";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormService} from "../../../services/form.service";
 import {PublicationsService} from "../../../services/publications.service";
+import {AppProjectForm} from "../../../../models/AppProjectForm";
+import {ProjectFormService} from "../../../services/project-form.service";
 
 @Component({
   selector: 'app-find-task',
@@ -12,8 +14,7 @@ import {PublicationsService} from "../../../services/publications.service";
 })
 export class FindTaskComponent implements OnInit {
 
-  forms: AppForm[] = [];
-  publications: AppPublication[] = [];
+  projectFormMap: {};
 
   taskForm: FormGroup;
 
@@ -21,27 +22,34 @@ export class FindTaskComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private formService: FormService,
-    private pubService: PublicationsService
+    private projectFormService: ProjectFormService
   ) { }
 
   ngOnInit() {
     this.taskForm = this.fb.group({
-      formID: ['', Validators.required],
-      publicationID: ['', Validators.required],
+      projectFormID: ['', Validators.required]
     });
 
-    this.loading += 2;
-    this.formService.searchForms()
+    this.loading++;
+
+    this.projectFormService.getProjectFormsEncoder()
       .finally(() => this.loading--)
-      .subscribe( forms => this.forms = forms );
-    this.pubService.getPublications()
-      .finally(() => this.loading--)
-      .subscribe(pubs => this.publications = pubs.data);
+      .subscribe( forms => {
+        let map = {};
+        for (let projectForm of forms) {
+          map[projectForm.id] = projectForm;
+        }
+        this.projectFormMap = map;
+      } );
+
+  }
+
+  getProjectForms(){
+    return Object.values(this.projectFormMap);
   }
 
   exportForm(){
-    return this.taskForm.value;
+    return this.projectFormMap[this.taskForm.value.projectFormID];
   }
 
 }

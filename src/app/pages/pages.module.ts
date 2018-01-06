@@ -29,6 +29,10 @@ import { DiscussComponent } from './discuss/discuss.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import {TreeModule} from 'angular-tree-component';
 import { CodeBookTreeComponent } from './form-builder/codebook-tree/codebook-tree.component';
+import {ProjectFormPageComponent} from "./project-form/project-form-page.component";
+import {FormPublicationsComponent} from "./project-form/publications/form-publications.component";
+import {EncodersComponent} from "./project-form/encoders/encoders.component";
+import {ProjectFormSettingsComponent} from "./project-form/settings/project-form-settings.component";
 
 const routes: Routes = [
   {
@@ -65,6 +69,10 @@ const routes: Routes = [
       {
         path: "projects/:id",
         component: ProjectComponent
+      },
+      {
+        path: "projects/:pid/forms/:fid",
+        component: ProjectFormPageComponent
       },
       {
         path: 'forms/:id',
@@ -127,11 +135,15 @@ const routes: Routes = [
     ProjectComponent,
     FormBuilderComponent,
     ProjectFormsComponent,
+    ProjectFormPageComponent,
+    FormPublicationsComponent,
     ProjectPublicationsComponent,
     PubCoderComponent,
     ExperimentFormComponent,
     ConflictsComponent,
     CollaboratorsComponent,
+    ProjectFormSettingsComponent,
+    EncodersComponent,
     DiscussComponent,
     WelcomeComponent,
     CodeBookTreeComponent
