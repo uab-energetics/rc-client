@@ -48,7 +48,6 @@ export class ProjectFormSettingsComponent {
 
   updateSettings() {
     this.loading++;
-    this.settings.auto_enroll = String(this.settings.auto_enroll) === 'true';
     this.projectFormService.updateSettings(this.project, this.form, this.settings)
       .finally(() => this.loading--)
       .subscribe(settings => {
