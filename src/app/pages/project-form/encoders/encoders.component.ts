@@ -30,6 +30,10 @@ export class FormEncodersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadUsers();
+  }
+
+  loadUsers() {
     this.loading++;
     this.projectFormService.getEncoders(this.project, this.form)
       .finally(() => this.loading--)
@@ -47,5 +51,11 @@ export class FormEncodersComponent implements OnInit {
         this.ngOnInit();
       })
   }
+
+  addProjectEncoders() {
+    this.projectFormService.inheritProjectEncoders(this.project, this.form)
+      .subscribe(() => this.loadUsers());
+  }
+
 
 }
