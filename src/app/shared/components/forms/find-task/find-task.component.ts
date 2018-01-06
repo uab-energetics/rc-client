@@ -40,7 +40,6 @@ export class FindTaskComponent implements OnInit {
           map[projectForm.id] = projectForm;
         }
         this.projectFormMap = map;
-        console.log(map);
       } );
 
   }
