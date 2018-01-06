@@ -46,8 +46,6 @@
           <app-user-search #userSearch></app-user-search>
 
           <p></p>
-          <!--<pre>{{userSearch.model | json}}</pre>-->
-
           <button (click)="sendInvite(userSearch.model)" class="btn btn-primary">Send Invite</button>
         </div>
 
@@ -60,7 +58,7 @@
 
           <form (ngSubmit)="inviteByEmail(inviteEmail)">
             <div class="form-group">
-              <input [(ngModel)]="inviteEmail" name="inviteEmail" class="form-control">
+              <input [(ngModel)]="inviteEmail" name="inviteEmail" class="form-control" type="email">
             </div>
             <br/>
             <button class="btn btn-primary">Send Invite</button>

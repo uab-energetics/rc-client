@@ -17,6 +17,7 @@ export class NotifyService {
   }
 
   prompt(message, def = null){
+    if(!def) return prompt(message);
     return prompt(message, def);
   }
 

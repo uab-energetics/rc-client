@@ -89,6 +89,7 @@ export class ProjectPublicationsComponent {
 
   handleGotoPage = (page: number) => this.clickStream.next(page);
   onSearchInput = (searchPhrase) => this.searchStream.next(searchPhrase);
+
   toggleSelection = (id) => this.selectedPublications.add(id);
   isSelected = (id) => this.selectedPublications.has(id);
   handleFileInput = (fileList: FileList) => this.selectedFile = fileList[0];
