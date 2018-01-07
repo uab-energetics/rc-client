@@ -1,12 +1,11 @@
-import  { Injectable } from '@angular/core';
+import  {Injectable} from '@angular/core';
 import {AppForm} from "../../models/AppForm";
 import {AppProject} from "../../models/AppProject";
 import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {catchError, share} from "rxjs/operators";
+import {catchError} from "rxjs/operators";
 import {AppPublication} from "../../models/AppPublication";
-import * as _ from "lodash";
 import {AppUser} from "../../models/AppUser";
 import {PaginatedResult} from "../../models/PaginatedResult";
 import {PaginationOptions} from "../../models/PaginationOptions";

@@ -4,7 +4,6 @@ import {AppProject} from "../../models/AppProject";
 import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {catchError, share} from "rxjs/operators";
 import {AppPublication} from "../../models/AppPublication";
 import * as _ from "lodash";
 import {AppUser} from "../../models/AppUser";

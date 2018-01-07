@@ -8,7 +8,7 @@
       <h1 class="page-title mb-25">{{project?.name}}</h1>
       <!--<p class="page-description">{{project.description}}</p>-->
 
-      <div class="page-header-actions">
+      <!--<div class="page-header-actions">
         <div class="row no-space w-250 hidden-sm-down">
           <div class="col-sm-4">
             <div class="counter">
@@ -29,7 +29,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
 
     <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
@@ -64,14 +64,6 @@
         <ng-template ngbTabTitle><i class="icon wb-users"></i> Encoders </ng-template>
         <ng-template ngbTabContent>
           <app-encoders [project]="project"></app-encoders>
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab>
-        <ng-template ngbTabTitle><i class="icon wb-settings"></i> Settings </ng-template>
-        <ng-template ngbTabContent>
-          <p class="text-center">
-            <em >nothing to see here</em>
-          </p>
         </ng-template>
       </ngb-tab>
     </ngb-tabset>
