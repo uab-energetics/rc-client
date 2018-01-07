@@ -23,17 +23,6 @@
               <h3 class="panel-title">
                 <i class="icon wb-book"></i>
                 <a [routerLink]="['/projects', invitation.project.id]">{{invitation.project.name}}</a></h3>
-              <div class="panel-actions panel-actions-keep">
-                <div class="dropdown">
-                  <a class="panel-action" id="examplePanelDropdown" data-toggle="dropdown" href="#"
-                     role="button"><i class="icon wb-more-vertical"></i></a>
-                  <div class="dropdown-menu dropdown-menu-bullet dropdown-menu-right" aria-labelledby="examplePanelDropdown"
-                       role="menu">
-                    <a (click)="editProject(invitation.project, modal)" class="dropdown-item" href="javascript:void(0)" role="menuitem">
-                      <i class="icon wb-settings" aria-hidden="true"></i> Edit</a>
-                  </div>
-                </div>
-              </div>
             </div>
             <div class="panel-body">
               <p>{{invitation.project.description}}</p>
