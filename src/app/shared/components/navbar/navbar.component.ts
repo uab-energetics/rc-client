@@ -22,9 +22,7 @@ export class NavbarComponent implements OnInit {
     private notifications: NotificationsService,
     private notify: NotifyService,
     private router: Router
-  ) {
-    this.authService.changes.subscribe( user => this.user = user );
-  }
+  ) { }
 
 
   logout () {
@@ -32,6 +30,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.userEvent.subscribe( user => this.user = user );
     this.user = this.userService.user;
     this.notifications.getUnread()
       .subscribe(notifications => this.unreadNotifications = notifications);

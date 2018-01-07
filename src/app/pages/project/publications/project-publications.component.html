@@ -10,7 +10,8 @@
 
       <div class="float-right">
         <input type="file" (change)="handleFileInput($event.target.files)">
-        <button (click)="onUploadFile()" class="btn btn-success">
+        <button (click)="onUploadFile()" class="btn btn-success"
+          placement="bottom" ngbTooltip="No headers, two columns: Publication Name, Embed Link">
           <i class="icon wb-table"></i>  Upload CSV </button>
       </div>
 

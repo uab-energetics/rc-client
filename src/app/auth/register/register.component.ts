@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     let formData = this.exportFormData();
     this.authService.register(formData)
       .subscribe((data) => {
-        console.log("registered and logged in!", data);
+        // console.log("registered and logged in!", data);
       }, error => {
         console.log(error);
         this.notify.alert("Invalid", error.error.msg, "error");

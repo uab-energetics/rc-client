@@ -3,6 +3,7 @@ import {UserService} from "../../../shared/auth/user.service";
 import {AppUser} from "../../../models/AppUser";
 import {PeopleService} from "../../../shared/services/people.service";
 import {NotifyService} from "../../../shared/services/notify.service";
+import {AuthService} from "../../../shared/auth/auth.service";
 
 @Component({
   selector: 'app-profile',
@@ -17,16 +18,18 @@ export class ProfileComponent implements OnInit {
   constructor(
     private userService: UserService,
     private people: PeopleService,
+    private authService: AuthService,
     private notify: NotifyService
   ) { }
 
   ngOnInit() {
-    this.user = Object.assign({}, this.userService.user);
+    this.user = this.userService.user;
+    this.authService.userEvent.subscribe( newUser => this.user = newUser );
   }
 
   onSubmit(){
     this.showLoader = true;
-    this.people.updateMyProfile(this.user)
+    this.authService.updateProfile(this.user)
       .finally( () => this.showLoader = false )
       .subscribe( () => this.notify.toast('Profile Saved!'))
   }

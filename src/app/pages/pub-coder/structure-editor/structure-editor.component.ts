@@ -9,6 +9,7 @@ import {MatSlideToggleChange} from "@angular/material";
 import {BranchQuestionsService} from "../../../shared/services/branch-questions.service";
 import {forkJoin} from "rxjs/observable/forkJoin";
 import {NotifyService} from "../../../shared/services/notify.service";
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-structure-editor',
@@ -66,6 +67,7 @@ export class StructureEditorComponent implements OnInit {
     this.structureUpdates = this.structureUpdates || {};
     this.structureUpdates[bid] = this.structureUpdates[bid] || {};
     this.structureUpdates[bid][question.id] = $event.checked;
+    this.structureState = reduce(this.structureState, this.structureUpdates);
   }
 
   view(){
@@ -80,10 +82,6 @@ export class StructureEditorComponent implements OnInit {
       default:
         return '';
     }
-  }
-
-  isChecked(question){
-    return this.structureState[this.selectedBranch.id][question.id]
   }
 
   commitChanges(){
@@ -126,6 +124,10 @@ function getState(encoding: AppExperimentEncoding){
     })
   });
   return state;
+}
+
+function reduce(state, updates){
+  return _.mergeWith(state, updates);
 }
 
 interface Updates {
