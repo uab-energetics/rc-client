@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {PagesData} from "../../lib/Paginator";
 
 @Component({
   selector: 'app-paginator',
@@ -7,34 +8,33 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class PaginatorComponent implements OnInit {
 
-  @Input() currentPage;
-  @Input() lastPage;
+  @Input() pageData: PagesData;
+  @Input() offset: number = 3;
 
   @Output() goto = new EventEmitter<number>();
-
-  constructor() { }
 
   links = [];
 
   ngOnInit() {
+    this.load();
+  }
+
+  ngOnChanges() {
+    this.load();
+  }
+
+  load(){
+    if(!this.pageData) return;
+    console.log(this.pageData);
     this.links = [];
-    let cp = this.currentPage;
-    let lp = this.lastPage;
-    let off = 5;
+    let cp = this.pageData.currentPage;
+    let lp = this.pageData.lastPage;
+    let off = this.offset;
     let stop = Math.min(lp, cp + off);
     let start = Math.max(1, cp - off);
     for(let i = start; i <= stop; i++){
       this.links.push(i);
     }
-  }
-
-  ngOnChanges() {
-    this.ngOnInit();
-  }
-
-  onGoto(pageNumber: number){
-    if(pageNumber === this.currentPage) return;
-    this.goto.emit(pageNumber);
   }
 
 }

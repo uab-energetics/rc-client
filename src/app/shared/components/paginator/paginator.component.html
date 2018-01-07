@@ -1,22 +1,22 @@
 <nav>
   <ul class="pagination">
     <li class="page-item">
-      <a (click)="onGoto(1)"
+      <a (click)="goto.emit(1)"
          class="page-link" href="javascript:void(0)" aria-label="Previous">
         <i class="icon wb-arrow-left"></i>
       </a>
     </li>
     <li *ngFor="let i of links"
-        [ngClass]="{ 'active': i === currentPage }"
+        [ngClass]="{ 'active': i === pageData.currentPage }"
         class="page-item">
-      <a (click)="onGoto(i)"
+      <a (click)="goto.emit(i)"
          class="page-link" href="javascript:void(0)">
         {{i}}
-        <span *ngIf="i === currentPage" class="sr-only">(current)</span>
+        <span *ngIf="i === pageData.currentPage" class="sr-only">(current)</span>
       </a>
     </li>
     <li class="page-item">
-      <a (click)="onGoto(lastPage)"
+      <a (click)="goto.emit(pageData.lastPage)"
          class="page-link" href="javascript:void(0)" aria-label="Previous">
         <i class="icon wb-arrow-right"></i>
       </a>

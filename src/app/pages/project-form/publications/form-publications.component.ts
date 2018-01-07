@@ -10,6 +10,7 @@ import * as PapaParse from 'papaparse';
 import {ProjectFormService} from "../../../shared/services/project-form.service";
 import {AppForm} from "../../../models/AppForm";
 import {AppFormPublication} from "../../../models/AppFormPublication";
+import {Paginator} from "../../../shared/lib/Paginator";
 
 @Component({
   selector: 'app-form-publications',
@@ -24,6 +25,7 @@ export class FormPublicationsComponent {
   loading = 0;
 
   publications: AppFormPublication[];
+  // paginator: Paginator<AppFormPublication>;
 
   selectedFile: File;
 
@@ -40,6 +42,12 @@ export class FormPublicationsComponent {
 
   ngOnInit() {
     this.loadPublications();
+    // this.paginator = new Paginator((params) => this.projectService.getPublications(this.project.id, params));
+    // this.paginator.data$.subscribe( data => {
+    //   this.publications = data;
+    //   this.loading = 0;
+    // });
+    // this.paginator.events.on('request_start', () => this.loading = 1);
   }
 
   loadPublications(){

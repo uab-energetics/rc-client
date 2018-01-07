@@ -10,19 +10,7 @@ import * as PapaParse from 'papaparse';
 import {Subject} from "rxjs/Subject";
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/mergeMap';
-
-
-
-/*
-* TODO
-* This class is too big, and needs a refactor.
-* 1.) Move the table into its own component, along with the pagination
-*
-* */
-
-
-
-
+import {Paginator} from "../../../shared/lib/Paginator";
 
 
 @Component({
@@ -34,18 +22,8 @@ export class ProjectPublicationsComponent {
 
   @Input() project: AppProject;
 
-  publications: AppPublication[];
-
-  searchPhrase = "";
-  currentPage = 1;
-  lastPage = 0;
-
-  selectedPublications: Set<number> = new Set();
   selectedFile: File;
-
-  searchStream = new Subject<string>();
-  clickStream = new Subject<number>();
-
+  paginator: Paginator<AppPublication>;
   loading = 0;
   modal;
 
@@ -57,43 +35,18 @@ export class ProjectPublicationsComponent {
   ) { }
 
   ngOnInit() {
-    const searchSource = this.searchStream
-      .do(() => this.loading = 1)
-      .debounceTime(1000)
-      .distinctUntilChanged()
-      .map( searchTerm => {
-        this.searchPhrase = searchTerm;
-        return { search: searchTerm, page: 1 }
-      });
-
-    const clickSource = this.clickStream
-      .map( page => { return { search: this.searchPhrase, page }});
-
-    const source = searchSource.merge(clickSource)
-      .startWith({ search: "", page: 1 })
-      .mergeMap(( paginationOptions ) => {
-        return this.projectService.getPublications(this.project.id, {
-          page: paginationOptions.page,
-          search: paginationOptions.search,
-          page_size: 15
-        })
-      });
-
-    source.subscribe( data => {
+    this.paginator = new Paginator((params) => this.projectService.getPublications(this.project.id, params));
+    this.paginator.data$.subscribe( data => {
+      this.publications = data;
       this.loading = 0;
-      this.currentPage = data.current_page;
-      this.lastPage = data.last_page;
-      this.publications = data.data;
     });
+    this.paginator.events.on('request_start', () => this.loading = 1);
   }
 
-  handleGotoPage = (page: number) => this.clickStream.next(page);
-  onSearchInput = (searchPhrase) => this.searchStream.next(searchPhrase);
-
-  toggleSelection = (id) => this.selectedPublications.add(id);
-  isSelected = (id) => this.selectedPublications.has(id);
   handleFileInput = (fileList: FileList) => this.selectedFile = fileList[0];
   openModal = (content) => this.modal = this.modalService.open(content);
+
+  publications = [];
 
   onPublicationFormSubmit(newPublication: AppPublication){
     this.modal.close();
@@ -127,7 +80,6 @@ export class ProjectPublicationsComponent {
           .finally(() => this.loading--)
           .subscribe( res => {
             this.notify.toast('CSV Uploaded');
-            this.searchStream.next('');
           }, err => {
             this.notify.alert('Error', err.error.details, 'error');
             return []
