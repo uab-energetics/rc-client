@@ -19,7 +19,7 @@
   <div *ngIf="publications?.length > 0" class="row">
     <div class="col-12">
 
-      <div class="row">
+      <!--<div class="row">
         <input
           type="search"
           #term (keyup)="paginator.searchStream$.next(term.value)"
@@ -30,7 +30,7 @@
                        [pageData]="paginator.pages$ | async"
                        (goto)="paginator.pageStream$.next($event)">
         </app-paginator>
-      </div>
+      </div>-->
 
       <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
 

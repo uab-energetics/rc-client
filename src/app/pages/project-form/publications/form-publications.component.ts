@@ -29,7 +29,6 @@ export class FormPublicationsComponent {
 
   selectedFile: File;
 
-  /* UI Data */
   modal;
 
   constructor(
@@ -42,6 +41,7 @@ export class FormPublicationsComponent {
 
   ngOnInit() {
     this.loadPublications();
+    // TODO - uncomment this once the backend has switched to the paginator pattern.
     // this.paginator = new Paginator((params) => this.projectService.getPublications(this.project.id, params));
     // this.paginator.data$.subscribe( data => {
     //   this.publications = data;

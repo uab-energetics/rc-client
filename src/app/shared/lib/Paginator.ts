@@ -4,7 +4,7 @@ import {Subject} from "rxjs/Subject";
 import {PaginatedResult} from "../../models/PaginatedResult";
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/pluck';
-const EventEmitter = require('events');
+import * as EventEmitter from 'events';
 
 interface SearchRequest {
   search: string;
