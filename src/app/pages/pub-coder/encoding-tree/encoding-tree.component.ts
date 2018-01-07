@@ -82,6 +82,9 @@ export class EncodingTreeComponent implements OnChanges {
     idField: '_id',
     actionMapping: {
       mouse: {
+        click: (tree, node, event) => {
+          this.nodeDoubleClicked.emit(node.data);
+        },
         dblClick: (tree, node, $event) => {
           this.nodeDoubleClicked.emit(node.data);
         },
