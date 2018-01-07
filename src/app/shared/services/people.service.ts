@@ -22,10 +22,4 @@ export class PeopleService {
     return this.http.get<AppUser[]>(`${api}/users?search=${nameOrEmail}`)
   }
 
-  updateMyProfile(user: AppUser){
-    let src = this.http.put<AppUser>(`${api}/my-profile`, user).share();
-    src.subscribe( user => this.authService.subject.next(user) );
-    return src;
-  }
-
 }

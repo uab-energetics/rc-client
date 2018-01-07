@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import jsonwebtoken from 'jsonwebtoken';
 import {LoggerService} from "../logger.service";
 import {AppUser} from "../../models/AppUser";
+import {AuthService} from "./auth.service";
 
 @Injectable()
 export class UserService {
@@ -15,7 +16,7 @@ export class UserService {
   _user: AppUser;
 
   constructor(
-    private log: LoggerService
+    private log: LoggerService,
   ) {
     this.loadSessionData();
     this.log.write('loaded session data:', this.user, this.jwt_decoded);
@@ -38,6 +39,11 @@ export class UserService {
     localStorage.setItem(UserService.JWT_LOCATION, jwt);
     localStorage.setItem(UserService.USER_LOCATION, JSON.stringify(user));
     this.loadSessionData();
+  }
+
+  public setUser(user: AppUser) {
+    this.setSession(this.jwt, user);
+    console.log('user set..', user);
   }
 
   public clearSession() {
