@@ -2,10 +2,20 @@ import {AppQuestion} from '../../../models/AppQuestion';
 import {AppCategory} from '../../../models/AppCategory';
 import {AppNodeType, AppTreeNode} from './dataModel';
 
-export function mapToTreeNodes(rootCategory: AppCategory): AppTreeNode[] {
+let sourceMap;
+
+export function mapToTreeNodes(rootCategory: AppCategory) {
+  sourceMap = {
+    'categories': {},
+    'questions': {}
+  };
+
   let root = mapCategory(rootCategory);
   root.isRoot = true;
-  return [root];
+  return {
+    nodes: [root],
+    sourceMap: sourceMap
+  };
 }
 
 function mapCategory(category: AppCategory): AppTreeNode {
@@ -13,6 +23,7 @@ function mapCategory(category: AppCategory): AppTreeNode {
   category.questions.map( question => children.push(mapQuestion(question)));
   category.children.map( _category => children.push(mapCategory(_category)));
 
+  sourceMap['categories'][category.id] = category;
   return new AppTreeNode({
     id: category.id,
     type: AppNodeType.category,
@@ -22,6 +33,7 @@ function mapCategory(category: AppCategory): AppTreeNode {
 }
 
 function mapQuestion(question: AppQuestion){
+  sourceMap['questions'][question.id] = question;
   return new AppTreeNode({
     id: question.id,
     type: AppNodeType.question,

@@ -59,11 +59,15 @@ export class QuestionTreeComponent implements OnChanges {
     return null;
   }
 
+  sourceMap;
   public syncWithForm() {
-    this.treeNodes = mapToTreeNodes(this.rootCategory);
+    let {nodes, sourceMap} = mapToTreeNodes(this.rootCategory);
+    this.treeNodes = nodes;
+    this.sourceMap = sourceMap;
   }
 
   public lookupInForm(nodeID: number): AppQuestion | AppCategory {
+
     // BFS
     let start = this.rootCategory;
     let queue: AppCategory[] = [start];
