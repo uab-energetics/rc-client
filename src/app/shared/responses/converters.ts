@@ -1,19 +1,22 @@
 import {AppResponse} from "../../models/AppResponse";
+import {RESPONSE_FORMATS as fmt} from "../../models/formats";
 
 export function renderToString(response: AppResponse){
   if(!response) return '';
   if(typeof response === 'string')
     return response;
   switch (response.type){
-    case "txt":
+    case fmt.TEXT:
       return response.txt;
-    case "sel":
+    case fmt.SELECT:
       return response.sel;
-    case "boo":
+    case fmt.BOOLEAN:
       return response.boo;
-    case "num":
+    case fmt.NUMBER:
       return response.num;
-    case "multi-sel":
+    case fmt.MULTI_SELECT:
       return response.selections.map(sel => sel.txt).join(', ');
+    case fmt.NOT_REPORTED:
+      return 'NOT_REPORTED';
   }
 }
