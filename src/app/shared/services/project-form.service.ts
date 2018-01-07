@@ -12,6 +12,8 @@ import {AppFormPublication} from "../../models/AppFormPublication";
 import {AppProjectFormSettings} from "../../models/AppProjectFormSettings";
 import {AppProjectForm} from "../../models/AppProjectForm";
 import {UserService} from "../auth/user.service";
+import {PaginatedResult} from "../../models/PaginatedResult";
+import {PaginationOptions} from "../../models/PaginationOptions";
 
 const api = environment.api;
 
@@ -37,8 +39,9 @@ export class ProjectFormService {
       .share();
   }
 
-  getPublications(project: AppProject, form: AppForm) {
-    return this.http.get<AppFormPublication[]>(this.getPrefix(project, form) + "/publications")
+  getPublications(project: AppProject, form: AppForm, options: PaginationOptions = { page: 1, page_size: 20 }): Observable<PaginatedResult<AppFormPublication>> {
+    let params: any = Object.assign({}, options);
+    return this.http.get<PaginatedResult<AppFormPublication>>(this.getPrefix(project, form) + "/publications", {params})
       .share();
   }
 

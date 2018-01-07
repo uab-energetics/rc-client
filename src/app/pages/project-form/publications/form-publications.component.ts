@@ -25,7 +25,7 @@ export class FormPublicationsComponent {
   loading = 0;
 
   publications: AppFormPublication[];
-  // paginator: Paginator<AppFormPublication>;
+  paginator: Paginator<AppFormPublication>;
 
   selectedFile: File;
 
@@ -40,21 +40,17 @@ export class FormPublicationsComponent {
   ) { }
 
   ngOnInit() {
-    this.loadPublications();
-    // TODO - uncomment this once the backend has switched to the paginator pattern.
-    // this.paginator = new Paginator((params) => this.projectService.getPublications(this.project.id, params));
-    // this.paginator.data$.subscribe( data => {
-    //   this.publications = data;
-    //   this.loading = 0;
-    // });
-    // this.paginator.events.on('request_start', () => this.loading = 1);
+    this.paginator = new Paginator((params) => this.projectFormService.getPublications(this.project, this.form, params));
+    this.paginator.data$.subscribe( data => {
+      this.publications = data;
+    });
   }
 
   loadPublications(){
     this.loading++;
     this.projectFormService.getPublications(this.project, this.form)
       .finally(() => this.loading--)
-      .subscribe( pubs => this.publications = pubs );
+      .subscribe( pubs => this.publications = pubs.data );
   }
 
   onPublicationFormSubmit(publications: AppPublication[], priority: number){
