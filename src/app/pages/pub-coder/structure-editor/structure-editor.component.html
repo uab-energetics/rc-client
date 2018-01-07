@@ -47,10 +47,10 @@
         <!-- Question List -->
         <div>
 
-          <section *ngFor="let question of codebook.questions" class="example-section mb-20" >
+          <section *ngFor="let question of codebook.questions" class="example-section mb-20">
             <mat-slide-toggle
               (change)="questionChange(question, $event)"
-              [checked]="isChecked(question)">
+              [checked]="structureState[selectedBranch.id][question.id]">
               {{question.name}}
             </mat-slide-toggle>
           </section>
