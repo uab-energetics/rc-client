@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {AppCategory} from '../../../models/AppCategory';
-import {AppTreeNode} from './dataModel';
+import {AppNodeType, AppTreeNode} from './dataModel';
 import {mapToTreeNodes} from './dataMapper';
 import {ITreeNode} from 'angular-tree-component/dist/defs/api';
 import {AppQuestion} from "../../../models/AppQuestion";
@@ -59,25 +59,12 @@ export class QuestionTreeComponent implements OnChanges {
     return null;
   }
 
+  sourceMap;
   public syncWithForm() {
-    this.treeNodes = mapToTreeNodes(this.rootCategory);
+    let {nodes, sourceMap} = mapToTreeNodes(this.rootCategory);
+    this.treeNodes = nodes;
+    this.sourceMap = sourceMap;
   }
-
-  public lookupInForm(nodeID: number): AppQuestion | AppCategory {
-    // BFS
-    let start = this.rootCategory;
-    let queue: AppCategory[] = [start];
-    while(queue.length > 0){
-      let current = queue.pop();
-      if(current.id == nodeID) return current;
-      for(let i = 0; i < current.questions.length; i++)
-        if(nodeID === current.questions[i].id)
-          return current.questions[i];
-      queue.push(...current.children);
-    }
-    return null;
-  }
-
 
   /**
    * ===========================================================
@@ -85,8 +72,7 @@ export class QuestionTreeComponent implements OnChanges {
    * ( Use these input properties to configure behavior )
    * ===========================================================
    */
-  @Input() allowDrop = (node, parent) => false;
-  @Input() allowDrag = false;
+  @Input() allowDrag = true;
 
 
   /**
@@ -109,7 +95,7 @@ export class QuestionTreeComponent implements OnChanges {
       }
     },
     allowDrop: (node, { parent, index }) => {
-      return this.allowDrop(node.data, parent.data);
+      return parent.data.type === AppNodeType.category;
     }
   };
 

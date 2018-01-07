@@ -59,11 +59,11 @@ export class CodeBookTreeComponent {
   treeEdit(node: AppTreeNode){
     switch(node.type){
       case AppNodeType.category:
-        this.activeFormCategory = this.questionTree.lookupInForm(this.activeNode.id);
+        this.activeFormCategory = this.questionTree.sourceMap['categories'][node.id];
         return this.modal = this.ms.open(this.categoryModalContent);
 
       case AppNodeType.question:
-        this.activeFormQuestion = this.questionTree.lookupInForm(this.activeNode.id);
+        this.activeFormQuestion = this.questionTree.sourceMap['questions'][node.id];
         return this.modal = this.ms.open(this.questionModalContent);
     }
   }

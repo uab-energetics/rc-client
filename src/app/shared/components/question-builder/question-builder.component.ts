@@ -79,6 +79,8 @@ export class QuestionBuilderComponent implements OnInit {
     let initialState: any = this.question;
     if(!initialState) initialState = defaultModel;
 
+    initialState.options = initialState.options || [];
+    initialState.accepts = initialState.accepts || [];
     initialState.options = initialState.options.map( opt => opt.txt );
     initialState.accepts = initialState.options.map( opt => opt.txt );
 
