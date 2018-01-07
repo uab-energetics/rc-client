@@ -66,23 +66,6 @@ export class QuestionTreeComponent implements OnChanges {
     this.sourceMap = sourceMap;
   }
 
-  public lookupInForm(nodeID: number): AppQuestion | AppCategory {
-
-    // BFS
-    let start = this.rootCategory;
-    let queue: AppCategory[] = [start];
-    while(queue.length > 0){
-      let current = queue.pop();
-      if(current.id == nodeID) return current;
-      for(let i = 0; i < current.questions.length; i++)
-        if(nodeID === current.questions[i].id)
-          return current.questions[i];
-      queue.push(...current.children);
-    }
-    return null;
-  }
-
-
   /**
    * ===========================================================
    * INPUT OPTIONS
