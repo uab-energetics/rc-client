@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {AppCategory} from '../../../models/AppCategory';
-import {AppTreeNode} from './dataModel';
+import {AppNodeType, AppTreeNode} from './dataModel';
 import {mapToTreeNodes} from './dataMapper';
 import {ITreeNode} from 'angular-tree-component/dist/defs/api';
 import {AppQuestion} from "../../../models/AppQuestion";
@@ -72,8 +72,7 @@ export class QuestionTreeComponent implements OnChanges {
    * ( Use these input properties to configure behavior )
    * ===========================================================
    */
-  @Input() allowDrop = (node, parent) => false;
-  @Input() allowDrag = false;
+  @Input() allowDrag = true;
 
 
   /**
@@ -96,7 +95,7 @@ export class QuestionTreeComponent implements OnChanges {
       }
     },
     allowDrop: (node, { parent, index }) => {
-      return this.allowDrop(node.data, parent.data);
+      return parent.data.type === AppNodeType.category;
     }
   };
 
