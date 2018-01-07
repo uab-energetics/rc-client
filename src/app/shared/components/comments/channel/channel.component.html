@@ -8,7 +8,7 @@
   <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
 
   <app-comments *ngFor="let comment of displayComments"
-    [userID]="comment.user.id"
+    [userID]="user.id"
     (onReply)="onReply($event)"
     (onEdit)="onEdit($event)"
     (onDelete)="onDelete($event)"
