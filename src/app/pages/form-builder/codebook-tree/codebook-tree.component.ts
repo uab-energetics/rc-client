@@ -152,4 +152,5 @@ export class CodeBookTreeComponent {
   open = (content) => this.modal = this.ms.open(content);
 
   constructor(public ms: NgbModal) {}
+
 }

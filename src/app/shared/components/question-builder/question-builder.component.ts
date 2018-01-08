@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppQuestion, makeQuestion, QuestionOption, QuestionResponseType} from "../../../models/AppQuestion";
-import {RESPONSE_FORMATS as fmt} from "../../../models/formats";
+import {RESPONSE_FORMATS, RESPONSE_FORMATS as fmt} from "../../../models/formats";
 
 
 
@@ -30,7 +30,13 @@ export class QuestionBuilderComponent implements OnInit {
    * 2. define the export method
    * 3. bind submit event to an output emitter that calls the export method
    */
-  @Input() question;
+  _question: AppQuestion;
+  @Input()
+  set question( question: AppQuestion ){
+    this._question = question;
+    console.log(JSON.stringify(question, null, 2));
+    this.setupFormModel(question);
+  }
 
   @Output() appSave = new EventEmitter<any>();
 
@@ -47,8 +53,6 @@ export class QuestionBuilderComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(){
-    console.log(this.question);
-    this.setupFormModel();
   }
 
   save () {
@@ -61,9 +65,10 @@ export class QuestionBuilderComponent implements OnInit {
     let options: QuestionOption[] = model.options.map( opt => { return {"txt": opt} });
     let accepts: QuestionResponseType[] = model.accepts.map( opt => { return {"type": opt} });
 
-    accepts.push({ type: model.default_format }); // make sure it accepts the default format
+    let default_type = accepts.filter( obj => obj.type === model.default_format );
+    if(default_type.length == 0) accepts.push({ type: model.default_format }); // make sure it accepts the default format
 
-    return Object.assign({}, this.question, {
+    return Object.assign({}, this._question, {
       name: model.name,
       prompt: model.prompt,
       description: model.desc,
@@ -75,14 +80,18 @@ export class QuestionBuilderComponent implements OnInit {
     });
   }
 
-  setupFormModel () {
-    let initialState: any = this.question;
+  setupFormModel (question: AppQuestion) {
+    console.log('question: ', question);
+
+    let initialState: any = { ...question };
     if(!initialState) initialState = defaultModel;
 
     initialState.options = initialState.options || [];
     initialState.accepts = initialState.accepts || [];
     initialState.options = initialState.options.map( opt => opt.txt );
-    initialState.accepts = initialState.options.map( opt => opt.txt );
+    initialState.accepts = initialState.accepts.map( opt => opt.type );
+
+    console.log('state: ', initialState);
 
     this.questionForm = this.fb.group({
       name: [initialState.name, Validators.required],
@@ -94,6 +103,17 @@ export class QuestionBuilderComponent implements OnInit {
       false_option: initialState.false_option,
       options: [initialState.options]
     });
+  }
+
+  hasOptions(){
+    let fmt = this.questionForm.get('default_format').value;
+    return (fmt === RESPONSE_FORMATS.MULTI_SELECT || fmt === RESPONSE_FORMATS.SELECT);
+  }
+
+  updateChips(chips: string[]){
+    console.log(chips);
+    this.questionForm.patchValue({ options: chips });
+    console.log(this.questionForm);
   }
 
 }

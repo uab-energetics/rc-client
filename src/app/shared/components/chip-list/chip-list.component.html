@@ -8,6 +8,7 @@
       <i class="icon wb-remove"></i>
     </mat-chip>
     <input placeholder="Add Option.."
+           [(ngModel)]="textField" name="textField"
            [matChipInputFor]="chipList"
            (matChipInputTokenEnd)="add($event)" />
   </mat-chip-list>

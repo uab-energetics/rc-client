@@ -49,9 +49,10 @@
       </div>
       <!-- boolean -->
       <!-- select -->
-      <div class="row" *ngIf="selectedType.value==='sel' || selectedType.value==='multi-sel'">
+      <div class="row" *ngIf="hasOptions()">
         <div class="col-12">
-          <app-chip-list (onChange)="questionForm.patchValue({options: $event})" ></app-chip-list>
+          <app-chip-list (onChange)="updateChips($event)" name="chipList"
+                         [chips]="questionForm.get('options').value"></app-chip-list>
         </div>
       </div>
       <!-- select -->
