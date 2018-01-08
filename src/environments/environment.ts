@@ -21,8 +21,6 @@ let environment = {
   }
 };
 
-
-
 if(localStorage.env){
     let custom = JSON.parse(localStorage.env);
     Object.assign(environment, custom);
