@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy-prod": "ssh researchcoder.com \"cd /var/research-coder; git pull; npm install; ng build --env=prod -op='../www/v3/researchcoder.com/'\"",
+    "deploy-prod": "ssh researchcoder.com \"cd /var/research-coder && git pull; npm install && ng build --env=prod -op='../www/v3/researchcoder.com/'\"",
     "deploy-dev": ""
   },
   "private": true,
