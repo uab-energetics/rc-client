@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 let environment = {
-  api: 'http://api.v3.researchcoder.com',
+  api: 'https://api.researchcoder.com',
   disableRouteGuards: true,
   showLog: true,
   production: false,
