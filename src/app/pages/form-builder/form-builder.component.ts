@@ -15,7 +15,7 @@ export class FormBuilderComponent implements OnInit {
 
   previewingCategory: AppCategory;
   form: AppForm;
-  loading = false;
+  loading = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,17 +29,17 @@ export class FormBuilderComponent implements OnInit {
   }
 
   loadForm(id) {
-    this.loading = true;
+    this.loading = 1;
     let src = this.formService.getForm(id)
-      .finally(() => this.loading = false);
+      .finally(() => this.loading = 0);
     src.subscribe(form => this.form = form);
     return src;
   }
 
   private fulfill(observable: Observable<any>) {
-    this.loading = true;
+    this.loading = 1;
     return observable
-      .finally(() => this.loading = false)
+      .finally(() => this.loading = 0)
       .subscribe(
         data => {
           this.loadForm(this.form.id);

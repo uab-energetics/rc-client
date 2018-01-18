@@ -76,8 +76,8 @@ export class EncodingTreeComponent implements OnChanges {
   @ViewChild('tree') treeComponent;
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
-  private treeNodes: any;
-  private treeOptions: any = {
+  treeNodes: any;
+  treeOptions: any = {
     allowDrag: false,
     idField: '_id',
     actionMapping: {

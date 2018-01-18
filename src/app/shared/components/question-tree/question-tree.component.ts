@@ -83,8 +83,8 @@ export class QuestionTreeComponent implements OnChanges {
    */
   @ViewChild('tree') treeComponent;
 
-  private treeNodes: any;
-  private treeOptions: any = {
+  treeNodes: any;
+  treeOptions: any = {
     allowDrag: this.allowDrag,
     idField: '_id',
     actionMapping: {

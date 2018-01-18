@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
     this.authService.userEvent.subscribe( newUser => this.user = newUser );
   }
 
-  onSubmit(){
+  onSubmit($event){
     this.showLoader = true;
     this.authService.updateProfile(this.user)
       .finally( () => this.showLoader = false )
