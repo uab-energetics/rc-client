@@ -32,7 +32,7 @@ export class DynamicInputComponent implements OnInit {
 
   ngOnInit(){
 
-    let find = (prop, def) => this.response[prop] || def;
+    let find = (prop, def) => this.response[prop] !== null ? this.response[prop] : def;
 
     switch(this.type){
       case fmt.TEXT:
