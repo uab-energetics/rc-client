@@ -22,14 +22,14 @@
         <li [hidden]="!password.errors?.required">Password is Required</li>
       </ul>
     </div>
-    <div class="form-group clearfix">
+    <!--<div class="form-group clearfix">
       <div class="checkbox-custom checkbox-inline checkbox-primary checkbox-lg float-left">
         <input type="checkbox" id="inputCheckbox"
                [(ngModel)]="model.rememberMe" name="remember">
         <label for="inputCheckbox">Remember me</label>
       </div>
-      <!--<a class="float-right" href="forgot-password.html">Forgot password?</a>-->
-    </div>
+      &lt;!&ndash;<a class="float-right" href="forgot-password.html">Forgot password?</a>&ndash;&gt;
+    </div>-->
     <button type="submit" class="btn btn-primary btn-block btn-lg mt-40"
             [disabled]="!loginForm.form.valid">Sign in</button>
   </form>
