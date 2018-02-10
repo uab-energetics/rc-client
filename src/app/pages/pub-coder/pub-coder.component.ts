@@ -113,8 +113,8 @@ export class PubCoderComponent implements OnInit {
 
   setupHotKeys(){
     document.addEventListener("keydown", event => {
-      event.preventDefault();
       if(event.ctrlKey && event.key === "s"){
+        event.preventDefault();
         this.saveChanges();
       }
     });
