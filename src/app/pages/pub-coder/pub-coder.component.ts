@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormService} from "../../shared/services/form.service";
 import {AppForm} from "../../models/AppForm";
 import {EncodingService} from "../../shared/services/encoding.service";
@@ -22,6 +22,7 @@ export class PubCoderComponent implements OnInit {
   form: AppForm;
   publication: AppPublication;
   encoding: AppExperimentEncoding;
+  @ViewChild('experimentForm') experimentForm;
 
   loading = 0;
   view = 'code';
@@ -52,7 +53,8 @@ export class PubCoderComponent implements OnInit {
           this.publication = pub;
           this.embeddingURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.publication.embedding_url);
         });
-    })
+    });
+    this.setupHotKeys();
   }
 
   loadEncoding(){
@@ -102,7 +104,20 @@ export class PubCoderComponent implements OnInit {
         this.notify.toast('Data Saved!');
         this.changes = false;
         this.loadEncoding();
-      })
+      });
+  }
+
+  saveChanges(){
+    this.handleSaveResponses(this.experimentForm.exportChangedResponses());
+  }
+
+  setupHotKeys(){
+    document.addEventListener("keydown", event => {
+      event.preventDefault();
+      if(event.ctrlKey && event.key === "s"){
+        this.saveChanges();
+      }
+    });
   }
 
 
