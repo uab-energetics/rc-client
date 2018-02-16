@@ -11,7 +11,7 @@
       <div class="float-right">
         <input type="file" (change)="handleFileInput($event.target.files)">
         <button (click)="onUploadFile()" class="btn btn-success"
-          placement="bottom" ngbTooltip="No headers, two columns: Publication Name, Embed Link">
+          placement="bottom" ngbTooltip="No headers, three columns: Publication Name, Source ID, Embed Link">
           <i class="icon wb-table"></i>  Upload CSV </button>
       </div>
 
@@ -41,6 +41,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Publication Name</th>
+          <th scope="col">Source ID</th>
           <th scope="col">Embedding URL</th>
           <th scope="col"></th>
         </tr>
@@ -52,6 +53,7 @@
             (change)="toggleSelection(pub.id)"></mat-checkbox></th>-->
           <th>{{pub.id}}</th>
           <td>{{pub.name}}</td>
+          <td>{{pub.source_id}}</td>
           <td><a href="{{pub.embedding_url}}">{{pub.embedding_url}}</a> </td>
           <td>
             <button class="btn btn-danger btn-sm" (click)="onDeletePublication(pub)">

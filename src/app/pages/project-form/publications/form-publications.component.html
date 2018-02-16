@@ -39,6 +39,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Publication Name</th>
+          <th scope="col">Source ID</th>
           <th scope="col">Embedding URL</th>
           <th scope="col">Priority</th>
           <th scope="col"></th>
@@ -48,6 +49,7 @@
         <tr *ngFor="let pub of publications">
           <th>{{pub.publication?.id}}</th>
           <td>{{pub.publication?.name}}</td>
+          <td>{{pub.publication?.source_id}}</td>
           <td>{{pub.publication?.embedding_url}}</td>
           <td>{{pub.priority}}</td>
           <td>
