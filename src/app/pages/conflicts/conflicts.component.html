@@ -93,10 +93,16 @@
                       My Responses
                     </th>
                     <th *ngFor="let otherEncoding of otherEncodings">
-                      <span class="avatar avatar-sm">
-                        <img [src]="otherEncoding.owner.image"/>
-                      </span> &nbsp;
-                      {{otherEncoding.owner.name}}
+                      <div *ngIf="otherEncoding.owners && otherEncoding.owners.length > 0">
+                        <span class="avatar avatar-sm">
+                        <img [src]="otherEncoding.owners[0]?.image"/>
+                        </span> &nbsp;
+                        {{otherEncoding.owners[0]?.name}}
+                      </div>
+                      <div *ngIf="!otherEncoding.owners || otherEncoding.owners.length === 0">
+                        NO_USER
+                      </div>
+
                     </th>
                   </tr>
                   </thead>

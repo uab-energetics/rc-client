@@ -9,7 +9,7 @@ export interface AppExperimentEncoding {
   form_id: number;
   form?: AppForm;
   publication_id: number;
-  owner?: AppUser;
+  owners?: AppUser[];
   experiment_branches?: AppBranch[];
   channel_name : string;
 }
