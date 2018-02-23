@@ -51,7 +51,7 @@ export class EncodersComponent implements OnInit {
       .finally(() => this.loading--)
       .catch( err => { this.notify.toast("Invalid User..", "But why?"); return [] } )
       .subscribe(() => {
-        this.notify.alert('Access Granted!', user.name + " is now a researcher of " + this.project.name );
+        this.notify.alert('Access Granted!', user.name + " is now an encoder of " + this.project.name );
         this.ngOnInit();
       })
   }
