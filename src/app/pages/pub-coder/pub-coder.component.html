@@ -22,7 +22,7 @@
           <div class="mb-20">
             <button
               [disabled]="!changes"
-              (click)="handleSaveResponses(experimentForm.exportChangedResponses())"
+              (click)="saveChanges()"
               class="btn btn-animate btn-animate-side btn-success btn-raised">
               <span><i class="icon wb-download" aria-hidden="true"></i> Save Changes </span>
             </button>
@@ -38,6 +38,16 @@
             [encoding]="encoding"
             [appForm]="form">
           </app-experiment-form>
+
+          <div class="mt-20">
+            <button
+              [disabled]="!changes"
+              (click)="saveChanges()"
+              class="btn btn-animate btn-animate-side btn-success btn-raised">
+              <span><i class="icon wb-download" aria-hidden="true"></i> Save Changes </span>
+            </button>
+            <p [hidden]="changes">No changes since last save</p>
+          </div>
         </div>
 
       </div>

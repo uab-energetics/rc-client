@@ -22,7 +22,9 @@ export class MultiSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.value = this.selections.map( sel => sel.txt );
+    if (this.selections) {
+      this.value = this.selections.map( sel => sel.txt );
+    }
   }
 
 }

@@ -17,6 +17,7 @@ export class PublicationFormComponent {
   constructor(private fb: FormBuilder) {
     this.publicationForm = fb.group({
       name: [ '', Validators.required ],
+      source_id: [ '', Validators.maxLength(190)],
       embedding_url: [ '', Validators.required ]
     })
   }
