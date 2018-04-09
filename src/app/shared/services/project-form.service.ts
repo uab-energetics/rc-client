@@ -83,6 +83,10 @@ export class ProjectFormService {
       .share();
   }
 
+  removeEncoder(projectID: number, formID: number, userID: number): Observable<any> {
+    return this.http.delete(`${api}/projects/${projectID}/forms/${formID}/encoders/${userID}`)
+  }
+
   addEncoders(project: AppProject, form: AppForm, encoders: AppUser[]) {
     let data = { encoders : encoders.map( user => user.id ) };
     return this.http.post<any>(this.getPrefix(project, form)+"/encoders", data)
