@@ -109,4 +109,12 @@ export class ProjectService {
       .share()
   }
 
+  removeResearcher(projectID: number, userID: number): Observable<any> {
+    return this.http.delete(`${api}/projects/${projectID}/researchers/${userID}`)
+  }
+
+  removeEncoder(projectID: number, userID: number): Observable<any> {
+    return this.http.delete(`${api}/projects/${projectID}/encoders/${userID}`)
+  }
+
 }

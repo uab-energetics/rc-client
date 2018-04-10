@@ -56,4 +56,23 @@ export class EncodersComponent implements OnInit {
       })
   }
 
+  onRemoveEncoder(encoder: AppUser) {
+    this.notify.confirm(() => this.removeEncoder(encoder.id), {
+      title: "Are you sure?",
+      text: "This will remove the encoder from this project and all project forms",
+      confirmButtonText: "Remove Encoder"
+    })
+  }
+
+  removeEncoder(id: number) {
+    this.loading++;
+    this.projectService.removeEncoder(this.project.id, id)
+      .finally(() => this.loading--)
+      .catch( err => { this.notify.toast("Invalid User.."); return [];})
+      .subscribe( () => {
+        this.notify.toast("Successfully removed user");
+        this.ngOnInit();
+      })
+  }
+
 }

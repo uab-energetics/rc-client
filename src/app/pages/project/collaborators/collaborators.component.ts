@@ -59,4 +59,32 @@ export class CollaboratorsComponent implements OnInit {
       })
   }
 
+  onRemoveCollaborator(encoder: AppUser) {
+    this.notify.confirm(() => this.removeCollaborator(encoder.id), {
+      title: "Are you sure?",
+      text: "This will remove the researcher from this project",
+      confirmButtonText: "Remove Researcher"
+    })
+  }
+
+  removeCollaborator(id: number) {
+    this.loading++;
+    this.projectService.removeResearcher(this.project.id, id)
+      .finally(() => this.loading--)
+      .catch( err => {
+        switch (err.status) {
+          case 403:
+            this.notify.alert("Invalid collaborator count", "Projects must have at least one researcher", "error");
+            break;
+          default:
+            this.notify.toast("Invalid User..")
+        }
+        return [];
+      })
+      .subscribe( () => {
+        this.notify.toast("Successfully removed user");
+        this.ngOnInit();
+      })
+  }
+
 }
