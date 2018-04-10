@@ -68,7 +68,7 @@ export class EncodersComponent implements OnInit {
     this.loading++;
     this.projectService.removeEncoder(this.project.id, id)
       .finally(() => this.loading--)
-      .catch( err => { this.notify.toast("Invalid User..", "but why?")})
+      .catch( err => { this.notify.toast("Invalid User.."); return [];})
       .subscribe( () => {
         this.notify.toast("Successfully removed user");
         this.ngOnInit();
