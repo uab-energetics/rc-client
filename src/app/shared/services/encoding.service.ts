@@ -7,6 +7,7 @@ import {environment} from "../../../environments/environment";
 import {UserService} from "../auth/user.service";
 import {AppResponse} from "../../models/AppResponse";
 import {AppBranch} from "../../models/AppBranch";
+import {AppEncodingTask} from "../../models/AppEncodingTask";
 
 const api = environment.api;
 
@@ -40,6 +41,11 @@ export class EncodingService {
 
   myEncodings(): Observable<AppExperimentEncoding[]> {
     return this.http.get<AppExperimentEncoding[]>(`${api}/users/encodings`)
+      .share()
+  }
+
+  myTasks(): Observable<AppEncodingTask[]> {
+    return this.http.get<AppEncodingTask[]>(`${api}/users/tasks`)
       .share()
   }
 

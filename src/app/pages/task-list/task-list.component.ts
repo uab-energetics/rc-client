@@ -6,6 +6,7 @@ import {LoggerService} from "../../shared/logger.service";
 import {NotifyService} from "../../shared/services/notify.service";
 import {ProjectFormService} from "../../shared/services/project-form.service";
 import {AppProjectForm} from "../../models/AppProjectForm";
+import {AppEncodingTask} from "../../models/AppEncodingTask";
 
 @Component({
   selector: 'app-task-list',
@@ -14,7 +15,7 @@ import {AppProjectForm} from "../../models/AppProjectForm";
 })
 export class TaskListComponent implements OnInit {
 
-  encodings: AppExperimentEncoding[];
+  tasks: AppEncodingTask[] = [];
 
   loading = 0;
 
@@ -26,28 +27,28 @@ export class TaskListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadEncodings();
+    this.loadTasks();
   }
 
-  loadEncodings(){
+  loadTasks(){
     this.loading++;
-    this.encodingService.myEncodings()
+    this.encodingService.myTasks()
       .finally(() => this.loading--)
-      .subscribe( tasks => this.encodings = tasks);
+      .subscribe( tasks => this.tasks = tasks);
   }
 
   onQuitEncoding(task: AppExperimentEncoding){
-    let onComfirm = () => {
+    let onConfirm = () => {
       this.loading++;
       this.encodingService.quitEncoding(task.id)
         .finally(() => this.loading--)
         .subscribe( () => {
           this.notify.toast('Assignment Deleted');
-          this.loadEncodings();
+          this.ngOnInit();
         });
     };
 
-    this.notify.confirm(onComfirm);
+    this.notify.confirm(onConfirm);
   }
 
   onTaskFormSubmit(projectForm: AppProjectForm){
@@ -57,8 +58,8 @@ export class TaskListComponent implements OnInit {
       .subscribe( () => {
         this.closeModal();
         this.notify.toast('Tasks requested');
-        this.loadEncodings();
-      } );
+        this.loadTasks();
+      });
   }
 
   modal;
