@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+after_success:
+  - docker --version
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker build -t chrisrocco/rc-client
+  - docker push chrisrocco/rc-client
