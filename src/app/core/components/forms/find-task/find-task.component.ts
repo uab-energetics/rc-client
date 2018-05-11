@@ -29,19 +29,21 @@ export class FindTaskComponent implements OnInit {
     this.taskForm = this.fb.group({
       projectFormID: ['', Validators.required]
     });
+    this.loadForms();
+  }
 
+  loadForms() {
     this.loading++;
-
     this.projectFormService.getProjectFormsEncoder()
       .finally(() => this.loading--)
       .subscribe( forms => {
         let map = {};
         for (let projectForm of forms) {
+          if (projectForm.form === null) continue;
           map[projectForm.id] = projectForm;
         }
         this.projectFormMap = map;
       } );
-
   }
 
   getProjectForms(){
