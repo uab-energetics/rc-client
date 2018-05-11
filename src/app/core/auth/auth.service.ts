@@ -36,7 +36,7 @@ export class AuthService {
 
   public logout(): void {
     this.jwtService.clearSession()
-    this.router.navigate(['/auth/login'])
+    this.router.navigateByUrl('/auth/login')
   }
 
 }

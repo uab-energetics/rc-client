@@ -3,6 +3,7 @@ import {Router} from '@angular/router'
 import {AuthService} from '../../../core/auth/auth.service'
 import {UserService} from '../../../shared/auth/user.service'
 import {NotifyService} from '../../../shared/services/notify.service'
+import {RedirectService} from '../../../core/auth/redirect.service'
 
 class LoginFormModel {
   constructor(
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private authService: AuthService,
+    private redirectService: RedirectService,
     private userService: UserService,
     private notify: NotifyService,
   ) {}
@@ -31,16 +33,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login({
       email: this.model.email,
       password: this.model.password
-    }).subscribe(( data ) => {
-      console.log('logged in!', data)
-    }, err => {
-      this.notify.alert("Invalid Credentials", "Please check your email and password and try again", "error")
-    })
+    }).subscribe(
+      res => {
+        this.router.navigateByUrl( this.redirectService.getRedirect() || '/' )
+      },
+      err => {
+        this.notify.alert("Invalid Credentials", "Please check your email and password and try again", "error")
+      }
+    )
   }
 
   ngOnInit() {
     if (this.userService.isAuthenticated())
-      return this.router.navigate(['/'])
+      return this.router.navigateByUrl('/')
     document.body.classList.add('page-login-v3', 'layout-full')
   }
 

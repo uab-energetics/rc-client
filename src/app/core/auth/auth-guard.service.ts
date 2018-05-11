@@ -14,13 +14,10 @@ export class AuthGuardService implements CanActivate {
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    // temporary
-    // if(1==1) return true
-
     if(this.jwtService.isAuthenticated()) return true
 
     this.redir.setRedirect(state.url);
-    this.router.navigate(['/auth/login'])
+    this.router.navigateByUrl('/auth/login')
     return false
   }
 }

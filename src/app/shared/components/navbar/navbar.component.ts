@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../auth/auth.service';
-import {UserService} from "../../auth/user.service";
-import {AppUser} from "../../../models/AppUser";
-import {NotificationsService} from "../../services/notifications.service";
-import {NotifyService} from "../../services/notify.service";
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core'
+import {UserService} from '../../auth/user.service'
+import {NotificationsService} from '../../services/notifications.service'
+import {NotifyService} from '../../services/notify.service'
+import {Router} from '@angular/router'
+import {AuthService} from '../../../core/auth/auth.service'
 
 @Component({
   selector: 'app-navbar',
@@ -13,25 +12,17 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent implements OnInit {
 
-  user: AppUser;
   unreadNotifications = [];
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private userService: UserService,
     private notifications: NotificationsService,
     private notify: NotifyService,
     private router: Router
   ) { }
 
-
-  logout () {
-    this.authService.logout();
-  }
-
   ngOnInit() {
-    this.authService.userEvent.subscribe( user => this.user = user );
-    this.user = this.userService.user;
     this.notifications.getUnread()
       .subscribe(notifications => this.unreadNotifications = notifications);
   }
