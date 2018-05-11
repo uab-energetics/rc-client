@@ -1,6 +1,6 @@
-import {AppExperimentEncoding} from '../../../models/AppExperimentEncoding'
+import {AppExperimentEncoding} from '../../../core/encodings/AppExperimentEncoding'
 import {AppQuestion} from '../../../core/form-questions/AppQuestion'
-import {AppResponse} from '../../../models/AppResponse'
+import {AppResponse} from '../../../core/form-responses/AppResponse'
 
 export interface ConflictsResponse {
   groups: string[]

@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AppForm} from "../../../../models/AppForm";
-import {AppExperimentEncoding} from "../../../../models/AppExperimentEncoding";
+import {AppForm} from "../../../../core/forms/AppForm";
+import {AppExperimentEncoding} from "../../../../core/encodings/AppExperimentEncoding";
 import * as _ from 'lodash';
-import {AppBranch} from "../../../../models/AppBranch";
+import {AppBranch} from "../../../../core/form-branch/AppBranch";
 import {EncodingUpdate, reduceEncoding} from "./encodingReduce";
 import {mapToFormData} from "./encodingMapper";
 import {NotifyService} from "../../../../core/notifications/notify.service";

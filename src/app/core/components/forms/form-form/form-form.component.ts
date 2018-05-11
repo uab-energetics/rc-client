@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AppForm} from "../../../../models/AppForm";
+import {AppForm} from "../../../forms/AppForm";
 
 @Component({
   selector: 'app-form-form',

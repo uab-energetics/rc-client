@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
-import {AppForm} from '../../../models/AppForm'
-import {AppPublication} from '../../../models/AppPublication'
-import {AppProject} from '../../../models/AppProject'
+import {AppForm} from '../../../core/forms/AppForm'
+import {AppPublication} from '../../../core/publications/AppPublication'
+import {AppProject} from '../../../core/projects/AppProject'
 import {NotifyService} from '../../../core/notifications/notify.service'
-import {ProjectService} from '../../../shared/services/project.service'
+import {ProjectService} from '../../../core/projects/project.service'
 
 @Component({
   selector: 'app-project',

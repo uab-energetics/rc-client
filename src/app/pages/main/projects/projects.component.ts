@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ProjectService} from "../../../shared/services/project.service";
-import {AppProject} from "../../../models/AppProject";
+import {ProjectService} from "../../../core/projects/project.service";
+import {AppProject} from "../../../core/projects/AppProject";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NotifyService} from "../../../core/notifications/notify.service";
 

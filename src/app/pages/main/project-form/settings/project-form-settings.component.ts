@@ -1,10 +1,10 @@
 import {Component, Input} from '@angular/core'
 import {NotifyService} from '../../../../core/notifications/notify.service'
 import {Router} from '@angular/router'
-import {ProjectFormService} from '../../../../shared/services/project-form.service'
-import {AppProject} from '../../../../models/AppProject'
-import {AppForm} from '../../../../models/AppForm'
-import {AppProjectFormSettings} from '../../../../models/AppProjectFormSettings'
+import {ProjectFormService} from '../../../../core/projects/project-form.service'
+import {AppProject} from '../../../../core/projects/AppProject'
+import {AppForm} from '../../../../core/forms/AppForm'
+import {AppProjectFormSettings} from '../../../../core/forms/AppProjectFormSettings'
 
 
 @Component({

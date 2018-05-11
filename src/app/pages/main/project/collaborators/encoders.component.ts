@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {AppProject} from "../../../../models/AppProject";
-import {AppUser} from "../../../../models/AppUser";
-import {ProjectService} from "../../../../shared/services/project.service";
+import {AppProject} from "../../../../core/projects/AppProject";
+import {ProjectService} from "../../../../core/projects/project.service";
 import {NotifyService} from "../../../../core/notifications/notify.service";
 import {InvitationsService} from "../../../../core/invitations/invitations.service";
+import {User} from '../../../../core/auth/models/User'
 
 @Component({
   selector: 'app-encoders',
@@ -14,7 +14,7 @@ export class EncodersComponent implements OnInit {
 
   @Input() project: AppProject;
 
-  users: AppUser[];
+  users: User[];
 
   inviteEmail: string = "";
 
@@ -44,7 +44,7 @@ export class EncodersComponent implements OnInit {
       .subscribe( res => this.notify.alert('Invitation Sent!'))
   }
 
-  sendInvite(user: AppUser){
+  sendInvite(user: User){
     console.log(user);
     this.loading++;
     this.projectService.inviteEncoder(this.project.id, user.id)
@@ -56,7 +56,7 @@ export class EncodersComponent implements OnInit {
       })
   }
 
-  onRemoveEncoder(encoder: AppUser) {
+  onRemoveEncoder(encoder: User) {
     this.notify.confirm(() => this.removeEncoder(encoder.id), {
       title: "Are you sure?",
       text: "This will remove the encoder from this project and all project forms",

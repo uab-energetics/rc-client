@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {NotificationsService} from '../../../shared/services/notifications.service'
+import {NotificationsService} from '../../notifications/notifications.service'
 import {NotifyService} from '../../notifications/notify.service'
 import {Router} from '@angular/router'
 import {AuthService} from '../../auth/auth.service'

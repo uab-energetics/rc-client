@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core'
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap"
-import {AppForm} from '../../../../models/AppForm'
+import {AppForm} from '../../../../core/forms/AppForm'
 import {AppNodeType, AppTreeNode} from '../../../../core/form-questions/components/question-tree/dataModel'
 import {AppQuestion} from '../../../../core/form-questions/AppQuestion'
 import {AppMoveEvent} from '../../../../core/form-questions/components/question-tree/question-tree.component'

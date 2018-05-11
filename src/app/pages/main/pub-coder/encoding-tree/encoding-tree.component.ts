@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {EncodingNode, EncodingNodeType} from "./dataModel";
 import {mapToEncodingNode} from "./dataMapper";
-import {AppExperimentEncoding} from "../../../../models/AppExperimentEncoding";
+import {AppExperimentEncoding} from "../../../../core/encodings/AppExperimentEncoding";
 import {MatMenuTrigger} from "@angular/material";
 
 

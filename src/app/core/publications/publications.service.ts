@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs/Observable";
-import {AppPublication} from "../../models/AppPublication";
+import {AppPublication} from "./AppPublication";
 import 'rxjs/add/operator/share';
 import {List} from "lodash";
-import {PaginatedResult} from "../../models/PaginatedResult";
-import {PaginationOptions} from "../../models/PaginationOptions";
+import {PaginatedResult} from "../pagination/PaginatedResult";
+import {PaginationOptions} from "../pagination/PaginationOptions";
 
 const api = environment.api;
 

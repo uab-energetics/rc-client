@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AppProject} from "../../../../models/AppProject";
+import {AppProject} from "../../../projects/AppProject";
 
 @Component({
   selector: 'app-project-form',

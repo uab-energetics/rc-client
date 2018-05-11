@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
-import {AppForm} from '../../../../models/AppForm'
+import {AppForm} from '../../../forms/AppForm'
 import {CategoryUpdate} from '../../../form-categories/components/category/category.component'
-import {AppBranch} from '../../../../models/AppBranch'
+import {AppBranch} from '../../AppBranch'
 import {EncodingUpdate} from '../../../../pages/main/pub-coder/experiment-form/encodingReduce'
 
 @Component({

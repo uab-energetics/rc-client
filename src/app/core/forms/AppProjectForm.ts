@@ -1,5 +1,5 @@
 import {AppForm} from "./AppForm";
-import {AppProject} from "./AppProject";
+import {AppProject} from "../projects/AppProject";
 
 export interface AppProjectForm {
   id: number,

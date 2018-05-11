@@ -1,10 +1,10 @@
 import {Component, Input} from '@angular/core';
-import {AppProject} from "../../../../models/AppProject";
+import {AppProject} from "../../../../core/projects/AppProject";
 import {SweetAlertService} from "ng2-sweetalert2";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AppPublication} from "../../../../models/AppPublication";
-import {ProjectService} from "../../../../shared/services/project.service";
-import {PublicationsService} from "../../../../shared/services/publications.service";
+import {AppPublication} from "../../../../core/publications/AppPublication";
+import {ProjectService} from "../../../../core/projects/project.service";
+import {PublicationsService} from "../../../../core/publications/publications.service";
 import {NotifyService} from "../../../../core/notifications/notify.service";
 import * as PapaParse from 'papaparse';
 import {Subject} from "rxjs/Subject";

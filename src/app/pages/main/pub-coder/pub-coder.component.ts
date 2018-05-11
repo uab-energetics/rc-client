@@ -1,15 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormService} from "../../../shared/services/form.service";
-import {AppForm} from "../../../models/AppForm";
+import {FormService} from "../../../core/forms/form.service";
+import {AppForm} from "../../../core/forms/AppForm";
 import {EncodingService} from "../../../core/encodings/encoding.service";
-import {AppExperimentEncoding} from "../../../models/AppExperimentEncoding";
+import {AppExperimentEncoding} from "../../../core/encodings/AppExperimentEncoding";
 import {ActivatedRoute} from "@angular/router";
 import * as _ from "lodash";
 import {forkJoin} from "rxjs/observable/forkJoin";
 import {NotifyService} from "../../../core/notifications/notify.service";
-import {AppBranch} from "../../../models/AppBranch";
-import {AppPublication} from '../../../models/AppPublication';
-import {PublicationsService} from '../../../shared/services/publications.service';
+import {AppBranch} from "../../../core/form-branch/AppBranch";
+import {AppPublication} from '../../../core/publications/AppPublication';
+import {PublicationsService} from '../../../core/publications/publications.service';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({

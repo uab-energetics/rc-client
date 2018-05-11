@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppQuestion} from '../../../form-questions/AppQuestion';
-import {propName, RESPONSE_FORMATS as fmt} from '../../../../models/formats';
-import {AppResponse} from '../../../../models/AppResponse';
+import {propName, RESPONSE_FORMATS as fmt} from '../../formats';
+import {AppResponse} from '../../AppResponse';
 
 @Component({
   selector: 'app-dynamic-input',

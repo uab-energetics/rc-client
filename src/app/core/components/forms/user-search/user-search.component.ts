@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs/Observable";
-import {PeopleService} from "../../../../shared/services/people.service";
+import {PeopleService} from "../../../users/people.service";
 
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/catch';
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/merge';
 import {of} from "rxjs/observable/of";
-import {AppUser} from "../../../../models/AppUser";
+import {User} from '../../../auth/models/User'
 
 @Component({
   selector: 'app-user-search',
@@ -44,6 +44,6 @@ export class UserSearchComponent {
       .merge(this.hideSearchingWhenUnsubscribed);
   };
 
-  formatter = (user: AppUser) => user.name
+  formatter = (user: User) => user.name
 
 }

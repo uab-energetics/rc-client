@@ -1,5 +1,5 @@
 
-import {RESPONSE_FORMATS} from "../../models/formats";
+import {RESPONSE_FORMATS} from "../form-responses/formats";
 
 export interface QuestionOption {
   txt: string;

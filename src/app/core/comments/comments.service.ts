@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {AppComment} from "../../models/AppComment";
-import {AppChannel} from "../../models/AppChannel";
+import {AppComment} from "./AppComment";
+import {AppChannel} from "../events/AppChannel";
 import {of} from 'rxjs/observable/of';
-import {PusherService} from '../../shared/services/pusher.service';
+import {PusherService} from '../events/pusher.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 const api = environment.api;

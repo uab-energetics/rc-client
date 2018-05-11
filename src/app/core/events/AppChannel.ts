@@ -1,4 +1,4 @@
-import {AppComment} from "./AppComment";
+import {AppComment} from "../comments/AppComment";
 
 export interface AppChannel {
   id?: number;

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {AppForm} from "../../models/AppForm";
+import {AppForm} from "./AppForm";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs/Observable";
-import {AppCategory} from "../../core/form-categories/AppCategory";
-import {AppQuestion} from "../../core/form-questions/AppQuestion";
+import {AppCategory} from "../form-categories/AppCategory";
+import {AppQuestion} from "../form-questions/AppQuestion";
 import 'rxjs/add/operator/share';
 import {share} from "rxjs/operators";
 import {saveAs} from 'file-saver';

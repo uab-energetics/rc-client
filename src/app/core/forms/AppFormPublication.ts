@@ -1,4 +1,4 @@
-import {AppPublication} from "./AppPublication";
+import {AppPublication} from "../publications/AppPublication";
 
 export interface AppFormPublication {
   id?: number;

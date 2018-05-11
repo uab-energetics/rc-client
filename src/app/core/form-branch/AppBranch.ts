@@ -1,6 +1,6 @@
 
-import {AppResponse} from "./AppResponse";
-import {AppQuestion} from "../core/form-questions/AppQuestion";
+import {AppResponse} from "../form-responses/AppResponse";
+import {AppQuestion} from "../form-questions/AppQuestion";
 
 export interface AppBranch {
   id?: number;

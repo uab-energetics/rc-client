@@ -1,7 +1,7 @@
 
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
-import {PaginatedResult} from "../../models/PaginatedResult";
+import {PaginatedResult} from "./PaginatedResult";
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/pluck';
 import * as EventEmitter from 'events';

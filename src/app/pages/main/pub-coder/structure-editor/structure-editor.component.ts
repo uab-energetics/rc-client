@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {AppExperimentEncoding} from "../../../../models/AppExperimentEncoding";
-import {AppForm} from "../../../../models/AppForm";
+import {AppExperimentEncoding} from "../../../../core/encodings/AppExperimentEncoding";
+import {AppForm} from "../../../../core/forms/AppForm";
 import {EncodingTreeComponent} from "../encoding-tree/encoding-tree.component";
 import {EncodingNode, EncodingNodeType} from "../encoding-tree/dataModel";
-import {AppBranch} from "../../../../models/AppBranch";
+import {AppBranch} from "../../../../core/form-branch/AppBranch";
 import {AppQuestion} from "../../../../core/form-questions/AppQuestion";
 import {MatSlideToggleChange} from "@angular/material";
 import {BranchQuestionsService} from "../../../../core/encodings/branch-questions.service";

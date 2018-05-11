@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppQuestion, makeQuestion, QuestionOption, QuestionResponseType} from "../../AppQuestion";
-import {RESPONSE_FORMATS, RESPONSE_FORMATS as fmt} from "../../../../models/formats";
+import {RESPONSE_FORMATS, RESPONSE_FORMATS as fmt} from "../../../form-responses/formats";
 
 
 

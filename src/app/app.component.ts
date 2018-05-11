@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {SkinService} from "./core/themes/skin.service";
-import {NotificationsService} from "./shared/services/notifications.service";
+import {NotificationsService} from "./core/notifications/notifications.service";
 
 @Component({
   selector: 'app-root',

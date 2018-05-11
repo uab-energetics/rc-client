@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AppForm} from "../../../../models/AppForm";
-import {AppPublication} from "../../../../models/AppPublication";
+import {AppForm} from "../../../forms/AppForm";
+import {AppPublication} from "../../../publications/AppPublication";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({

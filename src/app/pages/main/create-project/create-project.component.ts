@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import {Router, RouterModule} from "@angular/router"
-import {ProjectService} from '../../../shared/services/project.service'
-import {AppProject} from '../../../models/AppProject'
+import {ProjectService} from '../../../core/projects/project.service'
+import {AppProject} from '../../../core/projects/AppProject'
 
 class ProjectModel {
   constructor(

@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core'
 import {MatSnackBar} from "@angular/material"
 import {ActivatedRoute} from "@angular/router"
 import {Observable} from "rxjs/Observable"
-import {FormService} from '../../../shared/services/form.service'
+import {FormService} from '../../../core/forms/form.service'
 import {AppCategory} from '../../../core/form-categories/AppCategory'
-import {AppForm} from '../../../models/AppForm'
+import {AppForm} from '../../../core/forms/AppForm'
 
 @Component({
   selector: 'app-form-builder',

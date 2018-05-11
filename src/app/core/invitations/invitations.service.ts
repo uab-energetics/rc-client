@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs/Observable";
-import {AppPublication} from "../../models/AppPublication";
+import {AppPublication} from "../publications/AppPublication";
 import 'rxjs/add/operator/share';
 
 const api = environment.api;

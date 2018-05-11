@@ -1,7 +1,7 @@
 
 
 import {EncodingNode} from "./encoding-tree/dataModel";
-import {AppExperimentEncoding} from "../../../models/AppExperimentEncoding";
+import {AppExperimentEncoding} from "../../../core/encodings/AppExperimentEncoding";
 
 export interface State {
 

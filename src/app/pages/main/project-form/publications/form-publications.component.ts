@@ -1,15 +1,15 @@
 import {Component, Input} from '@angular/core';
-import {AppProject} from "../../../../models/AppProject";
+import {AppProject} from "../../../../core/projects/AppProject";
 import {SweetAlertService} from "ng2-sweetalert2";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AppPublication} from "../../../../models/AppPublication";
-import {ProjectService} from "../../../../shared/services/project.service";
-import {PublicationsService} from "../../../../shared/services/publications.service";
+import {AppPublication} from "../../../../core/publications/AppPublication";
+import {ProjectService} from "../../../../core/projects/project.service";
+import {PublicationsService} from "../../../../core/publications/publications.service";
 import {NotifyService} from "../../../../core/notifications/notify.service";
 import * as PapaParse from 'papaparse';
-import {ProjectFormService} from "../../../../shared/services/project-form.service";
-import {AppForm} from "../../../../models/AppForm";
-import {AppFormPublication} from "../../../../models/AppFormPublication";
+import {ProjectFormService} from "../../../../core/projects/project-form.service";
+import {AppForm} from "../../../../core/forms/AppForm";
+import {AppFormPublication} from "../../../../core/forms/AppFormPublication";
 import {Paginator} from "../../../../core/pagination/Paginator";
 
 @Component({

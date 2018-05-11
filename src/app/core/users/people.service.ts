@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {AppUser} from "../../models/AppUser";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
+import {User} from '../auth/models/User'
 
 let api = environment.api;
 
@@ -15,7 +15,7 @@ export class PeopleService {
     if(nameOrEmail === ''){
       return of([]);
     }
-    return this.http.get<AppUser[]>(`${api}/users?search=${nameOrEmail}`)
+    return this.http.get<User[]>(`${api}/users?search=${nameOrEmail}`)
   }
 
 }

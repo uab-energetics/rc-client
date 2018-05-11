@@ -9,10 +9,10 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/merge';
 import {of} from "rxjs/observable/of";
-import {AppUser} from "../../../../models/AppUser";
-import {ProjectService} from "../../../../shared/services/project.service";
+import {ProjectService} from "../../../projects/project.service";
 import {Input} from "@angular/core";
-import {AppProject} from "../../../../models/AppProject";
+import {AppProject} from "../../../projects/AppProject";
+import {User} from '../../../auth/models/User'
 
 @Component({
   selector: 'app-encoder-search',
@@ -47,6 +47,6 @@ export class EncoderSearchComponent {
       .merge(this.hideSearchingWhenUnsubscribed);
   };
 
-  formatter = (encoder: AppUser) => encoder.name
+  formatter = (encoder: User) => encoder.name
 
 }

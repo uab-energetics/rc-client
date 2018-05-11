@@ -1,11 +1,11 @@
 import {Component, Input} from '@angular/core'
-import {AppForm} from '../../../../models/AppForm'
+import {AppForm} from '../../../../core/forms/AppForm'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
-import {ProjectService} from '../../../../shared/services/project.service'
-import {AppProject} from '../../../../models/AppProject'
+import {ProjectService} from '../../../../core/projects/project.service'
+import {AppProject} from '../../../../core/projects/AppProject'
 import 'rxjs/add/operator/finally'
 import {NotifyService} from '../../../../core/notifications/notify.service'
-import {FormService} from '../../../../shared/services/form.service'
+import {FormService} from '../../../../core/forms/form.service'
 import {Router} from '@angular/router'
 
 @Component({

@@ -1,10 +1,9 @@
-
-import {AppUser} from "./AppUser";
+import {User} from '../auth/models/User'
 
 export interface AppComment {
   id?: number;
   parent_id?: number;
-  user: AppUser;
+  user: User;
   message: string;
   deleted_at?: string;
   created_at?: string;

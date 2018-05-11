@@ -1,17 +1,17 @@
 import {Injectable} from '@angular/core'
-import {AppForm} from "../../models/AppForm"
-import {AppProject} from "../../models/AppProject"
+import {AppForm} from "../forms/AppForm"
+import {AppProject} from "./AppProject"
 import {Observable} from "rxjs/Observable"
 import {HttpClient} from "@angular/common/http"
 import {environment} from "../../../environments/environment"
-import {AppPublication} from "../../models/AppPublication"
-import {AppUser} from "../../models/AppUser"
-import {AppFormPublication} from "../../models/AppFormPublication"
-import {AppProjectFormSettings} from "../../models/AppProjectFormSettings"
-import {AppProjectForm} from "../../models/AppProjectForm"
-import {PaginatedResult} from "../../models/PaginatedResult"
-import {PaginationOptions} from "../../models/PaginationOptions"
-import {JwtService} from '../../core/auth/jwt.service'
+import {AppPublication} from "../publications/AppPublication"
+import {AppFormPublication} from "../forms/AppFormPublication"
+import {AppProjectFormSettings} from "../forms/AppProjectFormSettings"
+import {AppProjectForm} from "../forms/AppProjectForm"
+import {PaginatedResult} from "../pagination/PaginatedResult"
+import {PaginationOptions} from "../pagination/PaginationOptions"
+import {JwtService} from '../auth/jwt.service'
+import {User} from '../auth/models/User'
 
 const api = environment.api
 
@@ -73,11 +73,11 @@ export class ProjectFormService {
   }
 
   getEncoders(project: AppProject, form: AppForm) {
-    return this.http.get<AppUser[]>(this.getPrefix(project, form) + "/encoders")
+    return this.http.get<User[]>(this.getPrefix(project, form) + "/encoders")
       .share()
   }
 
-  addEncoder(project: AppProject, form: AppForm, encoder: AppUser) {
+  addEncoder(project: AppProject, form: AppForm, encoder: User) {
     return this.http.post<any>(this.getPrefix(project, form)+"/encoders/"+encoder.id, {})
       .share()
   }
@@ -86,7 +86,7 @@ export class ProjectFormService {
     return this.http.delete(`${api}/projects/${projectID}/forms/${formID}/encoders/${userID}`)
   }
 
-  addEncoders(project: AppProject, form: AppForm, encoders: AppUser[]) {
+  addEncoders(project: AppProject, form: AppForm, encoders: User[]) {
     let data = { encoders : encoders.map( user => user.id ) }
     return this.http.post<any>(this.getPrefix(project, form)+"/encoders", data)
       .share()
@@ -101,7 +101,7 @@ export class ProjectFormService {
     return this.requestTasks(project, form, this.jwt.user, count)
   }
 
-  requestTasks(project: AppProject, form: AppForm, encoder: AppUser, count = null) {
+  requestTasks(project: AppProject, form: AppForm, encoder: User, count = null) {
     let data = {}
     if (count) {data['count'] = count}
     return this.http.post<any>(this.getPrefix(project, form)+"/encoders/"+encoder.id+'/request-tasks', data)

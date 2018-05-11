@@ -34,7 +34,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     }).subscribe(
       res => {
         let {redirect, redirectQueryParams} = this.redirectService.getRedirect()
-        this.router.navigateByUrl(redirect, redirectQueryParams)
+        return this.router.navigateByUrl(
+          redirect || '/',
+          redirectQueryParams || {}
+        )
       },
       err => {
         this.notify.alert("Invalid Credentials", "Please check your email and password and try again", "error")

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {QuestionOption} from "../../../../form-questions/AppQuestion";
-import {TextPayload} from "../../../../../models/AppResponse";
+import {TextPayload} from "../../../AppResponse";
 
 @Component({
   selector: 'app-multi-select',

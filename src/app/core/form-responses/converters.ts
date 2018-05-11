@@ -1,5 +1,5 @@
-import {AppResponse} from "../../models/AppResponse";
-import {RESPONSE_FORMATS as fmt} from "../../models/formats";
+import {AppResponse} from "./AppResponse";
+import {RESPONSE_FORMATS as fmt} from "./formats";
 
 export function renderToString(response: AppResponse){
   if(!response) return '';

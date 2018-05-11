@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core'
-import {AppProject} from '../../../../models/AppProject'
-import {AppUser} from '../../../../models/AppUser'
+import {AppProject} from '../../../../core/projects/AppProject'
 import {NotifyService} from '../../../../core/notifications/notify.service'
 import {InvitationsService} from '../../../../core/invitations/invitations.service'
-import {AppForm} from '../../../../models/AppForm'
-import {ProjectFormService} from '../../../../shared/services/project-form.service'
+import {AppForm} from '../../../../core/forms/AppForm'
+import {ProjectFormService} from '../../../../core/projects/project-form.service'
+import {User} from '../../../../core/auth/models/User'
 
 @Component({
   selector: 'app-form-encoders',
@@ -16,7 +16,7 @@ export class FormEncodersComponent implements OnInit {
   @Input() project: AppProject;
   @Input() form: AppForm;
 
-  users: AppUser[];
+  users: User[];
 
   inviteEmail: string = "";
 
@@ -39,7 +39,7 @@ export class FormEncodersComponent implements OnInit {
       .subscribe(users => this.users = users);
   }
 
-  sendInvite(user: AppUser){
+  sendInvite(user: User){
     console.log(user);
     this.loading++;
     this.projectFormService.addEncoder(this.project, this.form, user)
@@ -56,7 +56,7 @@ export class FormEncodersComponent implements OnInit {
       .subscribe(() => this.loadUsers());
   }
 
-  onRemoveEncoder(encoder: AppUser) {
+  onRemoveEncoder(encoder: User) {
     console.log(encoder);
     this.notify.confirm(() => this.removeEncoder(encoder.id), {
       title: "Are you sure?",

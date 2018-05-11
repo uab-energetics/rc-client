@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 import {EncodingService} from '../../../core/encodings/encoding.service'
-import {ProjectFormService} from '../../../shared/services/project-form.service'
+import {ProjectFormService} from '../../../core/projects/project-form.service'
 import {NotifyService} from '../../../core/notifications/notify.service'
-import {AppProjectForm} from '../../../models/AppProjectForm'
-import {AppExperimentEncoding} from '../../../models/AppExperimentEncoding'
+import {AppProjectForm} from '../../../core/forms/AppProjectForm'
+import {AppExperimentEncoding} from '../../../core/encodings/AppExperimentEncoding'
 
 @Component({
   selector: 'app-task-list',

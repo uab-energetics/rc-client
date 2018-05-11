@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AppQuestion} from "../../AppQuestion";
-import {AppResponse} from '../../../../models/AppResponse';
-import {RESPONSE_FORMATS} from '../../../../models/formats';
+import {AppResponse} from '../../../form-responses/AppResponse';
+import {RESPONSE_FORMATS} from '../../../form-responses/formats';
 
 export interface QuestionUpdate {
   key,

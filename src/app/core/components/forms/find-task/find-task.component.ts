@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {AppForm} from "../../../../models/AppForm";
-import {AppPublication} from "../../../../models/AppPublication";
+import {AppForm} from "../../../forms/AppForm";
+import {AppPublication} from "../../../publications/AppPublication";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {FormService} from "../../../../shared/services/form.service";
-import {PublicationsService} from "../../../../shared/services/publications.service";
-import {AppProjectForm} from "../../../../models/AppProjectForm";
-import {ProjectFormService} from "../../../../shared/services/project-form.service";
+import {FormService} from "../../../forms/form.service";
+import {PublicationsService} from "../../../publications/publications.service";
+import {AppProjectForm} from "../../../forms/AppProjectForm";
+import {ProjectFormService} from "../../../projects/project-form.service";
 
 @Component({
   selector: 'app-find-task',

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
-import {AppForm} from '../../../models/AppForm'
-import {ProjectService} from '../../../shared/services/project.service'
-import {AppProject} from '../../../models/AppProject'
+import {AppForm} from '../../../core/forms/AppForm'
+import {ProjectService} from '../../../core/projects/project.service'
+import {AppProject} from '../../../core/projects/AppProject'
 import {NotifyService} from '../../../core/notifications/notify.service'
-import {FormService} from '../../../shared/services/form.service'
+import {FormService} from '../../../core/forms/form.service'
 
 @Component({
   selector: 'app-project-form-page',

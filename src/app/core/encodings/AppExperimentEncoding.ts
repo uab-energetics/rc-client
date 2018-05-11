@@ -1,7 +1,7 @@
 
-import {AppBranch} from "./AppBranch";
-import {AppUser} from "./AppUser";
-import {AppForm} from "./AppForm";
+import {AppBranch} from "../form-branch/AppBranch";
+import {AppForm} from "../forms/AppForm";
+import {User} from '../auth/models/User'
 
 export interface AppExperimentEncoding {
   id?: number;
@@ -9,7 +9,7 @@ export interface AppExperimentEncoding {
   form_id: number;
   form?: AppForm;
   publication_id: number;
-  owner?: AppUser;
+  owner?: User;
   experiment_branches?: AppBranch[];
   channel_name : string;
 }

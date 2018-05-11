@@ -1,14 +1,14 @@
 import  {Injectable} from '@angular/core';
-import {AppForm} from "../../models/AppForm";
-import {AppProject} from "../../models/AppProject";
+import {AppForm} from "../forms/AppForm";
+import {AppProject} from "./AppProject";
 import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {catchError} from "rxjs/operators";
-import {AppPublication} from "../../models/AppPublication";
-import {AppUser} from "../../models/AppUser";
-import {PaginatedResult} from "../../models/PaginatedResult";
-import {PaginationOptions} from "../../models/PaginationOptions";
+import {AppPublication} from "../publications/AppPublication";
+import {PaginatedResult} from "../pagination/PaginatedResult";
+import {PaginationOptions} from "../pagination/PaginationOptions";
+import {User} from '../auth/models/User'
 
 const api = environment.api;
 
@@ -95,17 +95,17 @@ export class ProjectService {
     }).share();
   }
 
-  getResearchers(projectID: number, searchTerm = null): Observable<AppUser[]> {
+  getResearchers(projectID: number, searchTerm = null): Observable<User[]> {
     let params = {};
     if (searchTerm) params['search'] = searchTerm;
-    return this.http.get<AppUser[]>(`${api}/projects/${projectID}/researchers`, {params})
+    return this.http.get<User[]>(`${api}/projects/${projectID}/researchers`, {params})
       .share()
   }
 
-  getEncoders(projectID: number, searchTerm = null): Observable<AppUser[]> {
+  getEncoders(projectID: number, searchTerm = null): Observable<User[]> {
     let params = {};
     if (searchTerm) params['search'] = searchTerm;
-    return this.http.get<AppUser[]>(`${api}/projects/${projectID}/encoders`, {params})
+    return this.http.get<User[]>(`${api}/projects/${projectID}/encoders`, {params})
       .share()
   }
 

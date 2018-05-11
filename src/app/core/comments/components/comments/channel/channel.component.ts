@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {FormControl} from '@angular/forms'
 import {CommentsService} from '../../../comments.service'
-import {AppChannel} from '../../../../../models/AppChannel'
+import {AppChannel} from '../../../../events/AppChannel'
 import {DeleteEvent, ReplyEvent} from '../comments.component'
 import {NotifyService} from '../../../../notifications/notify.service'
-import {AppComment} from '../../../../../models/AppComment'
+import {AppComment} from '../../../AppComment'
 import {AuthService} from '../../../../auth/auth.service'
 import {User} from '../../../../auth/models/User'
 

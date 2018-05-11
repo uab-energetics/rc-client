@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core'
-import {AppExperimentEncoding} from '../../models/AppExperimentEncoding'
+import {AppExperimentEncoding} from './AppExperimentEncoding'
 import {Observable} from 'rxjs/Observable'
 import {HttpClient} from '@angular/common/http'
 import {environment} from '../../../environments/environment'
-import {AppResponse} from '../../models/AppResponse'
-import {AppBranch} from '../../models/AppBranch'
+import {AppResponse} from '../form-responses/AppResponse'
+import {AppBranch} from '../form-branch/AppBranch'
 import {JwtService} from '../auth/jwt.service'
 
 const api = environment.api;
