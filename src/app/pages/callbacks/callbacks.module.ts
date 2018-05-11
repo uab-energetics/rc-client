@@ -4,7 +4,7 @@ import {Route, RouterModule} from "@angular/router";
 import {RedeemResearcherInviteComponent} from "./redeem-invite/redeem-researcher-invite.component";
 import {RedeemEncoderInviteComponent} from "./redeem-invite/redeem-encoder-invite.component";
 import {MatProgressBarModule} from "@angular/material";
-import {SharedModule} from "../../shared/shared.module";
+import {SharedModule} from "../../core/shared.module";
 import {FormsModule} from "@angular/forms";
 
 const routes: Route[] = [
