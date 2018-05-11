@@ -106,7 +106,7 @@ export class ProjectFormService {
   requestTasks(project: AppProject, form: AppForm, encoder: AppUser, count = null) {
     let data = {};
     if (count) {data['count'] = count};
-    return this.http.post<any>(this.getPrefix(project, form)+"/encoders/"+encoder.id, data)
+    return this.http.post<any>(this.getPrefix(project, form)+"/encoders/"+encoder.id+'/request-tasks', data)
       .share();
   }
 
