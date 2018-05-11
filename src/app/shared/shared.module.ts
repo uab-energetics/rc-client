@@ -12,7 +12,7 @@ import {
   MatIconModule, MatInputModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule,
   MatSelectModule,
   MatSlider,
-  MatSliderModule, MatTableDataSource, MatTableModule
+  MatSliderModule, MatTableDataSource, MatTableModule, MatTooltipModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BoolComponent} from './components/response-inputs/bool/bool.component';
@@ -67,6 +67,7 @@ import {BranchQuestionsService} from "./services/branch-questions.service";
     MatChipsModule,
     MatProgressBarModule,
     MatTableModule,
+    MatTooltipModule,
     MatProgressSpinnerModule,
     MatMenuModule,
     TreeModule

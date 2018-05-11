@@ -1,7 +1,13 @@
 
 <div class="panel app-question">
   <div class="panel-heading">
-    <h3 class="panel-title">{{question.name}}</h3>
+
+    <!-- QUESTION TITLE -->
+    <h3 [matTooltip]="question.description" 
+        matTooltipPosition="before" 
+      class="panel-title">{{question.name}}</h3>
+
+
     <div class="panel-actions">
       <!--<div class="dropdown">
         <a class="panel-action" ngbTooltip="Set response type" data-toggle="dropdown">
