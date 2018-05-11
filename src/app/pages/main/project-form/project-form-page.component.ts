@@ -4,8 +4,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 import {AppForm} from '../../../models/AppForm'
 import {ProjectService} from '../../../shared/services/project.service'
 import {AppProject} from '../../../models/AppProject'
-import {LoggerService} from '../../../shared/logger.service'
-import {NotifyService} from '../../../shared/services/notify.service'
+import {NotifyService} from '../../../core/notifications/notify.service'
 import {FormService} from '../../../shared/services/form.service'
 
 @Component({
@@ -28,8 +27,7 @@ export class ProjectFormPageComponent implements OnInit {
     private modalService: NgbModal,
     public notify: NotifyService,
     private projectService: ProjectService,
-    private formService: FormService,
-    private logger: LoggerService
+    private formService: FormService
   ) { }
 
   ngOnInit() {

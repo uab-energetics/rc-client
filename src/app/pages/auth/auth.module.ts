@@ -6,7 +6,7 @@ import {RegisterComponent} from './register/register.component'
 import {FormsModule} from '@angular/forms'
 import {AuthComponent} from './auth.component'
 import {MatSnackBarModule} from '@angular/material'
-import {NotifyService} from '../../shared/services/notify.service'
+import {NotifyService} from '../../core/notifications/notify.service'
 import {authRoutes} from './auth.routes'
 
 @NgModule({

@@ -1,5 +1,5 @@
-import {AppCategory} from "../../../models/AppCategory";
-import {AppQuestion} from '../../../models/AppQuestion'
+import {AppCategory} from "../../../core/form-categories/AppCategory";
+import {AppQuestion} from '../../../core/form-questions/AppQuestion'
 
 export const enum CodeBookActions {
   DEL_QUESTION,

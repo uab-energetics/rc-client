@@ -1,12 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormService} from "../../../shared/services/form.service";
 import {AppForm} from "../../../models/AppForm";
-import {EncodingService} from "../../../shared/services/encoding.service";
+import {EncodingService} from "../../../core/encodings/encoding.service";
 import {AppExperimentEncoding} from "../../../models/AppExperimentEncoding";
 import {ActivatedRoute} from "@angular/router";
 import * as _ from "lodash";
 import {forkJoin} from "rxjs/observable/forkJoin";
-import {NotifyService} from "../../../shared/services/notify.service";
+import {NotifyService} from "../../../core/notifications/notify.service";
 import {AppBranch} from "../../../models/AppBranch";
 import {AppPublication} from '../../../models/AppPublication';
 import {PublicationsService} from '../../../shared/services/publications.service';

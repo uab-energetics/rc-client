@@ -1,6 +1,6 @@
 
-import {AppCategory, makeCategory} from "./AppCategory";
-import {AppQuestion} from "./AppQuestion";
+import {AppCategory, makeCategory} from "../core/form-categories/AppCategory";
+import {AppQuestion} from "../core/form-questions/AppQuestion";
 
 export interface AppForm {
   id?: number;

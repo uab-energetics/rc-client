@@ -2,8 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AppProject} from "../../../../models/AppProject";
 import {AppUser} from "../../../../models/AppUser";
 import {ProjectService} from "../../../../shared/services/project.service";
-import {NotifyService} from "../../../../shared/services/notify.service";
-import {InvitationsService} from "../../../../shared/services/invitations.service";
+import {NotifyService} from "../../../../core/notifications/notify.service";
+import {InvitationsService} from "../../../../core/invitations/invitations.service";
 
 @Component({
   selector: 'app-encoders',

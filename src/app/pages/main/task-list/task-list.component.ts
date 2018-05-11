@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
-import {EncodingService} from '../../../shared/services/encoding.service'
+import {EncodingService} from '../../../core/encodings/encoding.service'
 import {ProjectFormService} from '../../../shared/services/project-form.service'
-import {NotifyService} from '../../../shared/services/notify.service'
+import {NotifyService} from '../../../core/notifications/notify.service'
 import {AppProjectForm} from '../../../models/AppProjectForm'
 import {AppExperimentEncoding} from '../../../models/AppExperimentEncoding'
 

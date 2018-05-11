@@ -4,11 +4,11 @@ import {AppForm} from "../../../../models/AppForm";
 import {EncodingTreeComponent} from "../encoding-tree/encoding-tree.component";
 import {EncodingNode, EncodingNodeType} from "../encoding-tree/dataModel";
 import {AppBranch} from "../../../../models/AppBranch";
-import {AppQuestion} from "../../../../models/AppQuestion";
+import {AppQuestion} from "../../../../core/form-questions/AppQuestion";
 import {MatSlideToggleChange} from "@angular/material";
-import {BranchQuestionsService} from "../../../../shared/services/branch-questions.service";
+import {BranchQuestionsService} from "../../../../core/encodings/branch-questions.service";
 import {forkJoin} from "rxjs/observable/forkJoin";
-import {NotifyService} from "../../../../shared/services/notify.service";
+import {NotifyService} from "../../../../core/notifications/notify.service";
 import * as _ from "lodash";
 
 @Component({

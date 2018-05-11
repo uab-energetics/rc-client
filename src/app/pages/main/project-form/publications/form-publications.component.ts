@@ -5,12 +5,12 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AppPublication} from "../../../../models/AppPublication";
 import {ProjectService} from "../../../../shared/services/project.service";
 import {PublicationsService} from "../../../../shared/services/publications.service";
-import {NotifyService} from "../../../../shared/services/notify.service";
+import {NotifyService} from "../../../../core/notifications/notify.service";
 import * as PapaParse from 'papaparse';
 import {ProjectFormService} from "../../../../shared/services/project-form.service";
 import {AppForm} from "../../../../models/AppForm";
 import {AppFormPublication} from "../../../../models/AppFormPublication";
-import {Paginator} from "../../../../shared/lib/Paginator";
+import {Paginator} from "../../../../core/pagination/Paginator";
 
 @Component({
   selector: 'app-form-publications',

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProjectService} from "../../../shared/services/project.service";
 import {AppProject} from "../../../models/AppProject";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {NotifyService} from "../../../shared/services/notify.service";
+import {NotifyService} from "../../../core/notifications/notify.service";
 
 @Component({
   selector: 'app-projects',

@@ -3,7 +3,7 @@ import {MatSnackBar} from "@angular/material"
 import {ActivatedRoute} from "@angular/router"
 import {Observable} from "rxjs/Observable"
 import {FormService} from '../../../shared/services/form.service'
-import {AppCategory} from '../../../models/AppCategory'
+import {AppCategory} from '../../../core/form-categories/AppCategory'
 import {AppForm} from '../../../models/AppForm'
 
 @Component({

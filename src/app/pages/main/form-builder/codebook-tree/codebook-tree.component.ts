@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core'
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap"
 import {AppForm} from '../../../../models/AppForm'
-import {AppNodeType, AppTreeNode} from '../../../../shared/components/question-tree/dataModel'
-import {AppQuestion} from '../../../../models/AppQuestion'
-import {AppMoveEvent} from '../../../../shared/components/question-tree/question-tree.component'
-import {AppCategory} from '../../../../models/AppCategory'
+import {AppNodeType, AppTreeNode} from '../../../../core/form-questions/components/question-tree/dataModel'
+import {AppQuestion} from '../../../../core/form-questions/AppQuestion'
+import {AppMoveEvent} from '../../../../core/form-questions/components/question-tree/question-tree.component'
+import {AppCategory} from '../../../../core/form-categories/AppCategory'
 
 @Component({
   selector: 'app-codebook-tree',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {SkinService} from "./shared/services/skin.service";
+import {SkinService} from "./core/themes/skin.service";
 import {NotificationsService} from "./shared/services/notifications.service";
 
 @Component({

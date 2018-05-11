@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {SkinService} from '../../../shared/services/skin.service'
+import {SkinService} from '../../../core/themes/skin.service'
 
 @Component({
   selector: 'app-settings',

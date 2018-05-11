@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core'
 import {AuthService} from '../../../../core/auth/auth.service'
 import {User} from '../../../../core/auth/models/User'
 import {PeopleService} from '../../../../shared/services/people.service'
-import {NotifyService} from '../../../../shared/services/notify.service'
+import {NotifyService} from '../../../../core/notifications/notify.service'
 
 @Component({
   selector: 'app-profile',

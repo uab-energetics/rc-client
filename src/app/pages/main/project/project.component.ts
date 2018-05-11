@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {AppForm} from '../../../models/AppForm'
 import {AppPublication} from '../../../models/AppPublication'
 import {AppProject} from '../../../models/AppProject'
-import {NotifyService} from '../../../shared/services/notify.service'
-import {LoggerService} from '../../../shared/logger.service'
+import {NotifyService} from '../../../core/notifications/notify.service'
 import {ProjectService} from '../../../shared/services/project.service'
 
 @Component({
@@ -25,8 +24,7 @@ export class ProjectComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public notify: NotifyService,
-    private projectService: ProjectService,
-    private logger: LoggerService
+    private projectService: ProjectService
   ) { }
 
   ngOnInit() {

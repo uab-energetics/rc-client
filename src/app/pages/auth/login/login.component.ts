@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core'
 import {Router} from '@angular/router'
 import {AuthService} from '../../../core/auth/auth.service'
-import {NotifyService} from '../../../shared/services/notify.service'
+import {NotifyService} from '../../../core/notifications/notify.service'
 import {RedirectService} from '../../../core/auth/redirect.service'
 
 class LoginFormModel {

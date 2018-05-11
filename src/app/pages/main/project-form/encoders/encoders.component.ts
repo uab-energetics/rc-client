@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {AppProject} from '../../../../models/AppProject'
 import {AppUser} from '../../../../models/AppUser'
-import {NotifyService} from '../../../../shared/services/notify.service'
-import {InvitationsService} from '../../../../shared/services/invitations.service'
+import {NotifyService} from '../../../../core/notifications/notify.service'
+import {InvitationsService} from '../../../../core/invitations/invitations.service'
 import {AppForm} from '../../../../models/AppForm'
 import {ProjectFormService} from '../../../../shared/services/project-form.service'
 

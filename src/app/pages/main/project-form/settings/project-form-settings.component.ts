@@ -1,12 +1,10 @@
-import {AfterViewChecked, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {LoggerService} from "../../../../shared/logger.service";
-import {NotifyService} from "../../../../shared/services/notify.service";
-import {Router} from '@angular/router';
-import {loadingPipe} from '../../../../shared/helpers';
-import {ProjectFormService} from "../../../../shared/services/project-form.service";
-import {AppProject} from "../../../../models/AppProject";
-import {AppForm} from "../../../../models/AppForm";
-import {AppProjectFormSettings} from "../../../../models/AppProjectFormSettings";
+import {Component, Input} from '@angular/core'
+import {NotifyService} from '../../../../core/notifications/notify.service'
+import {Router} from '@angular/router'
+import {ProjectFormService} from '../../../../shared/services/project-form.service'
+import {AppProject} from '../../../../models/AppProject'
+import {AppForm} from '../../../../models/AppForm'
+import {AppProjectFormSettings} from '../../../../models/AppProjectFormSettings'
 
 
 @Component({
@@ -31,7 +29,6 @@ export class ProjectFormSettingsComponent {
   constructor(
     private router: Router,
     private notify: NotifyService,
-    private logger: LoggerService,
     private projectFormService: ProjectFormService,
   ) { }
 

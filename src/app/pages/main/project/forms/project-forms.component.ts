@@ -4,7 +4,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 import {ProjectService} from '../../../../shared/services/project.service'
 import {AppProject} from '../../../../models/AppProject'
 import 'rxjs/add/operator/finally'
-import {NotifyService} from '../../../../shared/services/notify.service'
+import {NotifyService} from '../../../../core/notifications/notify.service'
 import {FormService} from '../../../../shared/services/form.service'
 import {Router} from '@angular/router'
 

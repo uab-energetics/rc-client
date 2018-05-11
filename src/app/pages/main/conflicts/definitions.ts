@@ -1,5 +1,5 @@
 import {AppExperimentEncoding} from '../../../models/AppExperimentEncoding'
-import {AppQuestion} from '../../../models/AppQuestion'
+import {AppQuestion} from '../../../core/form-questions/AppQuestion'
 import {AppResponse} from '../../../models/AppResponse'
 
 export interface ConflictsResponse {

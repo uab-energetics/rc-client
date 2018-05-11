@@ -5,12 +5,12 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AppPublication} from "../../../../models/AppPublication";
 import {ProjectService} from "../../../../shared/services/project.service";
 import {PublicationsService} from "../../../../shared/services/publications.service";
-import {NotifyService} from "../../../../shared/services/notify.service";
+import {NotifyService} from "../../../../core/notifications/notify.service";
 import * as PapaParse from 'papaparse';
 import {Subject} from "rxjs/Subject";
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/mergeMap';
-import {Paginator} from "../../../../shared/lib/Paginator";
+import {Paginator} from "../../../../core/pagination/Paginator";
 
 
 @Component({

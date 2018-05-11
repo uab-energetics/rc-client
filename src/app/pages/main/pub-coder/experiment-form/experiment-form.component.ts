@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import {AppBranch} from "../../../../models/AppBranch";
 import {EncodingUpdate, reduceEncoding} from "./encodingReduce";
 import {mapToFormData} from "./encodingMapper";
-import {NotifyService} from "../../../../shared/services/notify.service";
+import {NotifyService} from "../../../../core/notifications/notify.service";
 import {exportResponses} from "./encodingExports";
 
 @Component({

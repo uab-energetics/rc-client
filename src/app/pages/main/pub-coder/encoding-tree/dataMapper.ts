@@ -1,4 +1,4 @@
-import {AppQuestion} from '../../../../models/AppQuestion';
+import {AppQuestion} from '../../../../core/form-questions/AppQuestion';
 import {EncodingNode, EncodingNodeType} from "./dataModel";
 import {AppExperimentEncoding} from "../../../../models/AppExperimentEncoding";
 import {AppBranch} from "../../../../models/AppBranch";
