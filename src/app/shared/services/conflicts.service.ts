@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {environment} from "../../../environments/environment";
-import {ConflictsResponse} from "../../pages/conflicts/definitions";
+import {ConflictsResponse} from '../../pages/main/conflicts/definitions'
 
 const api = environment.api;
 

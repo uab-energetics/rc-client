@@ -16,22 +16,23 @@ import {LoggerService} from './shared/logger.service';
 import { SweetAlertService } from 'ng2-sweetalert2';
 import { RedeemResearcherInviteComponent } from './callbacks/redeem-invite/redeem-researcher-invite.component';
 import { RedeemEncoderInviteComponent } from './callbacks/redeem-invite/redeem-encoder-invite.component';
+import { PagesModule } from './pages/pages.module';
 
-const routes: Routes = [
-  {
-    path: 'auth',
-    loadChildren: './auth/auth.module#AuthModule'
-  },
-  {
-    path: '',
-    canActivate: [AuthGuardService],
-    loadChildren: './pages/pages.module#PagesModule'
-  },
-  {
-    path: 'callbacks',
-    loadChildren: './callbacks/callbacks.module#CallbacksModule'
-  }
-];
+// const routes: Routes = [
+//   {
+//     path: 'auth',
+//     loadChildren: './auth/auth.module#AuthModule'
+//   },
+//   {
+//     path: '',
+//     canActivate: [AuthGuardService],
+//     loadChildren: './pages/pages.module#PagesModule'
+//   },
+//   {
+//     path: 'callbacks',
+//     loadChildren: './callbacks/callbacks.module#CallbacksModule'
+//   }
+// ];
 
 @NgModule({
   declarations: [
@@ -42,9 +43,10 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
-    RouterModule.forRoot(routes),
+    RouterModule,
     FormsModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    PagesModule
   ],
   providers: [
     UserService,

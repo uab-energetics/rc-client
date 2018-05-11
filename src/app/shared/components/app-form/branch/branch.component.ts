@@ -1,10 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AppForm} from "../../../../models/AppForm";
-import {CategoryUpdate} from "../category/category.component";
-import {LoggerService} from "../../../logger.service";
-import {EncodingUpdate} from "../../../../pages/pub-coder/experiment-form/encodingReduce";
-import * as _ from 'lodash';
-import {AppBranch} from "../../../../models/AppBranch";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
+import {AppForm} from '../../../../models/AppForm'
+import {CategoryUpdate} from '../category/category.component'
+import {LoggerService} from '../../../logger.service'
+import {AppBranch} from '../../../../models/AppBranch'
+import {EncodingUpdate} from '../../../../pages/main/pub-coder/experiment-form/encodingReduce'
 
 @Component({
   selector: 'app-branch',

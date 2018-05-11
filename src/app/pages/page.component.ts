@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../shared/auth/auth.service';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-layout',
@@ -7,10 +6,6 @@ import {AuthService} from '../shared/auth/auth.service';
   styleUrls: ['./pages.component.css']
 })
 export class PagesComponent implements OnInit {
-
-  constructor(
-    private authService: AuthService
-  ) { }
 
   ngOnInit() {
   }
