@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
-import {AppForm} from "../../models/AppForm";
-import {AppExperimentEncoding} from "../../models/AppExperimentEncoding";
-import {Observable} from "rxjs/Observable";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {UserService} from "../auth/user.service";
-import {AppResponse} from "../../models/AppResponse";
-import {AppBranch} from "../../models/AppBranch";
+import {Injectable} from '@angular/core'
+import {AppExperimentEncoding} from '../../models/AppExperimentEncoding'
+import {Observable} from 'rxjs/Observable'
+import {HttpClient} from '@angular/common/http'
+import {environment} from '../../../environments/environment'
+import {AppResponse} from '../../models/AppResponse'
+import {AppBranch} from '../../models/AppBranch'
+import {JwtService} from '../../core/auth/jwt.service'
 
 const api = environment.api;
 
@@ -15,7 +14,7 @@ export class EncodingService {
 
   constructor(
     private http: HttpClient,
-    private userService: UserService
+    private jwt: JwtService
   ) { }
 
   getEncoding(id: number): Observable<AppExperimentEncoding> {
@@ -47,7 +46,7 @@ export class EncodingService {
     return this.http.post<AppExperimentEncoding[]>(`${api}/assignments/manual`, {
       form_id,
       publication_id,
-      user_id: this.userService.user.id
+      user_id: this.jwt.user.id
     }).share()
   }
 

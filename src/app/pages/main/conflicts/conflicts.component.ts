@@ -1,18 +1,12 @@
-import { Component, OnInit } from '@angular/core'
-import {ActivatedRoute} from "@angular/router"
-import {forkJoin} from "rxjs/observable/forkJoin"
-import {Router} from '@angular/router'
-import {
-ConflictReport, ConflictsResponse, HashedBranch, HashedEncoding,
-HashedEncodings
-} from "./definitions"
+import {Component, OnInit} from '@angular/core'
+import {ActivatedRoute, Router} from '@angular/router'
+import {forkJoin} from 'rxjs/observable/forkJoin'
+import {ConflictReport, HashedBranch, HashedEncoding, HashedEncodings} from './definitions'
 
 import * as _ from 'lodash'
 import {AppForm} from '../../../models/AppForm'
 import {AppQuestion} from '../../../models/AppQuestion'
 import {AppExperimentEncoding} from '../../../models/AppExperimentEncoding'
-import {AppUser} from '../../../models/AppUser'
-import {UserService} from '../../../shared/auth/user.service'
 import {ConflictsService} from '../../../shared/services/conflicts.service'
 import {EncodingService} from '../../../shared/services/encoding.service'
 import {NotifyService} from '../../../shared/services/notify.service'
@@ -20,6 +14,8 @@ import {renderToString} from '../../../shared/responses/converters'
 import {QuestionUpdate} from '../../../shared/components/app-form/question/question.component'
 import {reduceResponses} from '../pub-coder/experiment-form/encodingReduce'
 import {AppBranch} from '../../../models/AppBranch'
+import {AuthService} from '../../../core/auth/auth.service'
+import {User} from '../../../core/auth/models/User'
 
 interface Conflict {
   agrees: boolean
@@ -41,7 +37,7 @@ export class ConflictsComponent implements OnInit {
   otherEncodings: AppExperimentEncoding[]
 
   // DATA MODEL
-  me: AppUser
+  me: User
   conflictReport: ConflictReport
   myEncodingData: HashedEncoding
   otherEncodingsData: HashedEncodings
@@ -54,7 +50,7 @@ export class ConflictsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService,
+    private authService: AuthService,
     private conflictsService: ConflictsService,
     private encodingService: EncodingService,
     private notify: NotifyService
@@ -63,7 +59,7 @@ export class ConflictsComponent implements OnInit {
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id')
 
-    this.me = this.userService.user
+    this.authService.user.subscribe( user => this.me = user )
 
     this.loading++
     this.conflictsService.getConflictsReport(id)

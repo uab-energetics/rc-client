@@ -1,12 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl} from "@angular/forms";
-import {CommentsService} from "../../../services/comments.service";
-import {AppChannel} from "../../../../models/AppChannel";
-import {DeleteEvent, ReplyEvent} from "../comments.component";
-import {NotifyService} from "../../../services/notify.service";
-import {UserService} from "../../../auth/user.service";
-import {AppUser} from "../../../../models/AppUser";
-import {AppComment} from '../../../../models/AppComment';
+import {Component, Input, OnInit} from '@angular/core'
+import {FormControl} from '@angular/forms'
+import {CommentsService} from '../../../services/comments.service'
+import {AppChannel} from '../../../../models/AppChannel'
+import {DeleteEvent, ReplyEvent} from '../comments.component'
+import {NotifyService} from '../../../services/notify.service'
+import {AppComment} from '../../../../models/AppComment'
+import {AuthService} from '../../../../core/auth/auth.service'
+import {User} from '../../../../core/auth/models/User'
 
 @Component({
   selector: 'app-channel',
@@ -17,7 +17,7 @@ export class ChannelComponent implements OnInit {
 
   @Input() channelName: string;
   channel: AppChannel;
-  user: AppUser;
+  user: User;
 
   originalComments: AppComment[] = [];
   displayComments: AppComment[] = [];
@@ -27,13 +27,13 @@ export class ChannelComponent implements OnInit {
 
   constructor(
     private commentsService: CommentsService,
-    private userService: UserService,
+    private authService: AuthService,
     private notify: NotifyService
-  ) { }
+  ) {
+    this.authService.user.subscribe( user => this.user = user )
+  }
 
   ngOnInit() {
-    this.user = this.userService.user;
-
     // TODO - fix the issue with channel name vs ID
     this.commentsService.getChannel(this.channelName)
       .subscribe( channel => {

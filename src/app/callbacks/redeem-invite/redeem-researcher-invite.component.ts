@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {InvitationsService} from "../../shared/services/invitations.service";
 import {SweetAlertService} from "ng2-sweetalert2";
-import {UserService} from "../../shared/auth/user.service";
-import {AuthService} from "../../shared/auth/auth.service";
+import {RedirectService} from '../../core/auth/redirect.service'
+import {JwtService} from '../../core/auth/jwt.service'
 
 
 @Component({
@@ -25,8 +25,8 @@ export class RedeemResearcherInviteComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private invites: InvitationsService,
-    private userService: UserService,
-    private authService: AuthService,
+    private userService: JwtService,
+    private redirectService: RedirectService,
     private sweetAlerts: SweetAlertService
   ) { }
 
@@ -42,7 +42,7 @@ export class RedeemResearcherInviteComponent implements OnInit {
 
         if(!this.userService.isAuthenticated()){
           this.isAuthenticated = false;
-          this.authService.setRedirectURL(window.location.pathname, this.queryParams);
+          this.redirectService.setRedirect(window.location.pathname, this.queryParams);
         }
 
         this.invitation = res;

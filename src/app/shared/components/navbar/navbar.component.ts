@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core'
-import {UserService} from '../../auth/user.service'
 import {NotificationsService} from '../../services/notifications.service'
 import {NotifyService} from '../../services/notify.service'
 import {Router} from '@angular/router'
@@ -16,7 +15,6 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private userService: UserService,
     private notifications: NotificationsService,
     private notify: NotifyService,
     private router: Router

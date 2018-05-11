@@ -3,17 +3,13 @@ import {AppUser} from "../../models/AppUser";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
-import {AuthService} from '../auth/auth.service';
 
 let api = environment.api;
 
 @Injectable()
 export class PeopleService {
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService
-  ) { }
+  constructor( private http: HttpClient ) { }
 
   search(nameOrEmail: string){
     if(nameOrEmail === ''){

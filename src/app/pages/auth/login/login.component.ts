@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core'
 import {Router} from '@angular/router'
 import {AuthService} from '../../../core/auth/auth.service'
-import {UserService} from '../../../shared/auth/user.service'
 import {NotifyService} from '../../../shared/services/notify.service'
 import {RedirectService} from '../../../core/auth/redirect.service'
 
@@ -25,7 +24,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService,
     private redirectService: RedirectService,
-    private userService: UserService,
     private notify: NotifyService,
   ) {}
 
@@ -35,7 +33,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: this.model.password
     }).subscribe(
       res => {
-        this.router.navigateByUrl( this.redirectService.getRedirect() || '/' )
+        let {redirect, redirectQueryParams} = this.redirectService.getRedirect()
+        this.router.navigateByUrl(redirect, redirectQueryParams)
       },
       err => {
         this.notify.alert("Invalid Credentials", "Please check your email and password and try again", "error")
@@ -44,8 +43,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.userService.isAuthenticated())
-      return this.router.navigateByUrl('/')
     document.body.classList.add('page-login-v3', 'layout-full')
   }
 

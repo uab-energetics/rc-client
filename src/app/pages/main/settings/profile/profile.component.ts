@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core'
 import {AuthService} from '../../../../core/auth/auth.service'
-import {UserService} from '../../../../shared/auth/user.service'
 import {User} from '../../../../core/auth/models/User'
 import {PeopleService} from '../../../../shared/services/people.service'
 import {NotifyService} from '../../../../shared/services/notify.service'
@@ -16,15 +15,13 @@ export class ProfileComponent implements OnInit {
   showLoader = false
 
   constructor(
-    private userService: UserService,
     private people: PeopleService,
     private authService: AuthService,
     private notify: NotifyService
   ) { }
 
   ngOnInit() {
-    this.user = this.userService.user;
-    this.authService.user.subscribe( newUser => this.user = newUser )
+    this.authService.user.subscribe( user => this.user = user )
   }
 
   onSubmit($event) {
