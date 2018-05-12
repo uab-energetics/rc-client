@@ -28,6 +28,7 @@ export class SidebarComponent implements OnInit {
       icon: 'cached'
     }
   ]
+
   /*links = [
     {
       text: 'Dashboard',
