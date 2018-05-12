@@ -34,6 +34,7 @@ import {CodeBookTreeComponent} from './form-builder/codebook-tree/codebook-tree.
 import {EncodingTreeComponent} from './pub-coder/encoding-tree/encoding-tree.component'
 import {StructureEditorComponent} from './pub-coder/structure-editor/structure-editor.component'
 import {EncodersComponent} from './project/collaborators/encoders.component'
+import {SidebarModule} from '../../core/components/sidebar/sidebar.module'
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import {EncodersComponent} from './project/collaborators/encoders.component'
     NgbModule,
     TreeModule,
     AngularMaterialModule,
-    SharedModule
+    SharedModule,
+    SidebarModule
   ],
   declarations: [
     EncodersComponent,
