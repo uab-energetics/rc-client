@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core'
 import {dispatcher} from '../../dispatcher/dispatcher'
 import {AuthService} from '../../auth/auth.service'
 import {User} from '../../auth/models/User'
@@ -12,25 +12,54 @@ export class SidebarComponent implements OnInit {
 
   user: User
   links = [
-    { text: 'Dashboard', route: '/' },
-    { text: 'Publications', route: '/' },
-    { text: 'Codebooks', route: '/' },
-    { text: 'Data Extraction', route: '/' },
-    { text: 'Conflict Resolution', route: '/' },
-    { text: 'Pipelines', route: '/' },
+    {
+      text: 'Dashboard',
+      route: '/',
+      icon: 'insert_chart_outlined'
+    },
+    {
+      text: 'Publications',
+      route: '/',
+      icon: 'archive'
+    },
+    {
+      text: 'Codebooks',
+      route: '/',
+      icon: 'book'
+    },
+    {
+      text: 'Data Extraction',
+      route: '/',
+      icon: 'ballot'
+    },
+    {
+      text: 'Conflict Resolution',
+      route: '/',
+      icon: 'done'
+    },
+    {
+      text: 'Pipelines',
+      route: '/',
+      icon: 'cached'
+    },
+    {
+      text: 'User Management',
+      route: '/',
+      icon: 'account_circle'
+    }
   ]
 
   constructor(private auth: AuthService) {
     let open = false
     dispatcher.on('sidebar-toggle', _ => {
       open = !open
-      if(open) document.body.classList.add('site-menubar-fixed', 'site-menubar-open')
+      if (open) document.body.classList.add('site-menubar-fixed', 'site-menubar-open')
       else document.body.classList.remove('site-menubar-fixed', 'site-menubar-open')
     })
   }
 
   ngOnInit() {
-    this.auth.user.subscribe( user => this.user = user )
+    this.auth.user.subscribe(user => this.user = user)
   }
 
 }

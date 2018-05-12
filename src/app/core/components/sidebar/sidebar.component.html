@@ -1,7 +1,7 @@
 <div class="site-menubar">
   <div class="site-menubar-header">
     <div class="cover overlay">
-      <img class="cover-image" src="../../../../assets/examples/images/dashboard-header.jpg">
+      <img class="cover-image" src="../../../../assets/images/cover.png">
       <div class="overlay-panel vertical-align overlay-background">
         <div class="vertical-align-middle">
           <a class="avatar avatar-lg" href="javascript:void(0)">
@@ -18,7 +18,7 @@
   <div class="site-menubar-body">
     <mat-nav-list>
       <mat-list-item *ngFor="let link of links">
-        <mat-icon matListIcon>folder</mat-icon>
+        <mat-icon matListIcon>{{link.icon}}</mat-icon>
         <a matLine [routerLink]="link.route">{{ link.text }}</a>
       </mat-list-item>
     </mat-nav-list>

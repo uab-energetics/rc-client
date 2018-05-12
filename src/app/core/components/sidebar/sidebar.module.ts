@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core'
+import {CommonModule} from '@angular/common'
 import {SidebarComponent} from './sidebar.component'
 import {AngularMaterialModule} from '../../auth/angular-material/angular.material.module'
-import {Router} from '@angular/router'
+import {RouterModule} from '@angular/router'
 
 @NgModule({
   imports: [
     CommonModule,
-    Router,
+    RouterModule,
     AngularMaterialModule
   ],
   declarations: [
