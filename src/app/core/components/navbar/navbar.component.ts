@@ -5,6 +5,7 @@ import {Router} from '@angular/router'
 import {AuthService} from '../../auth/auth.service'
 import {dispatcher} from '../../dispatcher/dispatcher'
 import {ActiveProjectService} from '../../active-project/active-project.service'
+import {AppProject} from '../../projects/AppProject'
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +14,7 @@ import {ActiveProjectService} from '../../active-project/active-project.service'
 })
 export class NavbarComponent implements OnInit {
 
+  activeProject: AppProject
   unreadNotifications = [];
 
   constructor(
@@ -24,6 +26,7 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.activeProjectService.project$.subscribe( p => this.activeProject = p )
     this.notifications.getUnread()
       .subscribe(notifications => this.unreadNotifications = notifications);
   }

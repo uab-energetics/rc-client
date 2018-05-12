@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import {Component, OnInit} from '@angular/core'
 
 @Component({
   selector: 'app-layout',
@@ -9,5 +9,6 @@ export class PagesComponent implements OnInit {
 
   ngOnInit() {
   }
+
 
 }

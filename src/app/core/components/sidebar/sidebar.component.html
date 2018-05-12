@@ -1,4 +1,4 @@
-<div class="site-menubar" (mouseleave)="close()">
+<div class="site-menubar" (mouseleave)="close()" (mouseenter)="open()">
   <div class="site-menubar-header">
     <div class="cover overlay">
       <img class="cover-image" src="../../../../assets/images/cover.png">
@@ -17,7 +17,7 @@
   </div>
   <div class="site-menubar-body">
     <mat-nav-list>
-      <mat-list-item *ngFor="let link of links">
+      <mat-list-item *ngFor="let link of loadLinks()">
         <mat-icon matListIcon>{{link.icon}}</mat-icon>
         <a matLine [routerLink]="link.route">{{ link.text }}</a>
       </mat-list-item>
