@@ -8,11 +8,11 @@ import {ProjectService} from '../../../core/projects/project.service'
 import {ActiveProjectService} from '../../../core/active-project/active-project.service'
 
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+  selector: 'app-project-users',
+  templateUrl: './project-users.component.html',
+  styleUrls: ['./project-users.component.css']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectUsersComponent implements OnInit {
 
   /* Data */
   projectForms: AppForm[] = [];

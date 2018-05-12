@@ -1,0 +1,95 @@
+<div class="page">
+  <div class="container">
+    <div class="page-header">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/projects">Projects</a></li>
+        <li class="breadcrumb-item active">{{project?.name}}</li>
+      </ol>
+      <h1 class="page-title mb-25">{{project?.name}}</h1>
+    </div>
+
+    <div class="row mb-25">
+      <div class="col-12">
+
+        <button (click)="openModal(addPublicationForm)"
+                class="btn btn-success btn-secondary">
+          <i class="icon wb-plus"></i>
+          New Publication
+        </button>
+
+        <div class="float-right">
+          <input type="file" (change)="handleFileInput($event.target.files)">
+          <button (click)="onUploadFile()" class="btn btn-success"
+                  placement="bottom" ngbTooltip="No headers, three columns: Publication Name, Source ID, Embed Link">
+            <i class="icon wb-table"></i>  Upload CSV </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+
+        <div class="row" *ngIf="paginator">
+          <input
+            type="search"
+            #term (keyup)="paginator.searchStream$.next(term.value)"
+            class="form-control form-inline col-lg-4"
+            placeholder="Search by name..">
+
+          <app-paginator class="col-lg-8"
+                         [pageData]="paginator.pages$ | async"
+                         (goto)="paginator.pageStream$.next($event)">
+          </app-paginator>
+        </div>
+
+        <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
+
+        <table class="table">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Publication Name</th>
+            <th scope="col">Source ID</th>
+            <th scope="col">Embedding URL</th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let pub of publications">
+            <!--<th><mat-checkbox
+              [checked]="isSelected(pub.id)"
+              (change)="toggleSelection(pub.id)"></mat-checkbox></th>-->
+            <th>{{pub.id}}</th>
+            <td>{{pub.name}}</td>
+            <td>{{pub.source_id}}</td>
+            <td><a href="{{pub.embedding_url}}">{{pub.embedding_url}}</a> </td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="onDeletePublication(pub)">
+                <i class="icon wb-trash"></i>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <h3 *ngIf="publications?.length === 0">No publications yet. <a href="javascript:void(0)" (click)="openModal(addPublicationForm)">Add one</a> to get started.</h3>
+
+    <ng-template #addPublicationForm let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Add a Publication</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-publication-form (appSubmit)="onPublicationFormSubmit($event)">
+        </app-publication-form>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

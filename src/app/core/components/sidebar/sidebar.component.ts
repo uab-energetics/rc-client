@@ -11,6 +11,7 @@ import {User} from '../../auth/models/User'
 export class SidebarComponent implements OnInit {
 
   user: User
+  navbarState = false
   links = [
     {
       text: 'Project Dashboard',
@@ -18,14 +19,24 @@ export class SidebarComponent implements OnInit {
       icon: 'insert_chart_outlined'
     },
     {
-      text: 'Project Forms',
-      route: '/project-forms',
+      text: 'Codebooks',
+      route: '/project-codebooks',
       icon: 'ballot'
+    },
+    {
+      text: 'Publications',
+      route: '/project-publications',
+      icon: 'chrome_reader_mode'
+    },
+    {
+      text: 'User Management',
+      route: '/project-users',
+      icon: 'account_circle'
     },
     {
       text: 'Encoding Tasks',
       route: '/tasks',
-      icon: 'ballot'
+      icon: 'assignment'
     },
     {
       text: 'Projects',
@@ -34,51 +45,22 @@ export class SidebarComponent implements OnInit {
     }
   ]
 
-  /*links = [
-    {
-      text: 'Dashboard',
-      route: '/',
-      icon: 'insert_chart_outlined'
-    },
-    {
-      text: 'Publications',
-      route: '/',
-      icon: 'archive'
-    },
-    {
-      text: 'Codebooks',
-      route: '/',
-      icon: 'book'
-    },
-    {
-      text: 'Data Extraction',
-      route: '/',
-      icon: 'ballot'
-    },
-    {
-      text: 'Conflict Resolution',
-      route: '/',
-      icon: 'done'
-    },
-    {
-      text: 'Pipelines',
-      route: '/',
-      icon: 'cached'
-    },
-    {
-      text: 'User Management',
-      route: '/',
-      icon: 'account_circle'
-    }
-  ]*/
-
   constructor(private auth: AuthService) {
-    let open = false
-    dispatcher.on('sidebar-toggle', _ => {
-      open = !open
-      if (open) document.body.classList.add('site-menubar-fixed', 'site-menubar-open')
-      else document.body.classList.remove('site-menubar-fixed', 'site-menubar-open')
-    })
+    dispatcher.on('sidebar-toggle', _ => this.toggleNavbar())
+  }
+
+  openNavbar() {
+    document.body.classList.add('site-menubar-fixed', 'site-menubar-open')
+  }
+
+  closeNavbar() {
+    document.body.classList.remove('site-menubar-fixed', 'site-menubar-open')
+  }
+
+  toggleNavbar() {
+    this.navbarState = !this.navbarState
+    if (this.navbarState) return this.openNavbar()
+    return this.closeNavbar()
   }
 
   ngOnInit() {

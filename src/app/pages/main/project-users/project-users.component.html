@@ -15,14 +15,6 @@
       [destroyOnHide]="false"
       class="nav-tabs-horizontal nav-tabs-inverse nav-tabs-solid">
       <ngb-tab>
-        <ng-template ngbTabTitle><i class="icon wb-book"></i> Publications </ng-template>
-        <ng-template ngbTabContent>
-          <app-project-publications
-            [project]="project">
-          </app-project-publications>
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab>
         <ng-template ngbTabTitle><i class="icon wb-users"></i> Collaborators </ng-template>
         <ng-template ngbTabContent>
           <app-collaborators [project]="project"></app-collaborators>
