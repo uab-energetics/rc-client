@@ -27,7 +27,7 @@
         <div class="form-group">
             <label> <strong>Automatic Encoder Enrollment</strong> </label>
             <p class="description-content">
-                <em>Whether encoders added to the project should automatically be enrolled in this form</em>
+                <em>Whether encoders added to the project should automatically be enrolled in this codebook</em>
             </p>
             <mat-radio-group name="auto_enroll" [(ngModel)]="settings.auto_enroll">
                 <mat-radio-button [value]="true">True </mat-radio-button>
@@ -38,7 +38,7 @@
         <div class="form-group">
             <label> <strong>Automatic Publication Sharing</strong> </label>
             <p class="description-content">
-                <em>Whether publications added to or removed from the project should automatically be added to or removed from this form</em>
+                <em>Whether publications added to or removed from the project should automatically be added to or removed from this codebook</em>
             </p>
             <mat-radio-group name="inherit_publications" [(ngModel)]="settings.inherit_publications">
                 <mat-radio-button [value]="true">True </mat-radio-button>

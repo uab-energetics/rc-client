@@ -1,11 +1,7 @@
 <div class="page">
   <div class="container">
     <div class="page-header">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/projects">Projects</a></li>
-        <li class="breadcrumb-item active">{{project?.name}}</li>
-      </ol>
-      <h1 class="page-title mb-25">{{project?.name}}</h1>
+      <h1 class="page-title mb-25"><a routerLink="/project-dashboard">{{project?.name}}</a> Codebooks</h1>
     </div>
 
 
@@ -15,7 +11,7 @@
           <button (click)="openModal(formFormModal)"
                   class="btn btn-secondary">
             <i class="icon wb-plus"></i>
-            New Form </button>
+            New Codebook </button>
         </div>
       </div>
 
@@ -43,11 +39,11 @@
               <div class="panel-actions panel-actions-keep">
 
                 <!-- MANAGE FORM -->
-                <a class="panel-action" [routerLink]="['/projects', project.id, 'forms', form.id]" matTooltip="Manage Form" matTooltipPosition="above">
+                <a class="panel-action" [routerLink]="['/projects', project.id, 'forms', form.id]" matTooltip="Manage Codebook" matTooltipPosition="above">
                   <i class="icon wb-settings"></i></a>
 
                 <!-- DELETE FORM -->
-                <a class="panel-action" (click)="deleteForm(form.id)" href="javascript:void(0)" matTooltip="Delete Form" matTooltipPosition="above">
+                <a class="panel-action" (click)="deleteForm(form.id)" href="javascript:void(0)" matTooltip="Delete Codebook" matTooltipPosition="above">
                   <i class="icon wb-trash"></i></a>
 
               </div>
@@ -57,7 +53,7 @@
                 <label class="badge badge-success"> <i class="icon wb-check"></i> Published </label>
               </div>
               <div class="panel-body">
-                <h4>Form Description:</h4>
+                <h4>Codebook Description:</h4>
                 <p>{{form.description}}</p>
                 <hr/>
 
@@ -72,7 +68,7 @@
                 <a [routerLink]="['/forms', form.id]"
                    class="btn btn-warning float-right">
                   <i class="icon wb-extension"></i>
-                  <b> Open Form Builder</b>
+                  <b> Open Codebook Editor</b>
                 </a>
 
 
@@ -89,7 +85,7 @@
 
 
 
-        <h3 *ngIf="forms.length === 0">No forms yet. <a href="javascript:void(0)" (click)="openModal(formFormModal)">Add one</a> to get started.</h3>
+        <h3 *ngIf="forms.length === 0">No codebooks yet. <a href="javascript:void(0)" (click)="openModal(formFormModal)">Add one</a> to get started.</h3>
       </div>
 
 
