@@ -2,16 +2,11 @@
      role="navigation">
 
   <div class="navbar-header">
-    <button type="button" class="navbar-toggler hamburger hamburger-close collapsed" data-target="#site-navbar-collapse"
-            data-toggle="collapse">
+
+    <button class="navbar-toggler hamburger hamburger-close" (click)="toggleSidebar()">
       <span class="hamburger-bar"></span>
     </button>
-    <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
-      <a (click)="navigateHome()">
-        <img class="navbar-brand-logo"
-             src="../../../../assets/images/UAB-logo-white.png" title="UAB Research Coder">
-      </a>
-    </div>
+
   </div>
 
   <div class="navbar-container container-fluid">
@@ -19,6 +14,16 @@
     <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
       <!-- Navbar Toolbar -->
       <ul class="nav navbar-toolbar">
+
+        <li class="nav-item hidden-float" id="toggleMenubar">
+          <a class="nav-link" data-toggle="menubar" href="#" role="button">
+            <i class="icon hamburger hamburger-arrow-left">
+              <span class="sr-only">Toggle menubar</span>
+              <span class="hamburger-bar"></span>
+            </i>
+          </a>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link" [routerLink]="'/projects'"> My Projects </a>
         </li>
@@ -128,6 +133,13 @@
         </li>
       </ul>
       <!-- End Navbar Toolbar Right -->
+
+      <div class="navbar-brand navbar-brand-center">
+        <a (click)="navigateHome()">
+          <img class="navbar-brand-logo"
+               src="../../../../assets/images/UAB-logo-white.png" title="UAB Research Coder">
+        </a>
+      </div>
 
     </div>
     <!-- End Navbar Collapse -->

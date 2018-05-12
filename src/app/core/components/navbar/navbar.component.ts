@@ -3,6 +3,7 @@ import {NotificationsService} from '../../notifications/notifications.service'
 import {NotifyService} from '../../notifications/notify.service'
 import {Router} from '@angular/router'
 import {AuthService} from '../../auth/auth.service'
+import {dispatcher} from '../../dispatcher/dispatcher'
 
 @Component({
   selector: 'app-navbar',
@@ -36,5 +37,9 @@ export class NavbarComponent implements OnInit {
 
   navigateHome() {
     this.router.navigate(['/']);
+  }
+
+  toggleSidebar() {
+    dispatcher.emit('sidebar-toggle')
   }
 }
