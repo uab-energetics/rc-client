@@ -39,28 +39,17 @@
                 <b>{{form.name}}</b>
               </h3>
 
+              <!-- FORM TOP-RIGHT BUTTONS -->
               <div class="panel-actions panel-actions-keep">
-                <div class="dropdown">
-                  <a class="panel-action"
-                     data-toggle="dropdown" href="javascript:void(0)"
-                     role="button"><i class="icon wb-more-vertical"></i></a>
-                  <div class="dropdown-menu dropdown-menu-bullet dropdown-menu-right">
 
-                    <a class="dropdown-item" (click)="manageForm(form)" href="javascript:void(0)">
-                      <i class="icon wb-settings"></i>
-                      Manage
-                    </a>
+                <!-- MANAGE FORM -->
+                <a class="panel-action" [routerLink]="['/projects', project.id, 'forms', form.id]" matTooltip="Manage Form" matTooltipPosition="above">
+                  <i class="icon wb-settings"></i></a>
 
-                    <div class="dropdown-divider"></div>
+                <!-- DELETE FORM -->
+                <a class="panel-action" (click)="deleteForm(form.id)" href="javascript:void(0)" matTooltip="Delete Form" matTooltipPosition="above">
+                  <i class="icon wb-trash"></i></a>
 
-                    <a class="dropdown-item" (click)="deleteForm(form.id)" href="javascript:void(0)">
-                      <i class="icon wb-trash"></i>
-                      Delete
-                    </a>
-
-
-                  </div>
-                </div>
               </div>
             </div>
             <div class="panel-collapse">

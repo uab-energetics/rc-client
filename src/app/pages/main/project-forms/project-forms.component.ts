@@ -68,7 +68,7 @@ export class ProjectFormsComponent {
           this.loadForms();
           this.notify.toast('Form deleted.');
         })
-    });
+    })
   }
 
   updateForm(form: AppForm){
