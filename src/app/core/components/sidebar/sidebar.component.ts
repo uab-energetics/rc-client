@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core'
 import {dispatcher} from '../../dispatcher/dispatcher'
 import {AuthService} from '../../auth/auth.service'
 import {User} from '../../auth/models/User'
+import {AppProject} from '../../projects/AppProject'
+import {ActiveProjectService} from '../../active-project/active-project.service'
+import {SidebarLink} from './SidebarLink'
 
 @Component({
   selector: 'app-sidebar',
@@ -11,27 +14,32 @@ import {User} from '../../auth/models/User'
 export class SidebarComponent implements OnInit {
 
   user: User
+  project: AppProject
   navbarState = false
-  links = [
+  links: SidebarLink[] = [
     {
       text: 'Project Dashboard',
       route: '/project-dashboard',
-      icon: 'insert_chart_outlined'
+      icon: 'insert_chart_outlined',
+      projectRequired: true
     },
     {
       text: 'Codebooks',
       route: '/project-codebooks',
-      icon: 'ballot'
+      icon: 'ballot',
+      projectRequired: true
     },
     {
       text: 'Publications',
       route: '/project-publications',
-      icon: 'chrome_reader_mode'
+      icon: 'chrome_reader_mode',
+      projectRequired: true
     },
     {
       text: 'User Management',
       route: '/project-users',
-      icon: 'account_circle'
+      icon: 'account_circle',
+      projectRequired: true
     },
     {
       text: 'Encoding Tasks',
@@ -45,8 +53,14 @@ export class SidebarComponent implements OnInit {
     }
   ]
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private aps: ActiveProjectService) {
     dispatcher.on('sidebar-toggle', _ => this.toggleNavbar())
+    aps.project$.subscribe( p => this.project = p )
+  }
+
+  loadLinks() {
+    if(this.project) return this.links
+    return this.links.filter( l => !l.projectRequired )
   }
 
   open() {

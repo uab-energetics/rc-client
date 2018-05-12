@@ -9,11 +9,14 @@ import {AppPublication} from "../publications/AppPublication";
 import {PaginatedResult} from "../pagination/PaginatedResult";
 import {PaginationOptions} from "../pagination/PaginationOptions";
 import {User} from '../auth/models/User'
+import {BehaviorSubject} from 'rxjs/BehaviorSubject'
 
 const api = environment.api;
 
 @Injectable()
 export class ProjectService {
+
+  public projects$ = new BehaviorSubject<AppProject[]>([])
 
   constructor(
     private http: HttpClient
@@ -31,6 +34,7 @@ export class ProjectService {
 
   deleteProject(id: number): Observable<any> {
     return this.http.delete(`${api}/projects/${id}`)
+      .switchMap(_ => this.myProjects())
       .share()
   }
 
@@ -60,9 +64,9 @@ export class ProjectService {
   }
 
   myProjects(): Observable<AppProject[]> {
-    return this.http.get<AppProject[]>(api + '/users/projects').pipe(
-      catchError( err => [] )
-    )
+    return this.http.get<AppProject[]>(api + '/users/projects')
+      .do( projects => this.projects$.next(projects) )
+      .share()
   }
 
   getForms(projectID: number): Observable<AppForm[]> {
