@@ -17,6 +17,8 @@ export class ActiveProjectService {
     this.projectService.projects$.subscribe( projects => {
       if(projects.length === 0)
         this.projectSubject.next(null)
+      if(projects.length === 1)
+        this.projectSubject.next(projects[0])
     })
 
     this.projectService.myProjects()
