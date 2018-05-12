@@ -49,18 +49,18 @@ export class SidebarComponent implements OnInit {
     dispatcher.on('sidebar-toggle', _ => this.toggleNavbar())
   }
 
-  openNavbar() {
+  open() {
     document.body.classList.add('site-menubar-fixed', 'site-menubar-open')
+    this.navbarState = true
   }
 
-  closeNavbar() {
+  close() {
     document.body.classList.remove('site-menubar-fixed', 'site-menubar-open')
+    this.navbarState = false
   }
 
   toggleNavbar() {
-    this.navbarState = !this.navbarState
-    if (this.navbarState) return this.openNavbar()
-    return this.closeNavbar()
+    (this.navbarState) ? this.close() : this.open()
   }
 
   ngOnInit() {
