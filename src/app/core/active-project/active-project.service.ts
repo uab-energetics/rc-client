@@ -3,15 +3,21 @@ import {AppProject} from '../projects/AppProject'
 import {BehaviorSubject} from 'rxjs/BehaviorSubject'
 import {Observable} from 'rxjs/Observable'
 import {ProjectService} from '../projects/project.service'
+import {AuthService} from '../auth/auth.service'
+import {User} from '../auth/models/User'
 
 @Injectable()
 export class ActiveProjectService {
 
+  private user: User
   private activeProject: AppProject
   private projectSubject: BehaviorSubject<AppProject> = new BehaviorSubject<AppProject>(null);
   readonly project$: Observable<AppProject> = this.projectSubject.asObservable();
 
-  constructor(private projectService: ProjectService) {
+  constructor(private projectService: ProjectService, private authService: AuthService) {
+    this.authService.user
+      .switchMap( u => this.projectService.myProjects() )
+      .subscribe()
     this.project$.subscribe( p => this.activeProject = p )
 
     this.projectService.projects$.subscribe( projects => {
