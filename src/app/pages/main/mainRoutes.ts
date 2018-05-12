@@ -13,6 +13,7 @@ import { ConflictsComponent } from "./conflicts/conflicts.component";
 import { DiscussComponent } from "./discuss/discuss.component";
 import { TaskListComponent } from "./task-list/task-list.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
+import {ProjectFormsComponent} from './project-forms/project-forms.component'
 
 export const mainRoutes: Routes = [
     {
@@ -49,6 +50,10 @@ export const mainRoutes: Routes = [
         {
           path: "project-dashboard",
           component: ProjectComponent
+        },
+        {
+          path: 'project-forms',
+          component: ProjectFormsComponent
         },
         {
           path: "projects/:pid/forms/:fid",

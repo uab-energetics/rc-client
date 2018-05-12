@@ -1,12 +1,13 @@
-import {Component, Input} from '@angular/core'
-import {AppForm} from '../../../../core/forms/AppForm'
+import {Component} from '@angular/core'
+import {AppForm} from '../../../core/forms/AppForm'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
-import {ProjectService} from '../../../../core/projects/project.service'
-import {AppProject} from '../../../../core/projects/AppProject'
+import {ProjectService} from '../../../core/projects/project.service'
+import {AppProject} from '../../../core/projects/AppProject'
 import 'rxjs/add/operator/finally'
-import {NotifyService} from '../../../../core/notifications/notify.service'
-import {FormService} from '../../../../core/forms/form.service'
+import {NotifyService} from '../../../core/notifications/notify.service'
+import {FormService} from '../../../core/forms/form.service'
 import {Router} from '@angular/router'
+import {ActiveProjectService} from '../../../core/active-project/active-project.service'
 
 @Component({
   selector: 'app-project-forms',
@@ -15,8 +16,8 @@ import {Router} from '@angular/router'
 })
 export class ProjectFormsComponent {
 
-  @Input() project: AppProject;
-  forms: AppForm[];
+  project: AppProject;
+  forms: AppForm[] = [];
 
   editingForm: AppForm;
 
@@ -25,6 +26,7 @@ export class ProjectFormsComponent {
 
   constructor(
     private modalService: NgbModal,
+    private activeProjectService: ActiveProjectService,
     private router: Router,
     private notify: NotifyService,
     private projectService: ProjectService,
@@ -32,10 +34,15 @@ export class ProjectFormsComponent {
   ) { }
 
   ngOnInit(){
-    this.loadForms();
+    this.activeProjectService.project$
+      .subscribe( project => {
+        this.project = project
+        this.loadForms()
+      })
   }
 
   loadForms() {
+    if(!this.project) return
     this.loading++;
     this.projectService.getForms(this.project.id)
       .finally(() => this.loading-- )
@@ -53,17 +60,15 @@ export class ProjectFormsComponent {
   }
 
   deleteForm(id: number) {
-    let confirmDelete = () => {
+    this.notify.confirm(() => {
       this.loading++;
       this.projectService.deleteForm(id)
         .finally(() => this.loading--)
         .subscribe( res => {
           this.loadForms();
           this.notify.toast('Form deleted.');
-        } )
-    };
-
-    this.notify.confirm(confirmDelete);
+        })
+    });
   }
 
   updateForm(form: AppForm){

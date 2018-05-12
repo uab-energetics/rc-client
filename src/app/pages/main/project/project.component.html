@@ -6,30 +6,6 @@
         <li class="breadcrumb-item active">{{project?.name}}</li>
       </ol>
       <h1 class="page-title mb-25">{{project?.name}}</h1>
-      <!--<p class="page-description">{{project.description}}</p>-->
-
-      <!--<div class="page-header-actions">
-        <div class="row no-space w-250 hidden-sm-down">
-          <div class="col-sm-4">
-            <div class="counter">
-              <span class="counter-number font-weight-medium">6000</span>
-              <div class="counter-label"> Articles </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="counter">
-              <span class="counter-number font-weight-medium">25</span>
-              <div class="counter-label"> Users </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="counter">
-              <span class="counter-number font-weight-medium">{{projectForms.length}}</span>
-              <div class="counter-label"> Forms </div>
-            </div>
-          </div>
-        </div>
-      </div>-->
     </div>
 
     <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
@@ -38,14 +14,6 @@
       *ngIf="project"
       [destroyOnHide]="false"
       class="nav-tabs-horizontal nav-tabs-inverse nav-tabs-solid">
-      <ngb-tab>
-        <ng-template ngbTabTitle><i class="icon wb-pencil"></i> Forms </ng-template>
-        <ng-template ngbTabContent>
-          <app-project-forms
-            [project]="project">
-          </app-project-forms>
-        </ng-template>
-      </ngb-tab>
       <ngb-tab>
         <ng-template ngbTabTitle><i class="icon wb-book"></i> Publications </ng-template>
         <ng-template ngbTabContent>

@@ -18,6 +18,11 @@ export class SidebarComponent implements OnInit {
       icon: 'insert_chart_outlined'
     },
     {
+      text: 'Project Forms',
+      route: '/project-forms',
+      icon: 'ballot'
+    },
+    {
       text: 'Encoding Tasks',
       route: '/tasks',
       icon: 'ballot'
