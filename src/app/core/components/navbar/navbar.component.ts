@@ -4,6 +4,7 @@ import {NotifyService} from '../../notifications/notify.service'
 import {Router} from '@angular/router'
 import {AuthService} from '../../auth/auth.service'
 import {dispatcher} from '../../dispatcher/dispatcher'
+import {ActiveProjectService} from '../../active-project/active-project.service'
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
+    public activeProjectService: ActiveProjectService,
     private notifications: NotificationsService,
     private notify: NotifyService,
     private router: Router

@@ -13,8 +13,8 @@ export class SidebarComponent implements OnInit {
   user: User
   links = [
     {
-      text: 'Home',
-      route: '/',
+      text: 'Project Dashboard',
+      route: '/project-dashboard',
       icon: 'insert_chart_outlined'
     },
     {

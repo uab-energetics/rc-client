@@ -3,6 +3,8 @@ import {ProjectService} from "../../../core/projects/project.service";
 import {AppProject} from "../../../core/projects/AppProject";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NotifyService} from "../../../core/notifications/notify.service";
+import {ActiveProjectService} from '../../../core/active-project/active-project.service'
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-projects',
@@ -17,6 +19,8 @@ export class ProjectsComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
+    public activeProject: ActiveProjectService,
+    private router: Router,
     private modals: NgbModal,
     private notify: NotifyService
   ) {}
@@ -39,6 +43,11 @@ export class ProjectsComponent implements OnInit {
   deleteProject(id: number) {
     this.projectService.deleteProject(id)
       .subscribe(() => this.loadProjects());
+  }
+
+  selectProject(project: AppProject) {
+    this.activeProject.setProject(project)
+    this.router.navigateByUrl('/project-dashboard')
   }
 
 

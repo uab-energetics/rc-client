@@ -5,6 +5,7 @@ import {AppPublication} from '../../../core/publications/AppPublication'
 import {AppProject} from '../../../core/projects/AppProject'
 import {NotifyService} from '../../../core/notifications/notify.service'
 import {ProjectService} from '../../../core/projects/project.service'
+import {ActiveProjectService} from '../../../core/active-project/active-project.service'
 
 @Component({
   selector: 'app-project',
@@ -24,6 +25,7 @@ export class ProjectComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public notify: NotifyService,
+    private aps: ActiveProjectService,
     private projectService: ProjectService
   ) { }
 
@@ -32,12 +34,17 @@ export class ProjectComponent implements OnInit {
   }
 
   loadProject() {
-    let projectID = +this.route.snapshot.paramMap.get('id');
-    this.loading++;
-    this.projectService.find(projectID)
-      .finally(() => this.loading--)
-      .subscribe(project => this.project = project)
+    this.aps.project$
+      .subscribe( p => this.project = p )
   }
+
+  // loadProject() {
+  //   let projectID = +this.route.snapshot.paramMap.get('id');
+  //   this.loading++;
+  //   this.projectService.find(projectID)
+  //     .finally(() => this.loading--)
+  //     .subscribe(project => this.project = project)
+  // }
 }
 
 export function requestStart(){

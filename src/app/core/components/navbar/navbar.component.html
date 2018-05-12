@@ -26,9 +26,9 @@
 
 
         <li class="nav-item ml-15">
-          <a class="nav-link" href="javascript:void(0)">
+          <a class="nav-link" routerLink="/projects">
             <i class="icon wb-share"></i> &nbsp;
-            <b>Murine Rigor</b> &nbsp;
+            <b>{{(activeProjectService.project$ | async)?.name}}</b> &nbsp;
             <i class="icon wb-chevron-down-mini"></i>
           </a>
         </li>

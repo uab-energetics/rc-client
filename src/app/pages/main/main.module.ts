@@ -35,6 +35,7 @@ import {EncodingTreeComponent} from './pub-coder/encoding-tree/encoding-tree.com
 import {StructureEditorComponent} from './pub-coder/structure-editor/structure-editor.component'
 import {EncodersComponent} from './project/collaborators/encoders.component'
 import {SidebarModule} from '../../core/components/sidebar/sidebar.module'
+import {ActiveProjectModule} from '../../core/active-project/active-project.module'
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import {SidebarModule} from '../../core/components/sidebar/sidebar.module'
     TreeModule,
     AngularMaterialModule,
     SharedModule,
-    SidebarModule
+    SidebarModule,
+    ActiveProjectModule
   ],
   declarations: [
     EncodersComponent,

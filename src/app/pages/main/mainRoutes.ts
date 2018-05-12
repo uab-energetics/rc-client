@@ -47,7 +47,7 @@ export const mainRoutes: Routes = [
           component: CreateProjectComponent
         },
         {
-          path: "projects/:id",
+          path: "project-dashboard",
           component: ProjectComponent
         },
         {
@@ -80,7 +80,7 @@ export const mainRoutes: Routes = [
         },
         {
           path: '',
-          redirectTo: 'projects',
+          redirectTo: 'project-dashboard',
           pathMatch: 'full'
         }
       ]
