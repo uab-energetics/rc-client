@@ -13,6 +13,23 @@ export class SidebarComponent implements OnInit {
   user: User
   links = [
     {
+      text: 'Home',
+      route: '/',
+      icon: 'insert_chart_outlined'
+    },
+    {
+      text: 'Encoding Tasks',
+      route: '/tasks',
+      icon: 'ballot'
+    },
+    {
+      text: 'Projects',
+      route: '/projects',
+      icon: 'cached'
+    }
+  ]
+  /*links = [
+    {
       text: 'Dashboard',
       route: '/',
       icon: 'insert_chart_outlined'
@@ -47,7 +64,7 @@ export class SidebarComponent implements OnInit {
       route: '/',
       icon: 'account_circle'
     }
-  ]
+  ]*/
 
   constructor(private auth: AuthService) {
     let open = false
