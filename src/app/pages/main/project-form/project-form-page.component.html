@@ -2,9 +2,8 @@
   <div class="container">
     <div class="page-header">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/projects">Projects</a></li>
-        <li class="breadcrumb-item"><a routerLink="/projects/{{project?.id}}">{{project?.name}}</a></li>
-        <li class="breadcrumb-item"><a routerLink="/projects/{{project?.id}}">Forms</a></li>
+        <li class="breadcrumb-item"><a routerLink="/project-dashboard">{{project.name}}</a></li>
+        <li class="breadcrumb-item"><a routerLink="/project-codebooks/">Codebooks</a></li>
         <li class="breadcrumb-item active">{{form?.name}}</li>
       </ol>
       <h1 class="page-title mb-25" *ngIf="form">
@@ -26,7 +25,7 @@
           <a [routerLink]="['/forms', form.id]"
              class="btn btn-warning">
             <i class="icon wb-extension"></i>
-            <b> Open Form Builder</b>
+            <b> Open Codebook Editor</b>
           </a>
         </div>
       </div>

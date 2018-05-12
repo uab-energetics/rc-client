@@ -1,27 +1,25 @@
 <div class="page">
+  <div class="page-header">
+    <a routerLink="/project-codebooks"><i class="icon wb-arrow-left"></i> back</a>
+    <h1 *ngIf="form" class="page-title mb-25">Editing {{form.name}}</h1>
+  </div>
   <div class="page-content">
 
     <div class="row">
       <div class="col-lg-4">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"> <b>Form Structure</b> </li>
+          <li class="breadcrumb-item"> <b>Structure</b> </li>
         </ol>
         <div class="panel">
           <div class="panel-body">
 
 
 
-
-
             <div *ngIf="loading > 0">
-              <b>Saving..</b>
+              <b>Loading..</b>
               <mat-progress-bar mode="indeterminate"></mat-progress-bar>
               <br/>
             </div>
-
-
-
-
 
 
 

@@ -5,6 +5,8 @@ import {Observable} from "rxjs/Observable"
 import {FormService} from '../../../core/forms/form.service'
 import {AppCategory} from '../../../core/form-categories/AppCategory'
 import {AppForm} from '../../../core/forms/AppForm'
+import {AppProject} from "../../../core/projects/AppProject"
+import {ActiveProjectService} from "../../../core/active-project/active-project.service"
 
 @Component({
   selector: 'app-form-builder',
