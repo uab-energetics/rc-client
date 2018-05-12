@@ -29,6 +29,7 @@ export class ProjectService {
 
   createProject(project: AppProject): Observable<AppProject> {
     return this.http.post<AppProject>(api + "/projects", project)
+      .switchMap(_ => this.myProjects())
       .share()
   }
 
