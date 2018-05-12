@@ -1,11 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {AppForm} from "../../../forms/AppForm";
-import {AppPublication} from "../../../publications/AppPublication";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {FormService} from "../../../forms/form.service";
-import {PublicationsService} from "../../../publications/publications.service";
-import {AppProjectForm} from "../../../forms/AppProjectForm";
-import {ProjectFormService} from "../../../projects/project-form.service";
+import {Component, OnInit} from '@angular/core'
+import {FormBuilder, FormGroup, Validators} from '@angular/forms'
+import {ProjectFormService} from "../../../projects/project-form.service"
 
 @Component({
   selector: 'app-find-task',
@@ -29,19 +24,21 @@ export class FindTaskComponent implements OnInit {
     this.taskForm = this.fb.group({
       projectFormID: ['', Validators.required]
     });
+    this.loadForms();
+  }
 
+  loadForms() {
     this.loading++;
-
     this.projectFormService.getProjectFormsEncoder()
       .finally(() => this.loading--)
       .subscribe( forms => {
         let map = {};
         for (let projectForm of forms) {
+          if (projectForm.form === null) continue;
           map[projectForm.id] = projectForm;
         }
         this.projectFormMap = map;
       } );
-
   }
 
   getProjectForms(){
