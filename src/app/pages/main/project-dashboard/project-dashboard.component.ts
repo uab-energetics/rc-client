@@ -17,7 +17,7 @@ export class ProjectDashboardComponent implements OnInit {
   constructor(public aps: ActiveProjectService, public ps: ProjectService) {
     this.aps.project$
       .do( p => this.project = p )
-      .filter( p => p )
+      .filter( p => !!p )
       .switchMap( p => this.ps.getDashboard(p.id))
       .do(console.log)
       .subscribe( dashboardData => this.statistics = this.processData(dashboardData) )
