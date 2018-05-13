@@ -17,9 +17,9 @@
   </div>
   <div class="site-menubar-body">
     <mat-nav-list>
-      <mat-list-item *ngFor="let link of loadLinks()">
+      <mat-list-item *ngFor="let link of loadLinks()" [routerLink]="link.route">
         <mat-icon matListIcon>{{link.icon}}</mat-icon>
-        <a matLine [routerLink]="link.route">{{ link.text }}</a>
+        <a matLine>{{ link.text }}</a>
       </mat-list-item>
     </mat-nav-list>
   </div>
