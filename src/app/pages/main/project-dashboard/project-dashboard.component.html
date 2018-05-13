@@ -7,19 +7,19 @@
         <div class="row no-space w-250 hidden-sm-down">
           <div class="col-sm-4">
             <div class="counter">
-              <span class="counter-number font-weight-medium">8371</span>
+              <span class="counter-number font-weight-medium">{{statistics?.publications || 0}}</span>
               <div class="counter-label">Publications</div>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="counter">
-              <span class="counter-number font-weight-medium">1024</span>
+              <span class="counter-number font-weight-medium">{{statistics?.codebooks || 0}}</span>
               <div class="counter-label">Codebooks</div>
             </div>
           </div>
           <div class="col-sm-4">
             <div class="counter">
-              <span class="counter-number font-weight-medium">$38,823</span>
+              <span class="counter-number font-weight-medium">{{statistics?.tasks?.total || 0}}</span>
               <div class="counter-label">Encodings</div>
             </div>
           </div>
@@ -28,7 +28,7 @@
     </div>
 
 
-    <div class="row" *ngIf="project">
+    <div class="row" *ngIf="project && statistics">
 
       <!-- COLLABORATORS -->
       <div class="col-md-4">
@@ -39,70 +39,24 @@
           </div>
           <div class="panel-body">
             <ul class="list-group list-group-full">
-              <li class="list-group-item">
+
+              <li *ngFor="let user of statistics.allUsers" class="list-group-item">
                 <div class="media">
                   <div class="pr-20">
                     <a class="avatar" href="javascript:void(0)">
-                      <img class="img-fluid" src="../../../global/portraits/1.jpg" alt="...">
+                      <img class="img-fluid" [src]="user.image">
                     </a>
                   </div>
                   <div class="media-body">
-                    <h5 class="mt-0">Herman Beck</h5>
-                    <small>CEO</small>
+                    <h5 class="mt-0">{{user.name}}</h5>
+                    <small>{{user.location}}</small>
                   </div>
                   <div class="pl-20">
-                    <span class="status status-lg status-online"></span>
+                    <!--<span class="status status-lg status-online"></span>-->
                   </div>
                 </div>
               </li>
-              <li class="list-group-item">
-                <div class="media">
-                  <div class="pr-20">
-                    <a class="avatar" href="javascript:void(0)">
-                      <img class="img-fluid" src="../../../global/portraits/2.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="media-body">
-                    <h5 class="mt-0">Mary Adams</h5>
-                    <small>CIO</small>
-                  </div>
-                  <div class="pl-20">
-                    <span class="status status-lg status-busy"></span>
-                  </div>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="media">
-                  <div class="pr-20">
-                    <a class="avatar" href="javascript:void(0)">
-                      <img class="img-fluid" src="../../../global/portraits/3.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="media-body">
-                    <h5 class="mt-0">Caleb Richards</h5>
-                    <small>CTO</small>
-                  </div>
-                  <div class="pl-20">
-                    <span class="status status-lg status-off"></span>
-                  </div>
-                </div>
-              </li>
-              <li class="list-group-item">
-                <div class="media">
-                  <div class="pr-20">
-                    <a class="avatar" href="javascript:void(0)">
-                      <img class="img-fluid" src="../../../global/portraits/4.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="media-body">
-                    <h5 class="mt-0">June Lane</h5>
-                    <small>CVO</small>
-                  </div>
-                  <div class="pl-20">
-                    <span class="status status-lg status-away"></span>
-                  </div>
-                </div>
-              </li>
+
             </ul>
           </div>
         </div>

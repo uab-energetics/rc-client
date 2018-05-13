@@ -27,8 +27,8 @@ export class ProjectService {
         .share();
   }
 
-  createProject(project: AppProject): Observable<AppProject> {
-    return this.http.post<AppProject>(api + "/projects", project)
+  createProject(project: AppProject): Observable<AppProject[]> {
+    return this.http.post<any>(api + "/projects", project)
       .switchMap(_ => this.myProjects())
       .share()
   }
@@ -37,6 +37,10 @@ export class ProjectService {
     return this.http.delete(`${api}/projects/${id}`)
       .switchMap(_ => this.myProjects())
       .share()
+  }
+
+  getDashboard(id: number): Observable<any> {
+    return this.http.get(`${api}/projects/${id}/dashboard`)
   }
 
   updateProject(project: AppProject): Observable<AppProject> {
