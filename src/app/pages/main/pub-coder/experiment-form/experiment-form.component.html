@@ -13,7 +13,7 @@
       <div *ngIf="branchState[branch.id]">
         <!-- when editing-->
         <input (blur)="stopEditingBranch(branch, $event.target.value)" [value]="branch.name"/>
-        <button (click)="deleteBranch(branch)" class="btn btn-sm btn-danger btn-outline p-3">
+        <button (click)="deleteBranch(branch)" class="btn btn-sm btn-danger btn-outline">
           <i class="icon wb-trash"></i>
         </button>
       </div>
@@ -22,7 +22,7 @@
         <i class="icon wb-share"></i>
         {{getBranchData(branch.id).name}}
         &nbsp;
-        <button (click)="editBranch(branch)" class="btn btn-sm btn-warning btn-outline p-3">
+        <button (click)="editBranch(branch)" class="btn btn-sm btn-warning btn-outline">
           <i class="icon wb-pencil"></i>
         </button>
       </div>

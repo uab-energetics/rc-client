@@ -1,15 +1,149 @@
 <div class="page">
   <div class="container">
     <div class="page-header">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/projects">Projects</a></li>
-        <li class="breadcrumb-item active">{{project?.name}}</li>
-      </ol>
-      <h1 class="page-title mb-25">{{project?.name}}</h1>
+      <h1 class="page-title mb-25">{{project?.name}} Dashboard</h1>
+
+      <div class="page-header-actions">
+        <div class="row no-space w-250 hidden-sm-down">
+          <div class="col-sm-4">
+            <div class="counter">
+              <span class="counter-number font-weight-medium">8371</span>
+              <div class="counter-label">Publications</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="counter">
+              <span class="counter-number font-weight-medium">1024</span>
+              <div class="counter-label">Codebooks</div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="counter">
+              <span class="counter-number font-weight-medium">$38,823</span>
+              <div class="counter-label">Encodings</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
 
-    TODO
+    <div class="row" *ngIf="project">
+
+      <!-- COLLABORATORS -->
+      <div class="col-md-4">
+
+        <div class="panel panel-dark panel-line">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon wb-users"></i> Project Collaborators <span class="badge badge-dark">3</span></h3>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group list-group-full">
+              <li class="list-group-item">
+                <div class="media">
+                  <div class="pr-20">
+                    <a class="avatar" href="javascript:void(0)">
+                      <img class="img-fluid" src="../../../global/portraits/1.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <h5 class="mt-0">Herman Beck</h5>
+                    <small>CEO</small>
+                  </div>
+                  <div class="pl-20">
+                    <span class="status status-lg status-online"></span>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="media">
+                  <div class="pr-20">
+                    <a class="avatar" href="javascript:void(0)">
+                      <img class="img-fluid" src="../../../global/portraits/2.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <h5 class="mt-0">Mary Adams</h5>
+                    <small>CIO</small>
+                  </div>
+                  <div class="pl-20">
+                    <span class="status status-lg status-busy"></span>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="media">
+                  <div class="pr-20">
+                    <a class="avatar" href="javascript:void(0)">
+                      <img class="img-fluid" src="../../../global/portraits/3.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <h5 class="mt-0">Caleb Richards</h5>
+                    <small>CTO</small>
+                  </div>
+                  <div class="pl-20">
+                    <span class="status status-lg status-off"></span>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="media">
+                  <div class="pr-20">
+                    <a class="avatar" href="javascript:void(0)">
+                      <img class="img-fluid" src="../../../global/portraits/4.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <h5 class="mt-0">June Lane</h5>
+                    <small>CVO</small>
+                  </div>
+                  <div class="pl-20">
+                    <span class="status status-lg status-away"></span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PROJECT INFO -->
+      <div class="col-md-4 panel-primary panel-line">
+
+        <div class="panel">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon wb-info-circle"></i> Project Info</h3>
+          </div>
+          <div class="panel-body">
+            <b>Project Name:</b>
+            <p>{{project.name}}</p>
+
+            <b>Project ID:</b>
+            <p>{{idGen(project.name)}}</p>
+
+            <b>Project Number:</b>
+            <p>{{project.id}}</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DOCUMENTATION -->
+      <div class="col-md-4 panel-info panel-line">
+
+        <div class="panel">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="icon wb-order"></i> Documentation</h3>
+          </div>
+          <div class="panel-body">
+            <h4>Coming Soon!</h4>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
 
   </div>

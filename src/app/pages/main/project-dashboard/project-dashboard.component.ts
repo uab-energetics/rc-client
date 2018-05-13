@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ActiveProjectService} from '../../../core/active-project/active-project.service'
+import {AppProject} from '../../../core/projects/AppProject'
 
 @Component({
   selector: 'app-project-dashboard',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProjectDashboardComponent implements OnInit {
 
-  constructor() { }
+  project: AppProject
+
+  constructor(public aps: ActiveProjectService) {
+    this.aps.project$.subscribe(p => this.project = p)
+  }
 
   ngOnInit() {
+  }
+
+  idGen(name: string) {
+    return name.toLowerCase().replace(/\s/, '-')
   }
 
 }
