@@ -13,13 +13,15 @@ export class ProjectDashboardComponent implements OnInit {
 
   project: AppProject
   statistics: any
+  loading: number = 0
 
   constructor(public aps: ActiveProjectService, public ps: ProjectService) {
     this.aps.project$
-      .do( p => this.project = p )
       .filter( p => !!p )
+      .do( p => this.project = p )
+      .do(() => this.loading = 1)
       .switchMap( p => this.ps.getDashboard(p.id))
-      .do(console.log)
+      .do(() => this.loading = 0)
       .subscribe( dashboardData => this.statistics = this.processData(dashboardData) )
   }
 
