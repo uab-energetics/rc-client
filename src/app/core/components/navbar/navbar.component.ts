@@ -6,6 +6,7 @@ import {AuthService} from '../../auth/auth.service'
 import {dispatcher} from '../../dispatcher/dispatcher'
 import {ActiveProjectService} from '../../active-project/active-project.service'
 import {AppProject} from '../../projects/AppProject'
+import {OPEN_PROJECT_LIST} from '../../projects/actions'
 
 @Component({
   selector: 'app-navbar',
@@ -38,6 +39,10 @@ export class NavbarComponent implements OnInit {
         this.notify.toast('Notifications dismissed');
         this.ngOnInit();
       })
+  }
+
+  showProjects() {
+    dispatcher.emit(OPEN_PROJECT_LIST)
   }
 
   navigateHome() {

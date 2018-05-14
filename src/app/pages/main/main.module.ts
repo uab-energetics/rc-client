@@ -37,6 +37,7 @@ import {SidebarModule} from '../../core/components/sidebar/sidebar.module'
 import {ActiveProjectModule} from '../../core/active-project/active-project.module';
 import { ProjectUsersComponent } from './project-users/project-users.component';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component'
+import {ProjectsModule} from '../../core/projects/projects.module'
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import { ProjectDashboardComponent } from './project-dashboard/project-dashboard
     AngularMaterialModule,
     SharedModule,
     SidebarModule,
+    ProjectsModule,
     ActiveProjectModule
   ],
   declarations: [

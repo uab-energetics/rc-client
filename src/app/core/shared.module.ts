@@ -53,7 +53,8 @@ import {SelectComponent} from './form-responses/components/response-inputs/selec
 import {FormFormComponent} from './components/forms/form-form/form-form.component'
 import {ProjectFormComponent} from './components/forms/project-form/project-form.component'
 import {UserSearchComponent} from './components/forms/user-search/user-search.component'
-import {FindTaskComponent} from './components/forms/find-task/find-task.component'
+import {FindTaskComponent} from './components/forms/find-task/find-task.component';
+import { ProjectListComponent } from './projects/components/project-list/project-list.component'
 
 
 /*

@@ -3,6 +3,8 @@ import {ActiveProjectService} from '../../../core/active-project/active-project.
 import {AppProject} from '../../../core/projects/AppProject'
 import {ProjectService} from '../../../core/projects/project.service'
 import 'rxjs/add/operator/filter'
+import {MatDialog} from '@angular/material'
+import {ProjectListModalComponent} from '../../../core/projects/components/project-list-modal/project-list-modal.component'
 
 @Component({
   selector: 'app-project-dashboard',

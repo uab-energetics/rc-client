@@ -1,5 +1,11 @@
 @import '~angular-tree-component/dist/angular-tree-component.css';
 
+.link {
+  cursor: grab;
+  cursor: -moz-grab;
+}
+
+/* ngBootstrap styling fix */
 .cdk-overlay-container {
   z-index: 99999;
 }
@@ -26,7 +32,6 @@
   animation: progress-bar-stripes 2s linear infinite;
 }
 
-/* ngBootstrap styling fix */
 .nav-tabs-solid ul {
   border-bottom-color: #f3f7f9;
 }
