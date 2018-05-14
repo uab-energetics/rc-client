@@ -27,7 +27,7 @@
 
         <li *ngIf="activeProject" class="nav-item ml-15">
           <a class="nav-link" routerLink="/projects">
-            <i class="icon wb-share"></i> &nbsp;
+            <i class="icon fa-x2 fa-pie-chart"></i> &nbsp;
             <b>{{activeProject?.name}}</b> &nbsp;
             <i class="icon wb-chevron-down-mini"></i>
           </a>
@@ -35,7 +35,7 @@
 
         <li *ngIf="!activeProject" class="nav-item ml-15">
           <a class="nav-link" routerLink="/projects">
-            <i class="icon wb-share"></i> &nbsp;
+            <i class="icon fa-pie-chart"></i> &nbsp;
             <b>Select a Project</b> &nbsp;
             <i class="icon wb-chevron-down-mini"></i>
           </a>
