@@ -1,0 +1,82 @@
+<div class="page">
+  <div class="page-header">
+    <a routerLink="/project-codebooks"><i class="icon wb-arrow-left"></i> back</a>
+    <h1 *ngIf="form" class="page-title mb-25">Editing {{form.name}}</h1>
+  </div>
+  <div class="page-content">
+
+    <div class="row">
+      <div class="col-lg-4">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"> <b>Structure</b> </li>
+        </ol>
+        <div class="panel">
+          <div class="panel-body">
+
+
+
+            <div *ngIf="loading > 0">
+              <b>Loading..</b>
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              <br/>
+            </div>
+
+
+
+            <app-codebook-tree
+              *ngIf="form" [form]="form"
+              (categorySelected)="categorySelected($event)"
+              (createQuestion)="createQuestion($event)"
+              (createCategory)="createCategory($event)"
+              (editCategory)="editCategory($event)"
+              (editQuestion)="editQuestion($event)"
+              (moveQuestion)="moveQuestion($event)"
+              (moveCategory)="moveCategory($event)"
+              (deleteQuestion)="deleteQuestion($event)"
+              (deleteCategory)="deleteCategory($event)">
+
+            </app-codebook-tree>
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col-lg-8">
+        <div class="panel">
+          <div class="panel-body">
+
+            <h2>Rendering Preview</h2>
+            <hr/>
+            <br/>
+
+            <!-- start form render-->
+            <app-category
+              *ngIf="previewingCategory"
+              [root]="true"
+              [category]="previewingCategory">
+            </app-category>
+            <!-- end form render -->
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

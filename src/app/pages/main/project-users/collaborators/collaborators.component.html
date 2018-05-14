@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-xl-4">
+      <!-- Example User -->
+      <div class="example-wrap m-lg-0">
+        <h4 class="example-title">User List</h4>
+        <p>A list of the project's active researchers</p>
+        <ul class="list-group list-group-full">
+          <li *ngFor="let user of users" class="list-group-item">
+            <div class="media">
+              <div class="pr-20">
+                <a class="avatar" href="javascript:void(0)">
+                  <img class="img-fluid" [src]="user.image" alt="User Avatar">
+                </a>
+              </div>
+              <div class="media-body">
+                <h5 class="mt-0">{{user.name}}</h5>
+                <small>{{user.location}}</small>
+              </div>
+              <div class="pl-20">
+                <span class="status status-lg status-online"></span>
+              </div>
+              <div class="pl-20">
+                <button (click)="onRemoveCollaborator(user)" class="btn btn-sm btn-danger btn-outline btn-round">X</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- End Example User -->
+    </div>
+
+    <div class="col-md-6 col-xl-8">
+
+      <div class="text-center" *ngIf="loading > 0">
+        <div class="loading-wrapper" style="width: 100px; margin: auto">
+          <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        </div>
+      </div>
+
+      <div *ngIf="loading === 0">
+
+
+
+        <div>
+          <h4 class="example-title">Add Collaborators</h4>
+          <p>Start typing a user's name to search</p>
+
+          <app-user-search #userSearch></app-user-search>
+
+          <p></p>
+          <button (click)="sendInvite(userSearch.model)" class="btn btn-primary">Add Collaborator</button>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div>
+          <h4 class="example-title">..or invite via email!</h4>
+          <p>Enter an email address: </p>
+
+          <form (ngSubmit)="inviteByEmail(inviteEmail)">
+            <div class="form-group">
+              <input [(ngModel)]="inviteEmail" name="inviteEmail" class="form-control" type="email">
+            </div>
+            <br/>
+            <button class="btn btn-primary">Send Invite</button>
+          </form>
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+
+  </div>
+</div>

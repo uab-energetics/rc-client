@@ -1,37 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser'
+import {NgModule} from '@angular/core'
 
-import { AppComponent } from './app.component';
-import {SharedModule} from './shared/shared.module';
-import {FormsModule} from '@angular/forms';
-import {RouterModule, Routes} from '@angular/router';
-import {UserService} from './shared/auth/user.service';
-import {AuthService} from './shared/auth/auth.service';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {AuthInterceptorService} from './shared/auth/auth-interceptor.service';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AuthGuardService} from './shared/auth/auth-guard.service';
-import {LoggerService} from './shared/logger.service';
-import { SweetAlertService } from 'ng2-sweetalert2';
-import { RedeemResearcherInviteComponent } from './callbacks/redeem-invite/redeem-researcher-invite.component';
-import { RedeemEncoderInviteComponent } from './callbacks/redeem-invite/redeem-encoder-invite.component';
-
-const routes: Routes = [
-  {
-    path: 'auth',
-    loadChildren: './auth/auth.module#AuthModule'
-  },
-  {
-    path: '',
-    canActivate: [AuthGuardService],
-    loadChildren: './pages/pages.module#PagesModule'
-  },
-  {
-    path: 'callbacks',
-    loadChildren: './callbacks/callbacks.module#CallbacksModule'
-  }
-];
+import {AppComponent} from './app.component'
+import {SharedModule} from './core/shared.module'
+import {FormsModule} from '@angular/forms'
+import {RouterModule} from '@angular/router'
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {SweetAlertService} from 'ng2-sweetalert2'
+import {PagesModule} from './pages/pages.module'
+import {AuthService} from './core/auth/auth.service'
+import {AuthInterceptorService} from './core/auth/auth-interceptor.service'
 
 @NgModule({
   declarations: [
@@ -42,14 +22,13 @@ const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
-    RouterModule.forRoot(routes),
+    RouterModule,
     FormsModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    PagesModule
   ],
   providers: [
-    UserService,
     AuthService,
-    LoggerService,
     SweetAlertService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
   ],

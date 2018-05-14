@@ -1,0 +1,83 @@
+<div class="page">
+  <div class="container">
+    <div class="page-header">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/project-dashboard">{{project?.name}}</a></li>
+        <li class="breadcrumb-item"><a routerLink="/project-codebooks/">Codebooks</a></li>
+        <li class="breadcrumb-item active">{{form?.name}}</li>
+      </ol>
+      <h1 class="page-title mb-25" *ngIf="form">
+        {{form.name}}
+        <a href="javascript:void(0);" (click)="editForm(formFormModal)" class="btn-sm btn-outline p-3">
+          <i class="icon wb-pencil"></i>
+        </a>
+      </h1>
+
+
+      <!--<p class="page-description">{{project.description}}</p>-->
+
+      <div class="page-header-actions">
+        <div *ngIf="form">
+          <button class="btn btn-primary" (click)="exportForm(form.id)">
+            <i class="icon wb-briefcase"></i> Export
+          </button>
+
+          <a [routerLink]="['/forms', form.id]"
+             class="btn btn-warning">
+            <i class="icon wb-extension"></i>
+            <b> Open Codebook Editor</b>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
+
+    <ngb-tabset
+      *ngIf="project && form"
+      [destroyOnHide]="false"
+      class="nav-tabs-horizontal nav-tabs-inverse nav-tabs-solid">
+      <ngb-tab>
+        <ng-template ngbTabTitle><i class="icon wb-book"></i> Publications </ng-template>
+        <ng-template ngbTabContent>
+          <app-form-publications
+            [project]="project"
+            [form]="form">
+          </app-form-publications>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle><i class="icon wb-users"></i> Encoders </ng-template>
+        <ng-template ngbTabContent>
+          <app-form-encoders [project]="project" [form]="form"></app-form-encoders>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle><i class="icon wb-settings"></i> Settings </ng-template>
+        <ng-template ngbTabContent>
+          <app-project-form-settings
+            [project]="project"
+            [form]="form">
+          </app-project-form-settings>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+    <ng-template #formFormModal let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">Rename Form</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar>
+        <app-form-form
+                [appForm]="form"
+                (appSubmit)="formFormSubmit($event)">
+        </app-form-form>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

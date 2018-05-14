@@ -1,0 +1,32 @@
+<div class="page">
+  <div class="container">
+    <div class="page-header">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/projects">Projects</a></li>
+        <li class="breadcrumb-item active">{{project?.name}}</li>
+      </ol>
+      <h1 class="page-title mb-25">{{project?.name}}</h1>
+    </div>
+
+    <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
+
+    <ngb-tabset
+      *ngIf="project"
+      [destroyOnHide]="false"
+      class="nav-tabs-horizontal nav-tabs-inverse nav-tabs-solid">
+      <ngb-tab>
+        <ng-template ngbTabTitle><i class="icon wb-users"></i> Collaborators </ng-template>
+        <ng-template ngbTabContent>
+          <app-collaborators [project]="project"></app-collaborators>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle><i class="icon wb-users"></i> Encoders </ng-template>
+        <ng-template ngbTabContent>
+          <app-encoders [project]="project"></app-encoders>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+  </div>
+</div>

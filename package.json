@@ -4,13 +4,11 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve -H 0.0.0.0",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "deploy-prod": "ssh researchcoder.com \"cd /var/research-coder && git pull; npm install && ng build --env=prod -op='../www/v3/researchcoder.com/'\"",
-    "deploy-dev": ""
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -34,7 +32,7 @@
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "ng2-sweetalert2": "0.0.8",
-    "papaparse": "^4.3.6",
+    "papaparse": "^4.4.0",
     "pusher": "^1.5.1",
     "pusher-js": "^4.2.1",
     "rxjs": "^5.5.2",

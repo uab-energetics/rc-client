@@ -1,4 +1,4 @@
-import {AppExperimentEncoding} from "./AppExperimentEncoding";
+import {AppExperimentEncoding} from "../core/encodings/AppExperimentEncoding";
 
 export interface AppEncodingTask {
   id: number,

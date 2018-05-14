@@ -1,0 +1,26 @@
+<div class="site-menubar" (mouseleave)="close()" (mouseenter)="open()">
+  <div class="site-menubar-header">
+    <div class="cover overlay">
+      <img class="cover-image" src="../../../../assets/images/cover.png">
+      <div class="overlay-panel vertical-align overlay-background">
+        <div class="vertical-align-middle">
+          <a class="avatar avatar-lg" href="javascript:void(0)">
+            <img [src]="user.image" alt="Profile Picture">
+          </a>
+          <div class="site-menubar-info">
+            <h5 class="site-menubar-user">{{user.name}}</h5>
+            <p class="site-menubar-email">{{user.email}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="site-menubar-body">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let link of loadLinks()" [routerLink]="link.route">
+        <mat-icon matListIcon>{{link.icon}}</mat-icon>
+        <a matLine>{{ link.text }}</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+</div>

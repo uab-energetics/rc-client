@@ -27,7 +27,6 @@ if(localStorage.env){
     console.info('Overriding environment..');
 }
 
-
 window['setEnv'] = (key, value) => {
   let env = {};
   if(localStorage.env) env = JSON.parse(localStorage.env);
