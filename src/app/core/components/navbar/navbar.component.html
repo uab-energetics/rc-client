@@ -70,7 +70,7 @@
 
 
                   <a *ngFor="let notification of unreadNotifications"
-                     [routerLink]="['/projects']"
+                     routerLink="/projects"
                      class="list-group-item dropdown-item">
 
                     <div class="media">
@@ -146,7 +146,7 @@
       <!-- End Navbar Toolbar Right -->
 
       <div class="navbar-brand navbar-brand-center">
-        <a (click)="navigateHome()">
+        <a routerLink="/">
           <img class="navbar-brand-logo"
                src="../../../../assets/images/UAB-logo-white.png" title="UAB Research Coder">
         </a>

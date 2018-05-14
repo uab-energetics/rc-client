@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core'
 import {NotificationsService} from '../../notifications/notifications.service'
 import {NotifyService} from '../../notifications/notify.service'
-import {Router} from '@angular/router'
 import {AuthService} from '../../auth/auth.service'
 import {dispatcher} from '../../dispatcher/dispatcher'
 import {ActiveProjectService} from '../../active-project/active-project.service'
@@ -22,8 +21,7 @@ export class NavbarComponent implements OnInit {
     public authService: AuthService,
     public activeProjectService: ActiveProjectService,
     private notifications: NotificationsService,
-    private notify: NotifyService,
-    private router: Router
+    private notify: NotifyService
   ) { }
 
   ngOnInit() {
@@ -43,10 +41,6 @@ export class NavbarComponent implements OnInit {
 
   showProjects() {
     dispatcher.emit(OPEN_PROJECT_LIST)
-  }
-
-  navigateHome() {
-    this.router.navigate(['/']);
   }
 
   toggleSidebar() {
