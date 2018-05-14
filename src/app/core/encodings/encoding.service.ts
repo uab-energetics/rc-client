@@ -7,6 +7,7 @@ import {AppResponse} from '../form-responses/AppResponse'
 import {AppBranch} from '../form-branch/AppBranch'
 import {JwtService} from '../auth/jwt.service'
 import {AppEncodingTask} from "../../models/AppEncodingTask";
+import {PaginationOptions} from '../pagination/PaginationOptions'
 
 const api = environment.api;
 
@@ -43,8 +44,8 @@ export class EncodingService {
       .share()
   }
 
-  myTasks(): Observable<AppEncodingTask[]> {
-    return this.http.get<AppEncodingTask[]>(`${api}/users/tasks`)
+  myTasks(params: any = { page: 1, page_size: 20 }): Observable<AppEncodingTask[]> {
+    return this.http.get<AppEncodingTask[]>(`${api}/users/tasks`, { params })
       .share()
   }
 

@@ -38,6 +38,7 @@ import {ActiveProjectModule} from '../../core/active-project/active-project.modu
 import { ProjectUsersComponent } from './project-users/project-users.component';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component'
 import {ProjectsModule} from '../../core/projects/projects.module'
+import {MatTableModule} from '@angular/material'
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import {ProjectsModule} from '../../core/projects/projects.module'
     SharedModule,
     SidebarModule,
     ProjectsModule,
-    ActiveProjectModule
+    ActiveProjectModule,
+    MatTableModule,
   ],
   declarations: [
     EncodersComponent,

@@ -12,6 +12,7 @@ import {
   MatTabsModule,
   MatMenuModule, MatListModule, MatIconModule, MatTooltipModule, MatButtonModule, MatCardModule, MatDialogModule
 } from '@angular/material'
+import {CdkTableModule} from '@angular/cdk/table'
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import {
     MatProgressSpinnerModule,
     MatRadioModule,
     MatSidenavModule,
+    CdkTableModule,
     MatTableModule,
     MatCheckboxModule,
     MatSelectModule,
@@ -39,6 +41,7 @@ import {
     MatProgressSpinnerModule,
     MatRadioModule,
     MatSidenavModule,
+    CdkTableModule,
     MatTableModule,
     MatCheckboxModule,
     MatSelectModule,

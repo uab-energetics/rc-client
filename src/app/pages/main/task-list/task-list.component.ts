@@ -5,6 +5,8 @@ import {ProjectFormService} from '../../../core/projects/project-form.service'
 import {NotifyService} from '../../../core/notifications/notify.service'
 import {AppProjectForm} from '../../../core/forms/AppProjectForm'
 import {AppEncodingTask} from "../../../models/AppEncodingTask";
+import {Paginator} from '../../../core/pagination/Paginator'
+import {AppPublication} from '../../../core/publications/AppPublication'
 
 @Component({
   selector: 'app-task-list',
@@ -14,7 +16,9 @@ import {AppEncodingTask} from "../../../models/AppEncodingTask";
 export class TaskListComponent implements OnInit {
 
   tasks: AppEncodingTask[] = [];
+  paginator: Paginator<AppEncodingTask>
 
+  modal;
   loading = 0;
 
   constructor(
@@ -30,16 +34,14 @@ export class TaskListComponent implements OnInit {
 
   loadTasks(){
     this.loading++;
-    this.encodingService.myTasks()
-      .finally(() => this.loading--)
-      .subscribe( tasks => {
-        this.tasks = tasks;
-        console.log(tasks)
-      });
+    this.paginator = new Paginator<AppEncodingTask>( params => this.encodingService.myTasks(params) )
+    this.paginator.data$
+      .do(() => this.loading -= 1)
+      .subscribe( data => this.tasks = data )
   }
 
   onQuitTask(task: AppEncodingTask){
-    let onConfirm = () => {
+    this.notify.confirm(() => {
       this.loading++;
       this.encodingService.quitTask(task.id)
         .finally(() => this.loading--)
@@ -47,9 +49,7 @@ export class TaskListComponent implements OnInit {
           this.notify.toast('Task Deleted');
           this.ngOnInit();
         });
-    };
-
-    this.notify.confirm(onConfirm);
+    });
   }
 
   onTaskFormSubmit(projectForm: AppProjectForm){
@@ -63,10 +63,10 @@ export class TaskListComponent implements OnInit {
       });
   }
 
-  modal;
   openModal(content){
     this.modal = this.modalService.open(content);
   }
+
   closeModal(){
     this.modal.close();
   }
