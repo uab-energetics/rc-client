@@ -1,6 +1,6 @@
-import {AppExperimentEncoding} from "../core/encodings/AppExperimentEncoding";
-import {AppPublication} from "../core/publications/AppPublication";
-import {AppForm} from "../core/forms/AppForm";
+import {AppExperimentEncoding} from "../encodings/AppExperimentEncoding";
+import {AppPublication} from "../publications/AppPublication";
+import {AppForm} from "../forms/AppForm";
 
 export interface AppEncodingTask {
   id: number,
@@ -11,5 +11,6 @@ export interface AppEncodingTask {
   form_id: number,
   form: AppForm,
   active: boolean,
-  complete: boolean
+  complete: boolean,
+  status?: string,
 }
