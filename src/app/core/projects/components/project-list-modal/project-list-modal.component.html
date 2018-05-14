@@ -1,3 +1,36 @@
-<p>
-  project-list-modal works!
-</p>
+<div>
+
+
+  <h4 class="example-title">Project List Select</h4>
+
+  <hr/>
+
+
+  <div class="example table-responsive">
+    <table class="table project-list-table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>ID</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of projects" [ngClass]="{ 'active-project-list-item': p.id === project.id }">
+        <td>
+          <i *ngIf="p.id === project.id" class="icon primary-300 fa-check"></i>
+        </td>
+        <td>
+          <span (click)="selectProject(p)" class="link"><i class="icon fa-pie-chart"></i> &nbsp; {{p.name}}</span>
+        </td>
+        <td>{{p.name.toLowerCase().split(' ').join('-')}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+
+

@@ -16,7 +16,7 @@ export class MainComponent implements OnInit {
     dispatcher.on(OPEN_PROJECT_LIST, () => {
       this.dialog.open(ProjectListModalComponent, {
         height: '500px',
-        width: '500px'
+        width: '700px'
       })
     })
 
