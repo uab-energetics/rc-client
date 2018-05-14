@@ -22,29 +22,31 @@
 
 
 
-        <div *ngIf="encodings" class="col-12">
+        <div *ngIf="tasks" class="col-12">
 
 
-          <table *ngIf="encodings.length > 0" class="table">
+          <table *ngIf="tasks.length > 0" class="table">
             <thead>
             <tr>
               <th>#</th>
               <th>Codebook</th>
               <th>Publication</th>
               <!--<th>Progress</th>-->
-              <th>Status</th>
+              <th>Active</th>
+              <th>Complete</th>
               <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let task of encodings">
+            <tr *ngFor="let task of tasks">
               <th scope="row">{{task.id}}</th>
-              <td>{{task.form?.name}}</td>
-              <td style="max-width: 300px">{{task.publication?.name}}</td>
+              <td>{{task.encoding?.form?.name}}</td>
+              <td style="max-width: 300px">{{task.encoding?.publication?.name}}</td>
               <!--<td>
                 <p><ngb-progressbar type="warning" [value]="task.completion" [striped]="true" [animated]="true"><i>{{task.completion}}%</i></ngb-progressbar></p>
               </td>-->
-              <td><span class="badge badge-success">Clean</span></td>
+              <td><span class="badge badge-dark badge-outline">{{task.encoding_id !== null ? "yes" : "no"}}</span></td>
+              <td><span class="badge badge-dark badge-info">{{task.complete ? "yes" : "no"}}</span></td>
               <td>
 
                 <div class="dropdown">
@@ -53,16 +55,16 @@
                     <i class="icon wb-chevron-down-mini"></i>
                   </button>
                   <div class="dropdown-menu dropdown-menu-right">
-                    <a [routerLink]="['/pub-coder', task.id]" class="dropdown-item">
+                    <a [routerLink]="['/pub-coder', task.encoding_id]" class="dropdown-item">
                       <i class="icon wb-pencil"></i>
                       Continue
                     </a>
-                    <a [routerLink]="['/conflicts', task.id]" class="dropdown-item">
+                    <a [routerLink]="['/conflicts', task.encoding_id]" class="dropdown-item">
                       <i class="icon wb-users"></i>
                       Conflict Report
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a (click)="onQuitEncoding(task)" class="dropdown-item" href="javascript:void(0)">
+                    <a (click)="onQuitTask(task)" class="dropdown-item" href="javascript:void(0)">
                       <i class="icon wb-trash"></i> Quit</a>
                   </div>
                 </div>
@@ -74,7 +76,7 @@
 
           <!-- If the user has no assignments
           =========================================== -->
-          <div *ngIf="encodings.length === 0" class="col-12 text-center">
+          <div *ngIf="tasks.length === 0" class="col-12 text-center">
             <div class="alert alert-alt alert-danger alert-dismissible bg-white" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">×</span>

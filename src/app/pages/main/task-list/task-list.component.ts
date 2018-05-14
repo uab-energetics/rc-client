@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, OnInit} from '@angular/core'
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap'
 import {EncodingService} from '../../../core/encodings/encoding.service'
 import {ProjectFormService} from '../../../core/projects/project-form.service'
 import {NotifyService} from '../../../core/notifications/notify.service'
 import {AppProjectForm} from '../../../core/forms/AppProjectForm'
-import {AppExperimentEncoding} from '../../../core/encodings/AppExperimentEncoding'
+import {AppEncodingTask} from "../../../models/AppEncodingTask";
 
 @Component({
   selector: 'app-task-list',
@@ -13,10 +13,9 @@ import {AppExperimentEncoding} from '../../../core/encodings/AppExperimentEncodi
 })
 export class TaskListComponent implements OnInit {
 
-  encodings: AppExperimentEncoding[]
+  tasks: AppEncodingTask[] = [];
 
-  modal = null
-  loading = 0
+  loading = 0;
 
   constructor(
     private modalService: NgbModal,
@@ -26,44 +25,50 @@ export class TaskListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadEncodings()
+    this.loadTasks();
   }
 
-  loadEncodings(){
-    this.loading++
-    this.encodingService.myEncodings()
+  loadTasks(){
+    this.loading++;
+    this.encodingService.myTasks()
       .finally(() => this.loading--)
-      .subscribe( tasks => this.encodings = tasks)
+      .subscribe( tasks => {
+        this.tasks = tasks;
+        console.log(tasks)
+      });
   }
 
-  onQuitEncoding(task: AppExperimentEncoding) {
-    this.notify.confirm(_ => {
-      this.loading++
-      this.encodingService.quitEncoding(task.id)
+  onQuitTask(task: AppEncodingTask){
+    let onConfirm = () => {
+      this.loading++;
+      this.encodingService.quitTask(task.id)
         .finally(() => this.loading--)
         .subscribe( () => {
-          this.notify.toast('Assignment Deleted')
-          this.loadEncodings()
-        })
-    })
+          this.notify.toast('Task Deleted');
+          this.ngOnInit();
+        });
+    };
+
+    this.notify.confirm(onConfirm);
   }
 
-  onTaskFormSubmit(projectForm: AppProjectForm) {
-    this.loading++
+  onTaskFormSubmit(projectForm: AppProjectForm){
+    this.loading++;
     this.projectFormService.requestMyTasks(projectForm.project, projectForm.form)
       .finally(() => this.loading--)
       .subscribe( () => {
-        this.closeModal()
-        this.notify.toast('Tasks requested')
-        this.loadEncodings()
-      })
+        this.closeModal();
+        this.notify.toast('Tasks requested');
+        this.loadTasks();
+      });
   }
 
-  openModal(content) {
-    this.modal = this.modalService.open(content)
+  modal;
+  openModal(content){
+    this.modal = this.modalService.open(content);
   }
-  closeModal() {
-    this.modal.close()
+  closeModal(){
+    this.modal.close();
   }
 
 }

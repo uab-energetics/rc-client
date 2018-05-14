@@ -6,6 +6,7 @@ import {environment} from '../../../environments/environment'
 import {AppResponse} from '../form-responses/AppResponse'
 import {AppBranch} from '../form-branch/AppBranch'
 import {JwtService} from '../auth/jwt.service'
+import {AppEncodingTask} from "../../models/AppEncodingTask";
 
 const api = environment.api;
 
@@ -42,6 +43,11 @@ export class EncodingService {
       .share()
   }
 
+  myTasks(): Observable<AppEncodingTask[]> {
+    return this.http.get<AppEncodingTask[]>(`${api}/users/tasks`)
+      .share()
+  }
+
   selfAssign(form_id: number, publication_id: number): Observable<AppExperimentEncoding[]> {
     return this.http.post<AppExperimentEncoding[]>(`${api}/assignments/manual`, {
       form_id,
@@ -52,6 +58,11 @@ export class EncodingService {
 
   quitEncoding(encoding_id: number): Observable<void> {
     return this.http.delete<void>(`${api}/encodings/${encoding_id}`)
+      .share();
+  }
+
+  quitTask(task_id: number): Observable<void> {
+    return this.http.delete<void>(`${api}/tasks/${task_id}`)
       .share();
   }
 
