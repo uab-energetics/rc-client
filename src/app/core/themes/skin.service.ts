@@ -21,7 +21,7 @@ export class SkinService {
   }
 
   private static buildPath(theme: string){
-    if(theme === 'blue') return ''; // blue is the application default
+    if(theme === 'blue') return ''; // blue is default
     return `assets/skins/${theme}.css`;
   }
 

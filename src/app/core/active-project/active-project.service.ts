@@ -4,38 +4,52 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject'
 import {Observable} from 'rxjs/Observable'
 import {ProjectService} from '../projects/project.service'
 import {AuthService} from '../auth/auth.service'
-import {User} from '../auth/models/User'
+import 'rxjs/add/operator/filter'
 
 @Injectable()
 export class ActiveProjectService {
 
-  private user: User
   private activeProject: AppProject
   private projectSubject: BehaviorSubject<AppProject> = new BehaviorSubject<AppProject>(null);
   readonly project$: Observable<AppProject> = this.projectSubject.asObservable();
 
   constructor(private projectService: ProjectService, private authService: AuthService) {
-    this.authService.user
-      .switchMap( u => this.projectService.myProjects() )
-      .subscribe()
-    this.project$.subscribe( p => this.activeProject = p )
 
+    // update project list when the user changes
+    this.authService.user
+      .filter( u => u !== null )
+      .switchMap( _ => this.projectService.myProjects() )
+      .subscribe()
+
+    // save the current project in browser every time it changes
+    this.project$
+      .filter( p => p !== null )
+      .do( project => this.activeProject = project)
+      .subscribe(project => this.cacheProject(project))
+
+    // whenever the list of projects has changed, update the active one
     this.projectService.projects$.subscribe( projects => {
       if(projects.length === 0)
         this.projectSubject.next(null)
-      if(projects.length === 1)
+      if(!this.activeProject)
         this.projectSubject.next(projects[0])
     })
-
-    this.projectService.myProjects()
-      .subscribe( projects => {
-        if(projects.length === 0)
-          this.projectSubject.next(projects[0])
-      })
   }
 
   setProject(project: AppProject) {
     this.projectSubject.next(project)
+  }
+
+  cacheProject(project: AppProject) {
+    if(!project) return
+    localStorage.setItem('active-project', JSON.stringify(project))
+  }
+
+  loadProject() {
+    // try to load the last project, otherwise, fetch all projects and use first one
+    let project = JSON.parse(localStorage.getItem('active-project'))
+    if (project) this.projectSubject.next(project)
+    else this.projectService.myProjects().subscribe()
   }
 
 }

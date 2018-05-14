@@ -12,6 +12,7 @@ import {SweetAlertService} from 'ng2-sweetalert2'
 import {PagesModule} from './pages/pages.module'
 import {AuthService} from './core/auth/auth.service'
 import {AuthInterceptorService} from './core/auth/auth-interceptor.service'
+import {ActiveProjectModule} from './core/active-project/active-project.module'
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {AuthInterceptorService} from './core/auth/auth-interceptor.service'
     RouterModule,
     FormsModule,
     NgbModule.forRoot(),
-    PagesModule
+    PagesModule,
+    ActiveProjectModule
   ],
   providers: [
     AuthService,

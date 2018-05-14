@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {SkinService} from "./core/themes/skin.service";
-import {NotificationsService} from "./core/notifications/notifications.service";
+import {ActiveProjectService} from './core/active-project/active-project.service'
 
 @Component({
   selector: 'app-root',
@@ -11,9 +11,10 @@ export class AppComponent {
 
   constructor(
     private themeService: SkinService,
-    private notifications: NotificationsService
+    private activeProjectService: ActiveProjectService
   ) {
     themeService.loadFromLocalStorage();
+    this.activeProjectService.loadProject();
   }
 
 }
