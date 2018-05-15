@@ -16,6 +16,16 @@ export class TaskService {
     private jwt: JwtService
   ) { }
 
+  getTask(task_id: number): Observable<AppEncodingTask> {
+    return this.http.get<AppExperimentEncoding>(`${api}/tasks/${task_id}`)
+      .share()
+  }
+
+  updateCompletion(task_id: number, complete:boolean): Observable<any> {
+    return this.http.put<any>(`${api}/tasks/${task_id}/completion`, {complete: complete})
+      .share()
+  }
+
   myTasks(params: any = { page: 1, page_size: 20 }): Observable<AppEncodingTask[]> {
     return this.http.get<AppEncodingTask[]>(`${api}/users/tasks`, { params })
       .share()

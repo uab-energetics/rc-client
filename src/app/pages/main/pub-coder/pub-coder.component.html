@@ -18,13 +18,21 @@
 
         <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
 
-        <div *ngIf="encoding && form && publication">
+        <div *ngIf="task && encoding && form && publication">
           <div class="mb-20">
             <button
               [disabled]="!changes"
               (click)="saveChanges()"
               class="btn btn-animate btn-animate-side btn-success btn-raised">
               <span><i class="icon wb-download" aria-hidden="true"></i> Save Changes </span>
+            </button>
+            <button *ngIf="task.complete === false" class="btn btn-outline-secondary" (click)="setComplete(task, true)">
+              Complete
+              <i class="icon wb-close"></i>
+            </button>
+            <button *ngIf="task.complete === true" class="btn btn-outline-success" (click)="setComplete(task, false)">
+              Complete
+              <i class="icon wb-check-mini"></i>
             </button>
             <p [hidden]="changes">No changes since last save</p>
           </div>

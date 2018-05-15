@@ -48,7 +48,7 @@ export class TaskListComponent implements OnInit {
     this.loading++;
     this.taskService.startEncoding(task.id)
       .finally(() => this.loading--)
-      .subscribe(response => this.navigateToPubCoder(response.encoding.id), error => {
+      .subscribe(response => this.navigateToPubCoder(task.id), error => {
         if (error.error.status === 'TASK_ALREADY_STARTED') {
           this.notify.alert("Task already started", "This task has already been started", 'error')
           return;
@@ -57,8 +57,8 @@ export class TaskListComponent implements OnInit {
       })
   }
 
-  navigateToPubCoder(encoding_id: number) {
-    this.router.navigate(['pub-coder', encoding_id])
+  navigateToPubCoder(task_id: number) {
+    this.router.navigate(['pub-coder', task_id])
   }
 
   onQuitTask(task: AppEncodingTask){

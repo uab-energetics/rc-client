@@ -11,6 +11,8 @@ import {AppBranch} from "../../../core/form-branch/AppBranch";
 import {AppPublication} from '../../../core/publications/AppPublication';
 import {PublicationsService} from '../../../core/publications/publications.service';
 import {DomSanitizer} from '@angular/platform-browser';
+import {AppEncodingTask} from "../../../core/tasks/AppEncodingTask";
+import {TaskService} from "../../../core/tasks/task.service";
 
 @Component({
   selector: 'app-pub-coder',
@@ -22,6 +24,7 @@ export class PubCoderComponent implements OnInit {
   form: AppForm;
   publication: AppPublication;
   encoding: AppExperimentEncoding;
+  task: AppEncodingTask;
   @ViewChild('experimentForm') experimentForm;
 
   loading = 0;
@@ -31,6 +34,7 @@ export class PubCoderComponent implements OnInit {
   constructor(
     private formService: FormService,
     private encodingService: EncodingService,
+    private taskService: TaskService,
     private publicationService: PublicationsService,
     private route: ActivatedRoute,
     private notify: NotifyService,
@@ -41,24 +45,33 @@ export class PubCoderComponent implements OnInit {
    * Load the encoding from url, and its form
    */
   ngOnInit() {
-    this.loadEncoding().subscribe((encoding: AppExperimentEncoding) => {
-      this.loading += 2;
-      this.formService.getForm(encoding.form_id)
-        .finally(() => this.loading--)
-        .subscribe( form => this.form = form);
+    let task_id = +this.route.snapshot.paramMap.get('id')
+    this.loadTask(task_id).switchMap(task => this.loadEncoding(task.encoding_id))
+      .subscribe((encoding: AppExperimentEncoding) => {
+        this.loading += 2;
+        this.formService.getForm(encoding.form_id)
+          .finally(() => this.loading--)
+          .subscribe(form => this.form = form);
 
-      this.publicationService.getPublication(encoding.publication_id)
-        .finally(() => this.loading--)
-        .subscribe( pub => {
-          this.publication = pub;
-          this.embeddingURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.publication.embedding_url);
-        });
-    });
+        this.publicationService.getPublication(encoding.publication_id)
+          .finally(() => this.loading--)
+          .subscribe(pub => {
+            this.publication = pub;
+            this.embeddingURL = this.sanitizer.bypassSecurityTrustResourceUrl(this.publication.embedding_url);
+          });
+      });
     this.setupHotKeys();
   }
 
-  loadEncoding(){
-    let encoding_id = +this.route.snapshot.paramMap.get('id');
+  loadTask(task_id: number) {
+    this.loading++
+    let src = this.taskService.getTask(task_id)
+      .finally(() => this.loading--)
+    src.subscribe(task => this.task = task)
+    return src
+  }
+
+  loadEncoding(encoding_id: number){
     let src = this.encodingService.getEncoding(encoding_id)
       .do(() => this.loading++ )
       .finally(() => this.loading--);
@@ -107,7 +120,15 @@ export class PubCoderComponent implements OnInit {
       });
   }
 
+  handleTaskComplete(task: AppEncodingTask) {
+    this.taskService.updateCompletion(task.id, task.complete)
+      .finally(() => this.loadTask(task.id))
+      .subscribe( _ => {})
+  }
+
+
   saveChanges(){
+    this.handleTaskComplete(this.task)
     this.handleSaveResponses(this.experimentForm.exportChangedResponses());
   }
 
@@ -118,6 +139,11 @@ export class PubCoderComponent implements OnInit {
         this.saveChanges();
       }
     });
+  }
+
+  setComplete(task: AppEncodingTask, value: boolean) {
+    task.complete = value
+    this.onChange()
   }
 
 
