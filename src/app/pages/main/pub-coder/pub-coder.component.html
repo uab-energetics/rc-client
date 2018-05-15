@@ -69,7 +69,7 @@
     <app-structure-editor
       [hidden]="view==='code'"
       [encoding]="encoding"
-      (branchUpdate)="loadEncoding()"
+      (branchUpdate)="loadEncoding(encoding.id)"
       (branchCreate)="handleChangeBranch($event)"
       [codebook]="form">
     </app-structure-editor>
