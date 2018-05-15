@@ -17,7 +17,7 @@ export class TaskService {
   ) { }
 
   getTask(task_id: number): Observable<AppEncodingTask> {
-    return this.http.get<AppExperimentEncoding>(`${api}/tasks/${task_id}`)
+    return this.http.get<AppEncodingTask>(`${api}/tasks/${task_id}`)
       .share()
   }
 
