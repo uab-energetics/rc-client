@@ -1,5 +1,5 @@
 <nav>
-  <ul class="pagination">
+  <ul *ngIf="pageData" class="pagination">
     <li class="page-item">
       <a (click)="goto.emit(1)"
          class="page-link" href="javascript:void(0)" aria-label="Previous">
