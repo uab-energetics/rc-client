@@ -97,7 +97,7 @@ export class PubCoderComponent implements OnInit {
     this.loading++;
     this.encodingService.recordBranch(this.encoding.id, data as AppBranch)
       .finally(() => this.loading--)
-      .subscribe(() => this.loadEncoding());
+      .subscribe(() => this.loadEncoding(this.encoding.id));
   }
 
   handleSaveResponses(response_array){
@@ -116,7 +116,7 @@ export class PubCoderComponent implements OnInit {
       .subscribe(() => {
         this.notify.toast('Data Saved!');
         this.changes = false;
-        this.loadEncoding();
+        this.loadEncoding(this.encoding.id);
       });
   }
 
