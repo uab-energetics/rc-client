@@ -140,13 +140,12 @@
       </button>
     </div>
     <div class="modal-body">
-      <!--<mat-progress-bar mode="indeterminate" *ngIf="showLoader"></mat-progress-bar>-->
       <app-find-task #taskFormComp></app-find-task>
     </div>
     <div class="modal-footer">
       <button
-        [disabled]="taskFormComp.taskForm.status==='INVALID'"
-        (click)="onTaskFormSubmit(taskFormComp.exportForm())"
+        [disabled]="taskFormComp.selectedProjectForm === null"
+        (click)="onTaskFormSubmit(taskFormComp.selectedProjectForm)"
         class="btn btn-success float-right">+ Request</button>
     </div>
   </ng-template>

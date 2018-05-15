@@ -1,21 +1,19 @@
-<form [formGroup]="taskForm">
     <p><mat-progress-bar mode="indeterminate" *ngIf="loading > 0"></mat-progress-bar></p>
-    <p *ngIf="loading === 0 && getProjectForms().length === 0">
+    <p *ngIf="loading === 0 && projectForms.length === 0">
       <em>You must be assigned a codebook to receive tasks.<br/>
           Ask your project manager to assign you a codebook to start receiving tasks.
       </em>
     </p>
     <div class="row">
 
-    <div *ngIf="loading === 0 && getProjectForms().length > 0" class="form-group col-md-6">
+    <div *ngIf="loading === 0 && projectForms.length > 0" class="form-group col-md-6">
       <label class="form-control-label">Select a Codebook:</label>
-      <select class="form-control" formControlName="projectFormID">
-        <option
-          *ngFor="let projectForm of getProjectForms()"
-          [value]="projectForm.id">
+      <select class="form-control" name="sel" title="projectFormID" [(ngModel)]= "selectedProjectForm">
+        <option ngDefaultControl
+          *ngFor="let projectForm of projectForms"
+          [ngValue]="projectForm">
           {{projectForm.form.name}} [{{projectForm.project.name}}]
         </option>
       </select>
     </div>
   </div>
-</form>

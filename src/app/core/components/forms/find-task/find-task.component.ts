@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 import {ProjectFormService} from "../../../projects/project-form.service"
+import {AppProjectForm} from "../../../forms/AppProjectForm";
 
 @Component({
   selector: 'app-find-task',
@@ -9,9 +10,8 @@ import {ProjectFormService} from "../../../projects/project-form.service"
 })
 export class FindTaskComponent implements OnInit {
 
-  projectFormMap: {};
-
-  taskForm: FormGroup;
+  projectForms: AppProjectForm[] = []
+  selectedProjectForm: AppProjectForm = null
 
   loading = 0;
 
@@ -21,9 +21,6 @@ export class FindTaskComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.taskForm = this.fb.group({
-      projectFormID: ['', Validators.required]
-    });
     this.loadForms();
   }
 
@@ -31,22 +28,14 @@ export class FindTaskComponent implements OnInit {
     this.loading++;
     this.projectFormService.getProjectFormsEncoder()
       .finally(() => this.loading--)
-      .subscribe( forms => {
-        let map = {};
-        for (let projectForm of forms) {
-          if (projectForm.form === null) continue;
-          map[projectForm.id] = projectForm;
+      .map(projectForms => projectForms.filter(projectForm => projectForm.form !== null))
+      .subscribe( projectForms => {
+        this.projectForms = projectForms
+
+        if (projectForms.length > 0) {
+          this.selectedProjectForm = projectForms[0]
         }
-        this.projectFormMap = map;
       } );
-  }
-
-  getProjectForms(){
-    return Object.values(this.projectFormMap);
-  }
-
-  exportForm(){
-    return this.projectFormMap[this.taskForm.value.projectFormID];
   }
 
 }
