@@ -15,11 +15,9 @@ import {AppEncodingTask} from "../../../core/tasks/AppEncodingTask"
 export class MyTasksPageComponent implements OnInit {
 
   modal
+  activeTabIndex: number
 
-  allPaginator: Paginator<AppEncodingTask>
-  pendingPaginator: Paginator<AppEncodingTask>
-  inProgressPaginator: Paginator<AppEncodingTask>
-  completePaginator: Paginator<AppEncodingTask>
+  // see the tab definitions at the bottom of the file
 
 
   constructor(
@@ -31,14 +29,27 @@ export class MyTasksPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadTasks()
+    this.loadAllTabs()
   }
 
-  loadTasks() {
-    this.allPaginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params))
-    this.pendingPaginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params, 'pending'))
-    this.inProgressPaginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params, 'in_progress'))
-    this.completePaginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params, 'complete'))
+  loadAllTabs() {
+    for (let i = 0; i < this.tabs.length; i++) {
+      this.refreshTab(i)
+    }
+  }
+
+  refreshActiveTab() {
+    this.refreshTab(this.activeTabIndex)
+    for (let i = 0; i < this.tabs.length; i++) {
+      this.tabs[i].inSync = false
+    }
+    this.tabs[this.activeTabIndex].inSync = true
+  }
+
+  refreshTab(index: number) {
+    const tab = this.tabs[index]
+    tab.paginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params, tab.status))
+    tab.inSync = true
   }
 
   quitTask(task: AppEncodingTask) {
@@ -46,7 +57,7 @@ export class MyTasksPageComponent implements OnInit {
       this.taskService.quitTask(task.id)
         .subscribe(() => {
           this.notify.toast('Task Deleted')
-          this.loadTasks()
+          this.refreshActiveTab()
         })
     })
   }
@@ -57,7 +68,7 @@ export class MyTasksPageComponent implements OnInit {
       .subscribe(() => {
         this.closeModal()
         this.notify.toast('Tasks requested')
-        this.loadTasks()
+        this.refreshActiveTab()
       })
   }
 
@@ -68,5 +79,47 @@ export class MyTasksPageComponent implements OnInit {
   closeModal() {
     this.modal.close()
   }
+
+  onActiveTabChange(index: number) {
+    this.activeTabIndex = index
+    if (this.shouldRefreshTab(index)) {
+      this.refreshTab(index)
+    }
+  }
+
+  shouldRefreshTab(index: number) {
+    return !this.tabs[index].inSync
+  }
+
+  tabs: {paginator?: Paginator<AppEncodingTask>, label: string, status: string, promptStatus: string, showEmptyPrompt: boolean, inSync: boolean}[] = [
+    {
+      label: "All",
+      status: null,
+      promptStatus: 'complete',
+      showEmptyPrompt: true,
+      inSync: false,
+    },
+    {
+      label: "Pending",
+      status: 'pending',
+      promptStatus: 'pending',
+      showEmptyPrompt: true,
+      inSync: false,
+    },
+    {
+      label: "In Progress",
+      status: 'in_progress',
+      promptStatus: 'in progress',
+      showEmptyPrompt: false,
+      inSync: false,
+    },
+    {
+      label: "Complete",
+      status: 'complete',
+      promptStatus: 'complete',
+      showEmptyPrompt: false,
+      inSync: false,
+    }
+  ]
 
 }

@@ -21,50 +21,18 @@
 
       <mat-card>
         <mat-card-content>
-        <mat-tab-group class="tasks-tab-group">
+          <mat-tab-group class="tasks-tab-group" [dynamicHeight]="true"
+            (selectedIndexChange)="onActiveTabChange($event)">
 
-          <mat-tab label="All">
-
+          <mat-tab *ngFor="let tab of tabs" [label]="tab.label">
             <div class="tasks-tab-content">
               <app-task-list
-                [paginator]="allPaginator"
+                [paginator]="tab.paginator"
+                [statusName]="tab.promptStatus"
+                [showFindTaskPromptIfEmpty]="tab.showEmptyPrompt"
                 (clickFindTasks)="openModal(modal)"
-                (clickQuitTask)="quitTask($event)">
-              </app-task-list>
-            </div>
-          </mat-tab>
-
-          <mat-tab label="Pending">
-            <div class="tasks-tab-content">
-              <app-task-list
-                [paginator]="pendingPaginator"
-                statusName="pending"
-                (clickFindTasks)="openModal(modal)"
-                (clickQuitTask)="quitTask($event)">
-              </app-task-list>
-            </div>
-          </mat-tab>
-
-          <mat-tab label="In Progress">
-            <div class="tasks-tab-content">
-              <app-task-list
-                [paginator]="inProgressPaginator"
-                statusName="in progress"
-                [showFindTaskPromptIfEmpty]="false"
-                (clickFindTasks)="openModal(modal)"
-                (clickQuitTask)="quitTask($event)">
-              </app-task-list>
-            </div>
-          </mat-tab>
-
-          <mat-tab label="Complete">
-            <div class="tasks-tab-content">
-              <app-task-list
-                [paginator]="completePaginator"
-                statusName="complete"
-                [showFindTaskPromptIfEmpty]="false"
-                (clickFindTasks)="openModal(modal)"
-                (clickQuitTask)="quitTask($event)">
+                (clickQuitTask)="quitTask($event)"
+              >
               </app-task-list>
             </div>
           </mat-tab>
