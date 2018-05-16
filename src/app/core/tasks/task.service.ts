@@ -26,7 +26,10 @@ export class TaskService {
       .share()
   }
 
-  myTasks(params: any = { page: 1, page_size: 20 }): Observable<AppEncodingTask[]> {
+  myTasks(params: any = { page: 1, page_size: 20 }, status: string = null): Observable<AppEncodingTask[]> {
+    if (status !== null) {
+      params = {...params, status: status}
+    }
     return this.http.get<AppEncodingTask[]>(`${api}/users/tasks`, { params })
       .share()
   }
