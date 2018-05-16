@@ -13,15 +13,29 @@ import {Observable} from "rxjs/Observable"
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent {
 
-  @Input() taskFunc: (params: {page: number, page_size: number}) => Observable<AppEncodingTask[]>
+  @Input()
+  get paginator(): Paginator<AppEncodingTask> {
+    return this._paginator
+  }
+
+  set paginator(value: Paginator<AppEncodingTask>) {
+    this.loading++
+    this._paginator = value
+    this._paginator.data$
+      .do(() => this.loading -= 1)
+      .subscribe(data => this.tasks = data)
+  }
+  private _paginator: Paginator<AppEncodingTask>
+
   @Input() statusName: string = null
   @Input() showFindTaskPromptIfEmpty = true
+
   @Output() clickFindTasks = new EventEmitter<void>()
+  @Output() clickQuitTask = new EventEmitter<AppEncodingTask>()
 
   tasks: AppEncodingTask[] = []
-  paginator: Paginator<AppEncodingTask>
 
   modal
   loading = 0
@@ -35,17 +49,6 @@ export class TaskListComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    this.loadTasks()
-  }
-
-  loadTasks() {
-    this.loading++
-    this.paginator = new Paginator<AppEncodingTask>(params => this.taskFunc(params))
-    this.paginator.data$
-      .do(() => this.loading -= 1)
-      .subscribe(data => this.tasks = data)
-  }
 
   startEncoding(task: AppEncodingTask) {
     this.loading++
@@ -65,24 +68,11 @@ export class TaskListComponent implements OnInit {
   }
 
   onQuitTask(task: AppEncodingTask) {
-    this.notify.confirm(() => {
-      this.loading++
-      this.taskService.quitTask(task.id)
-        .finally(() => this.loading--)
-        .subscribe(() => {
-          this.notify.toast('Task Deleted')
-          this.ngOnInit()
-        })
-    })
+    this.clickQuitTask.emit(task)
   }
 
-  findTasks() {
+  onFindTasks() {
     this.clickFindTasks.emit()
-  }
-
-  getTaskTypeText() {
-    if (this.statusName === null) return ""
-    return ` with status ${this.statusName}`
   }
 
   getStatus(task: AppEncodingTask) {

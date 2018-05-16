@@ -17,19 +17,22 @@
       </button>
 
       <app-task-list
-        [taskFunc]="pendingFunc"
+        [paginator]="pendingPaginator"
         [statusName]="'pending'"
-        (clickFindTasks)="openModal(modal)"></app-task-list>
+        (clickFindTasks)="openModal(modal)"
+        (clickQuitTask)="quitTask($event)"></app-task-list>
       <app-task-list
-        [taskFunc]="inProgressFunc"
+        [paginator]="inProgressPaginator"
         [statusName]="'in progress'"
         [showFindTaskPromptIfEmpty]="false"
-        (clickFindTasks)="openModal(modal)"></app-task-list>
+        (clickFindTasks)="openModal(modal)"
+        (clickQuitTask)="quitTask($event)"></app-task-list>
       <app-task-list
-        [taskFunc]="completeFunc"
+        [paginator]="completePaginator"
         [statusName]="'complete'"
         [showFindTaskPromptIfEmpty]="false"
-        (clickFindTasks)="openModal(modal)"></app-task-list>
+        (clickFindTasks)="openModal(modal)"
+        (clickQuitTask)="quitTask($event)"></app-task-list>
 
     </div>
   </div>

@@ -4,6 +4,8 @@ import {ProjectFormService} from '../../../core/projects/project-form.service'
 import {NotifyService} from '../../../core/notifications/notify.service'
 import {AppProjectForm} from '../../../core/forms/AppProjectForm'
 import {TaskService} from "../../../core/tasks/task.service"
+import {Paginator} from "../../../core/pagination/Paginator"
+import {AppEncodingTask} from "../../../core/tasks/AppEncodingTask"
 
 @Component({
   selector: 'app-my-tasks-page',
@@ -13,19 +15,11 @@ import {TaskService} from "../../../core/tasks/task.service"
 export class MyTasksPageComponent implements OnInit {
 
   modal
-  loading = 0
 
-  pendingFunc = (params) => {
-    return this.taskService.myTasks(params, 'pending')
-  }
+  pendingPaginator: Paginator<AppEncodingTask>
+  inProgressPaginator: Paginator<AppEncodingTask>
+  completePaginator: Paginator<AppEncodingTask>
 
-  inProgressFunc = (params) => {
-    return this.taskService.myTasks(params, 'in_progress')
-  }
-
-  completeFunc = (params) => {
-    return this.taskService.myTasks(params, 'complete')
-  }
 
   constructor(
     private modalService: NgbModal,
@@ -40,14 +34,24 @@ export class MyTasksPageComponent implements OnInit {
   }
 
   loadTasks() {
-    // TODO
+    this.pendingPaginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params, 'pending'))
+    this.inProgressPaginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params, 'in_progress'))
+    this.completePaginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params, 'complete'))
+  }
+
+  quitTask(task: AppEncodingTask) {
+    this.notify.confirm(() => {
+      this.taskService.quitTask(task.id)
+        .subscribe(() => {
+          this.notify.toast('Task Deleted')
+          this.loadTasks()
+        })
+    })
   }
 
 
   onTaskFormSubmit(projectForm: AppProjectForm) {
-    this.loading++
     this.projectFormService.requestMyTasks(projectForm.project, projectForm.form)
-      .finally(() => this.loading--)
       .subscribe(() => {
         this.closeModal()
         this.notify.toast('Tasks requested')
