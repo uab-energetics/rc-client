@@ -32,7 +32,7 @@
             <th>Codebook</th>
             <th>Publication</th>
             <!--<th>Progress</th>-->
-            <th>Status</th>
+            <th class="text-center">Status</th>
             <th class="text-right">Actions</th>
             <th class="text-right">Quit</th>
           </tr>
@@ -45,7 +45,7 @@
             <!--<td>-->
             <!--<p><ngb-progressbar type="warning" [value]="task.completion" [striped]="true" [animated]="true"><i>{{task.completion}}%</i></ngb-progressbar></p>-->
             <!--</td>-->
-            <td><span class="badge badge-dark badge-outline">{{getStatus(task)}}</span></td>
+            <td class="text-center"><span class="badge badge-dark badge-outline">{{getStatus(task)}}</span></td>
             <td class="text-right">
 
               <button  *ngIf="task.status === 'pending'" (click)="startEncoding(task)"
