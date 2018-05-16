@@ -16,6 +16,7 @@ export class MyTasksPageComponent implements OnInit {
 
   modal
 
+  allPaginator: Paginator<AppEncodingTask>
   pendingPaginator: Paginator<AppEncodingTask>
   inProgressPaginator: Paginator<AppEncodingTask>
   completePaginator: Paginator<AppEncodingTask>
@@ -34,6 +35,7 @@ export class MyTasksPageComponent implements OnInit {
   }
 
   loadTasks() {
+    this.allPaginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params))
     this.pendingPaginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params, 'pending'))
     this.inProgressPaginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params, 'in_progress'))
     this.completePaginator = new Paginator<AppEncodingTask>(params => this.taskService.myTasks(params, 'complete'))
