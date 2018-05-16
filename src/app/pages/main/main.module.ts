@@ -9,7 +9,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
 import {TreeModule} from 'angular-tree-component'
 import {PagesComponent} from '../page.component'
 import {MainComponent} from './main.component'
-import {TaskListComponent} from './task-list/task-list.component'
+import {MyTasksPageComponent} from './my-tasks-page/my-tasks-page.component'
 import {ProfileComponent} from './settings/profile/profile.component'
 import {ProjectsComponent} from './projects/projects.component'
 import {InsightsComponent} from './insights/insights.component'
@@ -39,6 +39,7 @@ import { ProjectUsersComponent } from './project-users/project-users.component';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component'
 import {ProjectsModule} from '../../core/projects/projects.module'
 import {MatTableModule} from '@angular/material'
+import {TasksModule} from "../../core/tasks/tasks.module";
 
 @NgModule({
   imports: [
@@ -52,13 +53,14 @@ import {MatTableModule} from '@angular/material'
     SidebarModule,
     ProjectsModule,
     ActiveProjectModule,
+    TasksModule,
     MatTableModule,
   ],
   declarations: [
     EncodersComponent,
     MainComponent,
     PagesComponent,
-    TaskListComponent,
+    MyTasksPageComponent,
     InsightsComponent,
     SettingsComponent,
     ProfileComponent,

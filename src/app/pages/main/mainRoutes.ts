@@ -10,7 +10,7 @@ import { FormBuilderComponent } from "./form-builder/form-builder.component";
 import { PubCoderComponent } from "./pub-coder/pub-coder.component";
 import { ConflictsComponent } from "./conflicts/conflicts.component";
 import { DiscussComponent } from "./discuss/discuss.component";
-import { TaskListComponent } from "./task-list/task-list.component";
+import { MyTasksPageComponent } from "./my-tasks-page/my-tasks-page.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
 import {ProjectFormsComponent} from './project-forms/project-forms.component'
 import {ProjectPublicationsComponent} from './project-publications/project-publications.component'
@@ -87,7 +87,7 @@ export const mainRoutes: Routes = [
         },
         {
           path: "tasks",
-          component: TaskListComponent
+          component: MyTasksPageComponent
         },
         {
           path: "welcome",

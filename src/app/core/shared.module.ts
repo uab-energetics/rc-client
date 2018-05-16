@@ -127,7 +127,7 @@ import {TaskService} from "./tasks/task.service";
     ChannelComponent,
     DynamicInputComponent,
     QuestionTreeComponent,
-    PaginatorComponent
+    PaginatorComponent,
   ],
   exports: [
     NavbarComponent,
@@ -152,7 +152,7 @@ import {TaskService} from "./tasks/task.service";
     FindTaskComponent,
     DynamicInputComponent,
     QuestionTreeComponent,
-    PaginatorComponent
+    PaginatorComponent,
   ]
 })
 export class SharedModule {
