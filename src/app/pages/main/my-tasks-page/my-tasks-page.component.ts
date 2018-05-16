@@ -91,7 +91,7 @@ export class MyTasksPageComponent implements OnInit {
     return !this.tabs[index].inSync
   }
 
-  tabs: {paginator?: Paginator<AppEncodingTask>, label: string, status: string, promptStatus: string, showEmptyPrompt: boolean, inSync: boolean}[] = [
+  tabs: TaskListTab[] = [
     {
       label: "All",
       status: null,
@@ -122,4 +122,13 @@ export class MyTasksPageComponent implements OnInit {
     }
   ]
 
+}
+
+interface TaskListTab {
+  paginator?: Paginator<AppEncodingTask>,
+  label: string,
+  status: string,
+  promptStatus: string,
+  showEmptyPrompt: boolean,
+  inSync: boolean
 }
