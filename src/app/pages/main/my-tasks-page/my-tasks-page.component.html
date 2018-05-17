@@ -2,22 +2,24 @@
   <div class="container">
 
 
-    <div class="page-header">
-      <h1 class="page-title"> My Tasks</h1>
+    <div class="page-header flex-container">
+      <div>
+        <h1 class="page-title"> My Tasks</h1>
+      </div>
+      <div>
+        <button
+          type="button"
+          (click)="openModal(modal)"
+          class="btn btn-raised btn-primary">
+          <i class="icon wb-plus-circle"></i>
+          Find Tasks
+        </button>
+      </div>
     </div>
 
 
     <div class="page-content container-fluid">
-      <button
-        type="button"
-        (click)="openModal(modal)"
-        class="btn btn-raised btn-primary">
-        <i class="icon wb-plus-circle"></i>
-        Find Tasks
-      </button>
 
-      <br/>
-      <br/>
 
       <mat-card>
         <mat-card-content>
