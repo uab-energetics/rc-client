@@ -1,4 +1,4 @@
-<div class="row mt-30">
+<div class="row">
 
   <mat-progress-bar mode="indeterminate" *ngIf="loading > 0" style="margin-bottom: 20px"></mat-progress-bar>
 
@@ -85,22 +85,24 @@
           </tr>
           </tbody>
         </table>
+
+            <!-- If the user has no assignments
+        =========================================== -->
+        <div *ngIf="tasks.length === 0" class="col-12 text-center">
+          <div class="alert alert-alt bg-white" role="alert">
+            <em>
+              You don't have any {{statusName || ""}} tasks
+              <p *ngIf="showFindTaskPromptIfEmpty" style="display: inline">
+                - <a (click)="onFindTasks()" class="alert-link" href="javascript:void(0)">find one</a> to get started!
+              </p>
+            </em>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- If the user has no assignments
-    =========================================== -->
-    <div *ngIf="tasks.length === 0" class="col-12 text-center">
-      <div class="alert alert-alt alert-danger alert-dismissible bg-white" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        You don't have any {{statusName || ""}} tasks
-        <p *ngIf="showFindTaskPromptIfEmpty" style="display: inline">
-          - <a (click)="onFindTasks()" class="alert-link" href="javascript:void(0)">find one</a> to get started!
-        </p>
-      </div>
-    </div>
+
 
 
   </div>
