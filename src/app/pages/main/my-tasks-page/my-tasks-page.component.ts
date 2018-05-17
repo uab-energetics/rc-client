@@ -95,7 +95,7 @@ export class MyTasksPageComponent implements OnInit {
     {
       label: "All",
       status: null,
-      promptStatus: 'complete',
+      promptStatus: null,
       showEmptyPrompt: true,
       inSync: false,
     },
