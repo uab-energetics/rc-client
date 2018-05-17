@@ -15,7 +15,7 @@ import {AppEncodingTask} from "../../../core/tasks/AppEncodingTask"
 export class MyTasksPageComponent implements OnInit {
 
   modal
-  activeTabIndex: number
+  activeTabIndex = 0
 
   // see the tab definitions at the bottom of the file
 
