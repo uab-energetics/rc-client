@@ -12,6 +12,8 @@ import { AuthResponse } from './models/AuthResponse';
 @Injectable()
 export class AuthService {
 
+  private publicKey
+
   private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   readonly user: Observable<User> = this.userSubject.asObservable();
 
@@ -32,6 +34,16 @@ export class AuthService {
       .do( response => this.jwtService.setSession(response.token, response.user))
       .do( response => this.userSubject.next(response.user))
       .share()
+  }
+
+  public oauthLogin({ jwt }) {
+    let user = JwtService.getUserFromToken(jwt)
+    this.jwtService.setSession(jwt, user)
+    this.userSubject.next(user)
+  }
+
+  public loginWithGithub() {
+    document.location.href = env.api + '/oauth/github'
   }
 
   public logout(): void {

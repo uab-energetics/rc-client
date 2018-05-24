@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 
 import * as jsonwebtoken from 'jsonwebtoken';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class JwtService {
@@ -23,6 +24,12 @@ export class JwtService {
     localStorage.removeItem('jwt');
     localStorage.removeItem('user');
     this.loadSessionData();
+  }
+
+  public static getUserFromToken(tkn) {
+    let decoded = jsonwebtoken.decode(tkn)
+    if(decoded) return tkn.user
+    return null
   }
 
   public isAuthenticated() {

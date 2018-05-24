@@ -6,6 +6,7 @@ import {RedeemEncoderInviteComponent} from "./redeem-invite/redeem-encoder-invit
 import {MatProgressBarModule} from "@angular/material";
 import {SharedModule} from "../../core/shared.module";
 import {FormsModule} from "@angular/forms";
+import { OauthComponent } from './oauth/oauth.component';
 
 const routes: Route[] = [
   {
@@ -15,6 +16,10 @@ const routes: Route[] = [
   {
     path: "redeem-encoder-invite",
     component: RedeemEncoderInviteComponent
+  },
+  {
+    path: 'oauth',
+    component: OauthComponent
   }
 ];
 
@@ -28,7 +33,8 @@ const routes: Route[] = [
   ],
   declarations: [
     RedeemResearcherInviteComponent,
-    RedeemEncoderInviteComponent
+    RedeemEncoderInviteComponent,
+    OauthComponent
   ]
 })
 export class CallbacksModule { }

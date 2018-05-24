@@ -45,6 +45,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     )
   }
 
+  loginWithGithub() {
+    this.authService.loginWithGithub()
+  }
+
   ngOnInit() {
     document.body.classList.add('page-login-v3', 'layout-full')
   }
