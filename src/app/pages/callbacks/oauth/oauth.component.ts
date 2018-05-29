@@ -20,6 +20,7 @@ export class OauthComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe( params => {
       let jwt = params[OauthComponent.TOKEN_QUERY_PARAM]
+      console.log(jwt)
       this.as.oauthLogin({ jwt })
       this.rdir.followRedirect()
     })

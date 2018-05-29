@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   public loginWithGithub() {
-    document.location.href = env.api + '/oauth/github'
+    document.location.href = env.api + '/auth/github'
   }
 
   public logout(): void {
