@@ -43,6 +43,7 @@ import {TasksModule} from "../../core/tasks/tasks.module"
 import { PubReposComponent } from './pub-repos/pub-repos.component'
 import {NgxPaginationModule} from 'ngx-pagination'
 import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
+import { PipesComponent } from './pipes/pipes.component';
 
 @NgModule({
   imports: [
@@ -91,6 +92,7 @@ import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
     StructureEditorComponent,
     ProjectDashboardComponent,
     PubReposComponent,
+    PipesComponent,
   ]
 })
 export class MainModule {
