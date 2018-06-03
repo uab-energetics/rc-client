@@ -30,19 +30,17 @@
           <thead>
           <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Display Name</th>
             <th>Publication Count</th>
             <th>Pipes</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let repo of repos | paginate: { itemsPerPage: 10, currentPage: p }">
-            <td>
-              <a class="link" style="font-weight: 400">
-                {{repo.displayName}}
-              </a>
-            </td>
             <td>{{repo.id}}</td>
+            <td>
+              <a class="link" style="font-weight: 400"> {{repo.displayName}} </a>
+            </td>
             <td>[ Coming Soon ]</td>
             <td>[ Coming Soon ]</td>
           </tr>
