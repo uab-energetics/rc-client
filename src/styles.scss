@@ -37,10 +37,31 @@
   cursor: -moz-grab;
 }
 
-
+/* ================== */
 /* TEMPLATE OVERRIDES */
+/* ================== */
+
+/* Pages */
 .page {
-  min-height: calc(100% - 66px);
+  min-height: calc(100% - 74px) !important;
+}
+
+/* Page Aside */
+.page-aside-fixed .page-aside-inner {
+  overflow-y: visible;
+}
+
+.page-aside-section:first-child {
+  padding-top: 0;
+}
+
+.page-aside .list-group-item {
+  padding: 7px 30px;
+}
+
+.page-aside-title {
+  padding: 10px 30px;
+  margin: 0;
 }
 
 /* ngBootstrap styling fix */
