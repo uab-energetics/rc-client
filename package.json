@@ -32,6 +32,7 @@
     "jsonwebtoken": "^8.2.1",
     "lodash": "^4.17.4",
     "ng2-sweetalert2": "0.0.8",
+    "ngx-pagination": "^3.1.1",
     "papaparse": "^4.4.0",
     "pusher": "^1.5.1",
     "pusher-js": "^4.2.1",

@@ -1,10 +1,54 @@
-<div class="page">
-  <div class="container">
-    <div class="page-header">
-      <h1 class="page-title mb-25"><a routerLink="/project-dashboard">{{project?.name}}</a> Publication Repositories</h1>
+<div class="page page-fullwidth">
+
+  <div class="rc-ft">
+
+    <div class="rc-ft-brand">
+      <h2> <i class="icon wb-folder"></i> Publication Repos</h2>
     </div>
 
-    <!-- body -->
+    <div>
+      <h2 class="feature-title">Instances</h2>
+    </div>
+
+    <div class="ml-25">
+      <button class="btn btn-outline btn-primary btn-xs">
+        <i class="fa fa-plus"></i> &nbsp; Create Instance </button>
+    </div>
+
+  </div>
+
+
+  <div class="container">
+
+    <!-- Example Basic -->
+    <div class="panel">
+      <div class="panel-body">
+        <h4 class="example-title">Basic</h4>
+        <p>Add class <code>.table</code>.</p>
+        <div class="example table-responsive">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Company</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let row of rows | paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>{{row.name}}</td>
+              <td>{{row.gender}}</td>
+              <td>{{row.company}}</td>
+            </tr>
+            </tbody>
+          </table>
+
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+        </div>
+      </div>
+    </div>
+    <!-- End Example Basic -->
 
   </div>
 </div>

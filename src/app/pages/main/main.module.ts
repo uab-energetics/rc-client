@@ -34,13 +34,14 @@ import {EncodingTreeComponent} from './pub-coder/encoding-tree/encoding-tree.com
 import {StructureEditorComponent} from './pub-coder/structure-editor/structure-editor.component'
 import {EncodersComponent} from './project-users/collaborators/encoders.component'
 import {SidebarModule} from '../../core/components/sidebar/sidebar.module'
-import {ActiveProjectModule} from '../../core/active-project/active-project.module';
-import { ProjectUsersComponent } from './project-users/project-users.component';
+import {ActiveProjectModule} from '../../core/active-project/active-project.module'
+import { ProjectUsersComponent } from './project-users/project-users.component'
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component'
 import {ProjectsModule} from '../../core/projects/projects.module'
 import {MatTableModule} from '@angular/material'
-import {TasksModule} from "../../core/tasks/tasks.module";
-import { PubReposComponent } from './pub-repos/pub-repos.component';
+import {TasksModule} from "../../core/tasks/tasks.module"
+import { PubReposComponent } from './pub-repos/pub-repos.component'
+import {NgxPaginationModule} from 'ngx-pagination'
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import { PubReposComponent } from './pub-repos/pub-repos.component';
     RouterModule.forChild(mainRoutes),
     NgbModule,
     TreeModule,
+    NgxPaginationModule,
     AngularMaterialModule,
     SharedModule,
     SidebarModule,

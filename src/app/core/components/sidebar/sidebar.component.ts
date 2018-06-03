@@ -36,6 +36,12 @@ export class SidebarComponent implements OnInit {
       projectRequired: true
     },
     {
+      text: 'Article Repositories',
+      route: '/pub-repos',
+      icon: 'chrome_reader_mode',
+      projectRequired: true
+    },
+    {
       text: 'User Management',
       route: '/project-users',
       icon: 'account_circle',

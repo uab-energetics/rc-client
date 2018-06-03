@@ -6,7 +6,7 @@ import {of} from "rxjs/observable/of";
 import {tap} from "rxjs/operators";
 
 import globtoregex from 'glob-to-regexp'
-import lodash from 'lodash'
+import * as lodash from 'lodash'
 
 @Injectable()
 export class ApiInterceptor {
