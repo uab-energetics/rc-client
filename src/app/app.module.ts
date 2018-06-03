@@ -13,7 +13,18 @@ import {PagesModule} from './pages/pages.module'
 import {AuthService} from './core/auth/auth.service'
 import {AuthInterceptorService} from './core/auth/auth-interceptor.service'
 import {ActiveProjectModule} from './core/active-project/active-project.module'
-import {mockApiProvider} from "../mocking/api-interceptor";
+import {mockApiInterceptor} from "../mocking/api-interceptor";
+import {environment} from "../environments/environment";
+
+let providers = [
+  AuthService,
+  SweetAlertService,
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+]
+
+if(environment.backendless)
+  providers.push(mockApiInterceptor)
+
 
 @NgModule({
   declarations: [
@@ -30,12 +41,7 @@ import {mockApiProvider} from "../mocking/api-interceptor";
     PagesModule,
     ActiveProjectModule
   ],
-  providers: [
-    AuthService,
-    SweetAlertService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
-    mockApiProvider
-  ],
+  providers: providers,
   bootstrap: [AppComponent]
 })
 export class AppModule { }

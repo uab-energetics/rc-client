@@ -43,4 +43,4 @@ export class ApiInterceptor {
 
 }
 
-export const mockApiProvider = { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true }
+export const mockApiInterceptor = { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true }
