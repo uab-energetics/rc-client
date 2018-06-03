@@ -9,6 +9,8 @@ export class JwtService {
   public jwt: string;
   public jwtDecoded: any;
 
+  public opCode = ''
+
   constructor() {
     this.loadSessionData();
   }
@@ -25,19 +27,20 @@ export class JwtService {
     this.loadSessionData();
   }
 
-  // TODO - refactor the function calls
+  // TODO - refactor these function calls
   public static getUserFromToken(tkn) {
-    let decoded = jsonwebtoken.decode(tkn)
-    console.log(decoded)
-    if(decoded) return decoded.user
-    return null
+    return jsonwebtoken.decode(tkn).user
   }
 
   public isAuthenticated() {
-    if (!this.jwt || !this.jwtDecoded)
-      return false;
-    if (this.jwtDecoded.exp < (new Date().getTime() / 1000))
-      return false;
+    if (!this.jwt || !this.jwtDecoded) {
+      this.opCode = 'NOT_SET'
+      return false
+    }
+    if (this.jwtDecoded.exp < (new Date().getTime() / 1000)) {
+      this.opCode = 'EXPIRED'
+      return false
+    }
     return true;
   }
 

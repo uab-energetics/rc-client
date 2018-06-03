@@ -13,6 +13,7 @@ import {PagesModule} from './pages/pages.module'
 import {AuthService} from './core/auth/auth.service'
 import {AuthInterceptorService} from './core/auth/auth-interceptor.service'
 import {ActiveProjectModule} from './core/active-project/active-project.module'
+import {mockApiProvider} from "../mocking/api-interceptor";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {ActiveProjectModule} from './core/active-project/active-project.module'
   providers: [
     AuthService,
     SweetAlertService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
+    mockApiProvider
   ],
   bootstrap: [AppComponent]
 })
