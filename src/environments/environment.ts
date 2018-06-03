@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 let environment = {
-  api: 'https://api.researchcoder.com',
+  api: 'https://localhost:8080',
   disableRouteGuards: true,
   backendless: true,
   showLog: true,

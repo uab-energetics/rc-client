@@ -42,6 +42,7 @@ import {MatTableModule} from '@angular/material'
 import {TasksModule} from "../../core/tasks/tasks.module"
 import { PubReposComponent } from './pub-repos/pub-repos.component'
 import {NgxPaginationModule} from 'ngx-pagination'
+import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import {NgxPaginationModule} from 'ngx-pagination'
     ProjectsModule,
     ActiveProjectModule,
     TasksModule,
+    PubReposModule,
     MatTableModule,
   ],
   declarations: [

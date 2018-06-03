@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {PubReposService} from "../../../core/pub-repos/pub-repos.service";
+import {ActiveProjectService} from "../../../core/active-project/active-project.service";
+import {AppProject} from "../../../core/projects/AppProject";
+import {PubRepo} from "../../../core/pub-repos/PubRepo";
 
 @Component({
   selector: 'app-pub-repos',
@@ -7,17 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PubReposComponent implements OnInit {
 
+  repos: PubRepo[]
   p: number = 1
 
-  rows = [
-    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-    { name: 'Dany', gender: 'Male', company: 'KFC' },
-    { name: 'Molly', gender: 'Female', company: 'Burger King' },
-  ]
-
-  constructor() { }
+  constructor(
+    public pubReposService: PubReposService,
+    public ps: ActiveProjectService
+  ) {
+  }
 
   ngOnInit() {
+    this.pubReposService.repos$
+      .subscribe(R => this.repos = R)
+
+    this.ps.project$.subscribe((project: AppProject) => {
+      this.pubReposService.requestRepos(project.id)
+    })
+
   }
 
 }

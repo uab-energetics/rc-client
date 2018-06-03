@@ -1,54 +1,58 @@
 <div class="page page-fullwidth">
 
   <div class="rc-ft">
-
     <div class="rc-ft-brand">
-      <h2> <i class="icon wb-folder"></i> Publication Repos</h2>
+      <h2><i class="icon wb-folder"></i> Publication Repos</h2>
     </div>
-
     <div>
       <h2 class="feature-title">Instances</h2>
     </div>
-
     <div class="ml-25">
       <button class="btn btn-outline btn-primary btn-xs">
-        <i class="fa fa-plus"></i> &nbsp; Create Instance </button>
+        <i class="fa fa-plus"></i> &nbsp; Create Instance
+      </button>
     </div>
-
   </div>
 
+  <div class="panel">
+    <div class="panel-body">
+      <div>
 
-  <div class="container">
-
-    <!-- Example Basic -->
-    <div class="panel">
-      <div class="panel-body">
-        <h4 class="example-title">Basic</h4>
-        <p>Add class <code>.table</code>.</p>
-        <div class="example table-responsive">
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Gender</th>
-              <th>Company</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let row of rows | paginate: { itemsPerPage: 10, currentPage: p }">
-              <td>{{row.name}}</td>
-              <td>{{row.gender}}</td>
-              <td>{{row.company}}</td>
-            </tr>
-            </tbody>
-          </table>
-
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
+        <div class="form-group">
+          <div class="input-search">
+            <i class="input-search-icon wb-search" aria-hidden="true"></i>
+            <input type="text" class="form-control" placeholder="Filter Instances...">
+            <button type="button" class="input-search-close icon wb-close"></button>
+          </div>
         </div>
+
+        <table class="table table-sm" style="color: black">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Publication Count</th>
+            <th>Pipes</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let repo of repos | paginate: { itemsPerPage: 10, currentPage: p }">
+            <td>
+              <a class="link" style="font-weight: 400">
+                {{repo.displayName}}
+              </a>
+            </td>
+            <td>{{repo.id}}</td>
+            <td>[ Coming Soon ]</td>
+            <td>[ Coming Soon ]</td>
+          </tr>
+          </tbody>
+        </table>
+
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
       </div>
     </div>
-    <!-- End Example Basic -->
-
   </div>
+
 </div>
