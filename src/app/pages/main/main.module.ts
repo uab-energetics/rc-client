@@ -40,6 +40,7 @@ import { ProjectDashboardComponent } from './project-dashboard/project-dashboard
 import {ProjectsModule} from '../../core/projects/projects.module'
 import {MatTableModule} from '@angular/material'
 import {TasksModule} from "../../core/tasks/tasks.module";
+import { PubReposComponent } from './pub-repos/pub-repos.component';
 
 @NgModule({
   imports: [
@@ -85,6 +86,7 @@ import {TasksModule} from "../../core/tasks/tasks.module";
     EncodingTreeComponent,
     StructureEditorComponent,
     ProjectDashboardComponent,
+    PubReposComponent,
   ]
 })
 export class MainModule {

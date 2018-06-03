@@ -16,6 +16,7 @@ import {ProjectFormsComponent} from './project-forms/project-forms.component'
 import {ProjectPublicationsComponent} from './project-publications/project-publications.component'
 import {ProjectUsersComponent} from './project-users/project-users.component'
 import {ProjectDashboardComponent} from './project-dashboard/project-dashboard.component'
+import {PubReposComponent} from "./pub-repos/pub-repos.component";
 
 export const mainRoutes: Routes = [
     {
@@ -88,6 +89,10 @@ export const mainRoutes: Routes = [
         {
           path: "tasks",
           component: MyTasksPageComponent
+        },
+        {
+          path: 'pub-repos',
+          component: PubReposComponent
         },
         {
           path: "welcome",
