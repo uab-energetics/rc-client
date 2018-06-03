@@ -98,7 +98,10 @@ export class ProjectFormService {
   }
 
   requestMyTasks(project: AppProject, form: AppForm, count = null) {
-    return this.requestTasks(project, form, this.jwt.user, count)
+    let data = {}
+    if (count) {data['count'] = count}
+    return this.http.post<any>(this.getPrefix(project, form)+'/request-my-tasks', data)
+      .share()
   }
 
   requestTasks(project: AppProject, form: AppForm, encoder: User, count = null) {
