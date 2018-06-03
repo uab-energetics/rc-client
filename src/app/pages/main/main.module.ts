@@ -42,6 +42,7 @@ import {MatTableModule} from '@angular/material'
 import {TasksModule} from "../../core/tasks/tasks.module"
 import { PubReposComponent } from './pub-repos/pub-repos.component'
 import {NgxPaginationModule} from 'ngx-pagination'
+import {NgxGraphModule} from '@swimlane/ngx-graph'
 import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
 import { PipesComponent } from './pipes/pipes.component';
 
@@ -53,6 +54,7 @@ import { PipesComponent } from './pipes/pipes.component';
     NgbModule,
     TreeModule,
     NgxPaginationModule,
+    NgxGraphModule,
     AngularMaterialModule,
     SharedModule,
     SidebarModule,
