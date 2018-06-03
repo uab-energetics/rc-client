@@ -22,14 +22,14 @@ export class ApiInterceptor {
       res: val as object | Function
     }))
 
-    let path = /:\/\/[a-z.]+(\/.*)/.exec(req.url)[1]
-    console.log("Intercepting Request: ", path)
+    let path = /:\/\/.+?(\/.*)/.exec(req.url)[1]
 
     let response = data => of(new HttpResponse({ body: data })).pipe( tap( res => console.log("Replacing with: ", res) ))
 
     let matches = endpoints.filter( E => E.path.exec(path) )
 
     if(matches.length > 0) {
+      console.log("Intercepting Request: ", path)
       let mock = matches[0]
       if(lodash.isFunction(mock.res)) {
         return response(mock.res(req))
@@ -38,6 +38,7 @@ export class ApiInterceptor {
       }
     }
 
+    console.log("Passing on Request: ", path)
     return next.handle(req);
   }
 
