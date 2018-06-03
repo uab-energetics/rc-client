@@ -6,6 +6,7 @@
 let environment = {
   api: 'https://api.researchcoder.com',
   disableRouteGuards: true,
+  backendless: true,
   showLog: true,
   production: false,
   callbacks: {
