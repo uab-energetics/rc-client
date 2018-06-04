@@ -7,6 +7,7 @@ import {Publication} from "../../../core/pub-repos/Publication";
 import {PageAsideComponent} from "../../shared/page-aside/PageAsideComponent";
 import {Subject} from "rxjs/Subject";
 import {switchMap, tap} from "rxjs/operators";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-pub-repos',
@@ -23,14 +24,15 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
 
   p: number = 1
 
-  constructor(public repoService: PubReposService, public ps: ActiveProjectService ) {
+  activeModal: any
+
+  constructor(public repoService: PubReposService, private modalService: NgbModal, public ps: ActiveProjectService ) {
     super()
 
     this.activeRepo$.asObservable().pipe(
       tap(R => this.activeRepo = R),
       switchMap<PubRepo, Publication[]>(R => this.repoService.getPublications(12, R.id)) as any,
-      tap(pubs => this.activeRepoPublications = pubs),
-      tap(console.log)
+      tap(pubs => this.activeRepoPublications = pubs)
     ).subscribe()
 
     this.ps.project$.subscribe((project: AppProject) => this.repoService.requestRepos(project.id))
@@ -40,6 +42,20 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
         this.activeRepo$.next(R[0])
       this.repos = R
     })
+  }
+
+  openModal(content) {
+    this.activeModal = this.modalService.open(content)
+  }
+
+  closeModal() {
+    if(!this.activeModal) return
+    this.activeModal.close()
+  }
+
+  handleNewRepoSubmit(newRepoForm: PubRepo) {
+    console.log('creating repo', newRepoForm)
+    this.repoService.createRepo(12, newRepoForm)
   }
 
 }

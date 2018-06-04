@@ -23,6 +23,9 @@ export class ApiInterceptor {
     }))
 
     let path = /:\/\/.+?(\/.*)/.exec(req.url)[1]
+    let method = req.method.toUpperCase()
+
+    path = method + " " + path
 
     let response = data => of(new HttpResponse({ body: data })).pipe( tap( res => console.log("Replacing with: ", res) ))
 

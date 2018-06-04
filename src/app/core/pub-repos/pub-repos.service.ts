@@ -17,12 +17,13 @@ export class PubReposService {
     this.repos$.subscribe(repos => this.repos = repos)
   }
 
-  createRepo(projectID: number, data: PubRepo) {
+  createRepo(projectID: number, data: PubRepo): void {
     const url = `${env.api}/projects/${projectID}/pub-repos`
-    return this.http.post(url, data).subscribe((newRepo: PubRepo) => {
-      this.repos.push(newRepo)
-      this.repos$.next(this.repos)
-    })
+    this.http.post(url, data)
+      .subscribe((newRepo: PubRepo) => {
+        this.repos.push(newRepo)
+        this.repos$.next(this.repos)
+      })
   }
 
   updateRepo(projectID, id: string, data: PubRepo) {
