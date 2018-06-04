@@ -44,10 +44,15 @@ export class PubReposService {
       this.repos$.next(repos))
   }
 
-  addPublications(repoID: string, publications: Publication[]) {
+  addPublications(projectID: string, repoID: string, publications: Publication[]): Observable<any> {
+    const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications`
+    console.log(url)
+    return this.http.post(url, { publications })
   }
 
-  removePublications(repoID: string, publications: Publication[]) {
+  removePublications(projectID: string, repoID: string, publicationIDs: string[]) {
+    const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications/delete`
+    return this.http.post(url, { publicationIDs })
   }
 
   getPublications(projectID, repoID: string): Observable<Publication[]> {

@@ -8,6 +8,9 @@ import {PageAsideComponent} from "../../shared/page-aside/PageAsideComponent";
 import {Subject} from "rxjs/Subject";
 import {switchMap, tap} from "rxjs/operators";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {PapaParseService} from "ngx-papaparse";
+import {UploadPreviewComponent} from "./upload-preview/upload-preview.component";
+import {NotifyService} from "../../../core/notifications/notify.service";
 
 @Component({
   selector: 'app-pub-repos',
@@ -25,8 +28,12 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
   p: number = 1
 
   activeModal: any
+  fileUploadButton: Element
 
-  constructor(public repoService: PubReposService, private modalService: NgbModal, public ps: ActiveProjectService ) {
+  constructor(public repoService: PubReposService,
+              private csvParse: PapaParseService,
+              private notify: NotifyService,
+              private modalService: NgbModal, public ps: ActiveProjectService ) {
     super()
 
     this.activeRepo$.asObservable().pipe(
@@ -44,6 +51,11 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
     })
   }
 
+  ngOnInit() {
+    super.ngOnInit()
+    this.fileUploadButton = document.getElementById('fileUploadButton')
+  }
+
   openModal(content) {
     this.activeModal = this.modalService.open(content)
   }
@@ -54,8 +66,30 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
   }
 
   handleNewRepoSubmit(newRepoForm: PubRepo) {
-    console.log('creating repo', newRepoForm)
     this.repoService.createRepo(12, newRepoForm)
+  }
+
+  handleFileChange(files: File[]) {
+    if(files.length === 0) return
+    let [file] = files
+    this.csvParse.parse(file, {
+      complete: (results, file) => {
+        let parsed: Publication[] = results.data.map(([ col1, col2, col3 ]) => ({
+          title: col1,
+          sourceID: col2,
+          embedding_url: col3
+        }))
+        const modalRef = this.modalService.open(UploadPreviewComponent, { size: 'lg' });
+        modalRef.componentInstance.data = parsed
+        modalRef.componentInstance.onConfirm.subscribe(_ => {
+          this.repoService.addPublications('12', this.activeRepo.id, parsed)
+            .subscribe(() => {
+              modalRef.close()
+              this.notify.swal.swal("Upload Successful", "CSV Uploaded Successfully", 'success')
+            })
+        })
+      }
+    })
   }
 
 }

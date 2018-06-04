@@ -43,6 +43,8 @@ import {TasksModule} from "../../core/tasks/tasks.module"
 import { PubReposComponent } from './pub-repos/pub-repos.component'
 import {NgxPaginationModule} from 'ngx-pagination'
 import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
+import { PapaParseModule } from 'ngx-papaparse';
+import { UploadPreviewComponent } from './pub-repos/upload-preview/upload-preview.component';
 
 @NgModule({
   imports: [
@@ -52,6 +54,7 @@ import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
     NgbModule,
     TreeModule,
     NgxPaginationModule,
+    PapaParseModule,
     AngularMaterialModule,
     SharedModule,
     SidebarModule,
@@ -91,6 +94,10 @@ import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
     StructureEditorComponent,
     ProjectDashboardComponent,
     PubReposComponent,
+    UploadPreviewComponent,
+  ],
+  entryComponents: [
+    UploadPreviewComponent
   ]
 })
 export class MainModule {
