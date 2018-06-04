@@ -9,11 +9,14 @@
 
     <div class="page-aside-inner page-aside-scroll scrollable is-enabled scrollable-vertical">
 
-      <div class="card card-block pub-repo-instance-card link active-card">
+      <div *ngFor="let repo of repos"
+           [ngClass]="{ 'active-card': activeRepo === repo }"
+           (click)="activeRepo$.next(repo)"
+           class="card card-block pub-repo-instance-card link">
 
         <div class="details">
-          <b>Murine Rigor Repos</b>
-          <p class="card-text">murine-rigor-repos-23490u</p>
+          <b>{{repo.displayName}}</b>
+          <p class="card-text">{{repo.id}}</p>
           <p class="card-text">
             <small class="text-muted">Last updated 3 mins ago</small>
           </p>
@@ -45,41 +48,42 @@
     </div>
 
     <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title"> {{activeRepo?.id}}
+          <span class="badge badge-success">Up and Running</span>
+        </h3>
+        <br/>
+      </div>
       <div class="panel-body">
-        <div>
-
-          <div class="form-group">
-            <div class="input-search">
-              <i class="input-search-icon wb-search" aria-hidden="true"></i>
-              <input type="text" class="form-control" placeholder="Filter Instances...">
-              <button type="button" class="input-search-close icon wb-close"></button>
-            </div>
+        <div class="form-group">
+          <div class="input-search">
+            <i class="input-search-icon wb-search"></i>
+            <input type="text" class="form-control" placeholder="Filter Publications...">
+            <button type="button" class="input-search-close icon wb-close"></button>
           </div>
-
-          <table class="table table-sm" style="color: black">
-            <thead>
-            <tr>
-              <th>ID</th>
-              <th>Display Name</th>
-              <th>Publication Count</th>
-              <th>Pipes</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let repo of repos | paginate: { itemsPerPage: 10, currentPage: p }">
-              <td>{{repo.id}}</td>
-              <td>
-                <a class="link" style="font-weight: 400"> {{repo.displayName}} </a>
-              </td>
-              <td>[ Coming Soon ]</td>
-              <td>[ Coming Soon ]</td>
-            </tr>
-            </tbody>
-          </table>
-
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
-
         </div>
+
+        <table class="table table-sm" style="color: black">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Display Name</th>
+            <th>Embedding URL</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let pub of activeRepoPublications | paginate: { itemsPerPage: 10, currentPage: p }">
+            <td>{{pub.id}}</td>
+            <td>
+              <a class="link" style="font-weight: 400"> {{pub.name}} </a>
+            </td>
+            <td><a target="_blank" href="{{pub.embedding_url}}">{{pub.embedding_url}}</a></td>
+          </tr>
+          </tbody>
+        </table>
+
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
       </div>
     </div>
 

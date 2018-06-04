@@ -4,6 +4,7 @@ import {Publication} from "./Publication";
 import {HttpClient} from "@angular/common/http";
 import {environment as env} from "../../../environments/environment";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class PubReposService {
@@ -46,6 +47,11 @@ export class PubReposService {
   }
 
   removePublications(repoID: string, publications: Publication[]) {
+  }
+
+  getPublications(projectID, repoID: string): Observable<Publication[]> {
+    const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications`
+    return this.http.get(url)
   }
 
 }
