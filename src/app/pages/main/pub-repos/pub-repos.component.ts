@@ -11,6 +11,10 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PapaParseService} from "ngx-papaparse";
 import {UploadPreviewComponent} from "./upload-preview/upload-preview.component";
 import {NotifyService} from "../../../core/notifications/notify.service";
+import {AddOneComponent} from "./add-one/add-one.component";
+import {ArticlesService} from "../../../core/pmc/articles.service";
+import {PmcImporterComponent} from "./pmc-importer/pmc-importer.component";
+import {PMCResult} from "../../../core/pmc/PMCResult";
 
 @Component({
   selector: 'app-pub-repos',
@@ -32,6 +36,7 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
 
   constructor(public repoService: PubReposService,
               private csvParse: PapaParseService,
+              private pmc: ArticlesService,
               private notify: NotifyService,
               private modalService: NgbModal, public ps: ActiveProjectService ) {
     super()
@@ -67,6 +72,28 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
 
   handleNewRepoSubmit(newRepoForm: PubRepo) {
     this.repoService.createRepo(12, newRepoForm)
+  }
+
+  handleAddOne() {
+    const modalRef = this.modalService.open(AddOneComponent)
+    modalRef.componentInstance.onSave.subscribe((pub: Publication) => {
+      // new publication ready for save
+      this.repoService.addPublications(this.ps.getActiveProject().id+'', this.activeRepo.id, [pub])
+        .subscribe( () => {
+          modalRef.close()
+          this.notify.swal.swal("Done", "Article Added Successfully", 'success')
+        })
+    })
+  }
+
+  handlePMCImport() {
+    const modalRef = this.modalService.open(PmcImporterComponent)
+    modalRef.componentInstance.onSubmit.subscribe((pmcIDs: string[]) => {
+      this.pmc.getArticleMetaData(pmcIDs)
+        .subscribe((res: PMCResult[]) => {
+          console.log('from PMC', res)
+        })
+    })
   }
 
   handleFileChange(files: File[]) {

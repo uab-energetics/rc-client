@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h4 class="modal-title">Import Articles by PMC-ID</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form (submit)="handleSubmit()">
+    <div class="row">
+      <div class="form-group col-md-12">
+        <input name="pmcIDs" [(ngModel)]="formModel.pmcIDs" type="text" class="form-control" placeholder="Comma-Separated List of PMC-IDs.."/>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success">Find Articles</button>
+  </form>
+</div>

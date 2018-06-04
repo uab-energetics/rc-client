@@ -36,9 +36,9 @@ export class SidebarComponent implements OnInit {
       projectRequired: true
     },
     {
-      text: 'Article Repositories',
+      text: 'Article Repos',
       route: '/pub-repos',
-      icon: 'chrome_reader_mode',
+      icon: 'cloud_done',
       projectRequired: true
     },
     {

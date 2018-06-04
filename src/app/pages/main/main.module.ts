@@ -45,6 +45,9 @@ import {NgxPaginationModule} from 'ngx-pagination'
 import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
 import { PapaParseModule } from 'ngx-papaparse';
 import { UploadPreviewComponent } from './pub-repos/upload-preview/upload-preview.component';
+import { AddOneComponent } from './pub-repos/add-one/add-one.component';
+import {PmcModule} from "../../core/pmc/pmc.module";
+import { PmcImporterComponent } from './pub-repos/pmc-importer/pmc-importer.component';
 
 @NgModule({
   imports: [
@@ -58,6 +61,7 @@ import { UploadPreviewComponent } from './pub-repos/upload-preview/upload-previe
     AngularMaterialModule,
     SharedModule,
     SidebarModule,
+    PmcModule,
     ProjectsModule,
     ActiveProjectModule,
     TasksModule,
@@ -95,9 +99,13 @@ import { UploadPreviewComponent } from './pub-repos/upload-preview/upload-previe
     ProjectDashboardComponent,
     PubReposComponent,
     UploadPreviewComponent,
+    AddOneComponent,
+    PmcImporterComponent,
   ],
   entryComponents: [
-    UploadPreviewComponent
+    UploadPreviewComponent,
+    AddOneComponent,
+    PmcImporterComponent
   ]
 })
 export class MainModule {

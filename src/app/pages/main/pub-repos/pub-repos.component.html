@@ -4,7 +4,7 @@
   <div class="page-aside">
 
     <div class="rc-ft">
-      <h2><i class="icon wb-folder"></i>Repositories</h2>
+      <h2><i class="icon fa fa-database"></i>Repositories</h2>
     </div>
 
     <div class="page-aside-inner page-aside-scroll scrollable is-enabled scrollable-vertical">
@@ -48,7 +48,7 @@
       </div>
 
       <div class="ml-25">
-        <button class="btn btn-xs btn-primary">
+        <button (click)="handlePMCImport()" class="btn btn-xs btn-primary">
           <i class="icon wb-cloud"></i> PMC Import Tool</button>
       </div>
 
@@ -63,7 +63,7 @@
       </div>
 
       <div class="ml-25">
-        <button class="btn btn-xs btn-primary">
+        <button (click)="handleAddOne()" class="btn btn-xs btn-primary">
           <i class="icon wb-plus"></i> Manual Add One</button>
       </div>
     </div>
