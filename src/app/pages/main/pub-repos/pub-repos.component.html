@@ -39,7 +39,7 @@
 
   <div class="rc-page-col-main">
 
-    <div class="panel mb-0">
+    <div *ngIf="repos.length > 0" class="panel mb-0">
 
       <div class="rc-ft">
         <h2 class="feature-title">
@@ -65,7 +65,7 @@
                  (change)="handleFileChange($event.target.files)" accept=".csv,">
 
           <!-- This button forwards the click to the native file input element via an Angular directive -->
-          <button (click)="csvInput.click()" class="btn btn-xs btn-primary">
+          <button (click)="csvInput.click(); csvInput.value = null" class="btn btn-xs btn-primary">
             <i class="icon wb-upload"></i> CSV Upload</button>
         </div>
 
@@ -76,8 +76,13 @@
       </div>
 
       <div class="panel-heading">
-        <h3 class="panel-title"> {{activeRepo?.id}}
-          <span class="badge badge-success">Up and Running</span>
+        <h3 class="panel-title">
+
+          {{activeRepo?.displayName}} <span class="badge badge-success">Up and Running</span> <br/>
+          <span style="font-size: small; font-style: italic">{{activeRepo?.id}}</span>
+
+          <button (click)="handleDeleteRepo()" class="btn btn-xs btn-danger float-right">
+            <i class="icon wb-trash"></i> <b>Delete this repo</b></button>
         </h3>
         <br/>
       </div>
@@ -125,6 +130,18 @@
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
       </div>
+
+    </div>
+
+    <div *ngIf="repos.length === 0" class="panel p-50 mb-0">
+
+      <div class="alert alert-danger" role="alert">
+        This project doesn't have any repositories.
+        <p style="display: inline">
+          - <a (click)="openModal(createRepoModal)" class="alert-link" href="javascript:void(0)">create one</a> to get started!
+        </p>
+      </div>
+
     </div>
 
   </div>

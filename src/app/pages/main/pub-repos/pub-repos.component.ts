@@ -6,7 +6,7 @@ import {PubRepo} from "../../../core/pub-repos/PubRepo";
 import {Publication} from "../../../core/pub-repos/Publication";
 import {PageAsideComponent} from "../../shared/page-aside/PageAsideComponent";
 import {Subject} from "rxjs/Subject";
-import {switchMap, tap} from "rxjs/operators";
+import {filter, map, switchMap, tap} from "rxjs/operators";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PapaParseService} from "ngx-papaparse";
 import {UploadPreviewComponent} from "./upload-preview/upload-preview.component";
@@ -51,6 +51,12 @@ export class PubReposComponent implements OnInit {
               private notify: NotifyService,
               private modalService: NgbModal, public ps: ActiveProjectService ) {
     this.activeRepo$.asObservable().pipe(
+      map(R => {
+        if(!R && this.repos.length > 0)
+          return this.repos[0]
+        return R
+      }),
+      filter(R => !!R),
       tap(R => this.activeRepo = R),
       switchMap<PubRepo, Publication[]>(R => this.repoService.getPublications(this.ps.getActiveProject().id+'', R.id)) as any,
       tap((pubs: Publication[]) => this.activeRepoPublications = pubs)
@@ -76,6 +82,32 @@ export class PubReposComponent implements OnInit {
   closeModal() {
     if(!this.activeModal) return
     this.activeModal.close()
+  }
+
+  handleDeleteRepo(repo: PubRepo = this.activeRepo) {
+    this.notify.swal({
+      title: 'Are you sure?',
+      text: "You are about to delete the repo: " + repo.displayName,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, wait! Don\'t delete it!'
+    }).then((result) => {
+      if (result.value) {
+        this.repoService.deleteRepo(this.ps.getActiveProject().id.toString(), repo.id)
+          .subscribe(() => {
+            this.activeRepo$.next(null)
+            this.notify.toast(`Repo (${repo.id}) deleted.`)
+          })
+      } else if (result.dismiss) {
+        this.notify.swal(
+          'Cancelled',
+          'Your repo is safe',
+          'error'
+        )
+      }
+
+    }).catch(() => {})
   }
 
   handleNewRepoSubmit(newRepoForm: PubRepo) {
@@ -201,6 +233,7 @@ export class PubReposComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.repoService.removePublications(this.ps.getActiveProject().id+'', this.activeRepo.id, pubIDs)
+          .pipe(switchMap(() => this.reloadPublications()))
           .subscribe(() => {
             this.notify.swal("Done", "Publications Deleted", 'success')
             this.deselectAll()

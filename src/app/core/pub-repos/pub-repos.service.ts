@@ -34,11 +34,13 @@ export class PubReposService {
     this.http.put(url, data).subscribe(_ => this.requestRepos(projectID))
   }
 
-  deleteRepo(projectID, id: string) {
+  deleteRepo(projectID, id: string): Observable<any> {
     const url = `${env.api}/projects/${projectID}/pub-repos/${id}`
-    this.http.delete(url).subscribe(_ => {
-      this.repos$.next(this.repos.filter(R => R.id !== id))
-    })
+    return this.http.delete(url).pipe(
+      tap(_ => {
+        this.repos$.next(this.repos.filter(R => R.id !== id))
+      })
+    )
   }
 
   requestRepos(projectID) {
