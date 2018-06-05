@@ -40,9 +40,27 @@
 /* TEMPLATE OVERRIDES */
 /* ================== */
 
+/* NAVBAR */
+$navbarHeight: 50px;
+
+body {
+  padding-top: $navbarHeight;
+}
+
+.navbar {
+  min-height: 0;
+  height: $navbarHeight;
+}
+
+/* MENUBAR */
+.site-menubar {
+  height: 100%;
+  top: unset;
+}
+
 /* Pages */
-.page {
-  min-height: calc(100% - 74px) !important;
+.page, .page-main {
+  height: 100%;
 }
 
 /* Page Aside */
@@ -62,6 +80,7 @@
   padding: 10px 30px;
   margin: 0;
 }
+
 
 /* ngBootstrap styling fix */
 .cdk-overlay-container {
