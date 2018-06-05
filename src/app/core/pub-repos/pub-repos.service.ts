@@ -5,7 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment as env} from "../../../environments/environment";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Observable} from "rxjs/Observable";
-import {switchMap} from "rxjs/operators";
+import {switchMap, tap} from "rxjs/operators";
 
 @Injectable()
 export class PubReposService {
@@ -18,13 +18,15 @@ export class PubReposService {
     this.repos$.subscribe(repos => this.repos = repos)
   }
 
-  createRepo(projectID: string, data: PubRepo): void {
+  createRepo(projectID: string, data: PubRepo): Observable<PubRepo> {
     const url = `${env.api}/projects/${projectID}/pub-repos`
-    this.http.post(url, data)
-      .subscribe((newRepo: PubRepo) => {
-        this.repos.push(newRepo)
-        this.repos$.next(this.repos)
-      })
+    return this.http.post(url, data)
+      .pipe(
+        tap((newRepo: PubRepo) => {
+          this.repos.push(newRepo)
+          this.repos$.next(this.repos)
+        })
+      )
   }
 
   updateRepo(projectID, id: string, data: PubRepo) {

@@ -77,6 +77,11 @@ export class PubReposComponent implements OnInit {
 
   handleNewRepoSubmit(newRepoForm: PubRepo) {
     this.repoService.createRepo(this.ps.getActiveProject().id+'', newRepoForm)
+      .subscribe((repo: PubRepo) => {
+        this.closeModal()
+        this.activeRepo$.next(repo)
+        this.notify.swal.swal("Done", "Repo Created!", 'success')
+      })
   }
 
   handleAddOne() {

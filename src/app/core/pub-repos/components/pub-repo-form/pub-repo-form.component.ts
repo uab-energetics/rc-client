@@ -23,7 +23,7 @@ export class PubRepoFormComponent implements OnInit {
   }
 
   handleSubmit() {
-    this.formSubmit.emit({ ...this.formModel })
+    this.formSubmit.emit({ ...this.formModel } as PubRepo)
   }
 
 }
