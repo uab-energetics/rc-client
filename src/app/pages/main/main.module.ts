@@ -48,6 +48,7 @@ import { UploadPreviewComponent } from './pub-repos/upload-preview/upload-previe
 import { AddOneComponent } from './pub-repos/add-one/add-one.component';
 import {PmcModule} from "../../core/pmc/pmc.module";
 import { PmcImporterComponent } from './pub-repos/pmc-importer/pmc-importer.component';
+import { PipesComponent } from './pipes/pipes.component';
 
 @NgModule({
   imports: [
@@ -99,13 +100,14 @@ import { PmcImporterComponent } from './pub-repos/pmc-importer/pmc-importer.comp
     ProjectDashboardComponent,
     PubReposComponent,
     UploadPreviewComponent,
+    PipesComponent,
     AddOneComponent,
     PmcImporterComponent,
   ],
   entryComponents: [
     UploadPreviewComponent,
     AddOneComponent,
-    PmcImporterComponent
+    PmcImporterComponent,
   ]
 })
 export class MainModule {

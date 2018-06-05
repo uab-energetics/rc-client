@@ -17,6 +17,7 @@ import {ProjectPublicationsComponent} from './project-publications/project-publi
 import {ProjectUsersComponent} from './project-users/project-users.component'
 import {ProjectDashboardComponent} from './project-dashboard/project-dashboard.component'
 import {PubReposComponent} from "./pub-repos/pub-repos.component";
+import {PipesComponent} from "./pipes/pipes.component";
 
 export const mainRoutes: Routes = [
     {
@@ -41,6 +42,10 @@ export const mainRoutes: Routes = [
               pathMatch: 'full'
             }
           ]
+        },
+        {
+          path: "welcome",
+          component: WelcomeComponent
         },
         {
           path: 'projects',
@@ -95,8 +100,8 @@ export const mainRoutes: Routes = [
           component: PubReposComponent
         },
         {
-          path: "welcome",
-          component: WelcomeComponent
+          path: 'pipelines',
+          component: PipesComponent
         },
         {
           path: '',
