@@ -1,23 +1,21 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {PubReposService} from "../../../core/pub-repos/pub-repos.service";
-import {ActiveProjectService} from "../../../core/active-project/active-project.service";
-import {AppProject} from "../../../core/projects/AppProject";
-import {PubRepo} from "../../../core/pub-repos/PubRepo";
-import {Publication} from "../../../core/pub-repos/Publication";
-import {PageAsideComponent} from "../../shared/page-aside/PageAsideComponent";
-import {Subject} from "rxjs/Subject";
-import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from "rxjs/operators";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {PapaParseService} from "ngx-papaparse";
-import {UploadPreviewComponent} from "./upload-preview/upload-preview.component";
-import {NotifyService} from "../../../core/notifications/notify.service";
-import {AddOneComponent} from "./add-one/add-one.component";
-import {ArticlesService} from "../../../core/pmc/articles.service";
-import {PmcImporterComponent} from "./pmc-importer/pmc-importer.component";
-import {PMCResult} from "../../../core/pmc/PMCResult";
-import {Observable} from "rxjs/Observable";
-import {download} from "../../../core/files/download";
-import {select} from "d3-selection";
+import {Component, OnInit} from '@angular/core'
+import {PubReposService} from "../../../core/pub-repos/pub-repos.service"
+import {ActiveProjectService} from "../../../core/active-project/active-project.service"
+import {AppProject} from "../../../core/projects/AppProject"
+import {PubRepo} from "../../../core/pub-repos/PubRepo"
+import {Publication} from "../../../core/pub-repos/Publication"
+import {Subject} from "rxjs/Subject"
+import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from "rxjs/operators"
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap"
+import {PapaParseService} from "ngx-papaparse"
+import {UploadPreviewComponent} from "./upload-preview/upload-preview.component"
+import {NotifyService} from "../../../core/notifications/notify.service"
+import {AddOneComponent} from "./add-one/add-one.component"
+import {ArticlesService} from "../../../core/pmc/articles.service"
+import {PmcImporterComponent} from "./pmc-importer/pmc-importer.component"
+import {PMCResult} from "../../../core/pmc/PMCResult"
+import {Observable} from "rxjs/Observable"
+import {download} from "../../../core/files/download"
 
 @Component({
   selector: 'app-pub-repos',
@@ -192,7 +190,7 @@ export class PubReposComponent implements OnInit {
           this.notify.swal("No rows found", "Please check the format of your CSV", 'error')
           return
         }
-        const modalRef = this.modalService.open(UploadPreviewComponent, { size: 'lg' });
+        const modalRef = this.modalService.open(UploadPreviewComponent, { size: 'lg' })
         modalRef.componentInstance.data = parsed
         modalRef.componentInstance.onConfirm.subscribe(_ => {
           this.repoService.addPublications(this.ps.getActiveProject().id+'', this.activeRepo.id, parsed)

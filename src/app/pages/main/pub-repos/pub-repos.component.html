@@ -39,7 +39,7 @@
 
   <div class="rc-page-col-main">
 
-    <div *ngIf="repos.length > 0" class="panel mb-0">
+    <div *ngIf="repos.length > 0" class="panel mb-0" style="height: 100%;">
 
       <div class="rc-ft">
         <h2 class="feature-title">
@@ -76,58 +76,73 @@
       </div>
 
       <div class="panel-heading">
-        <h3 class="panel-title">
+        <div class="panel-title">
+          <h3>
 
-          {{activeRepo?.displayName}} <span class="badge badge-success">Up and Running</span> <br/>
-          <span style="font-size: small; font-style: italic">{{activeRepo?.id}}</span>
+            {{activeRepo?.displayName}} <span class="badge badge-success">Up and Running</span> <br/>
+            <span style="font-size: small; font-style: italic">{{activeRepo?.id}}</span>
 
-          <button (click)="handleDeleteRepo()" class="btn btn-xs btn-danger float-right">
-            <i class="icon wb-trash"></i> <b>Delete this repo</b></button>
-        </h3>
-        <br/>
+            <button (click)="handleDeleteRepo()" class="btn btn-xs btn-danger float-right">
+              <i class="icon wb-trash"></i> <b>Delete this repo</b></button>
+          </h3>
+          <p style="font-size: 12px"><em>{{originalPublications?.length}} total publications</em></p>
+        </div>
       </div>
       <div class="panel-body">
 
-        <!-- Bulk Actions -->
 
-        <div class="form-group">
-          <div class="input-search">
-            <i class="input-search-icon wb-search"></i>
-            <input (keyup)="filterStream$.next($event.target.value)" type="text" class="form-control" placeholder="Filter Publications...">
-            <button type="button" class="input-search-close icon wb-close"></button>
+        <!--<div *ngIf="originalPublications.length === 0">-->
+
+          <!--<div class="alert alert-danger" role="alert">-->
+            <!--This repository doesn't have any publications.-->
+          <!--</div>-->
+
+        <!--</div>-->
+
+        <div>
+
+          <!-- Filter Bar -->
+          <div class="form-group">
+            <div class="input-search">
+              <i class="input-search-icon wb-search"></i>
+              <input (keyup)="filterStream$.next($event.target.value)" type="text" class="form-control" placeholder="Filter Publications...">
+              <button type="button" class="input-search-close icon wb-close"></button>
+            </div>
           </div>
-        </div>
 
-        <div *ngIf="getSelected().length > 0" ngbDropdown class="d-inline-block mb-20">
-          <button class="btn btn-sm btn-danger" id="bulkActionsBtn" ngbDropdownToggle>Bulk Actions</button>
-          <div ngbDropdownMenu aria-labelledby="bulkActionsBtn">
-            <button (click)="selectedDelete()" class="btn-sm dropdown-item">Delete Selected</button>
-            <button (click)="handleDownload(true)" class="btn-sm dropdown-item">Download Selected</button>
+          <!-- Bulk Actions -->
+          <div *ngIf="getSelected().length > 0" ngbDropdown class="d-inline-block mb-20">
+            <button class="btn btn-sm btn-danger" id="bulkActionsBtn" ngbDropdownToggle>Bulk Actions</button>
+            <div ngbDropdownMenu aria-labelledby="bulkActionsBtn">
+              <button (click)="selectedDelete()" class="btn-sm dropdown-item">Delete Selected</button>
+              <button (click)="handleDownload(true)" class="btn-sm dropdown-item">Download Selected</button>
+            </div>
           </div>
+
+          <!-- Main Articles Table -->
+          <table class="table table-sm" style="color: black">
+            <thead>
+            <tr>
+              <th><mat-checkbox (change)="$event.checked ? selectAll() : deselectAll()"></mat-checkbox></th>
+              <th>ID</th>
+              <th>Display Name</th>
+              <th>Embedding URL</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let pub of activeRepoPublications | paginate: { itemsPerPage: 10, currentPage: p }">
+              <td><mat-checkbox [(ngModel)]="checked[pub.id]"></mat-checkbox></td>
+              <td>{{pub.id}}</td>
+              <td>
+                <a class="link" style="font-weight: 400"> {{pub.title}} </a>
+              </td>
+              <td><a target="_blank" href="{{pub.embeddingURL}}">{{pub.embeddingURL}}</a></td>
+            </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
         </div>
-
-        <table class="table table-sm" style="color: black">
-          <thead>
-          <tr>
-            <th><mat-checkbox (change)="$event.checked ? selectAll() : deselectAll()"></mat-checkbox></th>
-            <th>ID</th>
-            <th>Display Name</th>
-            <th>Embedding URL</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let pub of activeRepoPublications | paginate: { itemsPerPage: 10, currentPage: p }">
-            <td><mat-checkbox [(ngModel)]="checked[pub.id]"></mat-checkbox></td>
-            <td>{{pub.id}}</td>
-            <td>
-              <a class="link" style="font-weight: 400"> {{pub.title}} </a>
-            </td>
-            <td><a target="_blank" href="{{pub.embeddingURL}}">{{pub.embeddingURL}}</a></td>
-          </tr>
-          </tbody>
-        </table>
-
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
       </div>
 

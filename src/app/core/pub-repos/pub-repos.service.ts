@@ -59,7 +59,9 @@ export class PubReposService {
 
   removePublications(projectID: string, repoID: string, publicationIDs: string[]) {
     const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications/remove`
-    return this.http.post(url, { publicationIDs })
+    return this.http.post(url, { publicationIDs }).pipe(
+      switchMap(_ => this.getPublications(projectID, repoID))
+    )
   }
 
   getPublications(projectID, repoID: string): Observable<Publication[]> {
