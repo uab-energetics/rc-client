@@ -93,7 +93,7 @@
         <div class="form-group">
           <div class="input-search">
             <i class="input-search-icon wb-search"></i>
-            <input type="text" class="form-control" placeholder="Filter Publications...">
+            <input (keyup)="filterStream$.next($event.target.value)" type="text" class="form-control" placeholder="Filter Publications...">
             <button type="button" class="input-search-close icon wb-close"></button>
           </div>
         </div>

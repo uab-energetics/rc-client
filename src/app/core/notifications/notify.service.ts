@@ -10,7 +10,6 @@ export class NotifyService {
 
   constructor(public materialSnackBar: MatSnackBar) {
     this.swal = swal
-    console.log(swal)
   }
 
   toast(message: string, action: string = 'Ok', options: MatSnackBarConfig = {

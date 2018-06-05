@@ -6,7 +6,7 @@ import {PubRepo} from "../../../core/pub-repos/PubRepo";
 import {Publication} from "../../../core/pub-repos/Publication";
 import {PageAsideComponent} from "../../shared/page-aside/PageAsideComponent";
 import {Subject} from "rxjs/Subject";
-import {filter, map, switchMap, tap} from "rxjs/operators";
+import {debounceTime, distinctUntilChanged, filter, map, switchMap, tap} from "rxjs/operators";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PapaParseService} from "ngx-papaparse";
 import {UploadPreviewComponent} from "./upload-preview/upload-preview.component";
@@ -36,8 +36,12 @@ export class PubReposComponent implements OnInit {
   activeRepo: PubRepo
 
   repos: PubRepo[] = []
+  originalPublications: Publication[]
+  activeRepoPublications$: Subject<Publication[]> = new Subject<Publication[]>()
   activeRepoPublications: Publication[] = []
 
+  filterStream$ = new Subject<string>()
+  filter: string = ""
   p: number = 1
 
   activeModal: any
@@ -50,6 +54,21 @@ export class PubReposComponent implements OnInit {
               private pmc: ArticlesService,
               private notify: NotifyService,
               private modalService: NgbModal, public ps: ActiveProjectService ) {
+
+    this.activeRepoPublications$.pipe(
+      // always pipe visible publications through the filter
+      map(pubs => pubs.filter(P => P.title.includes(this.filter)))
+    ).subscribe(pubs => this.activeRepoPublications = pubs)
+
+    this.filterStream$.pipe(
+      debounceTime(10),
+      distinctUntilChanged(),
+      tap(s => console.log('filtering...', s))
+    ).subscribe( F => {
+      this.filter = F
+      this.activeRepoPublications$.next(this.originalPublications)
+    })
+
     this.activeRepo$.asObservable().pipe(
       map(R => {
         if(!R && this.repos.length > 0)
@@ -59,7 +78,10 @@ export class PubReposComponent implements OnInit {
       filter(R => !!R),
       tap(R => this.activeRepo = R),
       switchMap<PubRepo, Publication[]>(R => this.repoService.getPublications(this.ps.getActiveProject().id+'', R.id)) as any,
-      tap((pubs: Publication[]) => this.activeRepoPublications = pubs)
+      tap((pubs: Publication[]) => {
+        this.originalPublications = pubs
+        this.activeRepoPublications$.next(pubs)
+      })
     ).subscribe()
 
     this.ps.project$.subscribe((project: AppProject) => this.repoService.requestRepos(project.id))
@@ -87,7 +109,7 @@ export class PubReposComponent implements OnInit {
   handleDeleteRepo(repo: PubRepo = this.activeRepo) {
     this.notify.swal({
       title: 'Are you sure?',
-      text: "You are about to delete the repo: " + repo.displayName,
+      text: "You are about to delete the repo: " + repo.displayName + " and all associated publications. This cannot be undone",
       type: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
@@ -160,7 +182,7 @@ export class PubReposComponent implements OnInit {
         let parsed: Publication[] = results.data.map(([ col1, col2, col3 ]) => ({
           title: col1,
           sourceID: col2,
-          embeddingURL: col3
+          embeddingURL: col3 || col2
         }))
         const modalRef = this.modalService.open(UploadPreviewComponent, { size: 'lg' });
         modalRef.componentInstance.data = parsed
@@ -183,10 +205,15 @@ export class PubReposComponent implements OnInit {
       repos = repos.filter(P => selectedSet.has(P.id+''))
     }
     repos = repos.map( P => {
-      delete P['pivot']
-      return P
+      return {
+        title: P.title,
+        embeddingURL: P.embeddingURL
+      }
     })
-    let csv = this.csvParse.unparse(repos)
+    let csv = this.csvParse.unparse(repos, {
+      header: false,
+      quotes: true
+    })
     download('repo-pubs-export.csv', csv)
   }
 
@@ -219,7 +246,7 @@ export class PubReposComponent implements OnInit {
   selectedDelete() {
     let pubIDs = this.getSelected()
     let msg = `You're about to delete ${pubIDs.length} articles? `
-    if(pubIDs.length === this.activeRepoPublications.length)
+    if(pubIDs.length === this.originalPublications.length)
       msg = `You're about to delete ALL articles. `
     msg += "This action cannot be undone!"
 
