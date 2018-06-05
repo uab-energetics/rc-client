@@ -16,6 +16,7 @@ import {ArticlesService} from "../../../core/pmc/articles.service";
 import {PmcImporterComponent} from "./pmc-importer/pmc-importer.component";
 import {PMCResult} from "../../../core/pmc/PMCResult";
 import {Observable} from "rxjs/Observable";
+import {download} from "../../../core/files/download";
 
 @Component({
   selector: 'app-pub-repos',
@@ -133,6 +134,15 @@ export class PubReposComponent implements OnInit {
         })
       }
     })
+  }
+
+  handleDownload() {
+    let data = this.activeRepoPublications.map( P => {
+      delete P['pivot']
+      return P
+    })
+    let csv = this.csvParse.unparse(this.activeRepoPublications)
+    download('repo-pubs-export.csv', csv)
   }
 
   private reloadPublications(): Observable<any> {

@@ -43,12 +43,17 @@
           Instance Details</h2>
 
         <div class="ml-25">
-          <span>Import Options: </span>
+          <span>Import/Export Options: </span>
         </div>
 
         <div class="ml-25">
           <button (click)="handlePMCImport()" class="btn btn-xs btn-primary">
             <i class="icon wb-cloud"></i> PMC Import Tool</button>
+        </div>
+
+        <div class="ml-25">
+          <button (click)="handleAddOne()" class="btn btn-xs btn-primary">
+            <i class="icon wb-plus"></i> Manual Add One</button>
         </div>
 
         <div class="ml-25">
@@ -62,8 +67,8 @@
         </div>
 
         <div class="ml-25">
-          <button (click)="handleAddOne()" class="btn btn-xs btn-primary">
-            <i class="icon wb-plus"></i> Manual Add One</button>
+          <button (click)="handleDownload()" class="btn btn-xs btn-primary">
+            <i class="icon wb-download"></i> Download as CSV</button>
         </div>
       </div>
 
@@ -111,12 +116,8 @@
 
 
 
-
-
-
-
-
   <!-- MODALS -->
+
   <ng-template #createRepoModal let-c="close" let-d="dismiss">
     <div class="modal-body">
       <app-pub-repo-form (formSubmit)="handleNewRepoSubmit($event)"></app-pub-repo-form>
