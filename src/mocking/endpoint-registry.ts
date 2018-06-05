@@ -49,5 +49,77 @@ export const MOCK_API = {
     }
   ],
 
-  'POST /projects/*/pub-repos': (req) => ({...req.body, id: 'my-new-repo-23r43r' })
+  'POST /projects/*/pub-repos': (req) => ({...req.body, id: 'my-new-repo-23r43r' }),
+
+  'GET /entrez/*': {
+    "header": {
+      "type": "esummary",
+      "version": "0.3"
+    },
+    "result": {
+      "uids": [
+        "3539452"
+      ],
+      "3539452": {
+        "uid": "3539452",
+        "pubdate": "2012 Feb 23",
+        "epubdate": "2012 Feb 23",
+        "printpubdate": "2013 Feb",
+        "source": "Cereb Cortex",
+        "authors": [
+          {
+            "name": "Kind PC",
+            "authtype": "Author"
+          },
+          {
+            "name": "Sengpiel F",
+            "authtype": "Author"
+          },
+          {
+            "name": "Beaver CJ",
+            "authtype": "Author"
+          },
+          {
+            "name": "Crocker-Buque A",
+            "authtype": "Author"
+          },
+          {
+            "name": "Kelly GM",
+            "authtype": "Author"
+          },
+          {
+            "name": "Matthews RT",
+            "authtype": "Author"
+          },
+          {
+            "name": "Mitchell DE",
+            "authtype": "Author"
+          }
+        ],
+        "title": "The Development and Activity-Dependent Expression of Aggrecan in the Cat Visual Cortex",
+        "volume": "23",
+        "issue": "2",
+        "pages": "349-360",
+        "articleids": [
+          {
+            "idtype": "pmid",
+            "value": "22368089"
+          },
+          {
+            "idtype": "doi",
+            "value": "10.1093/cercor/bhs015"
+          },
+          {
+            "idtype": "pmcid",
+            "value": "PMC3539452"
+          }
+        ],
+        "fulljournalname": "Cerebral Cortex (New York, NY)",
+        "sortdate": "2012/02/23 00:00",
+        "pmclivedate": "2014/02/01"
+      }
+    }
+  },
+
+
 }

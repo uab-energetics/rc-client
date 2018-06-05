@@ -12,4 +12,5 @@ export interface PMCResult {
   fulljournalname: string
   sortdate: string
   pmclivedate: string
+  embedding_url?: string
 }

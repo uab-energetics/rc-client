@@ -23,6 +23,12 @@ import {PMCResult} from "../../../core/pmc/PMCResult";
 })
 export class PubReposComponent extends PageAsideComponent implements OnInit, OnDestroy {
 
+  /*
+  *
+  * WARNING - there are some things you will likely run into when connecting this component to the real server.
+  * it was built very fast.
+  * */
+
   activeRepo$: Subject<PubRepo> = new Subject()
   activeRepo: PubRepo
 
@@ -91,7 +97,13 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
     modalRef.componentInstance.onSubmit.subscribe((pmcIDs: string[]) => {
       this.pmc.getArticleMetaData(pmcIDs)
         .subscribe((res: PMCResult[]) => {
-          console.log('from PMC', res)
+          let uploadData = res.map( R => ({
+            title: R.title,
+            embeddingURL: R.embedding_url
+          }))
+          console.log(uploadData)
+          this.repoService.addPublications(this.ps.getActiveProject().id+'', this.activeRepo.id, uploadData)
+            .subscribe()
         })
     })
   }

@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment as env} from "../../../environments/environment";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Observable} from "rxjs/Observable";
+import {switchMap} from "rxjs/operators";
 
 @Injectable()
 export class PubReposService {
@@ -47,7 +48,9 @@ export class PubReposService {
   addPublications(projectID: string, repoID: string, publications: Publication[]): Observable<any> {
     const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications`
     console.log(url)
-    return this.http.post(url, { publications })
+    return this.http.post(url, { publications }).pipe(
+      switchMap(_ => this.getPublications(projectID, repoID))
+    )
   }
 
   removePublications(projectID: string, repoID: string, publicationIDs: string[]) {
