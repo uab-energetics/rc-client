@@ -1,7 +1,7 @@
-<div class="page page-fullwidth">
+<div class="rc-page">
 
 
-  <div class="page-aside">
+  <div class="rc-page-col-left">
 
     <div class="rc-ft">
       <h2><i class="icon fa fa-database"></i>Repositories</h2>
@@ -26,7 +26,7 @@
 
 
       <button matTooltip="Create A New Repository" matTooltipPosition="after"
-              style="position: absolute; bottom: 20px; right: 20px;"
+              style="position: absolute; bottom: 20px; left: 40px;"
               (click)="openModal(createRepoModal)"
               class="btn btn-floating btn-success">
         <i class="icon wb-plus"></i></button>
@@ -34,38 +34,39 @@
     </div>
   </div>
 
-  <div class="page-main">
+  <div class="rc-page-col-main">
 
-    <div class="rc-ft">
-      <h2 class="feature-title">
-        Instance Details</h2>
+    <div class="panel mb-0">
 
-      <div class="ml-25">
-        <span>Import Options: </span>
+      <div class="rc-ft">
+        <h2 class="feature-title">
+          Instance Details</h2>
+
+        <div class="ml-25">
+          <span>Import Options: </span>
+        </div>
+
+        <div class="ml-25">
+          <button (click)="handlePMCImport()" class="btn btn-xs btn-primary">
+            <i class="icon wb-cloud"></i> PMC Import Tool</button>
+        </div>
+
+        <div class="ml-25">
+          <!-- This native input element is hidden -->
+          <input #csvInput style="display: none;" type="file"
+                 (change)="handleFileChange($event.target.files)" accept=".csv,">
+
+          <!-- This button forwards the click to the native file input element via an Angular directive -->
+          <button (click)="csvInput.click()" class="btn btn-xs btn-primary">
+            <i class="icon wb-upload"></i> CSV Upload</button>
+        </div>
+
+        <div class="ml-25">
+          <button (click)="handleAddOne()" class="btn btn-xs btn-primary">
+            <i class="icon wb-plus"></i> Manual Add One</button>
+        </div>
       </div>
 
-      <div class="ml-25">
-        <button (click)="handlePMCImport()" class="btn btn-xs btn-primary">
-          <i class="icon wb-cloud"></i> PMC Import Tool</button>
-      </div>
-
-      <div class="ml-25">
-        <!-- This native input element is hidden -->
-        <input #csvInput style="display: none;" type="file"
-               (change)="handleFileChange($event.target.files)" accept=".csv,">
-
-        <!-- This button forwards the click to the native file input element via an Angular directive -->
-        <button (click)="csvInput.click()" class="btn btn-xs btn-primary">
-          <i class="icon wb-upload"></i> CSV Upload</button>
-      </div>
-
-      <div class="ml-25">
-        <button (click)="handleAddOne()" class="btn btn-xs btn-primary">
-          <i class="icon wb-plus"></i> Manual Add One</button>
-      </div>
-    </div>
-
-    <div class="panel">
       <div class="panel-heading">
         <h3 class="panel-title"> {{activeRepo?.id}}
           <span class="badge badge-success">Up and Running</span>

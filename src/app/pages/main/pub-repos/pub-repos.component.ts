@@ -22,7 +22,7 @@ import {Observable} from "rxjs/Observable";
   templateUrl: './pub-repos.component.html',
   styleUrls: ['./pub-repos.component.scss']
 })
-export class PubReposComponent extends PageAsideComponent implements OnInit, OnDestroy {
+export class PubReposComponent implements OnInit {
 
   /*
   *
@@ -46,12 +46,10 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
               private pmc: ArticlesService,
               private notify: NotifyService,
               private modalService: NgbModal, public ps: ActiveProjectService ) {
-    super()
-
     this.activeRepo$.asObservable().pipe(
       tap(R => this.activeRepo = R),
       switchMap<PubRepo, Publication[]>(R => this.repoService.getPublications(this.ps.getActiveProject().id+'', R.id)) as any,
-      tap(pubs => this.activeRepoPublications = pubs)
+      tap((pubs: Publication[]) => this.activeRepoPublications = pubs)
     ).subscribe()
 
     this.ps.project$.subscribe((project: AppProject) => this.repoService.requestRepos(project.id))
@@ -64,7 +62,6 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
   }
 
   ngOnInit() {
-    super.ngOnInit()
     this.fileUploadButton = document.getElementById('fileUploadButton')
   }
 

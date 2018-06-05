@@ -7,7 +7,7 @@ import {OPEN_PROJECT_LIST} from '../../core/projects/actions'
 @Component({
   selector: 'app-layout',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
 

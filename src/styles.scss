@@ -2,6 +2,33 @@
 
 
 /* GLOBAL STYLES */
+
+.rc-page {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+
+  .rc-page-col-left {
+    flex-basis: 300px;
+    background-color: white;
+    border-right: solid lightgrey 1px;
+  }
+
+  .rc-page-col-main {
+    flex-grow: 2;
+  }
+}
+
+
+
+.navbar {
+  grid-area: navbar;
+}
+
+.footer {
+  grid-area: footer;
+}
+
 .rc-ft {
   font-family: Roboto, sans-serif;
   background: white;
@@ -64,6 +91,10 @@ body {
 }
 
 /* Page Aside */
+.page-aside-fixed .page-aside {
+
+}
+
 .page-aside-fixed .page-aside-inner {
   overflow-y: visible;
 }
