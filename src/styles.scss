@@ -1,74 +1,14 @@
 @import '~angular-tree-component/dist/angular-tree-component.css';
 
-
-/* GLOBAL STYLES */
-
-.rc-page {
-  display: flex;
-  align-items: stretch;
-  height: 100%;
-
-  .rc-page-col-left {
-    flex-basis: 300px;
-    background-color: white;
-    border-right: solid lightgrey 1px;
-  }
-
-  .rc-page-col-main {
-    flex-grow: 2;
-  }
-}
-
-
-
-.navbar {
-  grid-area: navbar;
-}
-
-.footer {
-  grid-area: footer;
-}
-
-.rc-ft {
-  font-family: Roboto, sans-serif;
-  background: white;
-  padding: 20px 30px;
-  font-size: 16px;
-  display: flex;
-  border-bottom: 1px solid #d3d3d3;
-
-  h1, h2, h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 20px;
-  }
-
-  .rc-ft-brand {
-    align-items: center;
-    color: rgba(0,0,0,.654);
-    border-right: 1px solid #d3d3d3;
-    padding-right: 20px;
-    margin-right: 20px;
-  }
-
-}
-
-.page-fullwidth {
-  max-width: none;
-}
-
-
-.link {
-  cursor: grab;
-  cursor: -moz-grab;
-}
+@import "scss/variables.scss";
+@import "scss/toolbar";
+@import "scss/questions";
+@import "scss/cursor.scss";
+@import "scss/_overrides";
 
 /* ================== */
 /* TEMPLATE OVERRIDES */
 /* ================== */
-
-/* NAVBAR */
-$navbarHeight: 50px;
 
 body {
   padding-top: $navbarHeight;
@@ -83,99 +23,4 @@ body {
 .site-menubar {
   height: 100%;
   top: unset;
-}
-
-/* Pages */
-.page, .page-main {
-  height: 100%;
-}
-
-/* Page Aside */
-.page-aside-fixed .page-aside {
-
-}
-
-.page-aside-fixed .page-aside-inner {
-  overflow-y: visible;
-}
-
-.page-aside-section:first-child {
-  padding-top: 0;
-}
-
-.page-aside .list-group-item {
-  padding: 7px 30px;
-}
-
-.page-aside-title {
-  padding: 10px 30px;
-  margin: 0;
-}
-
-
-/* ngBootstrap styling fix */
-.cdk-overlay-container {
-  z-index: 99999;
-}
-
-.mat-form-field {
-  display: block !important;
-}
-
-.app-question {
-  margin-bottom: 20px;
-}
-
-.app-category .card {
-  border: solid lightgrey 2px;
-  margin-bottom: 5px;
-}
-
-.app-category.complete .card {
-  border: solid lightgreen 2px;
-  margin-bottom: 5px;
-}
-
-.progress-bar-animated {
-  animation: progress-bar-stripes 2s linear infinite;
-}
-
-.nav-tabs-solid ul {
-  border-bottom-color: #f3f7f9;
-}
-
-.nav-tabs-solid ul .nav-link:hover {
-  border-color: transparent;
-}
-
-.nav-tabs-solid ul .nav-link.active, .nav-tabs-solid ul .nav-link.active:focus, .nav-tabs-solid ul .nav-link.active:hover, .nav-tabs-solid ul .nav-item.show .nav-link, .nav-tabs-solid ul .nav-item.show .nav-link:focus, .nav-tabs-solid ul .nav-item.show .nav-link:hover, .nav-tabs-solid ul .nav-item.open .nav-link, .nav-tabs-solid ul .nav-item.open .nav-link:focus, .nav-tabs-solid ul .nav-item.open .nav-link:hover {
-  color: #76838f;
-  /*background-color: #f3f7f9;*/
-  background-color: white;
-  border-color: transparent;
-}
-
-.nav-tabs-solid ul ~ .tab-content {
-  padding: 1.429rem;
-  /*background-color: #f3f7f9;*/
-  background-color: white;
-}
-
-.nav-tabs-solid ul.nav-tabs-bottom .nav-link.active, .nav-tabs-solid ul.nav-tabs-bottom .nav-link.active:hover, .nav-tabs-solid ul.nav-tabs-bottom .nav-link.active:focus {
-  border: none;
-}
-/* ngBootstrap styling fix */
-
-
-/* disable the dropdown transition animation */
-.dropdown-menu {
-  transition: none;
-}
-
-
-/* COMMENTS
-========================= */
-
-.comment {
-  padding: 5px 0;
 }

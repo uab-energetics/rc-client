@@ -1,23 +1,24 @@
 import {NgModule} from '@angular/core'
 import {
-  MatProgressBarModule,
-  MatSnackBarModule,
-  MatProgressSpinnerModule,
-  MatRadioModule,
-  MatSidenavModule,
-  MatSlideToggleModule,
-  MatTableModule,
-  MatCheckboxModule,
-  MatSelectModule,
-  MatTabsModule,
-  MatMenuModule,
-  MatListModule,
-  MatIconModule,
-  MatTooltipModule,
   MatButtonModule,
   MatCardModule,
+  MatCheckboxModule,
   MatDialogModule,
-  MatGridListModule
+  MatGridListModule,
+  MatIconModule,
+  MatListModule,
+  MatMenuModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule
 } from '@angular/material'
 import {CdkTableModule} from '@angular/cdk/table'
 
@@ -41,7 +42,8 @@ import {CdkTableModule} from '@angular/cdk/table'
     MatSlideToggleModule,
     MatCardModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatToolbarModule
   ],
   exports: [
     MatProgressBarModule,
@@ -62,7 +64,8 @@ import {CdkTableModule} from '@angular/cdk/table'
     MatSlideToggleModule,
     MatCardModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatToolbarModule
   ]
 })
 export class AngularMaterialModule {

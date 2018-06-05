@@ -1,0 +1,41 @@
+
+.cdk-overlay-container {
+  z-index: 99999;
+}
+
+.mat-form-field {
+  display: block !important;
+}
+
+.nav-tabs-solid ul {
+  border-bottom-color: #f3f7f9;
+}
+
+.nav-tabs-solid ul .nav-link:hover {
+  border-color: transparent;
+}
+
+.nav-tabs-solid ul .nav-link.active, .nav-tabs-solid ul .nav-link.active:focus, .nav-tabs-solid ul .nav-link.active:hover, .nav-tabs-solid ul .nav-item.show .nav-link, .nav-tabs-solid ul .nav-item.show .nav-link:focus, .nav-tabs-solid ul .nav-item.show .nav-link:hover, .nav-tabs-solid ul .nav-item.open .nav-link, .nav-tabs-solid ul .nav-item.open .nav-link:focus, .nav-tabs-solid ul .nav-item.open .nav-link:hover {
+  color: #76838f;
+  /*background-color: #f3f7f9;*/
+  background-color: white;
+  border-color: transparent;
+}
+
+.nav-tabs-solid ul ~ .tab-content {
+  padding: 1.429rem;
+  /*background-color: #f3f7f9;*/
+  background-color: white;
+}
+
+.nav-tabs-solid ul.nav-tabs-bottom .nav-link.active, .nav-tabs-solid ul.nav-tabs-bottom .nav-link.active:hover, .nav-tabs-solid ul.nav-tabs-bottom .nav-link.active:focus {
+  border: none;
+}
+
+.dropdown-menu {
+  transition: none;
+}
+
+.progress-bar-animated {
+  animation: progress-bar-stripes 2s linear infinite;
+}

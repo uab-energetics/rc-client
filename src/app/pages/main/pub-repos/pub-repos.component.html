@@ -3,7 +3,7 @@
 
   <div class="rc-page-col-left">
 
-    <div class="rc-ft">
+    <div class="rc-toolbar">
       <h2><i class="icon fa fa-database"></i>Repositories</h2>
     </div>
 
@@ -22,7 +22,7 @@
       <div *ngFor="let repo of repos"
            [ngClass]="{ 'active-card': activeRepo === repo }"
            (click)="activeRepo$.next(repo)"
-           class="card card-block pub-repo-instance-card link">
+           class="card card-block pub-repo-instance-card cursor-pointer">
 
         <div class="details">
           <b>{{repo.displayName}}</b>
@@ -41,7 +41,7 @@
 
     <div *ngIf="repos.length > 0" class="panel mb-0" style="height: 100%;">
 
-      <div class="rc-ft">
+      <div class="rc-toolbar">
         <h2 class="feature-title">
           Instance Details</h2>
 
@@ -91,6 +91,7 @@
       <div class="panel-body">
 
 
+        <!-- Not feeling this -->
         <!--<div *ngIf="originalPublications.length === 0">-->
 
           <!--<div class="alert alert-danger" role="alert">-->

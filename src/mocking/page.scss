@@ -1,0 +1,15 @@
+.rc-page {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+
+  .rc-page-col-left {
+    flex-basis: 300px;
+    background-color: white;
+    border-right: solid lightgrey 1px;
+  }
+
+  .rc-page-col-main {
+    flex-grow: 2;
+  }
+}

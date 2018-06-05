@@ -1,0 +1,25 @@
+@import "variables";
+
+.rc-toolbar {
+  font-family: Roboto, sans-serif;
+  background: white;
+  padding: 20px 30px;
+  font-size: 16px;
+  display: flex;
+  border-bottom: 1px solid #d3d3d3;
+
+  h1, h2, h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 20px;
+  }
+
+  .rc-toolbar-brand {
+    align-items: center;
+    color: rgba(0,0,0,.654);
+    border-right: 1px solid #d3d3d3;
+    padding-right: 20px;
+    margin-right: 20px;
+  }
+
+}
