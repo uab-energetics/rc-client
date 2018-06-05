@@ -10,7 +10,14 @@ import {
   MatCheckboxModule,
   MatSelectModule,
   MatTabsModule,
-  MatMenuModule, MatListModule, MatIconModule, MatTooltipModule, MatButtonModule, MatCardModule, MatDialogModule
+  MatMenuModule,
+  MatListModule,
+  MatIconModule,
+  MatTooltipModule,
+  MatButtonModule,
+  MatCardModule,
+  MatDialogModule,
+  MatGridListModule
 } from '@angular/material'
 import {CdkTableModule} from '@angular/cdk/table'
 
@@ -33,7 +40,8 @@ import {CdkTableModule} from '@angular/cdk/table'
     MatButtonModule,
     MatSlideToggleModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule
   ],
   exports: [
     MatProgressBarModule,
@@ -53,7 +61,8 @@ import {CdkTableModule} from '@angular/cdk/table'
     MatButtonModule,
     MatSlideToggleModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule
   ]
 })
 export class AngularMaterialModule {
