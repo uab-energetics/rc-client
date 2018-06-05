@@ -45,6 +45,7 @@
     "pusher": "^1.5.1",
     "pusher-js": "^4.2.2",
     "rxjs": "^5.5.11",
+    "sweetalert2": "^7.22.0",
     "transformation-matrix": "^1.7.0",
     "zone.js": "^0.8.26"
   },

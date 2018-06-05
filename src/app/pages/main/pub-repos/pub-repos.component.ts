@@ -17,6 +17,7 @@ import {PmcImporterComponent} from "./pmc-importer/pmc-importer.component";
 import {PMCResult} from "../../../core/pmc/PMCResult";
 import {Observable} from "rxjs/Observable";
 import {download} from "../../../core/files/download";
+import {select} from "d3-selection";
 
 @Component({
   selector: 'app-pub-repos',
@@ -82,7 +83,7 @@ export class PubReposComponent implements OnInit {
       .subscribe((repo: PubRepo) => {
         this.closeModal()
         this.activeRepo$.next(repo)
-        this.notify.swal.swal("Done", "Repo Created!", 'success')
+        this.notify.swal("Done", "Repo Created!", 'success')
       })
   }
 
@@ -97,7 +98,7 @@ export class PubReposComponent implements OnInit {
         )
         .subscribe( () => {
           modalRef.close()
-          this.notify.swal.swal("Done", "Article Added Successfully", 'success')
+          this.notify.swal("Done", "Article Added Successfully", 'success')
         })
     })
   }
@@ -136,19 +137,24 @@ export class PubReposComponent implements OnInit {
             .pipe(switchMap(() => this.reloadPublications()))
             .subscribe(() => {
               modalRef.close()
-              this.notify.swal.swal("Upload Successful", "CSV Uploaded Successfully", 'success')
+              this.notify.swal("Upload Successful", "CSV Uploaded Successfully", 'success')
             })
         })
       }
     })
   }
 
-  handleDownload() {
-    let data = this.activeRepoPublications.map( P => {
+  handleDownload(onlySelected = false) {
+    let repos: Publication[] = this.activeRepoPublications
+    if(onlySelected) {
+      let selectedSet = new Set<string>(this.getSelected())
+      repos = repos.filter(P => selectedSet.has(P.id+''))
+    }
+    repos = repos.map( P => {
       delete P['pivot']
       return P
     })
-    let csv = this.csvParse.unparse(this.activeRepoPublications)
+    let csv = this.csvParse.unparse(repos)
     download('repo-pubs-export.csv', csv)
   }
 
@@ -164,7 +170,7 @@ export class PubReposComponent implements OnInit {
   * TODO - move this logic into another service/component
   * =================== */
 
-  getSelected() {
+  getSelected(): string[] {
     return Object.entries(this.checked)
       .filter(([key, val]) => !!val)
       .map(([key, val]) => key)
@@ -180,11 +186,34 @@ export class PubReposComponent implements OnInit {
 
   selectedDelete() {
     let pubIDs = this.getSelected()
-    this.repoService.removePublications(this.ps.getActiveProject().id+'', this.activeRepo.id, pubIDs)
-      .subscribe(() => {
-        this.notify.swal.swal("Done", "Publications Deleted", 'success')
-        this.deselectAll()
-      })
+    let msg = `You're about to delete ${pubIDs.length} articles? `
+    if(pubIDs.length === this.activeRepoPublications.length)
+      msg = `You're about to delete ALL articles. `
+    msg += "This action cannot be undone!"
+
+    this.notify.swal({
+      title: 'Are you sure?',
+      text: msg,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete them!',
+      cancelButtonText: 'No, wait! Don\'t delete them!'
+    }).then((result) => {
+      if (result.value) {
+        this.repoService.removePublications(this.ps.getActiveProject().id+'', this.activeRepo.id, pubIDs)
+          .subscribe(() => {
+            this.notify.swal("Done", "Publications Deleted", 'success')
+            this.deselectAll()
+          })
+      } else if (result.dismiss) {
+        this.notify.swal(
+          'Cancelled',
+          'Your articles are safe',
+          'error'
+        )
+      }
+
+    }).catch(() => {})
   }
 
 }

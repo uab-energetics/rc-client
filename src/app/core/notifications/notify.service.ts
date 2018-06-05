@@ -1,12 +1,16 @@
 import {Injectable} from '@angular/core';
 import {MatSnackBar, MatSnackBarConfig} from "@angular/material";
-import {SweetAlertService} from "ng2-sweetalert2";
+
+import swal from 'sweetalert2'
 
 @Injectable()
 export class NotifyService {
 
-  constructor(public materialSnackBar: MatSnackBar,
-              public swal: SweetAlertService) {
+  swal: any
+
+  constructor(public materialSnackBar: MatSnackBar) {
+    this.swal = swal
+    console.log(swal)
   }
 
   toast(message: string, action: string = 'Ok', options: MatSnackBarConfig = {
@@ -22,7 +26,7 @@ export class NotifyService {
   }
 
   alert(title, message = '', type = 'success'){
-    this.swal.swal(title, message, type);
+    this.swal(title, message, type);
   }
 
   confirm(callback, {
@@ -30,7 +34,7 @@ export class NotifyService {
       text = "This action cannot be undone!",
       confirmButtonText = "Yes, delete it."
   } = {}): void {
-    this.swal.swal({
+    this.swal({
       title,
       text,
       type: 'warning',
