@@ -57,7 +57,7 @@ export class PubReposComponent implements OnInit {
 
     this.activeRepoPublications$.pipe(
       // always pipe visible publications through the filter
-      map(pubs => pubs.filter(P => P.title.includes(this.filter)))
+      map(pubs => pubs.filter(P => P.title.toLowerCase().replace(' ', '').includes(this.filter.toLowerCase().replace(' ', ''))))
     ).subscribe(pubs => this.activeRepoPublications = pubs)
 
     this.filterStream$.pipe(
