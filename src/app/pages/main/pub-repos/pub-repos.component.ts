@@ -42,6 +42,8 @@ export class PubReposComponent implements OnInit {
   activeModal: any
   fileUploadButton: Element
 
+  checked = {}
+
   constructor(public repoService: PubReposService,
               private csvParse: PapaParseService,
               private pmc: ArticlesService,
@@ -155,6 +157,34 @@ export class PubReposComponent implements OnInit {
       .pipe(
         tap(pubs => this.activeRepoPublications = pubs)
       )
+  }
+
+
+  /* BULK ACTIONS
+  * TODO - move this logic into another service/component
+  * =================== */
+
+  getSelected() {
+    return Object.entries(this.checked)
+      .filter(([key, val]) => !!val)
+      .map(([key, val]) => key)
+  }
+
+  selectAll() {
+    this.activeRepoPublications.forEach(P => this.checked[P.id] = true)
+  }
+
+  deselectAll() {
+    this.checked = {}
+  }
+
+  selectedDelete() {
+    let pubIDs = this.getSelected()
+    this.repoService.removePublications(this.ps.getActiveProject().id+'', this.activeRepo.id, pubIDs)
+      .subscribe(() => {
+        this.notify.swal.swal("Done", "Publications Deleted", 'success')
+        this.deselectAll()
+      })
   }
 
 }

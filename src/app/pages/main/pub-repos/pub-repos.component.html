@@ -15,11 +15,6 @@
         + Create Repository
       </button>
 
-      <!--<button matTooltip="Create A New Repository" matTooltipPosition="after"
-              style="position: absolute; bottom: 20px; left: 40px;"
-              (click)="openModal(createRepoModal)"
-              class="btn btn-floating btn-success">
-        <i class="icon wb-plus"></i></button>-->
     </div>
 
     <div class="page-aside-inner page-aside-scroll scrollable is-enabled scrollable-vertical">
@@ -87,6 +82,9 @@
         <br/>
       </div>
       <div class="panel-body">
+
+        <!-- Bulk Actions -->
+
         <div class="form-group">
           <div class="input-search">
             <i class="input-search-icon wb-search"></i>
@@ -95,9 +93,17 @@
           </div>
         </div>
 
+        <div *ngIf="getSelected().length > 0" ngbDropdown class="d-inline-block mb-20">
+          <button class="btn btn-sm btn-danger" id="bulkActionsBtn" ngbDropdownToggle>Bulk Actions</button>
+          <div ngbDropdownMenu aria-labelledby="bulkActionsBtn">
+            <button (click)="selectedDelete()" class="btn-sm dropdown-item">Delete Selected</button>
+          </div>
+        </div>
+
         <table class="table table-sm" style="color: black">
           <thead>
           <tr>
+            <th><mat-checkbox [value]="allSelected" (change)="$event.checked ? selectAll() : deselectAll()"></mat-checkbox></th>
             <th>ID</th>
             <th>Display Name</th>
             <th>Embedding URL</th>
@@ -105,6 +111,7 @@
           </thead>
           <tbody>
           <tr *ngFor="let pub of activeRepoPublications | paginate: { itemsPerPage: 10, currentPage: p }">
+            <td><mat-checkbox [(ngModel)]="checked[pub.id]"></mat-checkbox></td>
             <td>{{pub.id}}</td>
             <td>
               <a class="link" style="font-weight: 400"> {{pub.title}} </a>
