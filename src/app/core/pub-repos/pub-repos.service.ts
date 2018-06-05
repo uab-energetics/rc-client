@@ -59,7 +59,7 @@ export class PubReposService {
 
   getPublications(projectID, repoID: string): Observable<Publication[]> {
     const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications`
-    return this.http.get(url)
+    return this.http.get<Publication[]>(url)
   }
 
 }

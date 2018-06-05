@@ -22,7 +22,7 @@ export class ApiInterceptor {
       path: globtoregex(key),
       res: val as object | Function
     }))
-    let whitelist = (environment.backendless.whitelist || []).map(globtoregex)
+    let whitelist: any = (environment.backendless.whitelist || []).map(globtoregex)
 
     let method = req.method.toUpperCase()
     let path = /:\/\/.+?(\/.*)/.exec(req.url)[1]
