@@ -43,10 +43,11 @@ export class PubReposService {
     )
   }
 
-  requestRepos(projectID) {
+  requestRepos(projectID): Observable<PubRepo[]> {
     const url = `${env.api}/projects/${projectID}/pub-repos`
-    this.http.get(url).subscribe((repos: PubRepo[]) =>
-      this.repos$.next(repos))
+    return this.http.get(url).pipe(
+      tap(repos => this.repos$.next(repos))
+    )
   }
 
   addPublications(projectID: string, repoID: string, publications: Publication[]): Observable<any> {

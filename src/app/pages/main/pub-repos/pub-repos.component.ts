@@ -84,12 +84,16 @@ export class PubReposComponent implements OnInit {
       })
     ).subscribe()
 
-    this.ps.project$.subscribe((project: AppProject) => this.repoService.requestRepos(project.id))
-
     this.repoService.repos$.subscribe(R => {
       if(this.repos.length == 0 && R.length > 0) // sets the active repo if none is selected
         this.activeRepo$.next(R[0])
       this.repos = R
+    })
+
+    this.ps.project$.subscribe((project: AppProject) => {
+      this.repos = []
+      this.repoService.requestRepos(project.id)
+        .subscribe()
     })
   }
 
