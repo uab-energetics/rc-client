@@ -22,7 +22,7 @@ let providers = [
   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
 ]
 
-if(environment.backendless)
+if(environment.backendless.enabled)
   providers.push(mockApiInterceptor)
 
 

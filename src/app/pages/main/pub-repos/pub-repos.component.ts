@@ -15,6 +15,7 @@ import {AddOneComponent} from "./add-one/add-one.component";
 import {ArticlesService} from "../../../core/pmc/articles.service";
 import {PmcImporterComponent} from "./pmc-importer/pmc-importer.component";
 import {PMCResult} from "../../../core/pmc/PMCResult";
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-pub-repos',
@@ -49,7 +50,7 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
 
     this.activeRepo$.asObservable().pipe(
       tap(R => this.activeRepo = R),
-      switchMap<PubRepo, Publication[]>(R => this.repoService.getPublications(12, R.id)) as any,
+      switchMap<PubRepo, Publication[]>(R => this.repoService.getPublications(this.ps.getActiveProject().id+'', R.id)) as any,
       tap(pubs => this.activeRepoPublications = pubs)
     ).subscribe()
 
@@ -77,7 +78,7 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
   }
 
   handleNewRepoSubmit(newRepoForm: PubRepo) {
-    this.repoService.createRepo(12, newRepoForm)
+    this.repoService.createRepo(this.ps.getActiveProject().id+'', newRepoForm)
   }
 
   handleAddOne() {
@@ -85,6 +86,10 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
     modalRef.componentInstance.onSave.subscribe((pub: Publication) => {
       // new publication ready for save
       this.repoService.addPublications(this.ps.getActiveProject().id+'', this.activeRepo.id, [pub])
+        .pipe(
+          // TODO - automatically push to publications observable somewhere!!
+          switchMap(() => this.reloadPublications())
+        )
         .subscribe( () => {
           modalRef.close()
           this.notify.swal.swal("Done", "Article Added Successfully", 'success')
@@ -101,8 +106,8 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
             title: R.title,
             embeddingURL: R.embedding_url
           }))
-          console.log(uploadData)
           this.repoService.addPublications(this.ps.getActiveProject().id+'', this.activeRepo.id, uploadData)
+            .pipe(switchMap(() => this.reloadPublications()))
             .subscribe()
         })
     })
@@ -112,16 +117,18 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
     if(files.length === 0) return
     let [file] = files
     this.csvParse.parse(file, {
+      skipEmptyLines: true,
       complete: (results, file) => {
         let parsed: Publication[] = results.data.map(([ col1, col2, col3 ]) => ({
           title: col1,
           sourceID: col2,
-          embedding_url: col3
+          embeddingURL: col3
         }))
         const modalRef = this.modalService.open(UploadPreviewComponent, { size: 'lg' });
         modalRef.componentInstance.data = parsed
         modalRef.componentInstance.onConfirm.subscribe(_ => {
-          this.repoService.addPublications('12', this.activeRepo.id, parsed)
+          this.repoService.addPublications(this.ps.getActiveProject().id+'', this.activeRepo.id, parsed)
+            .pipe(switchMap(() => this.reloadPublications()))
             .subscribe(() => {
               modalRef.close()
               this.notify.swal.swal("Upload Successful", "CSV Uploaded Successfully", 'success')
@@ -129,6 +136,13 @@ export class PubReposComponent extends PageAsideComponent implements OnInit, OnD
         })
       }
     })
+  }
+
+  private reloadPublications(): Observable<any> {
+    return this.repoService.getPublications(this.ps.getActiveProject().id+'', this.activeRepo.id)
+      .pipe(
+        tap(pubs => this.activeRepoPublications = pubs)
+      )
   }
 
 }

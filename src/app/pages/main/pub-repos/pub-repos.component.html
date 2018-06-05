@@ -17,9 +17,6 @@
         <div class="details">
           <b>{{repo.displayName}}</b>
           <p class="card-text">{{repo.id}}</p>
-          <p class="card-text">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </p>
         </div>
 
         <div>
@@ -29,7 +26,7 @@
 
 
       <button matTooltip="Create A New Repository" matTooltipPosition="after"
-              style="position: absolute; bottom: 20px; left: 20px;"
+              style="position: absolute; bottom: 20px; right: 20px;"
               (click)="openModal(createRepoModal)"
               class="btn btn-floating btn-success">
         <i class="icon wb-plus"></i></button>
@@ -96,9 +93,9 @@
           <tr *ngFor="let pub of activeRepoPublications | paginate: { itemsPerPage: 10, currentPage: p }">
             <td>{{pub.id}}</td>
             <td>
-              <a class="link" style="font-weight: 400"> {{pub.name}} </a>
+              <a class="link" style="font-weight: 400"> {{pub.title}} </a>
             </td>
-            <td><a target="_blank" href="{{pub.embedding_url}}">{{pub.embedding_url}}</a></td>
+            <td><a target="_blank" href="{{pub.embeddingURL}}">{{pub.embeddingURL}}</a></td>
           </tr>
           </tbody>
         </table>

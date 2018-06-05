@@ -18,7 +18,7 @@ export class PubReposService {
     this.repos$.subscribe(repos => this.repos = repos)
   }
 
-  createRepo(projectID: number, data: PubRepo): void {
+  createRepo(projectID: string, data: PubRepo): void {
     const url = `${env.api}/projects/${projectID}/pub-repos`
     this.http.post(url, data)
       .subscribe((newRepo: PubRepo) => {
@@ -47,7 +47,6 @@ export class PubReposService {
 
   addPublications(projectID: string, repoID: string, publications: Publication[]): Observable<any> {
     const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications`
-    console.log(url)
     return this.http.post(url, { publications }).pipe(
       switchMap(_ => this.getPublications(projectID, repoID))
     )

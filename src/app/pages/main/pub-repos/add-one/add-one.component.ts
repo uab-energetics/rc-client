@@ -23,7 +23,7 @@ export class AddOneComponent implements OnInit {
   }
 
   handleSubmit() {
-    this.onSave.next({...this.formModel})
+    this.onSave.next({...this.formModel} as Publication)
     this.reloadForm()
   }
 

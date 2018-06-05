@@ -3,11 +3,12 @@ import {HttpClient} from "@angular/common/http";
 
 import {Observable} from "rxjs/Observable";
 import {PMCResult} from "./PMCResult";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class ArticlesService {
 
-  static API = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi"
+  static API = `${environment.api}/pmc-api`
   static PUB_READER = "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC{{id}}"
   static PARAMS = {
     db: 'pmc',
