@@ -1,27 +1,82 @@
 <div class="page page-fullwidth">
 
-  <div class="rc-ft">
-    <div class="rc-ft-brand">
-      <h2><i class="icon wb-folder"></i> Publication Repos</h2>
+
+  <div class="page-aside">
+
+    <div class="rc-ft">
+      <h2><i class="icon fa fa-database"></i>Repositories</h2>
     </div>
-    <div>
-      <h2 class="feature-title">Instances</h2>
-    </div>
-    <div class="ml-25">
-      <button class="btn btn-outline btn-primary btn-xs">
-        <i class="fa fa-plus"></i> &nbsp; Create Instance
-      </button>
+
+    <div class="page-aside-inner page-aside-scroll scrollable is-enabled scrollable-vertical">
+
+      <div *ngFor="let repo of repos"
+           [ngClass]="{ 'active-card': activeRepo === repo }"
+           (click)="activeRepo$.next(repo)"
+           class="card card-block pub-repo-instance-card link">
+
+        <div class="details">
+          <b>{{repo.displayName}}</b>
+          <p class="card-text">{{repo.id}}</p>
+        </div>
+
+        <div>
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </div>
+      </div>
+
+
+      <button matTooltip="Create A New Repository" matTooltipPosition="after"
+              style="position: absolute; bottom: 20px; right: 20px;"
+              (click)="openModal(createRepoModal)"
+              class="btn btn-floating btn-success">
+        <i class="icon wb-plus"></i></button>
+
     </div>
   </div>
 
-  <div class="panel">
-    <div class="panel-body">
-      <div>
+  <div class="page-main">
 
+    <div class="rc-ft">
+      <h2 class="feature-title">
+        Instance Details</h2>
+
+      <div class="ml-25">
+        <span>Import Options: </span>
+      </div>
+
+      <div class="ml-25">
+        <button (click)="handlePMCImport()" class="btn btn-xs btn-primary">
+          <i class="icon wb-cloud"></i> PMC Import Tool</button>
+      </div>
+
+      <div class="ml-25">
+        <!-- This native input element is hidden -->
+        <input #csvInput style="display: none;" type="file"
+               (change)="handleFileChange($event.target.files)" accept=".csv,">
+
+        <!-- This button forwards the click to the native file input element via an Angular directive -->
+        <button (click)="csvInput.click()" class="btn btn-xs btn-primary">
+          <i class="icon wb-upload"></i> CSV Upload</button>
+      </div>
+
+      <div class="ml-25">
+        <button (click)="handleAddOne()" class="btn btn-xs btn-primary">
+          <i class="icon wb-plus"></i> Manual Add One</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title"> {{activeRepo?.id}}
+          <span class="badge badge-success">Up and Running</span>
+        </h3>
+        <br/>
+      </div>
+      <div class="panel-body">
         <div class="form-group">
           <div class="input-search">
-            <i class="input-search-icon wb-search" aria-hidden="true"></i>
-            <input type="text" class="form-control" placeholder="Filter Instances...">
+            <i class="input-search-icon wb-search"></i>
+            <input type="text" class="form-control" placeholder="Filter Publications...">
             <button type="button" class="input-search-close icon wb-close"></button>
           </div>
         </div>
@@ -31,18 +86,16 @@
           <tr>
             <th>ID</th>
             <th>Display Name</th>
-            <th>Publication Count</th>
-            <th>Pipes</th>
+            <th>Embedding URL</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let repo of repos | paginate: { itemsPerPage: 10, currentPage: p }">
-            <td>{{repo.id}}</td>
+          <tr *ngFor="let pub of activeRepoPublications | paginate: { itemsPerPage: 10, currentPage: p }">
+            <td>{{pub.id}}</td>
             <td>
-              <a class="link" style="font-weight: 400"> {{repo.displayName}} </a>
+              <a class="link" style="font-weight: 400"> {{pub.title}} </a>
             </td>
-            <td>[ Coming Soon ]</td>
-            <td>[ Coming Soon ]</td>
+            <td><a target="_blank" href="{{pub.embeddingURL}}">{{pub.embeddingURL}}</a></td>
           </tr>
           </tbody>
         </table>
@@ -51,6 +104,23 @@
 
       </div>
     </div>
+
   </div>
+
+
+
+
+
+
+
+
+
+  <!-- MODALS -->
+  <ng-template #createRepoModal let-c="close" let-d="dismiss">
+    <div class="modal-body">
+      <app-pub-repo-form (formSubmit)="handleNewRepoSubmit($event)"></app-pub-repo-form>
+    </div>
+  </ng-template>
+
 
 </div>

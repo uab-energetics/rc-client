@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h4 class="modal-title">CSV Upload Preview</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <table class="table table-sm" style="color: black">
+    <thead>
+    <tr>
+      <th>Display Name</th>
+      <th>Embedding URL</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let pub of data | paginate: { itemsPerPage: 10, currentPage: curPage }">
+      <td>
+        <a class="link" style="font-weight: 400"> {{pub.title}} </a>
+      </td>
+      <td><a target="_blank" href="{{pub.embedding_url}}">{{pub.embedding_url}}</a></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <pagination-controls (pageChange)="curPage = $event"></pagination-controls>
+
+</div>
+<div class="modal-footer">
+  <button (click)="onConfirm.emit(true)" type="button" class="btn btn-success">Confirm Upload</button>
+</div>

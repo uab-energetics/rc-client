@@ -1,0 +1,19 @@
+.active-card {
+  background-color: #d3e0f6;
+}
+
+.pub-repo-instance-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  /* bootstrap overrides */
+  padding: 10px 20px;
+  margin-bottom: 0;
+
+  .details {
+    flex-grow: 2;
+  }
+}

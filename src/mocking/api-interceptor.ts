@@ -7,6 +7,7 @@ import {tap} from "rxjs/operators";
 
 import globtoregex from 'glob-to-regexp'
 import * as lodash from 'lodash'
+import {environment} from "../environments/environment";
 
 @Injectable()
 export class ApiInterceptor {
@@ -21,13 +22,18 @@ export class ApiInterceptor {
       path: globtoregex(key),
       res: val as object | Function
     }))
+    let whitelist = (environment.backendless.whitelist || []).map(globtoregex)
 
+    let method = req.method.toUpperCase()
     let path = /:\/\/.+?(\/.*)/.exec(req.url)[1]
+    path = method + " " + path
+
+    if(whitelist.some( W => W.exec(path)))
+      return next.handle(req)
 
     let response = data => of(new HttpResponse({ body: data })).pipe( tap( res => console.log("Replacing with: ", res) ))
 
     let matches = endpoints.filter( E => E.path.exec(path) )
-
     if(matches.length > 0) {
       console.log("Intercepting Request: ", path)
       let mock = matches[0]

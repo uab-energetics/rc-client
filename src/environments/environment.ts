@@ -6,7 +6,10 @@
 let environment = {
   api: 'https://localhost:8080',
   disableRouteGuards: true,
-  backendless: true,
+  backendless: {
+    enabled: true,
+    whitelist: []
+  },
   showLog: true,
   production: false,
   callbacks: {

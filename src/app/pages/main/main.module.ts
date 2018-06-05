@@ -43,6 +43,11 @@ import {TasksModule} from "../../core/tasks/tasks.module"
 import { PubReposComponent } from './pub-repos/pub-repos.component'
 import {NgxPaginationModule} from 'ngx-pagination'
 import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
+import { PapaParseModule } from 'ngx-papaparse';
+import { UploadPreviewComponent } from './pub-repos/upload-preview/upload-preview.component';
+import { AddOneComponent } from './pub-repos/add-one/add-one.component';
+import {PmcModule} from "../../core/pmc/pmc.module";
+import { PmcImporterComponent } from './pub-repos/pmc-importer/pmc-importer.component';
 
 @NgModule({
   imports: [
@@ -52,9 +57,11 @@ import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
     NgbModule,
     TreeModule,
     NgxPaginationModule,
+    PapaParseModule,
     AngularMaterialModule,
     SharedModule,
     SidebarModule,
+    PmcModule,
     ProjectsModule,
     ActiveProjectModule,
     TasksModule,
@@ -91,6 +98,14 @@ import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
     StructureEditorComponent,
     ProjectDashboardComponent,
     PubReposComponent,
+    UploadPreviewComponent,
+    AddOneComponent,
+    PmcImporterComponent,
+  ],
+  entryComponents: [
+    UploadPreviewComponent,
+    AddOneComponent,
+    PmcImporterComponent
   ]
 })
 export class MainModule {

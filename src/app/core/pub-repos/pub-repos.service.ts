@@ -4,6 +4,8 @@ import {Publication} from "./Publication";
 import {HttpClient} from "@angular/common/http";
 import {environment as env} from "../../../environments/environment";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Observable} from "rxjs/Observable";
+import {switchMap} from "rxjs/operators";
 
 @Injectable()
 export class PubReposService {
@@ -16,12 +18,13 @@ export class PubReposService {
     this.repos$.subscribe(repos => this.repos = repos)
   }
 
-  createRepo(projectID: number, data: PubRepo) {
+  createRepo(projectID: string, data: PubRepo): void {
     const url = `${env.api}/projects/${projectID}/pub-repos`
-    return this.http.post(url, data).subscribe((newRepo: PubRepo) => {
-      this.repos.push(newRepo)
-      this.repos$.next(this.repos)
-    })
+    this.http.post(url, data)
+      .subscribe((newRepo: PubRepo) => {
+        this.repos.push(newRepo)
+        this.repos$.next(this.repos)
+      })
   }
 
   updateRepo(projectID, id: string, data: PubRepo) {
@@ -42,10 +45,21 @@ export class PubReposService {
       this.repos$.next(repos))
   }
 
-  addPublications(repoID: string, publications: Publication[]) {
+  addPublications(projectID: string, repoID: string, publications: Publication[]): Observable<any> {
+    const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications`
+    return this.http.post(url, { publications }).pipe(
+      switchMap(_ => this.getPublications(projectID, repoID))
+    )
   }
 
-  removePublications(repoID: string, publications: Publication[]) {
+  removePublications(projectID: string, repoID: string, publicationIDs: string[]) {
+    const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications/delete`
+    return this.http.post(url, { publicationIDs })
+  }
+
+  getPublications(projectID, repoID: string): Observable<Publication[]> {
+    const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications`
+    return this.http.get(url)
   }
 
 }

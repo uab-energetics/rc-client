@@ -52,4 +52,8 @@ export class ActiveProjectService {
     else this.projectService.myProjects().subscribe()
   }
 
+  getActiveProject() {
+    return this.activeProject
+  }
+
 }

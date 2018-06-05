@@ -4,7 +4,7 @@ import {RouterModule} from '@angular/router'
 import { pageRoutes } from './pages.routing'
 import { FormsModule } from '@angular/forms'
 import {AuthModule} from '../core/auth/auth.module'
-import {SharedModule} from '../core/shared.module'
+import {SharedModule} from '../core/shared.module';
 
 @NgModule({
   imports: [
@@ -13,7 +13,8 @@ import {SharedModule} from '../core/shared.module'
     RouterModule.forRoot(pageRoutes),
     AuthModule,
     SharedModule
-  ]
+  ],
+  declarations: []
 })
 export class PagesModule {
 }
