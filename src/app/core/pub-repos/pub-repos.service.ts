@@ -55,7 +55,7 @@ export class PubReposService {
   }
 
   removePublications(projectID: string, repoID: string, publicationIDs: string[]) {
-    const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications/delete`
+    const url = `${env.api}/projects/${projectID}/pub-repos/${repoID}/publications/remove`
     return this.http.post(url, { publicationIDs })
   }
 
