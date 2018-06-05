@@ -184,6 +184,10 @@ export class PubReposComponent implements OnInit {
           sourceID: col2,
           embeddingURL: col3 || col2
         }))
+        if(parsed.length === 0) {
+          this.notify.swal("No rows found", "Please check the format of your CSV", 'error')
+          return
+        }
         const modalRef = this.modalService.open(UploadPreviewComponent, { size: 'lg' });
         modalRef.componentInstance.data = parsed
         modalRef.componentInstance.onConfirm.subscribe(_ => {
@@ -210,6 +214,10 @@ export class PubReposComponent implements OnInit {
         embeddingURL: P.embeddingURL
       }
     })
+    if(repos.length === 0) {
+      this.notify.swal('There are no repos selected', '', 'info')
+      return
+    }
     let csv = this.csvParse.unparse(repos, {
       header: false,
       quotes: true
