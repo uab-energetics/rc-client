@@ -230,7 +230,7 @@ export class PubReposComponent implements OnInit {
   private reloadPublications(): Observable<any> {
     return this.repoService.getPublications(this.ps.getActiveProject().id+'', this.activeRepo.id)
       .pipe(
-        tap(pubs => this.activeRepoPublications = pubs)
+        tap(pubs => this.originalPublications = pubs)
       )
   }
 

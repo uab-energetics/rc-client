@@ -56,13 +56,7 @@ export class SidebarComponent implements OnInit {
       text: 'Projects',
       route: '/projects',
       icon: 'cached'
-    },
-    {
-      text: 'Project Pipelines',
-      route: '/pipelines',
-      icon: 'settings_input_component',
-      projectRequired: true
-    },
+    }
   ]
 
   constructor(private auth: AuthService, private aps: ActiveProjectService) {
