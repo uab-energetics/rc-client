@@ -10,7 +10,6 @@ declare let vis: any
 export class PipesComponent implements OnInit {
 
   ngOnInit(): void {
-    document.body.classList.add('page-aside-fixed', 'page-aside-left')
     // create an array with nodes
     let nodes = new vis.DataSet([
       {id: 10, label: 'pub-repo-4397y', shape: 'image', image: "https://image.flaticon.com/icons/svg/138/138939.svg" },
@@ -47,10 +46,6 @@ export class PipesComponent implements OnInit {
       }
     }
     let network = new vis.Network(container, data, options)
-  }
-
-  ngOnDestroy() {
-    document.body.classList.remove('page-aside-fixed', 'page-aside-left')
   }
 
 }
