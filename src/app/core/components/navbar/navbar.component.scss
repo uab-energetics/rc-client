@@ -1,0 +1,75 @@
+/* ==========================================*/
+/*               VARIABLES                   */
+/* ==========================================*/
+
+// Navbar ----------------------------------
+$background-color: #62a8ea;
+$height: 50px;
+
+// Links -----------------------------------
+$font-color: white;
+$hover-color: rgb(221, 221, 221);
+$font-size: 14px;
+
+// Buttons ---------------------------------
+$button-color: $font-color;
+$button-size: 19px;
+
+// Profile Image ---------------------------
+$profile-img-height: $height - 15px;
+
+// Brand Image -----------------------------
+$brand-img-height: $height - 25px;
+
+/*===========================================*/
+
+@mixin navbarSection($alignment) {
+  justify-content: $alignment;
+
+  .rc-navbar-btn { font-size: $button-size; color: $button-color; width: 45px; }
+  .rc-navbar-link { color: $font-color; font-size: $font-size }
+  .rc-navbar-link:hover { color: $hover-color }
+  .rc-navbar-profile { height: $profile-img-height; border-radius: 50% }
+  .rc-navbar-brand { height: $brand-img-height; }
+  .rc-navbar-item {
+    color: $font-color;
+    cursor: grab;
+    padding: 0 10px;
+    height: 100%;
+  }
+}
+
+.rc-navbar {
+  // general settings
+  background-color: $background-color;
+  height: $height;
+  padding: 0 10px;
+
+  // spacing /w flexbox
+  justify-content: space-between;
+  display: flex;
+  align-items: stretch;
+
+  // spacing to all child elements. TODO - optimize
+  * { display: flex; align-items: center }
+
+  // justify navbar-sections
+  .rc-left {
+    @include navbarSection(flex-start);
+  }
+  .rc-center {
+    @include navbarSection(center);
+    flex-grow: 3;
+  }
+  .rc-right {
+    @include navbarSection(flex-end);
+  }
+}
+
+/* ANGULAR MATERIAL OVERRIDES */
+.mat-menu-item {
+  line-height: 35px;
+  height: 35px;
+  padding: 0 15px;
+  font-size: 14px;
+}

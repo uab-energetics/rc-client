@@ -7,7 +7,7 @@ interface MockAPI {
 
 export const MOCK_API = {
 
-  'GET /auth/login': {
+  'POST /auth/login': {
     user: MockUser,
     token: FakeJWT
   },

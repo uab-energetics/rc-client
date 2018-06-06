@@ -17,12 +17,17 @@ export class NavbarComponent implements OnInit {
   activeProject: AppProject
   unreadNotifications = [];
 
+  sidebarState = 0
+
   constructor(
     public authService: AuthService,
     public activeProjectService: ActiveProjectService,
     private notifications: NotificationsService,
     private notify: NotifyService
-  ) { }
+  ) {
+    dispatcher.on('sidebar-opened', () => this.sidebarState = 1)
+    dispatcher.on('sidebar-closed', () => this.sidebarState = 0)
+  }
 
   ngOnInit() {
     this.activeProjectService.project$.subscribe( p => this.activeProject = p )

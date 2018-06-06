@@ -29,6 +29,11 @@
         "../node_modules/sweetalert2/dist/sweetalert2.min.css",
         "styles.scss"
       ],
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          "scss"
+        ]
+      },
       "scripts": [
         "../src/assets/vendor/jquery/jquery.js",
         "../src/assets/vendor/popper-js/umd/popper.min.js",

@@ -72,11 +72,13 @@ export class SidebarComponent implements OnInit {
   open() {
     document.body.classList.add('site-menubar-fixed', 'site-menubar-open')
     this.navbarState = true
+    dispatcher.emit('sidebar-opened')
   }
 
   close() {
     document.body.classList.remove('site-menubar-fixed', 'site-menubar-open')
     this.navbarState = false
+    dispatcher.emit('sidebar-closed')
   }
 
   toggleNavbar() {
