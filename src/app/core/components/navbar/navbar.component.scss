@@ -41,9 +41,14 @@ $brand-img-height: $height - 25px;
     padding: 0 10px;
     height: 100%;
   }
+  .rc-navbar-item:hover {
+    background-color: rgba(0,0,0,0.09);
+  }
 }
 
 .rc-navbar {
+  color: $font-color;
+
   // general settings
   background-color: $background-color;
   height: $height;
