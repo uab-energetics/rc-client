@@ -8,7 +8,6 @@ import {RouterModule} from '@angular/router'
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
-import {SweetAlertService} from 'ng2-sweetalert2'
 import {PagesModule} from './pages/pages.module'
 import {AuthService} from './core/auth/auth.service'
 import {AuthInterceptorService} from './core/auth/auth-interceptor.service'
@@ -18,12 +17,11 @@ import {environment} from "../environments/environment";
 
 let providers = [
   AuthService,
-  SweetAlertService,
   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
 ]
 
 if(environment.backendless.enabled)
-  providers.push(mockApiInterceptor)
+  providers.push(mockApiInterceptor as any)
 
 
 @NgModule({

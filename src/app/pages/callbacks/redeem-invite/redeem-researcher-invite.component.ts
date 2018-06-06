@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {InvitationsService} from "../../../core/invitations/invitations.service";
-import {SweetAlertService} from "ng2-sweetalert2";
 import {RedirectService} from '../../../core/auth/redirect.service'
 import {JwtService} from '../../../core/auth/jwt.service'
+import {NotifyService} from "../../../core/notifications/notify.service";
 
 
 @Component({
@@ -27,7 +27,7 @@ export class RedeemResearcherInviteComponent implements OnInit {
     private invites: InvitationsService,
     private userService: JwtService,
     private redirectService: RedirectService,
-    private sweetAlerts: SweetAlertService
+    private notify: NotifyService
   ) { }
 
   validateResearcherInvite(token) {
@@ -59,7 +59,7 @@ export class RedeemResearcherInviteComponent implements OnInit {
   acceptResearcherInvite(){
     this.invites.acceptResearcherInvite(this.queryParams.token)
       .subscribe(() => {
-        this.sweetAlerts.swal({
+        this.notify.swal({
           title: "Success!",
           text: "You have joined the project.",
           confirmButtonText: "Take me there!",
