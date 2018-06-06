@@ -70,8 +70,7 @@ import {PubCoder4Module} from "./pub-coder-4/pub-coder-4.module";
     ActiveProjectModule,
     TasksModule,
     PubReposModule,
-    MatTableModule,
-    PubCoder4Module
+    MatTableModule
   ],
   declarations: [
     EncodersComponent,
