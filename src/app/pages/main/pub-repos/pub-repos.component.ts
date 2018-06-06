@@ -93,7 +93,7 @@ export class PubReposComponent implements OnInit {
     })
 
     this.ps.project$
-      .filter(project => project !== null && project !== undefined)
+      .filter(project => project !== null)
       .subscribe((project: AppProject) => {
         this.repos = []
         this.repoService.requestRepos(project.id)
