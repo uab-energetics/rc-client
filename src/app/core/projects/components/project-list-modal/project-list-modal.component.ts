@@ -3,6 +3,7 @@ import {ActiveProjectService} from '../../../active-project/active-project.servi
 import {ProjectService} from '../../project.service'
 import {AppProject} from '../../AppProject'
 import {MatDialogRef} from '@angular/material'
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-project-list-modal',
@@ -14,7 +15,10 @@ export class ProjectListModalComponent implements OnInit {
   project: AppProject
   projects: AppProject[]
 
-  constructor(public aps: ActiveProjectService, public ps: ProjectService, public dialogRef: MatDialogRef<ProjectListModalComponent>) {
+  constructor(public aps: ActiveProjectService,
+              public ps: ProjectService,
+              public router: Router,
+              public dialogRef: MatDialogRef<ProjectListModalComponent>) {
     this.aps.project$.subscribe( p => this.project = p )
     this.ps.projects$.subscribe( ps => this.projects = ps )
     this.ps.myProjects().subscribe()
@@ -23,6 +27,11 @@ export class ProjectListModalComponent implements OnInit {
   selectProject(project: AppProject) {
     this.aps.setProject(project)
     this.dialogRef.close('project selected')
+  }
+
+  createProject() {
+    this.router.navigateByUrl('/create-project')
+    this.dialogRef.close('create project')
   }
 
   ngOnInit() {
