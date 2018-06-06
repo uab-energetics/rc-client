@@ -3,7 +3,7 @@
 .rc-page {
   display: flex;
   align-items: stretch;
-  height: 100%;
+  height: calc(100% - #{$navbarHeight});
 
   .rc-page-col-left {
     flex-basis: 300px;
@@ -14,4 +14,26 @@
   .rc-page-col-main {
     flex-grow: 2;
   }
+}
+
+
+.rc-col-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  cursor: pointer;
+  /* bootstrap overrides */
+  padding: 10px 20px;
+  margin-bottom: 0;
+
+  .details {
+    flex-grow: 2;
+  }
+}
+
+.rc-col-card.rc-active {
+  background-color: #d3e0f6;
 }

@@ -7,6 +7,8 @@ import {AngularMaterialModule} from "../../../core/auth/angular-material/angular
 import {RouterModule} from "@angular/router";
 import {pubCoderRoutes} from "./routes";
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { PcBodyComponent } from './pc-body/pc-body.component';
+import { PcCardComponent } from './pc-card/pc-card.component';
 
 @NgModule({
   imports: [
@@ -16,6 +18,6 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     NgbModule,
     AngularMaterialModule,
   ],
-  declarations: [PubCoder4Component, ToolbarComponent]
+  declarations: [PubCoder4Component, ToolbarComponent, PcBodyComponent, PcCardComponent]
 })
 export class PubCoder4Module { }
