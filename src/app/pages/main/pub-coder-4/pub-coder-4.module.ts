@@ -9,6 +9,7 @@ import {pubCoderRoutes} from "./routes";
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { PcBodyComponent } from './pc-body/pc-body.component';
 import { PcCardComponent } from './pc-card/pc-card.component';
+import { TypeColComponent } from './type-col/type-col.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { PcCardComponent } from './pc-card/pc-card.component';
     NgbModule,
     AngularMaterialModule,
   ],
-  declarations: [PubCoder4Component, ToolbarComponent, PcBodyComponent, PcCardComponent]
+  declarations: [PubCoder4Component, ToolbarComponent, PcBodyComponent, PcCardComponent, TypeColComponent]
 })
 export class PubCoder4Module { }

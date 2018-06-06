@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Codebook} from "../../../../core/codebooks/Codebook";
 
 @Component({
   selector: 'app-pc-body',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pc-body.component.scss']
 })
 export class PcBodyComponent implements OnInit {
+
+  @Input() codebook: Codebook
 
   constructor() { }
 
