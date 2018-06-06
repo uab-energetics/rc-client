@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {AppProject} from "../../../../core/projects/AppProject";
-import {SweetAlertService} from "ng2-sweetalert2";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AppPublication} from "../../../../core/publications/AppPublication";
 import {ProjectService} from "../../../../core/projects/project.service";

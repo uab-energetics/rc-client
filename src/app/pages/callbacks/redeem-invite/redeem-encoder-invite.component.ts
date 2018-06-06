@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {InvitationsService} from "../../../core/invitations/invitations.service";
-import {SweetAlertService} from "ng2-sweetalert2";
 import {RedirectService} from '../../../core/auth/redirect.service'
 import {JwtService} from '../../../core/auth/jwt.service'
+import {NotifyService} from "../../../core/notifications/notify.service";
 
 
 @Component({
@@ -27,7 +27,7 @@ export class RedeemEncoderInviteComponent implements OnInit {
     private invites: InvitationsService,
     private userService: JwtService,
     private redirectService: RedirectService,
-    private sweetAlerts: SweetAlertService
+    private sweetAlerts: NotifyService
   ) { }
 
   validateEncoderInvite(token) {
