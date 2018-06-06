@@ -24,6 +24,8 @@ $brand-img-height: $height - 25px;
 /*===========================================*/
 
 @mixin navbarSection($alignment) {
+  display: flex;
+  align-items: center;
   justify-content: $alignment;
 
   .rc-navbar-btn { font-size: $button-size; color: $button-color; width: 45px; }
@@ -32,6 +34,8 @@ $brand-img-height: $height - 25px;
   .rc-navbar-profile { height: $profile-img-height; border-radius: 50% }
   .rc-navbar-brand { height: $brand-img-height; }
   .rc-navbar-item {
+    display: flex;
+    align-items: center;
     color: $font-color;
     cursor: grab;
     padding: 0 10px;
@@ -49,9 +53,6 @@ $brand-img-height: $height - 25px;
   justify-content: space-between;
   display: flex;
   align-items: stretch;
-
-  // spacing to all child elements. TODO - optimize
-  * { display: flex; align-items: center }
 
   // justify navbar-sections
   .rc-left {
