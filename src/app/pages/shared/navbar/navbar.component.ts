@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core'
-import {NotificationsService} from '../../notifications/notifications.service'
-import {NotifyService} from '../../notifications/notify.service'
-import {AuthService} from '../../auth/auth.service'
-import {dispatcher} from '../../dispatcher/dispatcher'
-import {ActiveProjectService} from '../../active-project/active-project.service'
-import {AppProject} from '../../projects/AppProject'
-import {OPEN_PROJECT_LIST} from '../../projects/actions'
+import {NotificationsService} from '../../../core/notifications/notifications.service'
+import {NotifyService} from '../../../core/notifications/notify.service'
+import {AuthService} from '../../../core/auth/auth.service'
+import {dispatcher} from '../../../core/dispatcher/dispatcher'
+import {ActiveProjectService} from '../../../core/active-project/active-project.service'
+import {AppProject} from '../../../core/projects/AppProject'
+import {OPEN_PROJECT_LIST} from '../../../core/projects/actions'
 
 @Component({
   selector: 'app-navbar',

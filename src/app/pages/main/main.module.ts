@@ -33,22 +33,23 @@ import {CodeBookTreeComponent} from './form-builder/codebook-tree/codebook-tree.
 import {EncodingTreeComponent} from './pub-coder/encoding-tree/encoding-tree.component'
 import {StructureEditorComponent} from './pub-coder/structure-editor/structure-editor.component'
 import {EncodersComponent} from './project-users/collaborators/encoders.component'
-import {SidebarModule} from '../../core/components/sidebar/sidebar.module'
+import {SidebarModule} from '../shared/sidebar/sidebar.module'
 import {ActiveProjectModule} from '../../core/active-project/active-project.module'
-import { ProjectUsersComponent } from './project-users/project-users.component'
-import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component'
+import {ProjectUsersComponent} from './project-users/project-users.component'
+import {ProjectDashboardComponent} from './project-dashboard/project-dashboard.component'
 import {ProjectsModule} from '../../core/projects/projects.module'
 import {MatTableModule} from '@angular/material'
 import {TasksModule} from "../../core/tasks/tasks.module"
-import { PubReposComponent } from './pub-repos/pub-repos.component'
+import {PubReposComponent} from './pub-repos/pub-repos.component'
 import {NgxPaginationModule} from 'ngx-pagination'
 import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
-import { PapaParseModule } from 'ngx-papaparse';
-import { UploadPreviewComponent } from './pub-repos/upload-preview/upload-preview.component';
-import { AddOneComponent } from './pub-repos/add-one/add-one.component';
+import {PapaParseModule} from 'ngx-papaparse';
+import {UploadPreviewComponent} from './pub-repos/upload-preview/upload-preview.component';
+import {AddOneComponent} from './pub-repos/add-one/add-one.component';
 import {PmcModule} from "../../core/pmc/pmc.module";
-import { PmcImporterComponent } from './pub-repos/pmc-importer/pmc-importer.component';
-import { PipesComponent } from './pipes/pipes.component';
+import {PmcImporterComponent} from './pub-repos/pmc-importer/pmc-importer.component';
+import {PipesComponent} from './pipes/pipes.component';
+import {NavbarModule} from "../shared/navbar/navbar.module";
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import { PipesComponent } from './pipes/pipes.component';
     PapaParseModule,
     AngularMaterialModule,
     SharedModule,
+    NavbarModule,
     SidebarModule,
     PmcModule,
     ProjectsModule,

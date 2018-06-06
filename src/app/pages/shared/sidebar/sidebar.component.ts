@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core'
-import {dispatcher} from '../../dispatcher/dispatcher'
-import {AuthService} from '../../auth/auth.service'
-import {User} from '../../auth/models/User'
-import {AppProject} from '../../projects/AppProject'
-import {ActiveProjectService} from '../../active-project/active-project.service'
+import {dispatcher} from '../../../core/dispatcher/dispatcher'
+import {AuthService} from '../../../core/auth/auth.service'
+import {User} from '../../../core/auth/models/User'
+import {AppProject} from '../../../core/projects/AppProject'
+import {ActiveProjectService} from '../../../core/active-project/active-project.service'
 import {SidebarLink} from './SidebarLink'
 
 @Component({

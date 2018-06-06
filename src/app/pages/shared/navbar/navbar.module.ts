@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
-import {SidebarComponent} from './sidebar.component'
-import {AngularMaterialModule} from '../../auth/angular-material/angular.material.module'
+import {AngularMaterialModule} from '../../../core/auth/angular-material/angular.material.module'
 import {RouterModule} from '@angular/router'
+import {NavbarComponent} from "./navbar.component";
 
 @NgModule({
   imports: [
@@ -11,10 +11,10 @@ import {RouterModule} from '@angular/router'
     AngularMaterialModule
   ],
   declarations: [
-    SidebarComponent
+    NavbarComponent
   ],
   exports: [
-    SidebarComponent
+    NavbarComponent
   ]
 })
-export class SidebarModule { }
+export class NavbarModule { }

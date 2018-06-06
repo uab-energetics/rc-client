@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
-import {NavbarComponent} from './components/navbar/navbar.component'
+import {NavbarComponent} from '../pages/shared/navbar/navbar.component'
 import {RouterModule} from '@angular/router'
 import {
   MatChipsModule,
@@ -105,7 +105,6 @@ import {TaskService} from "./tasks/task.service";
     PusherService
   ],
   declarations: [
-    NavbarComponent,
     TextComponent,
     NumberComponent,
     SelectComponent,
@@ -130,7 +129,6 @@ import {TaskService} from "./tasks/task.service";
     PaginatorComponent,
   ],
   exports: [
-    NavbarComponent,
     TextComponent,
     NumberComponent,
     SelectComponent,
