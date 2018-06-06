@@ -11,18 +11,23 @@ import {OPEN_PROJECT_LIST} from '../../core/projects/actions'
 })
 export class MainComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) {
-
-    dispatcher.on(OPEN_PROJECT_LIST, () => {
-      this.dialog.open(ProjectListModalComponent, {
-        height: '500px',
-        width: '700px'
-      })
+  opener = () => {
+    let dialogRef = this.dialog.open(ProjectListModalComponent, {
+      height: '500px',
+      width: '700px'
     })
+  }
 
+  constructor(private dialog: MatDialog) {
+    this.opener = this.opener.bind(this)
   }
 
   ngOnInit() {
+    dispatcher.on(OPEN_PROJECT_LIST, this.opener)
+  }
+
+  ngOnDestroy() {
+    dispatcher.removeListener(OPEN_PROJECT_LIST, this.opener)
   }
 
 }
