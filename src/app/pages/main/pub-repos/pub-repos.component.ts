@@ -39,8 +39,8 @@ export class PubReposComponent implements OnInit {
   activeRepoPublications: Publication[] = []
 
   filterStream$ = new Subject<string>()
-  filter: string = ""
-  p: number = 1
+  filter = ""
+  p = 1
 
   activeModal: any
   fileUploadButton: Element
@@ -51,7 +51,11 @@ export class PubReposComponent implements OnInit {
               private csvParse: PapaParseService,
               private pmc: ArticlesService,
               private notify: NotifyService,
-              private modalService: NgbModal, public ps: ActiveProjectService ) {
+              private modalService: NgbModal, public ps: ActiveProjectService) {
+  }
+
+  ngOnInit() {
+    this.fileUploadButton = document.getElementById('fileUploadButton')
 
     this.activeRepoPublications$.pipe(
       // always pipe visible publications through the filter
@@ -62,20 +66,20 @@ export class PubReposComponent implements OnInit {
       debounceTime(10),
       distinctUntilChanged(),
       tap(s => console.log('filtering...', s))
-    ).subscribe( F => {
+    ).subscribe(F => {
       this.filter = F
       this.activeRepoPublications$.next(this.originalPublications)
     })
 
     this.activeRepo$.asObservable().pipe(
       map(R => {
-        if(!R && this.repos.length > 0)
+        if (!R && this.repos.length > 0)
           return this.repos[0]
         return R
       }),
       filter(R => !!R),
       tap(R => this.activeRepo = R),
-      switchMap<PubRepo, Publication[]>(R => this.repoService.getPublications(this.ps.getActiveProject().id+'', R.id)) as any,
+      switchMap<PubRepo, Publication[]>(R => this.repoService.getPublications(this.ps.getActiveProject().id + '', R.id)) as any,
       tap((pubs: Publication[]) => {
         this.originalPublications = pubs
         this.activeRepoPublications$.next(pubs)
@@ -83,20 +87,19 @@ export class PubReposComponent implements OnInit {
     ).subscribe()
 
     this.repoService.repos$.subscribe(R => {
-      if(this.repos.length == 0 && R.length > 0) // sets the active repo if none is selected
+      if (this.repos.length === 0 && R.length > 0) // sets the active repo if none is selected
         this.activeRepo$.next(R[0])
       this.repos = R
     })
 
-    this.ps.project$.subscribe((project: AppProject) => {
-      this.repos = []
-      this.repoService.requestRepos(project.id)
-        .subscribe()
-    })
-  }
+    this.ps.project$
+      .filter(project => project !== null && project !== undefined)
+      .subscribe((project: AppProject) => {
+        this.repos = []
+        this.repoService.requestRepos(project.id)
+          .subscribe()
+      })
 
-  ngOnInit() {
-    this.fileUploadButton = document.getElementById('fileUploadButton')
   }
 
   openModal(content) {
@@ -104,7 +107,7 @@ export class PubReposComponent implements OnInit {
   }
 
   closeModal() {
-    if(!this.activeModal) return
+    if (!this.activeModal) return
     this.activeModal.close()
   }
 
@@ -131,11 +134,12 @@ export class PubReposComponent implements OnInit {
         )
       }
 
-    }).catch(() => {})
+    }).catch(() => {
+    })
   }
 
   handleNewRepoSubmit(newRepoForm: PubRepo) {
-    this.repoService.createRepo(this.ps.getActiveProject().id+'', newRepoForm)
+    this.repoService.createRepo(this.ps.getActiveProject().id + '', newRepoForm)
       .subscribe((repo: PubRepo) => {
         this.closeModal()
         this.activeRepo$.next(repo)
@@ -147,12 +151,12 @@ export class PubReposComponent implements OnInit {
     const modalRef = this.modalService.open(AddOneComponent)
     modalRef.componentInstance.onSave.subscribe((pub: Publication) => {
       // new publication ready for save
-      this.repoService.addPublications(this.ps.getActiveProject().id+'', this.activeRepo.id, [pub])
+      this.repoService.addPublications(this.ps.getActiveProject().id + '', this.activeRepo.id, [pub])
         .pipe(
           // TODO - automatically push to publications observable somewhere!!
           switchMap(() => this.reloadPublications())
         )
-        .subscribe( () => {
+        .subscribe(() => {
           modalRef.close()
           this.notify.swal("Done", "Article Added Successfully", 'success')
         })
@@ -164,11 +168,11 @@ export class PubReposComponent implements OnInit {
     modalRef.componentInstance.onSubmit.subscribe((pmcIDs: string[]) => {
       this.pmc.getArticleMetaData(pmcIDs)
         .subscribe((res: PMCResult[]) => {
-          let uploadData = res.map( R => ({
+          const uploadData = res.map(R => ({
             title: R.title,
             embeddingURL: R.embedding_url
           }))
-          this.repoService.addPublications(this.ps.getActiveProject().id+'', this.activeRepo.id, uploadData)
+          this.repoService.addPublications(this.ps.getActiveProject().id + '', this.activeRepo.id, uploadData)
             .pipe(switchMap(() => this.reloadPublications()))
             .subscribe()
         })
@@ -176,24 +180,24 @@ export class PubReposComponent implements OnInit {
   }
 
   handleFileChange(files: File[]) {
-    if(files.length === 0) return
-    let [file] = files
+    if (files.length === 0) return
+    const [file] = files
     this.csvParse.parse(file, {
       skipEmptyLines: true,
       complete: (results, file) => {
-        let parsed: Publication[] = results.data.map(([ col1, col2, col3 ]) => ({
+        const parsed: Publication[] = results.data.map(([col1, col2, col3]) => ({
           title: col1,
           sourceID: col2,
           embeddingURL: col3 || col2
         }))
-        if(parsed.length === 0) {
+        if (parsed.length === 0) {
           this.notify.swal("No rows found", "Please check the format of your CSV", 'error')
           return
         }
-        const modalRef = this.modalService.open(UploadPreviewComponent, { size: 'lg' })
+        const modalRef = this.modalService.open(UploadPreviewComponent, {size: 'lg'})
         modalRef.componentInstance.data = parsed
         modalRef.componentInstance.onConfirm.subscribe(_ => {
-          this.repoService.addPublications(this.ps.getActiveProject().id+'', this.activeRepo.id, parsed)
+          this.repoService.addPublications(this.ps.getActiveProject().id + '', this.activeRepo.id, parsed)
             .pipe(switchMap(() => this.reloadPublications()))
             .subscribe(() => {
               modalRef.close()
@@ -206,21 +210,21 @@ export class PubReposComponent implements OnInit {
 
   handleDownload(onlySelected = false) {
     let repos: Publication[] = this.activeRepoPublications
-    if(onlySelected) {
-      let selectedSet = new Set<string>(this.getSelected())
-      repos = repos.filter(P => selectedSet.has(P.id+''))
+    if (onlySelected) {
+      const selectedSet = new Set<string>(this.getSelected())
+      repos = repos.filter(P => selectedSet.has(P.id + ''))
     }
-    repos = repos.map( P => {
+    repos = repos.map(P => {
       return {
         title: P.title,
         embeddingURL: P.embeddingURL
       }
     })
-    if(repos.length === 0) {
+    if (repos.length === 0) {
       this.notify.swal('There are no repos selected', '', 'info')
       return
     }
-    let csv = this.csvParse.unparse(repos, {
+    const csv = this.csvParse.unparse(repos, {
       header: false,
       quotes: true
     })
@@ -228,7 +232,7 @@ export class PubReposComponent implements OnInit {
   }
 
   private reloadPublications(): Observable<any> {
-    return this.repoService.getPublications(this.ps.getActiveProject().id+'', this.activeRepo.id)
+    return this.repoService.getPublications(this.ps.getActiveProject().id + '', this.activeRepo.id)
       .pipe(
         tap(pubs => {
           this.originalPublications = pubs
@@ -257,9 +261,9 @@ export class PubReposComponent implements OnInit {
   }
 
   selectedDelete() {
-    let pubIDs = this.getSelected()
+    const pubIDs = this.getSelected()
     let msg = `You're about to delete ${pubIDs.length} articles? `
-    if(pubIDs.length === this.originalPublications.length)
+    if (pubIDs.length === this.originalPublications.length)
       msg = `You're about to delete ALL articles. `
     msg += "This action cannot be undone!"
 
@@ -272,7 +276,7 @@ export class PubReposComponent implements OnInit {
       cancelButtonText: 'No, wait! Don\'t delete them!'
     }).then((result) => {
       if (result.value) {
-        this.repoService.removePublications(this.ps.getActiveProject().id+'', this.activeRepo.id, pubIDs)
+        this.repoService.removePublications(this.ps.getActiveProject().id + '', this.activeRepo.id, pubIDs)
           .pipe(switchMap(() => this.reloadPublications()))
           .subscribe(() => {
             this.notify.swal("Done", "Publications Deleted", 'success')
