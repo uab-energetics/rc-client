@@ -1,0 +1,34 @@
+$toolbarHeight: 40px;
+
+.pc-toolbar {
+  display: flex;
+  align-items: center;
+  height: $toolbarHeight;
+  padding-left: 20px;
+  font-weight: 400;
+
+  color: black;
+  background-color: whitesmoke;
+  border-bottom: solid gray 1px;
+
+  .pc-button {
+    padding: 0 10px;
+    cursor: pointer;
+  }
+
+  .pc-button:hover {
+    background-color: rgba(0,0,0,0.09);
+  }
+
+  .dropdown-menu {
+    top: $toolbarHeight - 4px;
+  }
+}
+
+/* ANGULAR MATERIAL OVERRIDES */
+.mat-menu-item {
+  line-height: 27px;
+  height: 27px;
+  padding: 0px 10px;
+  font-size: 13px;
+}

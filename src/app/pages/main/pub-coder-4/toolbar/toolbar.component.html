@@ -1,0 +1,37 @@
+<div class="pc-toolbar">
+  <div class="pc-button" [matMenuTriggerFor]="fileTool">
+    <span>Encoding</span>
+    <mat-menu #fileTool="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+      <button mat-menu-item>
+        <i class="fa fa-download"></i> &nbsp;
+        Export Save
+      </button>
+      <button mat-menu-item>
+        <i class="fa fa-upload"></i> &nbsp;
+        Import Save
+      </button>
+    </mat-menu>
+  </div>
+  <div class="pc-button" [matMenuTriggerFor]="articleViewTool">
+    <span>Article View</span>
+    <mat-menu #articleViewTool="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+      <button mat-menu-item>
+        <i class="fa fa-window-maximize"></i> &nbsp;
+        Pop Out
+      </button>
+      <button mat-menu-item>
+        <i class="fa fa-caret-right"></i> &nbsp;
+        Slide out <small>(ctrl + space)</small>
+      </button>
+    </mat-menu>
+  </div>
+  <div class="pc-button" [matMenuTriggerFor]="helpTool">
+    <span>Help</span>
+    <mat-menu #helpTool="matMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+      <button mat-menu-item>
+        <i class="fa fa-bug"></i> &nbsp;
+        Report a Bug
+      </button>
+    </mat-menu>
+  </div>
+</div>

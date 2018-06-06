@@ -24,6 +24,10 @@ export const mainRoutes: Routes = [
       component: MainComponent,
       children: [
         {
+          path: 'pub-coder-4',
+          loadChildren: './pub-coder-4/pub-coder-4.module#PubCoder4Module'
+        },
+        {
           path: 'settings',
           component: SettingsComponent,
           children: [

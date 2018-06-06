@@ -50,6 +50,7 @@ import {PmcModule} from "../../core/pmc/pmc.module";
 import {PmcImporterComponent} from './pub-repos/pmc-importer/pmc-importer.component';
 import {PipesComponent} from './pipes/pipes.component';
 import {NavbarModule} from "../shared/navbar/navbar.module";
+import {PubCoder4Module} from "./pub-coder-4/pub-coder-4.module";
 
 @NgModule({
   imports: [
@@ -70,6 +71,7 @@ import {NavbarModule} from "../shared/navbar/navbar.module";
     TasksModule,
     PubReposModule,
     MatTableModule,
+    PubCoder4Module
   ],
   declarations: [
     EncodersComponent,
