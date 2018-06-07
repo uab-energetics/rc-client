@@ -3,7 +3,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
-  MatDialogModule,
+  MatDialogModule, MatExpansionModule,
   MatGridListModule,
   MatIconModule,
   MatListModule,
@@ -43,6 +43,7 @@ import {CdkTableModule} from '@angular/cdk/table'
     MatCardModule,
     MatDialogModule,
     MatGridListModule,
+    MatExpansionModule,
     MatToolbarModule
   ],
   exports: [
@@ -65,6 +66,7 @@ import {CdkTableModule} from '@angular/cdk/table'
     MatCardModule,
     MatDialogModule,
     MatGridListModule,
+    MatExpansionModule,
     MatToolbarModule
   ]
 })

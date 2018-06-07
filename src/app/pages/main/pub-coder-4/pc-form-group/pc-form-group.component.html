@@ -1,0 +1,45 @@
+
+<!-- Simple Form Control Item -->
+<div *ngIf="pcFormGroup.type !== 'group'">
+  <app-pc-form-control [pcFormControl]="pcFormGroup"></app-pc-form-control>
+</div>
+
+<!-- Group Item -->
+<div *ngIf="pcFormGroup.type === 'group'">
+  <h4>{{pcFormGroup.title}}</h4>
+  <h6>{{pcFormGroup.prompt}}</h6>
+
+  <!-- List Group -->
+  <div *ngIf="pcFormGroup.list">
+    <button mat-raised-button color="primary"><i class="icon wb-plus"></i> Add One</button>
+    <br/>
+    <br/>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let instance of [{label:'Study Group One'}, {label:'Study Group Two'}, {label:'Constants Branch'}]">
+        <mat-expansion-panel-header style="background: #c3e8ff">
+          <mat-panel-title>{{instance.label}}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="pc-group-outlet">
+          <app-pc-form-group
+            style="padding: 5px"
+            *ngFor="let field of values(pcFormGroup.fields)"
+            [pcFormGroup]="field"
+            [ngClass]="getWrapperClass(field)">
+          </app-pc-form-group>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <!-- Regular Group -->
+  <div *ngIf="!pcFormGroup.list" class="pc-group-outlet">
+    <app-pc-form-group
+      style="padding: 5px"
+      *ngFor="let field of values(pcFormGroup.fields)"
+      [pcFormGroup]="field"
+      [ngClass]="getWrapperClass(field)">
+    </app-pc-form-group>
+  </div>
+
+</div>

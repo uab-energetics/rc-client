@@ -1,0 +1,29 @@
+<h5>{{pcFormControl.title}}</h5>
+<small>{{pcFormControl.prompt}}</small>
+
+<div [ngSwitch]="pcFormControl.type">
+  <app-text
+    *ngSwitchCase="'text'">
+  </app-text>
+
+  <app-number
+    *ngSwitchCase="'number'">
+  </app-number>
+
+  <app-bool
+    *ngSwitchCase="'binary'"
+    [trueOption]="'True'"
+    [falseOption]="'False'">
+  </app-bool>
+
+  <app-select
+    *ngSwitchCase="'select'"
+    [options]="[]">
+  </app-select>
+
+  <app-multi-select
+    *ngSwitchCase="'multi-select'"
+    [selections]="[]"
+    [options]="[]">
+  </app-multi-select>
+</div>

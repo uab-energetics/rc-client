@@ -1,19 +1,6 @@
-@import "../../../../../scss/variables";
-@import "../pc-variables";
-
 .pc-body {
+  height: 100%;
+  background: whitesmoke;
+
   display: flex;
-  flex-direction: row;
-  height: calc(100% - #{$toolbarHeight});
-
-  .pc-col {
-    flex-basis: 250px;
-    height: 100%;
-    background-color: white;
-    border-right: solid lightgrey 1px;
-
-    .pc-col-header {
-      padding: 0 10px;
-    }
-  }
 }

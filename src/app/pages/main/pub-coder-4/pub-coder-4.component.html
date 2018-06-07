@@ -1,14 +1,14 @@
-<div class="rc-page">
+<div style="display: flex; height: 100%">
 
-  <!-- This belongs in a pop-up window -->
-  <!--<div class="rc-page-col-left p-10">
+  <div class="pc-col" style="flex-basis: 250px">
     <p><ngb-progressbar type="primary" [value]="75" [striped]="true" [animated]="true"><i>50%</i></ngb-progressbar></p>
-    <h4>Encoding Summary</h4>
-  </div>-->
+  </div>
 
-  <div class="rc-page-col-main">
-    <app-toolbar></app-toolbar>
-    <app-pc-body></app-pc-body>
+  <div style="flex-grow: 1">
+    <div style="display: flex; flex-direction: column">
+      <app-toolbar></app-toolbar>
+      <app-pc-body [codebook]="codebook"></app-pc-body>
+    </div>
   </div>
 
 </div>

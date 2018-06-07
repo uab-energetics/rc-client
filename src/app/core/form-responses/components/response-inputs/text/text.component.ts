@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-text',
@@ -7,7 +7,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class TextComponent {
 
-  @Input() value: string;
+  @Input() value: string = '';
   @Output() appChange = new EventEmitter<string>();
 
   onChange($event){

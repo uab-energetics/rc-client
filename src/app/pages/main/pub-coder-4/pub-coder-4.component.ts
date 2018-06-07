@@ -9,18 +9,8 @@ import {mockCodebook} from "../../../core/codebooks/mocks/codebook.mock";
 })
 export class PubCoder4Component implements OnInit {
 
-  codebook: Codebook
-  encoding: any
-
-  constructor() { }
-
   ngOnInit() {
-    this.codebook = mockCodebook
-    this.encoding = {
-      usesCodebook: 'murine-rigor-mice-analysis@1.0.0',
-      rootType: 'publication',
-      root: {}
-    }
+
   }
 
 }

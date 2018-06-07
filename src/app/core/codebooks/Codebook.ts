@@ -1,22 +1,32 @@
-export interface Choice {
-  value: string
-  displayName: string
+interface PcAbstractControl {
+  type: 'number' | 'text' | 'select' | 'multi-select' | 'group'
+  title: string
+  prompt: string
 }
 
-export interface Type {
-  [propName: string]: {
-    format: Type | string        // 'text' | 'number' | 'select' | 'list'
-    prompt: string
-    hovertip?: string
-    items?: Type | string  // for type='list'. 'string' value defaults to a Type object with only the 'format' attribute defined
-    options?: (string | Choice)[] // for type='select'|'multi-select'
-  } | string // string here would specify the key of another type
-}
-
-export interface Codebook {
-  key: string
-  version: string
-  spec: {
-    [typeKey: string]: Type
+interface PcGroupControl extends PcAbstractControl {
+  list?: boolean
+  fields: {
+    [key: string]: PcAbstractControl
   }
 }
+
+interface PcFormControl extends PcAbstractControl {
+
+  // type = 'select' | 'multi-select' | 'radio-button'
+  choices?: { value: any, name: string }[]
+
+  // type = 'text'
+  placeholder?: string
+
+  // type = 'number'
+  min?: number
+  max?: number
+}
+
+interface Codebook {
+  root: PcAbstractControl
+}
+
+
+export { Codebook }

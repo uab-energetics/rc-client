@@ -1,24 +1,33 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PubCoder4Component } from './pub-coder-4.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {PubCoder4Component} from './pub-coder-4.component';
 import {FormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {AngularMaterialModule} from "../../../core/auth/angular-material/angular.material.module";
 import {RouterModule} from "@angular/router";
 import {pubCoderRoutes} from "./routes";
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { PcBodyComponent } from './pc-body/pc-body.component';
-import { PcCardComponent } from './pc-card/pc-card.component';
-import { TypeColComponent } from './type-col/type-col.component';
+import {PcToolbarComponent} from './pc-toolbar/pc-toolbar.component';
+import {PcBodyComponent} from './pc-body/pc-body.component';
+import {SharedModule} from "../../../core/shared.module";
+import { PcFormControlComponent } from './pc-form-control/pc-form-control.component';
+import { PcFormGroupComponent } from './pc-form-group/pc-form-group.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(pubCoderRoutes),
     FormsModule,
-    NgbModule,
     AngularMaterialModule,
+    SharedModule,
+    NgbModule,
   ],
-  declarations: [PubCoder4Component, ToolbarComponent, PcBodyComponent, PcCardComponent, TypeColComponent]
+  declarations: [
+    PubCoder4Component,
+    PcToolbarComponent,
+    PcBodyComponent,
+    PcFormControlComponent,
+    PcFormGroupComponent,
+  ]
 })
-export class PubCoder4Module { }
+export class PubCoder4Module {
+}

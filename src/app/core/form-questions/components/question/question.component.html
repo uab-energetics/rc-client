@@ -3,31 +3,12 @@
   <div class="panel-heading">
 
     <!-- QUESTION TITLE -->
-    <h3 [matTooltip]="question.description" 
-        matTooltipPosition="before" 
+    <h3 [matTooltip]="question.description"
+        matTooltipPosition="before"
       class="panel-title">{{question.name}}</h3>
 
 
     <div class="panel-actions">
-      <!--<div class="dropdown">
-        <a class="panel-action" ngbTooltip="Set response type" data-toggle="dropdown">
-          <i class="icon wb-tag" aria-hidden="true"></i></a>
-        <div class="dropdown-menu dropdown-menu-bullet" role="menu">
-          <div class="text-center">
-            <label>Response Type:</label>
-          </div>
-          <a (click)="setType(fmt.TEXT)"
-             class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-text" aria-hidden="true"></i> Text</a>
-          <a (click)="setType(fmt.NUMBER)"
-             class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-medium-point" aria-hidden="true"></i> Number </a>
-          <a (click)="setType(fmt.BOOLEAN)"
-             class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-check" aria-hidden="true"></i> Binary</a>
-          <a (click)="setType(fmt.SELECT)"
-             class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-list-numbered" aria-hidden="true"></i> Select</a>
-          <a (click)="setType(fmt.MULTI_SELECT)"
-             class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-list-numbered" aria-hidden="true"></i> Multi-Select</a>
-        </div>
-      </div>-->
       <a (click)="toggleNotReported()"
         class="panel-action icon wb-alert-circle" ngbTooltip="Not Reported"></a>
     </div>

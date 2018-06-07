@@ -1,14 +1,14 @@
-@import "../pc-variables";
+$toolbarHeight: 40px;
 
 .pc-toolbar {
   display: flex;
   align-items: center;
   height: $toolbarHeight;
-  padding-left: 20px;
+  padding: 0 10px;
   font-weight: 400;
 
   color: black;
-  background-color: whitesmoke;
+  background-color: white;
   border-bottom: solid gray 1px;
 
   .pc-button {
