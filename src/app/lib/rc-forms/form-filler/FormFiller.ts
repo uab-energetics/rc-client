@@ -1,7 +1,6 @@
 import {DynamicForm} from "./DynamicForm"
 import {Subject} from "rxjs/Subject"
 import {FormEvent} from "./events/FormEvent"
-import {tap} from "rxjs/operators"
 import {reduceForm} from "./formReducer"
 import "rxjs/add/operator/scan"
 import {BehaviorSubject} from "rxjs/BehaviorSubject"
@@ -9,17 +8,17 @@ import {lookup} from "./query";
 
 export class FormFiller {
 
-  form$: BehaviorSubject<DynamicForm> = new BehaviorSubject<DynamicForm>(null)
+  form$: BehaviorSubject<DynamicForm> = new BehaviorSubject<DynamicForm>({})
   eventHistory: FormEvent[] = []
   undoStack: FormEvent[] = []
   events$: Subject<FormEvent> = new Subject()
 
   constructor(private data: DynamicForm = {}) {
-    new BehaviorSubject<DynamicForm>(data)
-
-    this.events$.pipe(
-      tap(E => this.eventHistory.push(E)),
-    ).subscribe(E => this.form$.next(reduceForm(this.form$.getValue(), E)))
+    this.form$ = new BehaviorSubject<DynamicForm>(data)
+    this.events$.subscribe(E => {
+      this.eventHistory.push(E)
+      this.form$.next(reduceForm(this.form$.getValue(), E))
+    })
   }
 
   watch = () => this.form$.asObservable()
@@ -30,8 +29,6 @@ export class FormFiller {
     this.undoStack = []
     this.events$.next(event)
   }
-
-  clearHistory = () => this.eventHistory = []
 
   undo = () => {
     if(this.eventHistory.length === 0)
