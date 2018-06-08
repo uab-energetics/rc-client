@@ -9,61 +9,26 @@ import {pcEditField} from "../actions/EditField";
 })
 export class PcFormGroupComponent implements OnInit, OnChanges {
 
-  @Output() appChange = new EventEmitter()
-
-  @Input() pcFormGroup
   @Input() key: string
+  @Input() spec: any
+  @Output() pcInput = new EventEmitter()
+  controlsInputStream$ = new Subject()
 
-  changes$ = new Subject()
-
-  _entries: { key, group }[]
-  listItems: { label: string }[] = []
+  childSpecs: { key, spec }[]
 
   ngOnInit() {
     this.loadFields()
-    this.changes$
-      .subscribe( data => this.appChange.emit(pcEditField({ key: this.key, data })))
-    console.log(this.key)
+    this.controlsInputStream$
+      .subscribe( data =>
+        this.pcInput.emit(pcEditField({ key: this.key, data })))
   }
 
-  ngOnChanges() {
-    this.loadFields()
-  }
-
-  listItemAdd() {
-    let label = prompt("Give the item a label:")
-    if(!label) return
-    this.listItems.push({ label })
-  }
-
-  listItemEdit(label) {
-    let oldItem = this.listItems.filter(L => L.label === label)
-    if(oldItem.length !== 1)
-      return console.error("No list item with that label")
-
-    let newLabel = prompt("Enter a new label:")
-    if(!newLabel || newLabel === label) return
-
-    oldItem[0].label = newLabel
-  }
-
-  listItemDelete(label) {
-    this.listItems = this.listItems.filter(L => L.label !== label)
-  }
-
-  getWrapperClass(field) {
-    return {
-      'pc-question': field.type !== 'group',
-      'pc-group': field.type === 'group'
-    }
-  }
+  ngOnChanges() { this.loadFields() }
 
   private loadFields() {
-    if(this.pcFormGroup.list)
-      this.listItems = []
-    if(this.pcFormGroup.type === 'group')
-      this._entries = Object.entries(this.pcFormGroup.fields)
-        .map(([key, group]) => ({ key, group }))
+    if(this.spec.type === 'group')
+      this.childSpecs = Object.entries(this.spec.fields)
+        .map(([key, spec]) => ({ key, spec }))
   }
 
 }
