@@ -1,0 +1,6 @@
+<mat-radio-group (change)="appChange.emit($event.value)" [value]="value">
+  <mat-radio-button [value]="trueOption">{{trueOption}}</mat-radio-button>
+  &nbsp;
+  &nbsp;
+  <mat-radio-button [value]="falseOption">{{falseOption}}</mat-radio-button>
+</mat-radio-group>

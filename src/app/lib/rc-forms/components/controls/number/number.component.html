@@ -1,0 +1,5 @@
+<input type="number"
+       [value]="value"
+       (input)="appChange.emit($event.target.value)"
+       placeholder="{{placeholder}}"
+       class="form-control" />

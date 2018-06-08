@@ -2,37 +2,37 @@
 <small>{{spec.prompt}}</small>
 
 <div [ngSwitch]="spec.type">
-  <app-text
+  <rc-text
     [value]="data || ''"
     (appChange)="changes$.next($event)"
     *ngSwitchCase="'text'">
-  </app-text>
+  </rc-text>
 
-  <app-number
+  <rc-number
     [value]="data"
     (appChange)="changes$.next($event)"
     *ngSwitchCase="'number'">
-  </app-number>
+  </rc-number>
 
-  <app-bool
+  <rc-bool
     [value]="data"
     (appChange)="changes$.next($event)"
     *ngSwitchCase="'binary'"
     [trueOption]="spec.options[0]"
     [falseOption]="spec.options[1]">
-  </app-bool>
+  </rc-bool>
 
-  <app-select
+  <rc-select
     [value]="data"
     (appChange)="changes$.next($event)"
     *ngSwitchCase="'select'"
     [options]="spec.options">
-  </app-select>
+  </rc-select>
 
-  <app-multi-select
+  <rc-multi-select
     [selections]="data"
     (appChange)="changes$.next($event)"
     *ngSwitchCase="'multi-select'"
     [options]="spec.options">
-  </app-multi-select>
+  </rc-multi-select>
 </div>
