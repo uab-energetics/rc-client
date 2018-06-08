@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-
-import * as lodash from 'lodash'
-import {Subject} from "rxjs/Subject"
 import {NotifyService} from "../../../core/notifications/notify.service";
+import {FormManager} from "../../../core/rc-form-manager/FormManager";
+import {Observable} from "rxjs/Observable";
+import {DynamicForm} from "../../../core/rc-form-manager/DynamicForm";
+import {hotKeyStream} from "../../../lib/rc-hotkeys/hotKeyStream";
 
 @Component({
   selector: 'app-pub-coder-4',
@@ -11,37 +12,26 @@ import {NotifyService} from "../../../core/notifications/notify.service";
 })
 export class PubCoder4Component implements OnInit {
 
+  /* COMPOSITION ROOT */
+  codebook: any // TODO
+  article: any = { embeddingURL: "https://www.ncbi.nlm.nih.gov/pubmed/29874688" } // TODO
   encoding = { root: {} }
-  events = []
-  changes$ = new Subject()
 
+  /* EVENT HANDLING */
+  formManager: FormManager
+  form$: Observable<DynamicForm>
+
+  /* DEPENDENCY INJECTION */
   constructor(public notify: NotifyService) {}
 
+  /* BOOTSTRAPPING */
   ngOnInit() {
+    this.formManager = new FormManager({}) // TODO - use an encoding from the server
+    this.form$ = this.formManager.watch()
     this.registerHotKeys()
-    this.changes$.subscribe( event => this.events.push(event) )
-  }
-
-  reduceEncoding(state, events) {
-    let reducer = (state, event) => {
-      switch(event.type) {
-        case "pc.field.edit":
-          lodash.set(state, event.payload.key.split('.'), event.payload.data)
-          return state // mutating state...
-      }
-    }
-    return events.reduce(reducer, state)
   }
 
   private registerHotKeys(){
-    document.addEventListener("keydown", event => {
-      if(event.ctrlKey && event.key === "s"){
-        event.preventDefault();
-        // make this a save event
-        this.encoding = this.reduceEncoding(this.encoding, this.events)
-        this.events = []
-        this.notify.toast('Encoding Saved!')
-      }
-    })
+    hotKeyStream('ctrl + s').subscribe( _ => this.notify.toast('Saved Encoding') )
   }
 }

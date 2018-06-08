@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core'
 import {Subject} from "rxjs/Subject";
-import {pcEditField} from "../actions/EditField";
+import {InputEdited, rcInputEdited} from "../../../../core/rc-form-manager/events/InputEdited";
 
 @Component({
   selector: 'app-pc-form-group',
@@ -11,7 +11,7 @@ export class PcFormGroupComponent implements OnInit, OnChanges {
 
   @Input() key: string
   @Input() spec: any
-  @Output() pcInput = new EventEmitter()
+  @Output() pcInput = new EventEmitter<InputEdited>()
   controlsInputStream$ = new Subject()
 
   childSpecs: { key, spec }[]
@@ -20,7 +20,7 @@ export class PcFormGroupComponent implements OnInit, OnChanges {
     this.loadFields()
     this.controlsInputStream$
       .subscribe( data =>
-        this.pcInput.emit(pcEditField({ key: this.key, data })))
+        this.pcInput.emit(rcInputEdited({ key: this.key, data })))
   }
 
   ngOnChanges() { this.loadFields() }
