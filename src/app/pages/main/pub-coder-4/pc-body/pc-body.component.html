@@ -3,8 +3,8 @@
   <div style="flex-grow: 4; padding: 10px;">
     <rc-form-group-list
       key="root"
-      [data]="formFiller.lookup('root')"
-      (formInput)="childInputStream$.next($event)"
+      [data]="formFiller.lookupEncodingData('root')"
+      (events)="encodingChange.next($event)"
       [spec]="codebook.root">
     </rc-form-group-list>
   </div>

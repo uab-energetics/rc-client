@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {NotifyService} from "../../../core/notifications/notify.service";
 import {Observable} from "rxjs/Observable";
-import {DynamicForm} from "../../../core/rc-form-manager/DynamicForm";
 import {hotKeyStream} from "../../../lib/rc-hotkeys/hotKeyStream";
 import {FormFiller} from "../../../lib/rc-forms/form-filler/FormFiller";
+import {RcFormData} from "../../../lib/rc-forms/form-filler/RcFormData";
 
 @Component({
   selector: 'app-pub-coder-4',
@@ -19,14 +19,14 @@ export class PubCoder4Component implements OnInit {
 
   /* EVENT HANDLING */
   formFiller: FormFiller
-  form$: Observable<DynamicForm>
+  form$: Observable<RcFormData>
 
   /* DEPENDENCY INJECTION */
   constructor(public notify: NotifyService) {}
 
   /* BOOTSTRAPPING */
   ngOnInit() {
-    this.formFiller = new FormFiller({}) // TODO - use an encoding from the server
+    this.formFiller = new FormFiller() // TODO - use an encoding from the server
     this.form$ = this.formFiller.watch()
     this.registerHotKeys()
   }

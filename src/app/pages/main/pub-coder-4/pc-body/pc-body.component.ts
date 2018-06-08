@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {FormFiller} from "../../../../lib/rc-forms/form-filler/FormFiller";
-import {InputEvent} from "../../../../lib/rc-forms/components/InputEvent";
-import {Subject} from "rxjs/Subject";
-import {responseUpdated, ResponseUpdated} from "../../../../lib/rc-forms/form-filler/events/InputEdited";
+import {FormEvent} from "../../../../lib/rc-forms/form-filler/events/FormEvent";
 
 @Component({
   selector: 'app-pc-body',
@@ -12,17 +10,11 @@ import {responseUpdated, ResponseUpdated} from "../../../../lib/rc-forms/form-fi
 export class PcBodyComponent implements OnInit {
 
   @Input() formFiller: FormFiller
-  @Output() encodingChange = new EventEmitter<ResponseUpdated>()
+  @Output() encodingChange = new EventEmitter<FormEvent>()
 
   codebook
-  childInputStream$ = new Subject<InputEvent>()
 
   ngOnInit() {
-
-    this.childInputStream$
-      .map<InputEvent, ResponseUpdated>(event => responseUpdated(event))
-      .do(console.log)
-      .subscribe(event => this.encodingChange.emit(event))
 
     this.codebook = {
       root: {
