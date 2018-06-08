@@ -1,13 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {Subject} from "rxjs/Subject"
 import {debounceTime, distinctUntilChanged} from "rxjs/operators"
-import {QuestionSpec} from "../../form-spec/FormSpec";
-import {FormEvent} from "../../form-filler/events/FormEvent";
-import {questionShowHide} from "../../form-filler/events/QuestionShowHide";
-import {responseUpdated} from "../../form-filler/events/ResponseUpdated";
+import {QuestionSpec} from "../../form-spec/FormSpec"
+import {FormEvent} from "../../form-filler/events/FormEvent"
+import {questionShowHide} from "../../form-filler/events/QuestionShowHide"
+import {responseUpdated} from "../../form-filler/events/ResponseUpdated"
 import * as lodash from 'lodash'
-import {RcFormMetaData} from "../../form-filler/types/RcFormMetaData";
-import {questionReported} from "../../form-filler/events/QuestionReported";
+import {RcFormMetaData} from "../../form-filler/types/RcFormMetaData"
+import {questionReported} from "../../form-filler/events/QuestionReported"
+import {leaveComment} from "../../form-filler/events/Comment";
 
 @Component({
   selector: 'rc-form-control',
@@ -27,6 +28,7 @@ export class FormControlComponent implements OnInit {
   responseUpdated$ = new Subject()
   visible$ = new Subject()
   reported$ = new Subject<boolean>()
+  addComment$ = new Subject<{ key: string, comment: string }>()
 
   ngOnInit() {
     this._meta = lodash.get(this.metaData, this.key, { reported: true })
@@ -37,6 +39,7 @@ export class FormControlComponent implements OnInit {
 
     this.visible$.subscribe(state => this.events.emit(questionShowHide({ key: this.key, state })))
     this.reported$.subscribe(state => this.events.emit(questionReported({ key: this.key, state })))
+    this.addComment$.subscribe(comment => this.events.emit(leaveComment(comment)))
   }
 
   ngOnChanges() {

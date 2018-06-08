@@ -32,10 +32,12 @@ import {
 } from "@angular/material";
 import {CdkTableModule} from "@angular/cdk/table";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     NgbModule,
     MatProgressBarModule,
     MatSnackBarModule,

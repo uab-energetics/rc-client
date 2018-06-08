@@ -16,7 +16,7 @@
   <div class="form-group-outlet">
     <rc-form-group-list
       *ngFor="let entry of childSpecs"
-      class="spec {{entry.spec.type}}"
+      class="spec {{entry.spec.type}} {{entry.spec.style || ''}}"
       [spec]="entry.spec"
       [key]="key + '.' + entry.key"
       [metaData]="metaData"

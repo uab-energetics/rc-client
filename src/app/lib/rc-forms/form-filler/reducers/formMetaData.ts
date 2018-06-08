@@ -4,6 +4,7 @@ import {RESPONSE_UPDATED} from "../events/ResponseUpdated";
 import {QUESTION_SHOW_HIDE} from "../events/QuestionShowHide";
 import {QUESTION_REPORTED} from "../events/QuestionReported";
 import {QuestionMetaData} from "../types/QuestionMetaData";
+import {COMMENT} from "../events/Comment";
 
 
 const defaultMetaData: QuestionMetaData = {
@@ -27,6 +28,9 @@ export const formMetaData = (meta: RcFormMetaData, event: FormEvent): RcFormMeta
 
   if(event.type === RESPONSE_UPDATED)
     return reduceMeta(event.payload.key)((meta) => meta)
+
+  if(event.type === COMMENT)
+    return reduceMeta(event.payload.key)(meta => ({ ...meta, comments: [ ...meta.comments, event.payload.comment ] }))
 
   return meta
 }

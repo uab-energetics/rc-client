@@ -1,8 +1,25 @@
 <div class="rc-form-control" *ngIf="_meta.visible !== false">
 
   <div class="rc-form-control-header">
+    <ng-template #popContent>
+
+      <ul>
+        <li *ngFor="let comment of _meta.comments">{{comment}}</li>
+      </ul>
+
+      <!-- Message Input-->
+      <form (ngSubmit)="addComment$.next({ key: key, comment: commentInput.value }); commentInput.value = ''" class="app-message-input" style="display: flex">
+        <input #commentInput name="comment" class="message-input" style="flex-grow: 3" type="text" class="form-control mr-15"/>
+        <button class="message-input-btn btn btn-primary" type="submit">Submit</button>
+      </form>
+      <!-- End Message Input-->
+    </ng-template>
+
     <div>
-      <h5>{{spec.title}}</h5>
+      <h5 [ngbPopover]="popContent"
+          placement="bottom"
+          matTooltip="{{spec.hovertip}}"
+          popoverTitle="Showing comments for {{spec.title}}" class="cursor-pointer">{{spec.title}}</h5>
       <small>{{spec.prompt}}</small>
     </div>
     <div>
@@ -24,6 +41,7 @@
       <div [ngSwitch]="spec.type">
         <rc-text
           [value]="data || ''"
+          [meta]="spec"
           (appChange)="responseUpdated$.next($event)"
           *ngSwitchCase="'text'">
         </rc-text>

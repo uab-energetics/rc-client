@@ -6,7 +6,7 @@
       [data]="formFiller.lookupEncodingData('root')"
       [metaData]="formFiller.formData$.getValue()?.meta"
       (events)="encodingChange.next($event)"
-      [spec]="codebook.root">
+      [spec]="form">
     </rc-form-group-list>
   </div>
 

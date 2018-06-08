@@ -8,7 +8,8 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class TextControl {
 
   @Input() value: string = '';
-  @Input() placeholder: string = 'Enter some text...'
+  @Input() meta: any
   @Output() appChange = new EventEmitter<string>();
+
 
 }

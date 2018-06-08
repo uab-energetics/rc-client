@@ -9,5 +9,10 @@
   }
   .group { flex-basis: 100% }
   .group-list { flex-basis: 100% }
-  .question { flex-basis: 33% }
+  .group-inline {
+    flex-basis: 33%;
+    .text, .number, .select {
+      flex-basis: 100%;
+    }
+  }
 }
