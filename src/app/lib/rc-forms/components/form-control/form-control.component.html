@@ -11,8 +11,8 @@
         <i ngbDropdownToggle class="icon wb-settings cursor-pointer"></i> &nbsp;&nbsp;
         <div ngbDropdownMenu>
           <button (click)="reported$.next(!_meta.reported)" class="dropdown-item">Toggle Not Reported</button>
-          <button (click)="hide$.next()" class="dropdown-item">Hide Question</button>
-          <button (click)="hide$.next()" class="dropdown-item">Not Applicable</button>
+          <button (click)="visible$.next(false)" class="dropdown-item">Hide Question</button>
+          <button (click)="visible$.next(false)" class="dropdown-item">Not Applicable</button>
         </div>
       </div>
 
@@ -65,6 +65,10 @@
 
 </div>
 
-<div *ngIf="_meta.visible === false" style="display: flex; align-items: center; justify-content: center; height: 100%; border: solid lightskyblue 2px;">
-  <em style="color: lightskyblue">HIDDEN</em>
+<div *ngIf="_meta.visible === false" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; height: 100%; border: solid lightskyblue 2px;">
+  <div class="text-center">
+    <em style="color: lightskyblue">HIDDEN</em>
+    <br/>
+    <a (click)="visible$.next(true)" href="javascript:void(0)" class="cursor-pointer"><small>(show hidden)</small></a>
+  </div>
 </div>

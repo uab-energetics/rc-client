@@ -25,7 +25,7 @@ export class FormControlComponent implements OnInit {
   _meta
 
   responseUpdated$ = new Subject()
-  hide$ = new Subject()
+  visible$ = new Subject()
   reported$ = new Subject<boolean>()
 
   ngOnInit() {
@@ -35,7 +35,7 @@ export class FormControlComponent implements OnInit {
       distinctUntilChanged()
     ).subscribe( data => this.events.emit(responseUpdated({ key: this.key, data })) )
 
-    this.hide$.subscribe(() => this.events.emit(questionShowHide({ key: this.key, state: false })))
+    this.visible$.subscribe(state => this.events.emit(questionShowHide({ key: this.key, state })))
     this.reported$.subscribe(state => this.events.emit(questionReported({ key: this.key, state })))
   }
 
