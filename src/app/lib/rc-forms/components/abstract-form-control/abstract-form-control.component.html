@@ -1,0 +1,32 @@
+<!-- GROUP -->
+<rc-form-group
+  *ngIf="spec.type === 'group' || spec.type === 'group-inline'"
+
+  [key]="key"
+  [spec]="spec"
+  [data]="data"
+  [metaData]="meta"
+  (events)="events.emit($event)">
+</rc-form-group>
+
+<!-- GROUP-LIST -->
+<rc-form-group-list
+  *ngIf="spec.type === 'group-list'"
+
+  [key]="key"
+  [spec]="spec"
+  [data]="data"
+  [metaData]="meta"
+  (events)="events.next($event)">
+</rc-form-group-list>
+
+<!-- FORM-CONTROL -->
+<rc-form-control
+  *ngIf="spec.type === 'text' || spec.type === 'number' || spec.type === 'select' || spec.type === 'multi-select'"
+
+  [key]="key"
+  [spec]="spec"
+  [data]="data"
+  [metaData]="meta"
+  (events)="events.next($event)">
+</rc-form-control>

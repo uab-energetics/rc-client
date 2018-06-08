@@ -1,15 +1,5 @@
-<!-- If it is not a ListGroup, pass down the hierarchy -->
-<rc-form-group
-  *ngIf="spec.type !== 'group-list'"
-  [spec]="spec"
-  [key]="key"
-  [data]="data"
-  [metaData]="metaData"
-  (events)="events.emit($event)">
-</rc-form-group>
-
 <!-- ListGroup component -->
-<div *ngIf="spec.type === 'group-list'" class="rc-group-list">
+<div class="rc-group-list">
 
   <div class="panel panel-bordered">
     <div class="panel-heading">
@@ -51,13 +41,13 @@
           </div>
 
           <!-- Outlets for next component -->
-          <rc-form-group
+          <rc-abstract-form-control
             [spec]="spec.listItem"
             [key]="key + '.' + listItem.label + '.data'"
             [data]="getChildData(listItem.label + '.data')"
-            [metaData]="metaData"
+            [meta]="metaData"
             (events)="events.next($event)">
-          </rc-form-group>
+          </rc-abstract-form-control>
 
         </mat-expansion-panel>
       </mat-accordion>

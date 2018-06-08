@@ -1,13 +1,13 @@
 <div class="pc-body" style="display: flex">
 
   <div style="flex-grow: 4; padding: 10px;">
-    <rc-form-group-list
+    <rc-abstract-form-control
       key="root"
       [data]="formFiller.lookupEncodingData('root')"
-      [metaData]="formFiller.formData$.getValue()?.meta"
+      [meta]="formFiller.formData$.getValue()?.meta"
       (events)="encodingChange.next($event)"
       [spec]="form">
-    </rc-form-group-list>
+    </rc-abstract-form-control>
   </div>
 
 </div>

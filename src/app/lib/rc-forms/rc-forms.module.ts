@@ -33,6 +33,7 @@ import {
 import {CdkTableModule} from "@angular/cdk/table";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
+import { AbstractFormControlComponent } from './components/abstract-form-control/abstract-form-control.component';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import {FormsModule} from "@angular/forms";
     MatToolbarModule
   ],
   declarations: [
+    AbstractFormControlComponent,
     FormGroupListComponent,
     FormGroupComponent,
     FormControlComponent,
@@ -72,6 +74,7 @@ import {FormsModule} from "@angular/forms";
     TextControl
   ],
   exports: [
+    AbstractFormControlComponent,
     FormGroupListComponent,
     FormGroupComponent,
     FormControlComponent,
