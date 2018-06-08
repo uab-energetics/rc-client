@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core'
 
 @Component({
   selector: 'rc-number',
@@ -6,7 +6,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   styleUrls: ['./number.component.css']
 })
 export class NumberControl {
-  @Input() placeholder: string = "Enter some text.."
-  @Input() value: number;
-  @Output() appChange = new EventEmitter<number>();
+  @Input() placeholder: string = "Enter a value.."
+  @Input() value: number
+  @Output() appChange = new EventEmitter<number>()
 }
