@@ -1,22 +1,22 @@
 <!-- If spec is not a group, pass down hierarchy -->
-<app-pc-form-control
+<app-form-control
   *ngIf="spec.type !== 'group'"
   [spec]="spec"
   (appChange)="controlsInputStream$.next($event)">
-</app-pc-form-control>
+</app-form-control>
 
 <!-- Spec is a group item -->
 <div *ngIf="spec.type === 'group'">
   <h4>{{spec.title}}</h4>
   <h6>{{spec.prompt}}</h6>
 
-  <div class="pc-group-outlet">
-    <app-pc-form-group-list
+  <div class="form-group-outlet">
+    <app-form-group-list
       *ngFor="let entry of childSpecs"
       class="spec {{entry.spec.type}}"
       [spec]="entry.spec"
       [key]="key+'.'+entry.key"
       (pcInput)="pcInput.emit($event)">
-    </app-pc-form-group-list>
+    </app-form-group-list>
   </div>
 </div>
