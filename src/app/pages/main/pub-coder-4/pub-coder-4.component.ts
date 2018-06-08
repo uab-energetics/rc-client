@@ -33,5 +33,13 @@ export class PubCoder4Component implements OnInit {
 
   private registerHotKeys(){
     hotKeyStream('ctrl + s').subscribe( _ => this.notify.toast('Saved Encoding') )
+    hotKeyStream('ctrl + z').subscribe( _ => {
+      if(!this.formManager.undo())
+        this.notify.toast("Nothing to Undo!")
+    })
+    hotKeyStream('ctrl + r').subscribe( _ => {
+      if(!this.formManager.redo())
+        this.notify.toast("Nothing to Redo!")
+    })
   }
 }
