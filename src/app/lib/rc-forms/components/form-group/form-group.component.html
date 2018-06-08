@@ -2,7 +2,7 @@
 <rc-form-control
   *ngIf="spec.type !== 'group'"
   [spec]="spec"
-  [data]="formFiller.lookup(key)"
+  [data]="data"
   (appChange)="controlsInputStream$.next($event)">
 </rc-form-control>
 
@@ -17,7 +17,7 @@
       class="spec {{entry.spec.type}}"
       [spec]="entry.spec"
       [key]="key+'.'+entry.key"
-      [formFiller]="formFiller"
+      [data]="getChildData(entry.key)"
       (pcInput)="pcInput.emit($event)">
     </rc-form-group-list>
   </div>

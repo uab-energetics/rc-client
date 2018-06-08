@@ -3,7 +3,7 @@
   *ngIf="spec.type !== 'group-list'"
   [spec]="spec"
   [key]="key"
-  [formFiller]="formFiller"
+  [data]="data"
   (pcInput)="pcInput.emit($event)">
 </rc-form-group>
 
@@ -33,7 +33,7 @@
       <rc-form-group
         [spec]="spec.listItem"
         [key]="key + '.' + listItem.label"
-        [formFiller]="formFiller"
+        [data]="getChildData(listItem.label)"
         (pcInput)="pcInput.emit($event)">
       </rc-form-group>
 

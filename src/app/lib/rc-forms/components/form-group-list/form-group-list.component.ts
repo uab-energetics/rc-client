@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormSpec} from "../../form-spec/FormSpec";
 import {ListItem} from "./ListItem";
-import {FormFiller} from "../../form-filler/FormFiller";
+import * as lodash from 'lodash'
 
 @Component({
   selector: 'rc-form-group-list',
@@ -13,7 +13,7 @@ export class FormGroupListComponent {
   @Input() key: string
   @Input() spec: FormSpec
   @Input() form: object
-  @Input() formFiller: FormFiller
+  @Input() data: any = {}
 
   @Output() pcInput = new EventEmitter()
 
@@ -38,5 +38,9 @@ export class FormGroupListComponent {
 
   listItemDelete(label) {
     this.listItems = this.listItems.filter(L => L.label !== label)
+  }
+
+  getChildData(key: string): any {
+    return lodash.get(this.data, key)
   }
 }

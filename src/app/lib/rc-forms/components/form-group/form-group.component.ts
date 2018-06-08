@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core'
 import {Subject} from "rxjs/Subject"
 import {InputEdited, rcInputEdited} from "../../../../core/rc-form-manager/events/InputEdited"
-import {FormFiller} from "../../form-filler/FormFiller"
+import * as lodash from 'lodash'
 
 // TODO - process the codebook to be iterable before passing to components
 
@@ -15,7 +15,7 @@ export class FormGroupComponent implements OnInit, OnChanges {
   @Input() key: string
   @Input() form: any
   @Input() spec: any
-  @Input() formFiller: FormFiller
+  @Input() data: any
 
   @Output() pcInput = new EventEmitter<InputEdited>()
 
@@ -32,6 +32,10 @@ export class FormGroupComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.loadFields()
+  }
+
+  getChildData(key: string) {
+    return lodash.get(this.data, key)
   }
 
   private loadFields() {
