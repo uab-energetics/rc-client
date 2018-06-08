@@ -168,10 +168,15 @@ export class PubReposComponent implements OnInit {
     modalRef.componentInstance.onSubmit.subscribe((pmcIDs: string[]) => {
       this.pmc.getArticleMetaData(pmcIDs)
         .subscribe((res: PMCResult[]) => {
-          const uploadData = res.map(R => ({
-            title: R.title,
-            embeddingURL: R.embedding_url
-          }))
+          const uploadData = res.map(R => {
+            let result = {
+              title: R.title,
+              embeddingURL: R.embedding_url
+            }
+            if (R.articleIdMap['pmcid'])
+              result['sourceID'] = R.articleIdMap['pmcid']
+            return result
+          })
           this.repoService.addPublications(this.ps.getActiveProject().id + '', this.activeRepo.id, uploadData)
             .pipe(switchMap(() => this.reloadPublications()))
             .subscribe()

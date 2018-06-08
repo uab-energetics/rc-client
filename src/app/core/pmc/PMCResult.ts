@@ -9,6 +9,7 @@ export interface PMCResult {
   pages: string
   issue: string
   articleids: { idtype: string, value: string }[]
+  articleIdMap?: { [type: string]: string }
   fulljournalname: string
   sortdate: string
   pmclivedate: string
