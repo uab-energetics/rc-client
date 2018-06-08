@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core'
+import {Component, OnChanges, OnInit} from '@angular/core'
 import * as lodash from 'lodash'
-import {FormEvent} from "../../form-filler/events/FormEvent";
+import {AbstractFormControlComponent} from "../abstract-form-control/abstract-form-control.component";
 
 // TODO - process the codebook to be iterable before passing to components
 
@@ -9,33 +9,21 @@ import {FormEvent} from "../../form-filler/events/FormEvent";
   templateUrl: './form-group.component.html',
   styleUrls: ['./form-group.component.scss']
 })
-export class FormGroupComponent implements OnInit, OnChanges {
-
-  @Input() key: string
-  @Input() form: any
-  @Input() spec: any
-  @Input() data: any
-  @Input() metaData: any
-
-  @Output() events = new EventEmitter<FormEvent>()
+export class FormGroupComponent extends AbstractFormControlComponent implements OnInit, OnChanges {
 
   childSpecs: { key, spec }[]
 
-  ngOnInit() {
+  ngOnInit = () =>
     this.loadFields()
-  }
 
-  ngOnChanges() {
+  ngOnChanges = () =>
     this.loadFields()
-  }
 
-  getChildData(key: string) {
-    return lodash.get(this.data, key)
-  }
+  getChildData = (key: string) =>
+    lodash.get(this.data, key)
 
-  private loadFields() {
+  loadFields = () =>
     this.childSpecs = Object.entries(this.spec.fields || [])
       .map(([key, spec]) => ({ key, spec }))
-  }
 
 }

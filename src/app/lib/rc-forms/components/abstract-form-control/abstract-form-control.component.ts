@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormEvent} from "../../form-filler/events/FormEvent";
-import {FormSpec} from "../../form-spec/FormSpec";
 
 @Component({
   selector: 'rc-abstract-form-control',
@@ -10,7 +9,7 @@ import {FormSpec} from "../../form-spec/FormSpec";
 export class AbstractFormControlComponent implements OnInit {
 
   @Input() key: string
-  @Input() spec: FormSpec
+  @Input() spec: any
   @Input() data: any
   @Input() meta: any
   @Output() events = new EventEmitter<FormEvent>()
