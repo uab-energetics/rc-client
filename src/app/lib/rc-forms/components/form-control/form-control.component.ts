@@ -4,7 +4,7 @@ import {debounceTime, distinctUntilChanged} from "rxjs/operators"
 import {QuestionSpec} from "../../form-spec/FormSpec";
 
 @Component({
-  selector: 'app-form-control',
+  selector: 'rc-form-control',
   templateUrl: './form-control.component.html',
   styleUrls: ['./form-control.component.scss']
 })

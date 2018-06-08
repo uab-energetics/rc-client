@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormSpec} from "../../form-spec/FormSpec";
 import {ListItem} from "./ListItem";
+import {FormFiller} from "../../form-filler/FormFiller";
 
 @Component({
-  selector: 'app-form-group-list',
+  selector: 'rc-form-group-list',
   templateUrl: './form-group-list.component.html',
   styleUrls: ['./form-group-list.component.scss']
 })
@@ -12,6 +13,7 @@ export class FormGroupListComponent {
   @Input() key: string
   @Input() spec: FormSpec
   @Input() form: object
+  @Input() formFiller: FormFiller
 
   @Output() pcInput = new EventEmitter()
 
