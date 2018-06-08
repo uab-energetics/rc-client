@@ -15,8 +15,12 @@
   <button (click)="listItemAdd()" mat-raised-button color="primary" class="mb-15">
     <i class="icon wb-plus"></i> Add One</button>
 
-  <mat-accordion>
-    <mat-expansion-panel *ngFor="let listItem of listItems">
+  <mat-accordion [multi]="true">
+    <mat-expansion-panel
+      *ngFor="let listItem of listItems"
+      [expanded]="data[listItem.label]?.expanded"
+      (opened)="setPanelState(listItem.label, true)"
+      (closed)="setPanelState(listItem.label, false)">
 
       <!-- Item Header -->
       <mat-expansion-panel-header style="background: #c3e8ff">

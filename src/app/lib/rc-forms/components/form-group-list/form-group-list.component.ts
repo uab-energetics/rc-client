@@ -54,6 +54,11 @@ export class FormGroupListComponent implements OnInit, OnChanges {
     this.listItems = this.listItems.filter(L => L.label !== label)
   }
 
+  setPanelState(label, state) {
+    if(this.data[label].expanded === state) return
+    setTimeout(() => this.formInput.emit({ key: `${this.key}.${label}.expanded`, data: state}), 0)
+  }
+
   getChildData(key: string): any {
     return lodash.get(this.data, key)
   }
