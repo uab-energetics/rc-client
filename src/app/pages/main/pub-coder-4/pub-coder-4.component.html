@@ -5,10 +5,6 @@
 
     <pre>{{ (form$ | async) | json }}</pre>
     <pre>{{ formFiller.eventHistory | json }}</pre>
-    <button (click)="encoding = reduceEncoding(encoding, events); events = []"
-            class="btn btn-sm btn-primary">
-      Apply Diffs
-    </button>
   </div>
 
   <div style="flex-grow: 1">

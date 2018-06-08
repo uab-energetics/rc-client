@@ -32,12 +32,15 @@ export class PubCoder4Component implements OnInit {
   }
 
   private registerHotKeys(){
-    hotKeyStream('ctrl + s').subscribe( _ => this.notify.toast('Saved Encoding') )
+    hotKeyStream('ctrl + r') // this prevents Chrome's native reload hotkey
+    hotKeyStream('ctrl + s').subscribe( _ => {
+      this.notify.toast('Saved Encoding') // it auto-saves. hehe
+    })
     hotKeyStream('ctrl + z').subscribe( _ => {
       if(!this.formFiller.undo())
         this.notify.toast("Nothing to Undo!")
     })
-    hotKeyStream('ctrl + r').subscribe( _ => {
+    hotKeyStream('ctrl + y').subscribe( _ => {
       if(!this.formFiller.redo())
         this.notify.toast("Nothing to Redo!")
     })
