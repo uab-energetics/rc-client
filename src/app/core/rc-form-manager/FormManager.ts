@@ -1,27 +1,46 @@
-import {Observable} from "rxjs/Observable";
-import {DynamicForm} from "./DynamicForm";
-import {Subject} from "rxjs/Subject";
-import {FormEvent} from "./events/FormEvent";
-import {tap} from "rxjs/operators";
-import {reduceForm} from "./formReducer";
-import "rxjs/add/operator/scan";
+import {DynamicForm} from "./DynamicForm"
+import {Subject} from "rxjs/Subject"
+import {FormEvent} from "./events/FormEvent"
+import {tap} from "rxjs/operators"
+import {reduceForm} from "./formReducer"
+import "rxjs/add/operator/scan"
+import {BehaviorSubject} from "rxjs/BehaviorSubject"
 
 export class FormManager {
 
-  form: DynamicForm = {}
+  form$: BehaviorSubject<DynamicForm> = new BehaviorSubject<DynamicForm>(null)
   eventHistory: FormEvent[] = []
+  undoStack: FormEvent[] = []
   events$: Subject<FormEvent> = new Subject()
 
-  constructor(private form: DynamicForm = {}) {
-    this.form = form
-    this.events$.pipe(tap(E => this.eventHistory.push(E))).subscribe()
+  constructor(private data: DynamicForm = {}) {
+    new BehaviorSubject<DynamicForm>(data)
+
+    this.events$.pipe(
+      tap(E => this.eventHistory.push(E)),
+    ).subscribe(E => this.form$.next(reduceForm(this.form$.getValue(), E)))
   }
 
-  digest = (event: FormEvent): void => this.events$.next(event)
+  watch = () => this.form$.asObservable()
 
-  watch = (): Observable<DynamicForm> => this.events$.scan(reduceForm, this.form)
-
-  applyEvents = (events: FormEvent[]) => events.reduce(reduceForm, this.form)
+  digest = (event: FormEvent): void => {
+    this.undoStack = []
+    this.events$.next(event)
+  }
 
   clearHistory = () => this.eventHistory = []
+
+  undo = () => {
+    if(this.eventHistory.length === 0)
+      return false
+    this.undoStack.push(this.eventHistory.pop())
+    this.form$.next(this.eventHistory.reduce(reduceForm, {}))
+    return true
+  }
+
+  redo = () => {
+    if(this.undoStack.length === 0) return false
+    this.events$.next(this.undoStack.pop())
+    return true
+  }
 }
