@@ -8,10 +8,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class TextComponent {
 
   @Input() value: string = '';
+  @Input() placeholder: string = 'Enter some text...'
   @Output() appChange = new EventEmitter<string>();
-
-  onChange($event){
-    this.appChange.emit($event.target.value);
-  }
 
 }
