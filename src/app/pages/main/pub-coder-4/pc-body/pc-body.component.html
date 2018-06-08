@@ -4,7 +4,7 @@
     <rc-form-group-list
       key="root"
       [data]="formFiller.lookup('root')"
-      (pcInput)="encodingChange.emit($event)"
+      (formInput)="childInputStream$.next($event)"
       [spec]="codebook.root">
     </rc-form-group-list>
   </div>
