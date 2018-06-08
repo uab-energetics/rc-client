@@ -1,29 +1,17 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core'
-import {FormSpec} from "../../form-spec/FormSpec"
+import {Component, OnChanges} from '@angular/core'
 import {ListItem} from "./ListItem"
 import * as lodash from 'lodash'
-import {FormEvent} from "../../form-filler/events/FormEvent"
 import {responseUpdated} from "../../form-filler/events/ResponseUpdated"
+import {AbstractFormControlComponent} from "../abstract-form-control/abstract-form-control.component";
 
 @Component({
   selector: 'rc-form-group-list',
   templateUrl: './form-group-list.component.html',
   styleUrls: ['./form-group-list.component.scss']
 })
-export class FormGroupListComponent implements OnInit, OnChanges {
-
-  @Input() key: string
-  @Input() spec: FormSpec
-  @Input() form: object
-  @Input() data: any
-  @Input() metaData: any
-
-  @Output() events = new EventEmitter<FormEvent>()
+export class FormGroupListComponent extends AbstractFormControlComponent implements OnChanges {
 
   listItems: ListItem[] = []
-
-  ngOnInit() {
-  }
 
   ngOnChanges() {
     this.listItems = Object.entries(this.data || {}).map(([key, val]) => ({ label: key }))

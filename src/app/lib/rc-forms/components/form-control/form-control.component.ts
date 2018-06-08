@@ -1,27 +1,19 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
+import {Component, OnInit} from '@angular/core'
 import {Subject} from "rxjs/Subject"
 import {debounceTime, distinctUntilChanged} from "rxjs/operators"
-import {QuestionSpec} from "../../form-spec/FormSpec"
-import {FormEvent} from "../../form-filler/events/FormEvent"
 import {questionShowHide} from "../../form-filler/events/QuestionShowHide"
 import {responseUpdated} from "../../form-filler/events/ResponseUpdated"
 import * as lodash from 'lodash'
-import {RcFormMetaData} from "../../form-filler/types/RcFormMetaData"
 import {questionReported} from "../../form-filler/events/QuestionReported"
 import {leaveComment} from "../../form-filler/events/Comment";
+import {AbstractFormControlComponent} from "../abstract-form-control/abstract-form-control.component";
 
 @Component({
   selector: 'rc-form-control',
   templateUrl: './form-control.component.html',
   styleUrls: ['./form-control.component.scss']
 })
-export class FormControlComponent implements OnInit {
-
-  @Input() spec: QuestionSpec
-  @Input() data: any
-  @Input() metaData: RcFormMetaData
-  @Input() key: string
-  @Output() events = new EventEmitter<FormEvent>()
+export class FormControlComponent extends AbstractFormControlComponent implements OnInit {
 
   _meta
 
@@ -31,7 +23,7 @@ export class FormControlComponent implements OnInit {
   addComment$ = new Subject<{ key: string, comment: string }>()
 
   ngOnInit() {
-    this._meta = lodash.get(this.metaData, this.key, { reported: true })
+    this._meta = lodash.get(this.meta, this.key, { reported: true })
     this.responseUpdated$.pipe(
       debounceTime(500),
       distinctUntilChanged()
@@ -43,7 +35,7 @@ export class FormControlComponent implements OnInit {
   }
 
   ngOnChanges() {
-    console.log(this.metaData)
+    console.log(this.meta)
   }
 
 }

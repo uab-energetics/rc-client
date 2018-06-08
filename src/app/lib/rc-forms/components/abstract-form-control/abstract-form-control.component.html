@@ -1,3 +1,6 @@
+<!-- TODO - use a strategy for dynamic component construction -->
+<!-- TODO - use React instead? :( -->
+
 <!-- GROUP -->
 <rc-form-group
   *ngIf="spec.type === 'group' || spec.type === 'group-inline'"
@@ -16,7 +19,7 @@
   [key]="key"
   [spec]="spec"
   [data]="data"
-  [metaData]="meta"
+  [meta]="meta"
   (events)="events.next($event)">
 </rc-form-group-list>
 
@@ -27,6 +30,6 @@
   [key]="key"
   [spec]="spec"
   [data]="data"
-  [metaData]="meta"
+  [meta]="meta"
   (events)="events.next($event)">
 </rc-form-control>
