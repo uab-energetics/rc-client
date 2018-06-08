@@ -1,28 +1,42 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {FormSpec} from "../../form-spec/FormSpec";
 import {ListItem} from "./ListItem";
 import * as lodash from 'lodash'
+import {Subject} from "rxjs/Subject";
+import {InputEvent} from "../InputEvent";
 
 @Component({
   selector: 'rc-form-group-list',
   templateUrl: './form-group-list.component.html',
   styleUrls: ['./form-group-list.component.scss']
 })
-export class FormGroupListComponent {
+export class FormGroupListComponent implements OnInit, OnChanges {
 
   @Input() key: string
   @Input() spec: FormSpec
   @Input() form: object
-  @Input() data: any = {}
+  @Input() data: any
 
-  @Output() pcInput = new EventEmitter()
+  @Output() formInput = new EventEmitter<InputEvent>()
+  childInputStream$ = new Subject<InputEvent>()
 
   listItems: ListItem[] = []
+
+  ngOnInit() {
+    this.childInputStream$
+      .map<InputEvent, InputEvent>(event => ({ ...event, key: `${this.key}.${event.key}`}))
+      .subscribe(event => this.formInput.emit(event))
+  }
+
+  ngOnChanges() {
+    this.listItems = Object.entries(this.data || {}).map(([key, val]) => ({ label: key }))
+  }
 
   listItemAdd() {
     let label = prompt("Give the item a label:")
     if(!label) return
     this.listItems.push({ label })
+    this.formInput.emit({ key: `${this.key}.${label}`, data: { label }})
   }
 
   listItemEdit(label) {

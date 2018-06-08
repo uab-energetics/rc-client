@@ -16,9 +16,9 @@
       *ngFor="let entry of childSpecs"
       class="spec {{entry.spec.type}}"
       [spec]="entry.spec"
-      [key]="key+'.'+entry.key"
+      [key]="entry.key"
       [data]="getChildData(entry.key)"
-      (pcInput)="pcInput.emit($event)">
+      (formInput)="childInputStream$.next($event)">
     </rc-form-group-list>
   </div>
 </div>
