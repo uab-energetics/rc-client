@@ -1,7 +1,9 @@
 
 <!-- Simple Form Control Item -->
 <div *ngIf="pcFormGroup.type !== 'group'">
-  <app-pc-form-control [pcFormControl]="pcFormGroup"></app-pc-form-control>
+  <app-pc-form-control
+    (appChange)="changes$.next($event)"
+    [pcFormControl]="pcFormGroup"></app-pc-form-control>
 </div>
 
 <!-- Group Item -->
@@ -11,22 +13,33 @@
 
   <!-- List Group -->
   <div *ngIf="pcFormGroup.list">
-    <button mat-raised-button color="primary"><i class="icon wb-plus"></i> Add One</button>
+    <button (click)="listItemAdd()" mat-raised-button color="primary">
+      <i class="icon wb-plus"></i> Add One</button>
     <br/>
     <br/>
 
     <mat-accordion>
-      <mat-expansion-panel *ngFor="let instance of [{label:'Study Group One'}, {label:'Study Group Two'}, {label:'Constants Branch'}]">
+      <mat-expansion-panel *ngFor="let instance of listItems">
         <mat-expansion-panel-header style="background: #c3e8ff">
           <mat-panel-title>{{instance.label}}</mat-panel-title>
         </mat-expansion-panel-header>
+        <div>
+          <br/>
+          <button (click)="listItemEdit(instance.label)" class="btn btn-xs btn-warning mr-15">Edit Item Label</button>
+          <button (click)="listItemDelete(instance.label)" class="btn btn-xs btn-danger">Delete This Item</button>
+        </div>
+
         <div class="pc-group-outlet">
+
           <app-pc-form-group
             style="padding: 5px"
-            *ngFor="let field of values(pcFormGroup.fields)"
-            [pcFormGroup]="field"
-            [ngClass]="getWrapperClass(field)">
+            *ngFor="let entry of _entries"
+            (appChange)="appChange.emit($event)"
+            [key]="key+'.'+instance.label + '.' + entry.key"
+            [pcFormGroup]="entry.group"
+            [ngClass]="getWrapperClass(entry.group)">
           </app-pc-form-group>
+
         </div>
       </mat-expansion-panel>
     </mat-accordion>
@@ -36,9 +49,11 @@
   <div *ngIf="!pcFormGroup.list" class="pc-group-outlet">
     <app-pc-form-group
       style="padding: 5px"
-      *ngFor="let field of values(pcFormGroup.fields)"
-      [pcFormGroup]="field"
-      [ngClass]="getWrapperClass(field)">
+      *ngFor="let entry of _entries"
+      [pcFormGroup]="entry.group"
+      [key]="key+'.'+entry.key"
+      (appChange)="appChange.emit($event)"
+      [ngClass]="getWrapperClass(entry.group)">
     </app-pc-form-group>
   </div>
 

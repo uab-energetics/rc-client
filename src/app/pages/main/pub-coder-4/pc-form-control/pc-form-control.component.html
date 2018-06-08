@@ -3,25 +3,30 @@
 
 <div [ngSwitch]="pcFormControl.type">
   <app-text
+    (appChange)="changes$.next($event)"
     *ngSwitchCase="'text'">
   </app-text>
 
   <app-number
+    (appChange)="changes$.next($event)"
     *ngSwitchCase="'number'">
   </app-number>
 
   <app-bool
+    (appChange)="changes$.next($event)"
     *ngSwitchCase="'binary'"
     [trueOption]="'True'"
     [falseOption]="'False'">
   </app-bool>
 
   <app-select
+    (appChange)="changes$.next($event)"
     *ngSwitchCase="'select'"
     [options]="[]">
   </app-select>
 
   <app-multi-select
+    (appChange)="changes$.next($event)"
     *ngSwitchCase="'multi-select'"
     [selections]="[]"
     [options]="[]">

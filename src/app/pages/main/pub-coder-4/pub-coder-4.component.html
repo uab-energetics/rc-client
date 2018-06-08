@@ -2,12 +2,19 @@
 
   <div class="pc-col" style="flex-basis: 250px">
     <p><ngb-progressbar type="primary" [value]="75" [striped]="true" [animated]="true"><i>50%</i></ngb-progressbar></p>
+
+    <pre>{{ encoding | json }}</pre>
+    <pre>{{ events | json }}</pre>
+    <button (click)="encoding = reduceEncoding(encoding, events); events = []"
+            class="btn btn-sm btn-primary">
+      Apply Diffs
+    </button>
   </div>
 
   <div style="flex-grow: 1">
     <div style="display: flex; flex-direction: column">
       <app-toolbar></app-toolbar>
-      <app-pc-body [codebook]="codebook"></app-pc-body>
+      <app-pc-body (encodingChange)="changes$.next($event)" [codebook]="codebook"></app-pc-body>
     </div>
   </div>
 

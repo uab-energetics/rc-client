@@ -3,6 +3,7 @@
   <div style="flex-grow: 4; padding: 10px;">
     <app-pc-form-group
       key="root"
+      (appChange)="encodingChange.emit($event)"
       [pcFormGroup]="codebook.root">
     </app-pc-form-group>
   </div>

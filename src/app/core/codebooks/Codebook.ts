@@ -7,7 +7,7 @@ interface PcAbstractControl {
 interface PcGroupControl extends PcAbstractControl {
   list?: boolean
   fields: {
-    [key: string]: PcAbstractControl
+    [key: string]: PcGroupControl | PcFormControl
   }
 }
 
@@ -25,7 +25,7 @@ interface PcFormControl extends PcAbstractControl {
 }
 
 interface Codebook {
-  root: PcAbstractControl
+  root: PcGroupControl | PcFormControl
 }
 
 
