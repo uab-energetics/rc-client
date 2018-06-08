@@ -1,32 +1,31 @@
-interface PcAbstractControl {
-  type: 'number' | 'text' | 'select' | 'multi-select' | 'group'
+
+interface GroupListSpec {
+  type: 'group-list'
+  title: string
+  prompt: string
+  listItem: FormSpec
+}
+
+interface GroupSpec {
+  type: 'group'
+  title: string
+  prompt: string
+  fields: {
+    [key: string]: FormSpec
+  }
+}
+
+interface QuestionSpec {
+  type: string // 'text' | 'number' | 'radio-button' | 'select' | 'multi-select'
   title: string
   prompt: string
 }
 
-interface PcGroupControl extends PcAbstractControl {
-  list?: boolean
-  fields: {
-    [key: string]: PcGroupControl | PcFormControl
-  }
+type FormSpec = GroupSpec | GroupSpec | QuestionSpec
+
+export {
+  FormSpec,
+  GroupSpec,
+  GroupListSpec,
+  QuestionSpec
 }
-
-interface PcFormControl extends PcAbstractControl {
-
-  // type = 'select' | 'multi-select' | 'radio-button'
-  choices?: { value: any, name: string }[]
-
-  // type = 'text'
-  placeholder?: string
-
-  // type = 'number'
-  min?: number
-  max?: number
-}
-
-interface Codebook {
-  root: PcGroupControl | PcFormControl
-}
-
-
-export { Codebook }
