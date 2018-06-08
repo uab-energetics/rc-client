@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {Codebook} from "../../../../core/codebooks/Codebook"
+import {FormFiller} from "../../../../lib/rc-forms/form-filler/FormFiller";
 
 @Component({
   selector: 'app-pc-body',
@@ -10,6 +11,8 @@ export class PcBodyComponent implements OnInit {
 
   @Input()
   codebook: Codebook
+
+  @Input() formFiller: FormFiller
 
   @Output()
   encodingChange = new EventEmitter()
