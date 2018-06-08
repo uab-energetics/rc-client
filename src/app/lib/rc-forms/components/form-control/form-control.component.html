@@ -22,7 +22,8 @@
           popoverTitle="Showing comments for {{spec.title}}" class="cursor-pointer">{{spec.title}}</h5>
       <small>{{spec.prompt}}</small>
     </div>
-    <div>
+
+    <div *ngIf="spec.meta?.options?.length > 0">
 
       <div ngbDropdown class="d-inline-block">
         <i ngbDropdownToggle class="icon wb-settings cursor-pointer"></i> &nbsp;&nbsp;

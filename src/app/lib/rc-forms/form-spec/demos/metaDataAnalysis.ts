@@ -11,6 +11,7 @@ export default {
           questionOne: {
             type: 'text',
             prompt: 'Example Text Question',
+            placeholder: "Question Title",
             title: 'this is an example text question',
             hovertip: "Example hovertip"
           },

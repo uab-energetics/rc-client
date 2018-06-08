@@ -1,6 +1,6 @@
 <!-- If spec is not a group, pass down hierarchy -->
 <rc-form-control
-  *ngIf="spec.type !== 'group'"
+  *ngIf="spec.type !== 'group' && spec.type !== 'group-inline'"
   [spec]="spec"
   [data]="data"
   [metaData]="metaData"
@@ -9,19 +9,57 @@
 </rc-form-control>
 
 <!-- Spec is a group item -->
-<div *ngIf="spec.type === 'group'">
-  <h4>{{spec.title}}</h4>
-  <h6>{{spec.prompt}}</h6>
+<div *ngIf="spec.type === 'group'" class="rc-group">
 
-  <div class="form-group-outlet">
-    <rc-form-group-list
-      *ngFor="let entry of childSpecs"
-      class="spec {{entry.spec.type}} {{entry.spec.style || ''}}"
-      [spec]="entry.spec"
-      [key]="key + '.' + entry.key"
-      [metaData]="metaData"
-      [data]="getChildData(entry.key)"
-      (events)="events.next($event)">
-    </rc-form-group-list>
+  <div class="panel panel-bordered">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{spec.title}} <small>{{spec.prompt}}</small></h3>
+    </div>
+    <div class="panel-body form-group-outlet">
+      <rc-form-group-list
+        *ngFor="let entry of childSpecs"
+        class="spec {{entry.spec.type}}"
+        [spec]="entry.spec"
+        [key]="key + '.' + entry.key"
+        [metaData]="metaData"
+        [data]="getChildData(entry.key)"
+        (events)="events.next($event)">
+      </rc-form-group-list>
+    </div>
+  </div>
+
+
+  <!--<h4>{{spec.title}}</h4>-->
+  <!--<h6>{{spec.prompt}}</h6>-->
+
+  <!--<div class="form-group-outlet">-->
+    <!--<rc-form-group-list-->
+      <!--*ngFor="let entry of childSpecs"-->
+      <!--class="spec {{entry.spec.type}} {{entry.spec.style || ''}}"-->
+      <!--[spec]="entry.spec"-->
+      <!--[key]="key + '.' + entry.key"-->
+      <!--[metaData]="metaData"-->
+      <!--[data]="getChildData(entry.key)"-->
+      <!--(events)="events.next($event)">-->
+    <!--</rc-form-group-list>-->
+  <!--</div>-->
+</div>
+
+<div *ngIf="spec.type === 'group-inline'">
+  <div class="panel panel-bordered">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{spec.title}} <small>{{spec.prompt}}</small></h3>
+    </div>
+    <div class="panel-body form-group-outlet">
+      <rc-form-group-list
+        *ngFor="let entry of childSpecs"
+        class="spec {{entry.spec.type}}"
+        [spec]="entry.spec"
+        [key]="key + '.' + entry.key"
+        [metaData]="metaData"
+        [data]="getChildData(entry.key)"
+        (events)="events.next($event)">
+      </rc-form-group-list>
+    </div>
   </div>
 </div>

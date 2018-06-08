@@ -34,9 +34,8 @@ export class FormGroupComponent implements OnInit, OnChanges {
   }
 
   private loadFields() {
-    if(this.spec.type === 'group')
-      this.childSpecs = Object.entries(this.spec.fields)
-        .map(([key, spec]) => ({ key, spec }))
+    this.childSpecs = Object.entries(this.spec.fields || [])
+      .map(([key, spec]) => ({ key, spec }))
   }
 
 }
