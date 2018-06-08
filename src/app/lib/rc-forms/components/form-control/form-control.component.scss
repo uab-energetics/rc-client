@@ -1,0 +1,12 @@
+.rc-form-control-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .dropdown-item {
+    padding: 5px 10px;
+    margin: 0;
+    width: 100%;
+    cursor: pointer;
+  }
+}

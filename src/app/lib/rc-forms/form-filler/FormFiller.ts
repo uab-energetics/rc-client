@@ -5,7 +5,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject"
 import {lookup} from "./query";
 import {RcFormData} from "./types/RcFormData";
 
-import {reduceFormData} from "./reducers/formData";
+import {defaultValue, reduceFormData} from "./reducers/formData";
 
 export class FormFiller {
 
@@ -15,7 +15,7 @@ export class FormFiller {
   undoStack: FormEvent[] = []
   events$: Subject<FormEvent> = new Subject()
 
-  constructor(private data: RcFormData = null) {
+  constructor(private data: RcFormData = defaultValue) {
     this.formData$ = new BehaviorSubject<RcFormData>(data)
     this.events$.subscribe(E => {
       this.eventHistory.push(E)

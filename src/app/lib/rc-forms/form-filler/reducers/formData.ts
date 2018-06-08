@@ -3,7 +3,7 @@ import {FormEvent} from "../events/FormEvent";
 import {formEncoding} from "./formEncoding";
 import {formMetaData} from "./formMetaData";
 
-const defaultValue: RcFormData = {
+export const defaultValue: RcFormData = {
   meta: {},
   encoding: {}
 }

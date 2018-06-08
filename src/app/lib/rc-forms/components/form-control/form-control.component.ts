@@ -26,17 +26,17 @@ export class FormControlComponent implements OnInit {
 
   responseUpdated$ = new Subject()
   hide$ = new Subject()
-  notReported$ = new Subject()
+  reported$ = new Subject<boolean>()
 
   ngOnInit() {
-    this._meta = lodash.get(this.metaData, this.key, {})
+    this._meta = lodash.get(this.metaData, this.key, { reported: true })
     this.responseUpdated$.pipe(
       debounceTime(500),
       distinctUntilChanged()
     ).subscribe( data => this.events.emit(responseUpdated({ key: this.key, data })) )
 
     this.hide$.subscribe(() => this.events.emit(questionShowHide({ key: this.key, state: false })))
-    this.notReported$.subscribe(() => this.events.emit(questionReported({ key: this.key, state: false })))
+    this.reported$.subscribe(state => this.events.emit(questionReported({ key: this.key, state })))
   }
 
   ngOnChanges() {

@@ -31,10 +31,12 @@ import {
   MatTooltipModule
 } from "@angular/material";
 import {CdkTableModule} from "@angular/cdk/table";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   imports: [
     CommonModule,
+    NgbModule,
     MatProgressBarModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,

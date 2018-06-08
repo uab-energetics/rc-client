@@ -1,46 +1,70 @@
-<div style="display: flex; align-items: center; justify-content: space-between">
-  <div>
-    <h5>{{spec.title}}</h5>
-    <small>{{spec.prompt}}</small>
+<div class="rc-form-control" *ngIf="_meta.visible !== false">
+
+  <div class="rc-form-control-header">
+    <div>
+      <h5>{{spec.title}}</h5>
+      <small>{{spec.prompt}}</small>
+    </div>
+    <div>
+
+      <div ngbDropdown class="d-inline-block">
+        <i ngbDropdownToggle class="icon wb-settings cursor-pointer"></i> &nbsp;&nbsp;
+        <div ngbDropdownMenu>
+          <button (click)="reported$.next(!_meta.reported)" class="dropdown-item">Toggle Not Reported</button>
+          <button (click)="hide$.next()" class="dropdown-item">Hide Question</button>
+          <button (click)="hide$.next()" class="dropdown-item">Not Applicable</button>
+        </div>
+      </div>
+
+    </div>
   </div>
-  <div>
-    <button (click)="hide$.next()" class="btn btn-xs btn-info">hide</button>
-    <button (click)="notReported$.next()" class="btn btn-xs btn-warning">not-reported</button>
+
+  <div class="rc-form-control-response-body">
+    <div *ngIf="_meta.reported !== false">
+      <div [ngSwitch]="spec.type">
+        <rc-text
+          [value]="data || ''"
+          (appChange)="responseUpdated$.next($event)"
+          *ngSwitchCase="'text'">
+        </rc-text>
+
+        <rc-number
+          [value]="data"
+          (appChange)="responseUpdated$.next($event)"
+          *ngSwitchCase="'number'">
+        </rc-number>
+
+        <rc-bool
+          [value]="data"
+          (appChange)="responseUpdated$.next($event)"
+          *ngSwitchCase="'binary'"
+          [trueOption]="spec.options[0]"
+          [falseOption]="spec.options[1]">
+        </rc-bool>
+
+        <rc-select
+          [value]="data"
+          (appChange)="responseUpdated$.next($event)"
+          *ngSwitchCase="'select'"
+          [options]="spec.options">
+        </rc-select>
+
+        <rc-multi-select
+          [selections]="data"
+          (appChange)="responseUpdated$.next($event)"
+          *ngSwitchCase="'multi-select'"
+          [options]="spec.options">
+        </rc-multi-select>
+      </div>
+    </div>
+
+    <div *ngIf="_meta.reported === false">
+      <em style="color: red">NOT REPORTED</em>
+    </div>
   </div>
+
 </div>
 
-<div [ngSwitch]="spec.type">
-  <rc-text
-    [value]="data || ''"
-    (appChange)="responseUpdated$.next($event)"
-    *ngSwitchCase="'text'">
-  </rc-text>
-
-  <rc-number
-    [value]="data"
-    (appChange)="responseUpdated$.next($event)"
-    *ngSwitchCase="'number'">
-  </rc-number>
-
-  <rc-bool
-    [value]="data"
-    (appChange)="responseUpdated$.next($event)"
-    *ngSwitchCase="'binary'"
-    [trueOption]="spec.options[0]"
-    [falseOption]="spec.options[1]">
-  </rc-bool>
-
-  <rc-select
-    [value]="data"
-    (appChange)="responseUpdated$.next($event)"
-    *ngSwitchCase="'select'"
-    [options]="spec.options">
-  </rc-select>
-
-  <rc-multi-select
-    [selections]="data"
-    (appChange)="responseUpdated$.next($event)"
-    *ngSwitchCase="'multi-select'"
-    [options]="spec.options">
-  </rc-multi-select>
+<div *ngIf="_meta.visible === false" style="display: flex; align-items: center; justify-content: center; height: 100%; border: solid lightskyblue 2px;">
+  <em style="color: lightskyblue">HIDDEN</em>
 </div>
