@@ -44,25 +44,27 @@ export class PcBodyComponent implements OnInit {
             }
           },
           branches: {
-            type: 'group',
+            type: 'group-list',
             title: "Study Branches",
             prompt: "List the branches in this experiment",
-            list: true,
-            fields: {
-              questionOne: {
-                type: 'text',
-                prompt: 'Example Text Question',
-                title: 'this is an example text question'
-              },
-              questionTwo: {
-                type: 'number',
-                prompt: 'Example Number Question',
-                title: 'this is an example number question'
-              },
-              questionThree: {
-                type: 'select',
-                title: "Example Select",
-                prompt: "this is an example select question"
+            listItem: {
+              type: 'group',
+              fields: {
+                questionOne: {
+                  type: 'text',
+                  prompt: 'Example Text Question',
+                  title: 'this is an example text question'
+                },
+                questionTwo: {
+                  type: 'number',
+                  prompt: 'Example Number Question',
+                  title: 'this is an example number question'
+                },
+                questionThree: {
+                  type: 'select',
+                  title: "Example Select",
+                  prompt: "this is an example select question"
+                }
               }
             }
           }

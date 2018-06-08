@@ -11,6 +11,7 @@ import {PcBodyComponent} from './pc-body/pc-body.component';
 import {SharedModule} from "../../../core/shared.module";
 import { PcFormControlComponent } from './pc-form-control/pc-form-control.component';
 import { PcFormGroupComponent } from './pc-form-group/pc-form-group.component';
+import { PcFormGroupListComponent } from './pc-form-group-list/pc-form-group-list.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { PcFormGroupComponent } from './pc-form-group/pc-form-group.component';
     PcBodyComponent,
     PcFormControlComponent,
     PcFormGroupComponent,
+    PcFormGroupListComponent,
   ]
 })
 export class PubCoder4Module {

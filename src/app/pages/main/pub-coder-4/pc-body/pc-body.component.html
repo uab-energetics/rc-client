@@ -1,11 +1,11 @@
 <div class="pc-body" style="display: flex">
 
   <div style="flex-grow: 4; padding: 10px;">
-    <app-pc-form-group
+    <app-pc-form-group-list
       key="root"
-      (appChange)="encodingChange.emit($event)"
-      [pcFormGroup]="codebook.root">
-    </app-pc-form-group>
+      (pcInput)="encodingChange.emit($event)"
+      [spec]="codebook.root">
+    </app-pc-form-group-list>
   </div>
 
 </div>
