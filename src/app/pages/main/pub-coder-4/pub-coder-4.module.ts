@@ -9,15 +9,14 @@ import {pubCoderRoutes} from "./routes";
 import {PcToolbarComponent} from './pc-toolbar/pc-toolbar.component';
 import {PcBodyComponent} from './pc-body/pc-body.component';
 import {SharedModule} from "../../../core/shared.module";
-import { PcFormControlComponent } from './pc-form-control/pc-form-control.component';
-import { PcFormGroupComponent } from './pc-form-group/pc-form-group.component';
-import { PcFormGroupListComponent } from './pc-form-group-list/pc-form-group-list.component';
+import {RcFormsModule} from "../../../lib/rc-forms/rc-forms.module";
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(pubCoderRoutes),
     FormsModule,
+    RcFormsModule,
     AngularMaterialModule,
     SharedModule,
     NgbModule,
@@ -25,10 +24,7 @@ import { PcFormGroupListComponent } from './pc-form-group-list/pc-form-group-lis
   declarations: [
     PubCoder4Component,
     PcToolbarComponent,
-    PcBodyComponent,
-    PcFormControlComponent,
-    PcFormGroupComponent,
-    PcFormGroupListComponent,
+    PcBodyComponent
   ]
 })
 export class PubCoder4Module {
