@@ -26,7 +26,7 @@ export const hotKeyStream = (ascii: string): Observable<HotKeyEvent> => {
       return tkn
     })
 
-  const stream$ = new Subject()
+  const stream$ = new Subject<HotKeyEvent>()
 
   document.addEventListener('keydown', event => {
 
@@ -43,5 +43,5 @@ export const hotKeyStream = (ascii: string): Observable<HotKeyEvent> => {
     }
   })
 
-  return stream$
+  return stream$.asObservable()
 }
