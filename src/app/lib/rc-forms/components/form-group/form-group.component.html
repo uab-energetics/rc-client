@@ -3,6 +3,7 @@
   *ngIf="spec.type !== 'group'"
   [spec]="spec"
   [data]="data"
+  [metaData]="metaData"
   [key]="key"
   (events)="events.next($event)">
 </rc-form-control>
@@ -18,6 +19,7 @@
       class="spec {{entry.spec.type}}"
       [spec]="entry.spec"
       [key]="key + '.' + entry.key"
+      [metaData]="metaData"
       [data]="getChildData(entry.key)"
       (events)="events.next($event)">
     </rc-form-group-list>

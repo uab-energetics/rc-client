@@ -3,7 +3,7 @@ import {NotifyService} from "../../../core/notifications/notify.service";
 import {Observable} from "rxjs/Observable";
 import {hotKeyStream} from "../../../lib/rc-hotkeys/hotKeyStream";
 import {FormFiller} from "../../../lib/rc-forms/form-filler/FormFiller";
-import {RcFormData} from "../../../lib/rc-forms/form-filler/RcFormData";
+import {RcFormData} from "../../../lib/rc-forms/form-filler/types/RcFormData";
 
 @Component({
   selector: 'app-pub-coder-4',

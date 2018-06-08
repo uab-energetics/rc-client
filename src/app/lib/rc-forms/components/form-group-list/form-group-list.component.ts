@@ -2,8 +2,8 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angula
 import {FormSpec} from "../../form-spec/FormSpec"
 import {ListItem} from "./ListItem"
 import * as lodash from 'lodash'
-import {FormEvent} from "../../form-filler/events/FormEvent";
-import {responseUpdated} from "../../form-filler/events/ResponseUpdated";
+import {FormEvent} from "../../form-filler/events/FormEvent"
+import {responseUpdated} from "../../form-filler/events/ResponseUpdated"
 
 @Component({
   selector: 'rc-form-group-list',

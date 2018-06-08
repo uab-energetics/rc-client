@@ -1,4 +1,4 @@
 import {ResponseUpdated} from "./ResponseUpdated";
-import {QuestionHidden} from "./QuestionHidden";
+import {QuestionShowHide} from "./QuestionShowHide";
 
-export type FormEvent = ResponseUpdated | QuestionHidden
+export type FormEvent = ResponseUpdated | QuestionShowHide

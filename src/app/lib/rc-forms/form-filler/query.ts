@@ -1,5 +1,5 @@
 import * as lodash from 'lodash'
-import {RcFormData} from "./RcFormData";
+import {RcFormData} from "./types/RcFormData";
 
 export const lookup = (form: RcFormData, key: string, defaultValue = null): any =>
   lodash.get(form, key, defaultValue)

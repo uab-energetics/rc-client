@@ -4,6 +4,7 @@
   [spec]="spec"
   [key]="key"
   [data]="data"
+  [metaData]="metaData"
   (events)="events.emit($event)">
 </rc-form-group>
 
@@ -38,6 +39,7 @@
         [spec]="spec.listItem"
         [key]="key + '.' + listItem.label + '.data'"
         [data]="getChildData(listItem.label + '.data')"
+        [metaData]="metaData"
         (events)="events.next($event)">
       </rc-form-group>
 

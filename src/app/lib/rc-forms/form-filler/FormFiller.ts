@@ -3,7 +3,7 @@ import {FormEvent} from "./events/FormEvent"
 import "rxjs/add/operator/scan"
 import {BehaviorSubject} from "rxjs/BehaviorSubject"
 import {lookup} from "./query";
-import {RcFormData} from "./RcFormData";
+import {RcFormData} from "./types/RcFormData";
 
 import {reduceFormData} from "./reducers/formData";
 
