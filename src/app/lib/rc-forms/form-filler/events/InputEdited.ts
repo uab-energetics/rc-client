@@ -1,12 +1,12 @@
-export const INPUT_EDITED = 'rc.forms.inputs.edited'
+export const RESPONSE_UPDATED = 'rc.forms.input.updated'
 
-export interface InputEdited {
+export interface ResponseUpdated {
   type: string
   payload: any
 }
 
-export const rcInputEdited = ({ key, data }): InputEdited => ({
-  type: INPUT_EDITED,
+export const responseUpdated = ({ key, data }): ResponseUpdated => ({
+  type: RESPONSE_UPDATED,
   payload: {
     key,
     data

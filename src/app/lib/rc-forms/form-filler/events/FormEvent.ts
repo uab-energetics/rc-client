@@ -1,3 +1,3 @@
-import {InputEdited} from "./InputEdited";
+import {ResponseUpdated} from "./InputEdited";
 
-export type FormEvent = InputEdited
+export type FormEvent = ResponseUpdated
