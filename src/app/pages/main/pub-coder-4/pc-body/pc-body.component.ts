@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
-import {Codebook} from "../../../../core/codebooks/Codebook"
 import {FormFiller} from "../../../../lib/rc-forms/form-filler/FormFiller";
 import {InputEvent} from "../../../../lib/rc-forms/components/InputEvent";
 import {Subject} from "rxjs/Subject";
@@ -12,17 +11,14 @@ import {responseUpdated, ResponseUpdated} from "../../../../lib/rc-forms/form-fi
 })
 export class PcBodyComponent implements OnInit {
 
-  @Input()
-  codebook: Codebook
-
   @Input() formFiller: FormFiller
+  @Output() encodingChange = new EventEmitter<ResponseUpdated>()
 
-  @Output()
-  encodingChange = new EventEmitter<ResponseUpdated>()
-
+  codebook
   childInputStream$ = new Subject<InputEvent>()
 
   ngOnInit() {
+
     this.childInputStream$
       .map<InputEvent, ResponseUpdated>(event => responseUpdated(event))
       .do(console.log)
@@ -74,9 +70,10 @@ export class PcBodyComponent implements OnInit {
                   title: 'this is an example number question'
                 },
                 questionThree: {
-                  type: 'select',
-                  title: "Example Select",
-                  prompt: "this is an example select question"
+                  type: 'multi-select',
+                  title: "Example Multi-Select",
+                  prompt: "What's your favorite cheese?",
+                  options: ['Muenster', 'White Cheddar', 'Edam', 'Amish', 'Gouda']
                 }
               }
             }

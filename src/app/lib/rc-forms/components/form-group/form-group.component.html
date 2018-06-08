@@ -3,7 +3,8 @@
   *ngIf="spec.type !== 'group'"
   [spec]="spec"
   [data]="data"
-  (appChange)="controlsInputStream$.next($event)">
+  [key]="key"
+  (events)="events.next($event)">
 </rc-form-control>
 
 <!-- Spec is a group item -->
@@ -16,9 +17,9 @@
       *ngFor="let entry of childSpecs"
       class="spec {{entry.spec.type}}"
       [spec]="entry.spec"
-      [key]="entry.key"
+      [key]="key + '.' + entry.key"
       [data]="getChildData(entry.key)"
-      (formInput)="childInputStream$.next($event)">
+      (events)="events.next($event)">
     </rc-form-group-list>
   </div>
 </div>

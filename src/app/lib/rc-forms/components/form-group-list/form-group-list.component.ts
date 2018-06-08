@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {FormSpec} from "../../form-spec/FormSpec";
-import {ListItem} from "./ListItem";
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core'
+import {FormSpec} from "../../form-spec/FormSpec"
+import {ListItem} from "./ListItem"
 import * as lodash from 'lodash'
-import {Subject} from "rxjs/Subject";
-import {InputEvent} from "../InputEvent";
+import {FormEvent} from "../../form-filler/events/FormEvent";
+import {responseUpdated} from "../../form-filler/events/ResponseUpdated";
 
 @Component({
   selector: 'rc-form-group-list',
@@ -16,16 +16,13 @@ export class FormGroupListComponent implements OnInit, OnChanges {
   @Input() spec: FormSpec
   @Input() form: object
   @Input() data: any
+  @Input() metaData: any
 
-  @Output() formInput = new EventEmitter<InputEvent>()
-  childInputStream$ = new Subject<InputEvent>()
+  @Output() events = new EventEmitter<FormEvent>()
 
   listItems: ListItem[] = []
 
   ngOnInit() {
-    this.childInputStream$
-      .map<InputEvent, InputEvent>(event => ({ ...event, key: `${this.key}.${event.key}`}))
-      .subscribe(event => this.formInput.emit(event))
   }
 
   ngOnChanges() {
@@ -36,7 +33,7 @@ export class FormGroupListComponent implements OnInit, OnChanges {
     let label = prompt("Give the item a label:")
     if(!label) return
     this.listItems.push({ label })
-    this.formInput.emit({ key: `${this.key}.${label}`, data: { label }})
+    this.events.emit(responseUpdated({ key: `${this.key}.${label}`, data: { label }}))
   }
 
   listItemEdit(label) {
@@ -56,7 +53,7 @@ export class FormGroupListComponent implements OnInit, OnChanges {
 
   setPanelState(label, state) {
     if(this.data[label].expanded === state) return
-    setTimeout(() => this.formInput.emit({ key: `${this.key}.${label}.expanded`, data: state}), 0)
+    setTimeout(() => this.events.emit(responseUpdated({ key: `${this.key}.${label}.expanded`, data: state})), 0)
   }
 
   getChildData(key: string): any {

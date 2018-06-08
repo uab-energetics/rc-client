@@ -4,7 +4,7 @@
   [spec]="spec"
   [key]="key"
   [data]="data"
-  (formInput)="formInput.emit($event)">
+  (events)="events.emit($event)">
 </rc-form-group>
 
 <!-- ListGroup component -->
@@ -36,9 +36,9 @@
       <!-- Outlets for next component -->
       <rc-form-group
         [spec]="spec.listItem"
-        [key]="listItem.label + '.data'"
+        [key]="key + '.' + listItem.label + '.data'"
         [data]="getChildData(listItem.label + '.data')"
-        (formInput)="childInputStream$.next($event)">
+        (events)="events.next($event)">
       </rc-form-group>
 
     </mat-expansion-panel>

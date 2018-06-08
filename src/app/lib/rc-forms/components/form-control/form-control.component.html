@@ -1,22 +1,30 @@
-<h5>{{spec.title}}</h5>
-<small>{{spec.prompt}}</small>
+<div style="display: flex; align-items: center; justify-content: space-between">
+  <div>
+    <h5>{{spec.title}}</h5>
+    <small>{{spec.prompt}}</small>
+  </div>
+  <div>
+    <button (click)="hide$.next()" class="btn btn-xs btn-info">hide</button>
+    <button (click)="notReported$.next()" class="btn btn-xs btn-warning">not-reported</button>
+  </div>
+</div>
 
 <div [ngSwitch]="spec.type">
   <rc-text
     [value]="data || ''"
-    (appChange)="changes$.next($event)"
+    (appChange)="responseUpdated$.next($event)"
     *ngSwitchCase="'text'">
   </rc-text>
 
   <rc-number
     [value]="data"
-    (appChange)="changes$.next($event)"
+    (appChange)="responseUpdated$.next($event)"
     *ngSwitchCase="'number'">
   </rc-number>
 
   <rc-bool
     [value]="data"
-    (appChange)="changes$.next($event)"
+    (appChange)="responseUpdated$.next($event)"
     *ngSwitchCase="'binary'"
     [trueOption]="spec.options[0]"
     [falseOption]="spec.options[1]">
@@ -24,14 +32,14 @@
 
   <rc-select
     [value]="data"
-    (appChange)="changes$.next($event)"
+    (appChange)="responseUpdated$.next($event)"
     *ngSwitchCase="'select'"
     [options]="spec.options">
   </rc-select>
 
   <rc-multi-select
     [selections]="data"
-    (appChange)="changes$.next($event)"
+    (appChange)="responseUpdated$.next($event)"
     *ngSwitchCase="'multi-select'"
     [options]="spec.options">
   </rc-multi-select>

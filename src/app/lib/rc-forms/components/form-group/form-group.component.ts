@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core'
-import {Subject} from "rxjs/Subject"
 import * as lodash from 'lodash'
-import {InputEvent} from "../InputEvent";
+import {FormEvent} from "../../form-filler/events/FormEvent";
 
 // TODO - process the codebook to be iterable before passing to components
 
@@ -16,22 +15,14 @@ export class FormGroupComponent implements OnInit, OnChanges {
   @Input() form: any
   @Input() spec: any
   @Input() data: any
+  @Input() metaData: any
 
-  @Output() formInput = new EventEmitter<InputEvent>()
-  childInputStream$ = new Subject<InputEvent>()
-
-  controlsInputStream$ = new Subject()
+  @Output() events = new EventEmitter<FormEvent>()
 
   childSpecs: { key, spec }[]
 
   ngOnInit() {
     this.loadFields()
-    this.childInputStream$
-      .map<InputEvent, InputEvent>(event => ({ ...event, key: `${this.key}.${event.key}` }))
-      .subscribe(event => this.formInput.next(event))
-    this.controlsInputStream$
-      .subscribe( data =>
-        this.formInput.emit({ key: this.key, data }))
   }
 
   ngOnChanges() {

@@ -1,3 +1,4 @@
-import {ResponseUpdated} from "./InputEdited";
+import {ResponseUpdated} from "./ResponseUpdated";
+import {QuestionHidden} from "./QuestionHidden";
 
-export type FormEvent = ResponseUpdated
+export type FormEvent = ResponseUpdated | QuestionHidden

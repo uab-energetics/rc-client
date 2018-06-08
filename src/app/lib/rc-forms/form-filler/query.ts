@@ -1,6 +1,5 @@
 import * as lodash from 'lodash'
+import {RcFormData} from "./RcFormData";
 
-import {DynamicForm} from "./DynamicForm";
-
-export const lookup = (form: DynamicForm, key: string, defaultValue = null) =>
+export const lookup = (form: RcFormData, key: string, defaultValue = null): any =>
   lodash.get(form, key, defaultValue)

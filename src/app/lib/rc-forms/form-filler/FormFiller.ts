@@ -1,29 +1,33 @@
-import {DynamicForm} from "./DynamicForm"
 import {Subject} from "rxjs/Subject"
 import {FormEvent} from "./events/FormEvent"
-import {reduceForm} from "./formReducer"
 import "rxjs/add/operator/scan"
 import {BehaviorSubject} from "rxjs/BehaviorSubject"
 import {lookup} from "./query";
+import {RcFormData} from "./RcFormData";
+
+import {reduceFormData} from "./reducers/formData";
 
 export class FormFiller {
 
-  form$: BehaviorSubject<DynamicForm> = new BehaviorSubject<DynamicForm>({})
+  formData$: BehaviorSubject<RcFormData> = new BehaviorSubject<RcFormData>(null)
+
   eventHistory: FormEvent[] = []
   undoStack: FormEvent[] = []
   events$: Subject<FormEvent> = new Subject()
 
-  constructor(private data: DynamicForm = {}) {
-    this.form$ = new BehaviorSubject<DynamicForm>(data)
+  constructor(private data: RcFormData = null) {
+    this.formData$ = new BehaviorSubject<RcFormData>(data)
     this.events$.subscribe(E => {
       this.eventHistory.push(E)
-      this.form$.next(reduceForm(this.form$.getValue(), E))
+      this.formData$.next(reduceFormData(this.formData$.getValue(), E))
     })
   }
 
-  watch = () => this.form$.asObservable()
+  watch = () => this.formData$.asObservable()
 
-  lookup = (key: string, defaultValue = null) => lookup(this.form$.getValue(), key, defaultValue)
+  lookup = (key: string) => lookup(this.formData$.getValue(), key)
+  lookupEncodingData = (key: string) => this.lookup('encoding.' + key)
+  lookupMetaData = (key: string) => this.lookup('meta.' + key)
 
   digest = (event: FormEvent): void => {
     this.undoStack = []
@@ -34,7 +38,7 @@ export class FormFiller {
     if(this.eventHistory.length === 0)
       return false
     this.undoStack.push(this.eventHistory.pop())
-    this.form$.next(this.eventHistory.reduce(reduceForm, {}))
+    this.formData$.next(this.eventHistory.reduce(reduceFormData, null))
     return true
   }
 
