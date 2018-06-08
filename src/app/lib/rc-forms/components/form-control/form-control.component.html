@@ -1,0 +1,38 @@
+<h5>{{spec.title}}</h5>
+<small>{{spec.prompt}}</small>
+
+<div [ngSwitch]="spec.type">
+  <app-text
+    [value]="data || ''"
+    (appChange)="changes$.next($event)"
+    *ngSwitchCase="'text'">
+  </app-text>
+
+  <app-number
+    [value]="data"
+    (appChange)="changes$.next($event)"
+    *ngSwitchCase="'number'">
+  </app-number>
+
+  <app-bool
+    [value]="data"
+    (appChange)="changes$.next($event)"
+    *ngSwitchCase="'binary'"
+    [trueOption]="spec.options[0]"
+    [falseOption]="spec.options[1]">
+  </app-bool>
+
+  <app-select
+    [value]="data"
+    (appChange)="changes$.next($event)"
+    *ngSwitchCase="'select'"
+    [options]="spec.options">
+  </app-select>
+
+  <app-multi-select
+    [selections]="data"
+    (appChange)="changes$.next($event)"
+    *ngSwitchCase="'multi-select'"
+    [options]="spec.options">
+  </app-multi-select>
+</div>

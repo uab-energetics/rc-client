@@ -19,6 +19,7 @@ interface QuestionSpec {
   type: string // 'text' | 'number' | 'radio-button' | 'select' | 'multi-select'
   title: string
   prompt: string
+  options?: string
 }
 
 type FormSpec = GroupSpec | GroupSpec | QuestionSpec
