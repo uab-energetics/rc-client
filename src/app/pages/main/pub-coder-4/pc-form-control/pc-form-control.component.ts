@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import {Subject} from "rxjs/Subject"
-import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators"
+import {debounceTime, distinctUntilChanged} from "rxjs/operators"
+import {QuestionSpec} from "../../../../lib/rc-forms/form-spec/FormSpec";
 
 @Component({
   selector: 'app-pc-form-control',
@@ -9,7 +10,9 @@ import {debounceTime, distinctUntilChanged, tap} from "rxjs/operators"
 })
 export class PcFormControlComponent implements OnInit {
 
-  @Input() pcFormControl
+  @Input() spec: QuestionSpec
+  @Input() data: any
+
   @Output() appChange = new EventEmitter<any>()
 
   changes$ = new Subject()

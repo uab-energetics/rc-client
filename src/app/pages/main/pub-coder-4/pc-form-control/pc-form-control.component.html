@@ -1,34 +1,38 @@
-<h5>{{pcFormControl.title}}</h5>
-<small>{{pcFormControl.prompt}}</small>
+<h5>{{spec.title}}</h5>
+<small>{{spec.prompt}}</small>
 
-<div [ngSwitch]="pcFormControl.type">
+<div [ngSwitch]="spec.type">
   <app-text
+    [value]="data || ''"
     (appChange)="changes$.next($event)"
     *ngSwitchCase="'text'">
   </app-text>
 
   <app-number
+    [value]="data"
     (appChange)="changes$.next($event)"
     *ngSwitchCase="'number'">
   </app-number>
 
   <app-bool
+    [value]="data"
     (appChange)="changes$.next($event)"
     *ngSwitchCase="'binary'"
-    [trueOption]="'True'"
-    [falseOption]="'False'">
+    [trueOption]="spec.options[0]"
+    [falseOption]="spec.options[1]">
   </app-bool>
 
   <app-select
+    [value]="data"
     (appChange)="changes$.next($event)"
     *ngSwitchCase="'select'"
-    [options]="[]">
+    [options]="spec.options">
   </app-select>
 
   <app-multi-select
+    [selections]="data"
     (appChange)="changes$.next($event)"
     *ngSwitchCase="'multi-select'"
-    [selections]="[]"
-    [options]="[]">
+    [options]="spec.options">
   </app-multi-select>
 </div>
