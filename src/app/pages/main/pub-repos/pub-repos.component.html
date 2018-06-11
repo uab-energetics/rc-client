@@ -127,6 +127,7 @@
               <th>ID</th>
               <th>Display Name</th>
               <th>Embedding URL</th>
+              <th>Source ID</th>
             </tr>
             </thead>
             <tbody>
@@ -137,6 +138,7 @@
                 <a class="link" style="font-weight: 400"> {{pub.title}} </a>
               </td>
               <td><a target="_blank" href="{{pub.embeddingURL}}">{{pub.embeddingURL}}</a></td>
+              <td>{{pub.sourceID || ''}}</td>
             </tr>
             </tbody>
           </table>

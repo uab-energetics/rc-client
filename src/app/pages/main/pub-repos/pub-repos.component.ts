@@ -190,10 +190,11 @@ export class PubReposComponent implements OnInit {
     this.csvParse.parse(file, {
       skipEmptyLines: true,
       complete: (results, file) => {
+        console.log(results)
         const parsed: Publication[] = results.data.map(([col1, col2, col3]) => ({
           title: col1,
-          sourceID: col2,
-          embeddingURL: col3 || col2
+          embeddingURL: col2,
+          sourceID: col3 || null
         }))
         if (parsed.length === 0) {
           this.notify.swal("No rows found", "Please check the format of your CSV", 'error')
@@ -214,22 +215,23 @@ export class PubReposComponent implements OnInit {
   }
 
   handleDownload(onlySelected = false) {
-    let repos: Publication[] = this.activeRepoPublications
+    let pubs: Publication[] = this.activeRepoPublications
     if (onlySelected) {
       const selectedSet = new Set<string>(this.getSelected())
-      repos = repos.filter(P => selectedSet.has(P.id + ''))
+      pubs = pubs.filter(P => selectedSet.has(P.id + ''))
     }
-    repos = repos.map(P => {
+    pubs = pubs.map(P => {
       return {
         title: P.title,
-        embeddingURL: P.embeddingURL
+        embeddingURL: P.embeddingURL,
+        sourceID: P.sourceID
       }
     })
-    if (repos.length === 0) {
-      this.notify.swal('There are no repos selected', '', 'info')
+    if (pubs.length === 0) {
+      this.notify.swal('There are no publications selected', '', 'info')
       return
     }
-    const csv = this.csvParse.unparse(repos, {
+    const csv = this.csvParse.unparse(pubs, {
       header: false,
       quotes: true
     })
