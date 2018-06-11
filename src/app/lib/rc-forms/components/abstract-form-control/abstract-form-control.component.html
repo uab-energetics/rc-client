@@ -1,35 +1,39 @@
 <!-- TODO - use a strategy for dynamic component construction -->
 <!-- TODO - use React instead? :( -->
+<div class="abstract-control">
 
-<!-- GROUP -->
-<rc-form-group
-  *ngIf="spec.type === 'group' || spec.type === 'group-inline'"
+  <!-- GROUP -->
+  <rc-form-group
+    *ngIf="spec.type === 'group' || spec.type === 'group-inline'"
 
-  [key]="key"
-  [spec]="spec"
-  [data]="data"
-  [meta]="meta"
-  (events)="events.emit($event)">
-</rc-form-group>
+    [key]="key"
+    [spec]="spec"
+    [data]="data"
+    [meta]="meta"
+    (events)="events.emit($event)">
+  </rc-form-group>
 
-<!-- GROUP-LIST -->
-<rc-form-group-list
-  *ngIf="spec.type === 'group-list'"
+  <!-- GROUP-LIST -->
+  <rc-form-group-list
+    *ngIf="spec.type === 'group-list'"
 
-  [key]="key"
-  [spec]="spec"
-  [data]="data"
-  [meta]="meta"
-  (events)="events.next($event)">
-</rc-form-group-list>
+    [key]="key"
+    [spec]="spec"
+    [data]="data"
+    [meta]="meta"
+    (events)="events.next($event)">
+  </rc-form-group-list>
 
-<!-- FORM-CONTROL -->
-<rc-form-control
-  *ngIf="spec.type === 'text' || spec.type === 'number' || spec.type === 'select' || spec.type === 'multi-select'"
+  <!-- FORM-CONTROL -->
+  <rc-form-control
+    *ngIf="spec.type === 'text' || spec.type === 'number' || spec.type === 'select' || spec.type === 'multi-select'"
 
-  [key]="key"
-  [spec]="spec"
-  [data]="data"
-  [meta]="meta"
-  (events)="events.next($event)">
-</rc-form-control>
+    [key]="key"
+    [spec]="spec"
+    [data]="data"
+    [meta]="meta"
+    (events)="events.next($event)">
+  </rc-form-control>
+
+
+</div>

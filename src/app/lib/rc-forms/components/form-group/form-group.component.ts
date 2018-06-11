@@ -9,15 +9,17 @@ import {AbstractFormControlComponent} from "../abstract-form-control/abstract-fo
   templateUrl: './form-group.component.html',
   styleUrls: ['./form-group.component.scss']
 })
-export class FormGroupComponent extends AbstractFormControlComponent implements OnInit, OnChanges {
+export class FormGroupComponent extends AbstractFormControlComponent implements OnChanges {
 
   childSpecs: { key, spec }[]
 
-  ngOnInit = () =>
+  ngOnInit() {
     this.loadFields()
+  }
 
-  ngOnChanges = () =>
+  ngOnChanges() {
     this.loadFields()
+  }
 
   getChildData = (key: string) =>
     lodash.get(this.data, key)

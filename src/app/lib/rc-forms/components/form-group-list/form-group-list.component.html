@@ -5,52 +5,19 @@
     <div class="panel-heading">
       <h3 class="panel-title">{{spec.title}} <small>{{spec.prompt}}</small></h3>
       <div class="panel-actions">
-        <div class="dropdown">
-          <a class="panel-action" data-toggle="dropdown" href="#" aria-expanded="false"><i class="icon wb-settings" aria-hidden="true"></i></a>
-          <div class="dropdown-menu dropdown-menu-bullet" role="menu">
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-flag" aria-hidden="true"></i> Action</a>
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-print" aria-hidden="true"></i> Another action</a>
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-heart" aria-hidden="true"></i> Something else here</a>
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem"><i class="icon wb-share" aria-hidden="true"></i> Separated link</a>
-          </div>
-        </div>
-        <a (click)="listItemAdd()" class="panel-action icon wb-plus"></a>
-        <a class="panel-action icon wb-minus" data-toggle="panel-collapse" aria-expanded="true"
-           aria-hidden="true"></a>
-        <a class="panel-action icon wb-expand" data-toggle="panel-fullscreen" aria-hidden="true"></a>
-        <a class="panel-action icon wb-close" data-toggle="panel-close" aria-hidden="true"></a>
+        <a (click)="addItem()" class="panel-action icon wb-plus"> add item</a>
       </div>
     </div>
-    <div class="panel-body form-group-outlet">
-      <mat-accordion [multi]="true">
-        <mat-expansion-panel
-          *ngFor="let listItem of listItems"
-          [expanded]="data[listItem.label]?.expanded"
-          (opened)="setPanelState(listItem.label, true)"
-          (closed)="setPanelState(listItem.label, false)">
-
-          <!-- Item Header -->
-          <mat-expansion-panel-header style="background: #c3e8ff">
-            <mat-panel-title>{{listItem.label}}</mat-panel-title>
-          </mat-expansion-panel-header>
-
-          <!-- Label Controls -->
-          <div class="mt-15">
-            <button (click)="listItemEdit(listItem.label)" class="btn btn-xs btn-warning mr-15">Edit Item Label</button>
-            <button (click)="listItemDelete(listItem.label)" class="btn btn-xs btn-danger">Delete This Item</button>
-          </div>
-
-          <!-- Outlets for next component -->
-          <rc-abstract-form-control
-            [spec]="spec.listItem"
-            [key]="key + '.' + listItem.label + '.data'"
-            [data]="getChildData(listItem.label + '.data')"
-            [meta]="metaData"
-            (events)="events.next($event)">
-          </rc-abstract-form-control>
-
-        </mat-expansion-panel>
-      </mat-accordion>
+    <div class="panel-body form-spec-outlet">
+      <rc-abstract-form-control
+        *ngFor="let entry of children$ | async"
+        class="spec {{entry.spec.type}}"
+        [spec]="entry.spec"
+        [key]="key + '.' + entry.key"
+        [meta]="meta"
+        [data]="getChildData(entry.key)"
+        (events)="events.next($event)">
+      </rc-abstract-form-control>
     </div>
   </div>
 

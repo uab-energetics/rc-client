@@ -1,8 +1,9 @@
 import {Component, OnChanges} from '@angular/core'
-import {ListItem} from "./ListItem"
-import * as lodash from 'lodash'
-import {responseUpdated} from "../../form-filler/events/ResponseUpdated"
 import {AbstractFormControlComponent} from "../abstract-form-control/abstract-form-control.component";
+import {ArrayFiller} from "../../form-filler/ArrayFiller";
+import * as lodash from "lodash";
+import {Observable} from "rxjs/Observable";
+import {responseUpdated} from "../../form-filler/events/ResponseUpdated";
 
 @Component({
   selector: 'rc-form-group-list',
@@ -11,40 +12,25 @@ import {AbstractFormControlComponent} from "../abstract-form-control/abstract-fo
 })
 export class FormGroupListComponent extends AbstractFormControlComponent implements OnChanges {
 
-  listItems: ListItem[] = []
+  arrayFiller: ArrayFiller
+  children$: Observable<{ key: string, spec: any }[]>
 
   ngOnChanges() {
-    this.listItems = Object.entries(this.data || {}).map(([key, val]) => ({ label: key }))
   }
 
-  listItemAdd() {
-    let label = prompt("Give the item a label:")
-    if(!label) return
-    this.listItems.push({ label })
-    this.events.emit(responseUpdated({ key: `${this.key}.${label}`, data: { label }}))
+  ngOnInit() {
+    this.arrayFiller = new ArrayFiller(this.spec.listItem)
+    Object.keys(this.data || {}).forEach(itemKey => this.arrayFiller.add$.next(itemKey))
+    this.children$ = this.arrayFiller.fields$.map( fields => {
+      return Object.entries(fields).map(([key, spec]) => ({ key, spec }))
+    })
   }
 
-  listItemEdit(label) {
-    let oldItem = this.listItems.filter(L => L.label === label)
-    if(oldItem.length !== 1)
-      return console.error("No list item with that label")
-
-    let newLabel = prompt("Enter a new label:")
-    if(!newLabel || newLabel === label) return
-
-    oldItem[0].label = newLabel
+  addItem() {
+    let key = this.arrayFiller.generateKey()
+    this.events.emit(responseUpdated({ key: this.key, data: { ...this.data, [key]: {} } }))
   }
 
-  listItemDelete(label) {
-    this.listItems = this.listItems.filter(L => L.label !== label)
-  }
-
-  setPanelState(label, state) {
-    if(this.data[label].expanded === state) return
-    setTimeout(() => this.events.emit(responseUpdated({ key: `${this.key}.${label}.expanded`, data: state})), 0)
-  }
-
-  getChildData(key: string): any {
-    return lodash.get(this.data, key)
-  }
+  getChildData = (key: string) =>
+    lodash.get(this.data, key)
 }

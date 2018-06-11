@@ -1,9 +1,9 @@
+import * as lodash from 'lodash'
 import {Component, OnInit} from '@angular/core'
 import {Subject} from "rxjs/Subject"
 import {debounceTime, distinctUntilChanged} from "rxjs/operators"
 import {questionShowHide} from "../../form-filler/events/QuestionShowHide"
 import {responseUpdated} from "../../form-filler/events/ResponseUpdated"
-import * as lodash from 'lodash'
 import {questionReported} from "../../form-filler/events/QuestionReported"
 import {leaveComment} from "../../form-filler/events/Comment";
 import {AbstractFormControlComponent} from "../abstract-form-control/abstract-form-control.component";
@@ -24,6 +24,7 @@ export class FormControlComponent extends AbstractFormControlComponent implement
 
   ngOnInit() {
     this._meta = lodash.get(this.meta, this.key, { reported: true })
+    console.log(this._meta, this.meta, this.key)
     this.responseUpdated$.pipe(
       debounceTime(500),
       distinctUntilChanged()
@@ -32,10 +33,6 @@ export class FormControlComponent extends AbstractFormControlComponent implement
     this.visible$.subscribe(state => this.events.emit(questionShowHide({ key: this.key, state })))
     this.reported$.subscribe(state => this.events.emit(questionReported({ key: this.key, state })))
     this.addComment$.subscribe(comment => this.events.emit(leaveComment(comment)))
-  }
-
-  ngOnChanges() {
-    console.log(this.meta)
   }
 
 }

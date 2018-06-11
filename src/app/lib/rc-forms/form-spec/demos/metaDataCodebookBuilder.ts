@@ -2,6 +2,20 @@ export default {
   type: 'group',
   title: 'Form Form',
   fields: {
+    paperQuestions: {
+      type: 'group',
+      title: 'Paper Questions',
+      fields: {
+        name: {
+          type: 'text',
+          title: "Paper Name",
+          prompt: "What is the name of the article?",
+          meta: {
+            options: [ 'not-reported' ]
+          }
+        }
+      }
+    },
     question: {
       type: 'group-inline',
       style: 'group-inline',
@@ -62,21 +76,16 @@ export default {
         hovertip: { type:'text', placeholder: 'Hover Tip...'}
       }
     },
-    branched: {
-      type: 'group',
-      title: 'Encoding Branches',
-      fields: {
-        hasBranches: { type: 'text', placeholder: 'Were there branches in the experiment?' }
-      }
-    },
     experiments: {
       type: 'group-list',
       title: 'Encoding Experiment',
       listItem: {
-        type: 'group',
-        title: 'Encoding Branches',
+        type: 'group-inline',
         fields: {
-          hasBranches: { type: 'text', placeholder: 'Were there branches in the experiment?' }
+          desc: {
+            type: 'text',
+            title: 'Branch Name',
+            placeholder: 'Describe this branch' }
         }
       }
     }
