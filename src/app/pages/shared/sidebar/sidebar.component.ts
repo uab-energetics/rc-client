@@ -18,6 +18,11 @@ export class SidebarComponent implements OnInit {
   navbarState = false
   links: SidebarLink[] = [
     {
+      text: 'Projects',
+      route: '/projects',
+      icon: 'cached'
+    },
+    {
       text: 'Project Dashboard',
       route: '/project-dashboard',
       icon: 'insert_chart_outlined',
@@ -27,12 +32,6 @@ export class SidebarComponent implements OnInit {
       text: 'Codebooks',
       route: '/project-codebooks',
       icon: 'ballot',
-      projectRequired: true
-    },
-    {
-      text: 'Publications',
-      route: '/project-publications',
-      icon: 'chrome_reader_mode',
       projectRequired: true
     },
     {
@@ -50,16 +49,6 @@ export class SidebarComponent implements OnInit {
     {
       text: 'Encoding Tasks',
       route: '/tasks',
-      icon: 'assignment'
-    },
-    {
-      text: 'Projects',
-      route: '/projects',
-      icon: 'cached'
-    },
-    {
-      text: "PubCoder4",
-      route: '/pub-coder-4',
       icon: 'assignment'
     }
   ]
