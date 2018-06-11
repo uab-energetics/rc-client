@@ -16,8 +16,7 @@ export class FormGroupListComponent extends AbstractFormControlComponent impleme
   arrayFiller: ArrayFiller
   children$: Observable<{ key: string, spec: any }[]>
 
-  ngOnChanges() {
-  }
+  ngOnChanges() {}
 
   ngOnInit() {
     this.arrayFiller = new ArrayFiller(this.spec.listItem)
@@ -29,7 +28,7 @@ export class FormGroupListComponent extends AbstractFormControlComponent impleme
 
   addItem() {
     let key = this.arrayFiller.generateKey()
-    this.events.emit(responseUpdated({ key: this.key + '.' + key, data: {} }))
+    this.events.emit(responseUpdated({ key: this.key + '.' + key, data: null }))
   }
 
   deleteItem(key: string) {
