@@ -170,7 +170,10 @@ export class PubReposComponent implements OnInit {
           }))
           this.repoService.addPublications(this.ps.getActiveProject().id+'', this.activeRepo.id, uploadData)
             .pipe(switchMap(() => this.reloadPublications()))
-            .subscribe()
+            .subscribe((publications) => {
+              this.notify.swal(`Uploaded ${publications.length} articles!`, '', 'success')
+              modalRef.close()
+            })
         })
     })
   }
