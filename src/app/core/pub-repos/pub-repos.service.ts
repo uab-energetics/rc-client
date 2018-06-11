@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {PubRepo} from "./PubRepo";
-import {Publication} from "./Publication";
-import {HttpClient} from "@angular/common/http";
-import {environment as env} from "../../../environments/environment";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import {Observable} from "rxjs/Observable";
-import {switchMap, tap} from "rxjs/operators";
+import {Injectable} from '@angular/core'
+import {PubRepo} from "./PubRepo"
+import {Publication} from "./Publication"
+import {HttpClient} from "@angular/common/http"
+import {environment as env} from "../../../environments/environment"
+import {BehaviorSubject} from "rxjs/BehaviorSubject"
+import {Observable} from "rxjs/Observable"
+import {switchMap, tap} from "rxjs/operators"
 
 @Injectable()
 export class PubReposService {

@@ -23,7 +23,8 @@ export class PmcImporterComponent implements OnInit {
 
   handleSubmit() {
     // TODO - validate this form input
-    this.onSubmit.next(this.formModel.pmcIDs.replace(' ', '').replace('PMC', '').split(','))
+    this.onSubmit.next(this.formModel.pmcIDs.replace(' ', ',').replace('PMC', '')
+      .split(',').filter(id => !!id))
     this.reloadForm()
   }
 

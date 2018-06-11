@@ -33,7 +33,14 @@ export class ArticlesService {
       return ids
         .map(id => {
           let res = response.result[id]
-          if(res) res.embedding_url = this.getEmbeddingURL(id)
+          if (!res) return res
+
+          res.embedding_url = this.getEmbeddingURL(id)
+          res.articleIdMap = res.articleids.reduce((map, {idtype, value}) => {
+            map[idtype] = value
+            return map
+          }, {})
+
           return res
         })
         .filter( id => !!id )

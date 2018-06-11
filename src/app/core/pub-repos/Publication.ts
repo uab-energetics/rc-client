@@ -1,6 +1,7 @@
 
 export interface Publication {
-  id?: number
+  id?: number,
+  sourceID?: string|null
   title: string
   embeddingURL: string
 }

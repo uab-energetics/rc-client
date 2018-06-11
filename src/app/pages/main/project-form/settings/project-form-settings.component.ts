@@ -21,7 +21,6 @@ export class ProjectFormSettingsComponent {
     task_target_publication: 0,
     task_target_encoder: 0,
     auto_enroll: true,
-    inherit_publications: true,
   };
 
   loading = 0;

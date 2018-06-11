@@ -30,9 +30,9 @@ export class ActiveProjectService {
     // whenever the list of projects has changed, update the active one
     this.projectService.projects$.subscribe( projects => {
       if(projects.length === 0)
-        this.projectSubject.next(null)
-      if(!this.activeProject)
-        this.projectSubject.next(projects[0])
+        this.setProject(null)
+      if(!this.activeProject && projects.length > 0)
+        this.setProject(projects[0])
     })
   }
 
@@ -41,14 +41,14 @@ export class ActiveProjectService {
   }
 
   cacheProject(project: AppProject) {
-    if(!project) return
+    if (!project) return
     localStorage.setItem('active-project', JSON.stringify(project))
   }
 
   loadProject() {
     // try to load the last project, otherwise, fetch all projects and use first one
     let project = JSON.parse(localStorage.getItem('active-project'))
-    if (project) this.projectSubject.next(project)
+    if (project) this.setProject(project)
     else this.projectService.myProjects().subscribe()
   }
 
