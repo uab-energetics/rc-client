@@ -178,11 +178,14 @@ export class PubReposComponent implements OnInit {
             return result
           })
           this.repoService.addPublications(this.ps.getActiveProject().id + '', this.activeRepo.id, uploadData)
-            .pipe(switchMap(() => this.reloadPublications()))
-            .subscribe((publications) => {
-              this.notify.swal(`Uploaded ${publications.length} articles!`, '', 'success')
-              modalRef.close()
-            })
+            .pipe(
+              tap(publications => {
+                this.notify.swal(`Found ${publications.length} articles!`, '', 'success')
+                modalRef.close()
+              }),
+              switchMap(() => this.reloadPublications())
+            )
+            .subscribe()
         })
     })
   }
