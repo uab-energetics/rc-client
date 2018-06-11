@@ -4,6 +4,7 @@ import {ArrayFiller} from "../../form-filler/ArrayFiller";
 import * as lodash from "lodash";
 import {Observable} from "rxjs/Observable";
 import {responseUpdated} from "../../form-filler/events/ResponseUpdated";
+import {responseDelete} from "../../form-filler/events/ResponseDeleted";
 
 @Component({
   selector: 'rc-form-group-list',
@@ -28,7 +29,11 @@ export class FormGroupListComponent extends AbstractFormControlComponent impleme
 
   addItem() {
     let key = this.arrayFiller.generateKey()
-    this.events.emit(responseUpdated({ key: this.key, data: { ...this.data, [key]: {} } }))
+    this.events.emit(responseUpdated({ key: this.key + '.' + key, data: {} }))
+  }
+
+  deleteItem(key: string) {
+    this.events.emit(responseDelete({ key }))
   }
 
   getChildData = (key: string) =>

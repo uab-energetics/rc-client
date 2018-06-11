@@ -9,15 +9,22 @@
       </div>
     </div>
     <div class="panel-body form-spec-outlet">
-      <rc-abstract-form-control
-        *ngFor="let entry of children$ | async"
-        class="spec {{entry.spec.type}}"
-        [spec]="entry.spec"
-        [key]="key + '.' + entry.key"
-        [meta]="meta"
-        [data]="getChildData(entry.key)"
-        (events)="events.next($event)">
-      </rc-abstract-form-control>
+
+      <div *ngFor="let entry of children$ | async" class="spec {{entry.spec.type}}">
+        <div style="display: flex; justify-content: space-between; padding: 0 5px;">
+          <span class="badge badge-info"><i class="icon wb-tag"></i> {{entry.key}} </span>
+          <span (click)="deleteItem(key + '.' + entry.key)"
+                class="badge badge-danger cursor-pointer"><i class="icon wb-trash"></i> delete </span>
+        </div>
+        <rc-abstract-form-control
+          [spec]="entry.spec"
+          [key]="key + '.' + entry.key"
+          [meta]="meta"
+          [data]="getChildData(entry.key)"
+          (events)="events.next($event)">
+        </rc-abstract-form-control>
+      </div>
+
     </div>
   </div>
 
