@@ -19,6 +19,7 @@ import {download} from "../../../core/files/download"
 import * as lodash from 'lodash'
 import {forkJoin} from "rxjs/observable/forkJoin";
 import "rxjs/add/operator/reduce";
+import {merge} from "rxjs/observable/merge";
 
 @Component({
   selector: 'app-pub-repos',
@@ -167,26 +168,25 @@ export class PubReposComponent implements OnInit {
   }
 
   handlePMCImport() {
+    const projectID = this.ps.getActiveProject().id + ''
     const modalRef = this.modalService.open(PmcImporterComponent)
     modalRef.componentInstance.onSubmit.subscribe((pmcIDs: string[]) => {
-      const chunks = lodash.chunk(pmcIDs, 100)
-      forkJoin(chunks.map(chunk => this.pmc.getArticleMetaData(chunk)))
-        .subscribe((res: PMCResult[][]) => {
-          const array = [].concat(...res)
-          const uploadData = array.map(R => ({
-            title: R.title,
-            embeddingURL: R.embedding_url,
-            sourceID: 'PMC' + R.uid
-          }))
-          this.repoService.addPublications(this.ps.getActiveProject().id + '', this.activeRepo.id, uploadData)
-            .pipe(
-              tap(publications => {
-                this.notify.swal(`Found ${array.length} articles!`, '', 'success')
-                modalRef.close()
-              }),
-              switchMap(() => this.reloadPublications())
-            )
-            .subscribe()
+      merge(...lodash.chunk(pmcIDs, 50).map( chunk => this.pmc.getArticleMetaData(chunk) ))
+        .map<PMCResult[], any[]>( (chunk: PMCResult[]) => chunk.map( (R: PMCResult) => ({
+          title: R.title,
+          embeddingURL: R.embedding_url,
+          sourceID: 'PMC' + R.uid
+        })) )
+        .mergeMap( (uploadData: Publication[]) =>  this.repoService.addPublications(projectID, this.activeRepo.id, uploadData))
+        .map( body => body.publications )
+        .reduce( (acc, current) => acc.concat(current) )
+        .do( publications => this.notify.swal(`Found ${publications.length} articles!`, '', 'success') )
+        .switchMap( _ => this.reloadPublications() )
+        .subscribe( () => {
+          modalRef.close()
+        }, err => {
+          console.error(err)
+          this.notify.swal('Error', 'something went wrong', 'error')
         })
     })
   }
