@@ -16,6 +16,9 @@ import {PmcImporterComponent} from "./pmc-importer/pmc-importer.component"
 import {PMCResult} from "../../../core/pmc/PMCResult"
 import {Observable} from "rxjs/Observable"
 import {download} from "../../../core/files/download"
+import * as lodash from 'lodash'
+import {forkJoin} from "rxjs/observable/forkJoin";
+import "rxjs/add/operator/reduce";
 
 @Component({
   selector: 'app-pub-repos',
@@ -166,21 +169,19 @@ export class PubReposComponent implements OnInit {
   handlePMCImport() {
     const modalRef = this.modalService.open(PmcImporterComponent)
     modalRef.componentInstance.onSubmit.subscribe((pmcIDs: string[]) => {
-      this.pmc.getArticleMetaData(pmcIDs)
-        .subscribe((res: PMCResult[]) => {
-          const uploadData = res.map(R => {
-            let result = {
-              title: R.title,
-              embeddingURL: R.embedding_url
-            }
-            if (R.articleIdMap['pmcid'])
-              result['sourceID'] = R.articleIdMap['pmcid']
-            return result
-          })
+      const chunks = lodash.chunk(pmcIDs, 100)
+      forkJoin(chunks.map(chunk => this.pmc.getArticleMetaData(chunk)))
+        .subscribe((res: PMCResult[][]) => {
+          const array = [].concat(...res)
+          const uploadData = array.map(R => ({
+            title: R.title,
+            embeddingURL: R.embedding_url,
+            sourceID: 'PMC' + R.uid
+          }))
           this.repoService.addPublications(this.ps.getActiveProject().id + '', this.activeRepo.id, uploadData)
             .pipe(
               tap(publications => {
-                this.notify.swal(`Found ${res.length} articles!`, '', 'success')
+                this.notify.swal(`Found ${array.length} articles!`, '', 'success')
                 modalRef.close()
               }),
               switchMap(() => this.reloadPublications())

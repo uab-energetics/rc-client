@@ -26,7 +26,6 @@ export class ArticlesService {
   getArticleMetaData(ids: string[]): Observable<PMCResult[]> {
     ids = ids.map( id => id.replace('PMC', ''))
     let params = { ...ArticlesService.PARAMS, id: ids.join(',')}
-    console.log(params)
     return this.http.get(ArticlesService.API, {
       params
     }).map<any, PMCResult[]>( response => {
