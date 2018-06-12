@@ -22,7 +22,7 @@ export class PmcImporterComponent implements OnInit {
   }
 
   handleSubmit() {
-    const ids = this.formModel.pmcIDs.match(/\d+/g)
+    const ids = this.formModel.pmcIDs.split(/(?:\s|,)+/)
     this.onSubmit.next(ids)
     this.reloadForm()
   }
