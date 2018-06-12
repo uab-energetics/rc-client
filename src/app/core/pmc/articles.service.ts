@@ -30,10 +30,12 @@ export class ArticlesService {
       params
     }).map<any, PMCResult[]>( response => {
       return ids
+        .filter( id => {
+          const res = response.result[id]
+          return res && !res.error
+        } )
         .map(id => {
-          let res = response.result[id]
-          if (!res) return res
-
+          const res = response.result[id]
           res.embedding_url = this.getEmbeddingURL(id)
           res.articleIdMap = res.articleids.reduce((map, {idtype, value}) => {
             map[idtype] = value
