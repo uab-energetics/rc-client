@@ -42,15 +42,21 @@ import {MatTableModule} from '@angular/material'
 import {TasksModule} from "../../core/tasks/tasks.module"
 import {PubReposComponent} from './pub-repos/pub-repos.component'
 import {NgxPaginationModule} from 'ngx-pagination'
-import {PubReposModule} from "../../core/pub-repos/pub-repos.module";
-import {PapaParseModule} from 'ngx-papaparse';
-import {UploadPreviewComponent} from './pub-repos/upload-preview/upload-preview.component';
-import {AddOneComponent} from './pub-repos/add-one/add-one.component';
-import {PmcModule} from "../../core/pmc/pmc.module";
-import {PmcImporterComponent} from './pub-repos/pmc-importer/pmc-importer.component';
-import {PipesComponent} from './pipes/pipes.component';
-import {NavbarModule} from "../shared/navbar/navbar.module";
-import {PubCoder4Module} from "./pub-coder-4/pub-coder-4.module";
+import {PubReposModule} from "../../core/pub-repos/pub-repos.module"
+import {PapaParseModule} from 'ngx-papaparse'
+import {UploadPreviewComponent} from './pub-repos/upload-preview/upload-preview.component'
+import {AddOneComponent} from './pub-repos/add-one/add-one.component'
+import {PmcModule} from "../../core/pmc/pmc.module"
+import {PmcImporterComponent} from './pub-repos/pmc-importer/pmc-importer.component'
+import {PipesComponent} from './pipes/pipes.component'
+import {NavbarModule} from "../shared/navbar/navbar.module"
+import {PubCoder4Module} from "./pub-coder-4/pub-coder-4.module"
+import { UserGroupsComponent } from './user-groups/user-groups.component'
+import { SelectedUserComponent } from './user-groups/selected-user/selected-user.component'
+import { ProjectGroupsComponent } from './user-groups/project-groups/project-groups.component'
+import { ProjectGroupComponent } from './user-groups/project-groups/project-group/project-group.component'
+import { ProjectUsersComponent as PUC } from './user-groups/project-users/project-users.component'
+import { UserGroupsModule } from '../../core/user-groups/user-groups.module'
 
 @NgModule({
   imports: [
@@ -70,6 +76,7 @@ import {PubCoder4Module} from "./pub-coder-4/pub-coder-4.module";
     ActiveProjectModule,
     TasksModule,
     PubReposModule,
+    UserGroupsModule,
     MatTableModule
   ],
   declarations: [
@@ -106,6 +113,11 @@ import {PubCoder4Module} from "./pub-coder-4/pub-coder-4.module";
     PipesComponent,
     AddOneComponent,
     PmcImporterComponent,
+    UserGroupsComponent,
+    SelectedUserComponent,
+    PUC,
+    ProjectGroupsComponent,
+    ProjectGroupComponent,
   ],
   entryComponents: [
     UploadPreviewComponent,

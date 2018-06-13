@@ -1,0 +1,18 @@
+<div class="user-groups-page">
+
+  <mat-toolbar class="rc-header">
+    User Management
+  </mat-toolbar>
+
+  <div class="rc-col-wrapper">
+
+    <app-selected-user class="selected-user-col" [user]="selectedUser$ | async"></app-selected-user>
+
+    <rc-project-users class="project-users-col" [users]="projectUsers$ | async"></rc-project-users>
+
+    <app-project-groups class="project-groups-col" [groups]="projectGroups$ | async"></app-project-groups>
+
+  </div>
+
+
+</div>

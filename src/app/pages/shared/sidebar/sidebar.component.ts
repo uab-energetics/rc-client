@@ -41,8 +41,8 @@ export class SidebarComponent implements OnInit {
       projectRequired: true
     },
     {
-      text: 'User Management',
-      route: '/project-users',
+      text: 'Users',
+      route: '/user-groups',
       icon: 'account_circle',
       projectRequired: true
     },

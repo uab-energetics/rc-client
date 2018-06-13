@@ -1,0 +1,14 @@
+<mat-accordion>
+  <div *ngFor="let group of groups">
+    <app-project-group [group]="group"></app-project-group>
+  </div>
+</mat-accordion>
+
+<div class="p-10">
+  <div class="alert alert-info alert-dismissible fade show" *ngIf="!groups || groups.length === 0" role="alert">
+    <em>nothing to see here...</em>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
