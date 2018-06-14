@@ -23,7 +23,9 @@
 
       <mat-card>
         <mat-card-content>
-          <mat-tab-group class="tasks-tab-group" [dynamicHeight]="true"
+          <mat-tab-group class="tasks-tab-group"
+            [selectedIndex]="activeTabIndex"
+            [dynamicHeight]="true"
             (selectedIndexChange)="onActiveTabChange($event)">
 
           <mat-tab *ngFor="let tab of tabs" [label]="tab.label">

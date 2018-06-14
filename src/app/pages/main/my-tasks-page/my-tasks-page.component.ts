@@ -29,7 +29,21 @@ export class MyTasksPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.selectSavedTab()
     this.loadAllTabs()
+  }
+
+  selectSavedTab() {
+    let index = this.getSavedTabIndex()
+    // clamp index to potential tabs
+    index = Math.max(0, Math.min(this.tabs.length - 1, index))
+    this.activeTabIndex = index
+  }
+
+  getSavedTabIndex() {
+    const tab = parseInt(localStorage.getItem('savedTaskTab'), 10)
+    if (isNaN(tab)) return 0
+    return tab
   }
 
   loadAllTabs() {
@@ -82,6 +96,7 @@ export class MyTasksPageComponent implements OnInit {
 
   onActiveTabChange(index: number) {
     this.activeTabIndex = index
+    localStorage.setItem('savedTaskTab', index + '')
     if (this.shouldRefreshTab(index)) {
       this.refreshTab(index)
     }
