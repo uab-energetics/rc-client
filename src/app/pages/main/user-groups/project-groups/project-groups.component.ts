@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core'
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core'
 import { UserGroup } from '../../../../core/user-groups/models/UserGroup'
+import {User} from "../../../../core/auth/models/User"
 
 @Component({
   selector: 'app-project-groups',
@@ -8,12 +9,17 @@ import { UserGroup } from '../../../../core/user-groups/models/UserGroup'
 })
 export class ProjectGroupsComponent implements OnInit {
 
-  @Input()
-  groups: UserGroup[] = []
+  @Input() groups: UserGroup[] = []
+
+  @Output() clickUser = new EventEmitter<User>()
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onClickUser(user: User) {
+    this.clickUser.emit(user)
   }
 
 }

@@ -4,28 +4,10 @@
   </mat-card-title>
   <mat-card-content>
 
-    <div>
-      <ul class="list-group list-group-full">
-        <li *ngFor="let user of users" class="list-group-item">
-          <a class="cursor-pointer" (click)="onClickUser(user)">
-            <div class="media">
-              <div class="pr-20">
-                <a class="avatar" href="javascript:void(0)">
-                  <img class="img-fluid" [src]="user.image" alt="...">
-                </a>
-              </div>
-              <div class="media-body">
-                <h5 class="mt-0 mb-5">{{user.name}}</h5>
-                <small>{{user.email}}</small>
-              </div>
-              <div class="pl-20">
-                <span class="status status-lg status-online"></span>
-              </div>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <app-user-list
+      [users]="users"
+      (clickUser)="onClickUser($event)"
+    ></app-user-list>
 
     <div class="p-10" *ngIf="!users || users?.length === 0">
       <div class="alert alert-info alert-dismissible fade show" role="alert">

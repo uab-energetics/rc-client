@@ -18,6 +18,7 @@ export class ProjectUsersComponent implements OnInit {
   }
 
   onClickUser(user: User) {
+    console.log(user)
     this.clickUser.emit(user)
   }
 

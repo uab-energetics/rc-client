@@ -55,6 +55,7 @@ import {ProjectFormComponent} from './components/forms/project-form/project-form
 import {UserSearchComponent} from './components/forms/user-search/user-search.component'
 import {FindTaskComponent} from './components/forms/find-task/find-task.component';
 import {TaskService} from "./tasks/task.service";
+import { UserListComponent } from './users/user-list/user-list.component';
 
 
 /*
@@ -127,6 +128,7 @@ import {TaskService} from "./tasks/task.service";
     DynamicInputComponent,
     QuestionTreeComponent,
     PaginatorComponent,
+    UserListComponent,
   ],
   exports: [
     TextComponent,
@@ -151,6 +153,7 @@ import {TaskService} from "./tasks/task.service";
     DynamicInputComponent,
     QuestionTreeComponent,
     PaginatorComponent,
+    UserListComponent,
   ]
 })
 export class SharedModule {

@@ -54,7 +54,6 @@ import {PubCoder4Module} from "./pub-coder-4/pub-coder-4.module"
 import { UserGroupsComponent } from './user-groups/user-groups.component'
 import { SelectedUserComponent } from './user-groups/selected-user/selected-user.component'
 import { ProjectGroupsComponent } from './user-groups/project-groups/project-groups.component'
-import { ProjectGroupComponent } from './user-groups/project-groups/project-group/project-group.component'
 import { ProjectUsersComponent as PUC } from './user-groups/project-users/project-users.component'
 import { UserGroupsModule } from '../../core/user-groups/user-groups.module'
 
@@ -117,7 +116,6 @@ import { UserGroupsModule } from '../../core/user-groups/user-groups.module'
     SelectedUserComponent,
     PUC,
     ProjectGroupsComponent,
-    ProjectGroupComponent,
   ],
   entryComponents: [
     UploadPreviewComponent,
