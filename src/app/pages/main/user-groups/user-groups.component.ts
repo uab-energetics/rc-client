@@ -41,6 +41,7 @@ export class UserGroupsComponent implements OnInit {
 
   }
 
+  // FYI - you can put handlers like these directly in the template
   updateSelectedUser(user: User) {
     this.selectedUser$.next(user)
   }

@@ -1,3 +1,41 @@
+<!--<mat-toolbar>Project Groups</mat-toolbar>-->
+
+<!--<mat-accordion>-->
+  <!--<div *ngFor="let group of groups">-->
+    <!--<mat-expansion-panel>-->
+      <!--<mat-expansion-panel-header>-->
+        <!--<mat-panel-title>-->
+          <!--{{group.name}}-->
+        <!--</mat-panel-title>-->
+        <!--<mat-panel-description>-->
+          <!--{{group.users?.length}} users-->
+        <!--</mat-panel-description>-->
+      <!--</mat-expansion-panel-header>-->
+
+      <!--<app-user-list-->
+        <!--[users]="group.users"-->
+        <!--(clickUser)="onClickUser($event)"-->
+      <!--&gt;</app-user-list>-->
+
+      <!--<mat-action-row class="space-buttons">-->
+        <!--<button mat-button color="primary">Add User</button>-->
+        <!--<button mat-button color="warn">Remove</button>-->
+      <!--</mat-action-row>-->
+
+    <!--</mat-expansion-panel>-->
+
+  <!--</div>-->
+<!--</mat-accordion>-->
+
+<!--<div class="p-10" *ngIf="!groups || groups.length === 0">-->
+  <!--<div class="alert alert-info alert-dismissible fade show" role="alert">-->
+    <!--<em>nothing to see here...</em>-->
+    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+      <!--<span aria-hidden="true">&times;</span>-->
+    <!--</button>-->
+  <!--</div>-->
+<!--</div>-->
+
 <mat-card>
   <mat-card-title>Project Groups</mat-card-title>
   <mat-card-content>
