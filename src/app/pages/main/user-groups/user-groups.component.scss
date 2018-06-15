@@ -1,32 +1,32 @@
 .user-groups-page {
+  height: calc(100% - 115px);
+
+  .rc-header {
+    background-color: whitesmoke;
+    border-bottom: solid gray 1px;
+  }
+
+  .rc-col-wrapper {
     height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: stretch;
+  }
 
-    .rc-header {
-        border-bottom: solid gray 1px;
-    }
+  .rc-col {
+    flex-basis: 33%;
+    padding: 10px;
+    background-color: #f2f2f2;
+  }
 
-    .rc-col-wrapper {
-        height: 100%;
-        display: flex;
+  .selected-user-col {
+    border-right: solid gray 1px;
+  }
 
-        .selected-user-col {
-            flex-basis: 30%;
-            padding: 10px;
-            background-color: white;
-            border-right: solid gray 1px;
-        }
-        
-        .project-users-col {
-            flex-basis: 35%;
-            padding: 10px;
-            background-color: white;
-            border-right: solid gray 1px;
-        }
-        
-        .project-groups-col {
-            flex-basis: 35%;
-            padding: 10px;
-            background-color: white;
-        }
-    }
+  .project-users-col {
+    border-right: solid gray 1px;
+  }
+
+  .project-groups-col {}
+
 }

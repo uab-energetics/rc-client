@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core'
-import { Observable } from 'rxjs/Observable'
 import { User } from '../../../core/auth/models/User'
 import { UserGroup } from '../../../core/user-groups/models/UserGroup'
 import { ActiveProjectService } from '../../../core/active-project/active-project.service'
 import { AppProject } from '../../../core/projects/AppProject'
 import { UserGroupService } from '../../../core/user-groups/user-group.service'
-import { ProjectService } from '../../../core/projects/project.service';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject'
 
 @Component({
   selector: 'app-user-groups',
@@ -25,7 +23,7 @@ export class UserGroupsComponent implements OnInit {
   selectedUser$: Subject<User> = new Subject()
   projectUsers$: Subject<User[]> = new Subject()
   projectGroups$: Subject<UserGroup[]> = new Subject()
-  
+
 
   ngOnInit() {
     this.activeProjectService.project$
@@ -40,7 +38,11 @@ export class UserGroupsComponent implements OnInit {
             this.selectedUser$.next(users[0] || null)
           })
       })
-    
+
+  }
+
+  updateSelectedUser(user: User) {
+    this.selectedUser$.next(user)
   }
 
 }

@@ -1,8 +1,16 @@
 .header-row {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 
-    div {
-        flex-grow: 1;
+  .user-name {
+    flex-grow: 2;
+  }
+
+  .user-image {
+    flex-grow: 1;
+    a {
+      width: 100%;
+      max-width: 120px;
     }
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core'
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { User } from '../../../../core/auth/models/User'
 
 @Component({
@@ -8,12 +8,17 @@ import { User } from '../../../../core/auth/models/User'
 })
 export class ProjectUsersComponent implements OnInit {
 
-  @Input()
-  users: User[] = []
+  @Input() users: User[] = []
+
+  @Output() clickUser= new EventEmitter<User>()
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onClickUser(user: User) {
+    this.clickUser.emit(user)
   }
 
 }

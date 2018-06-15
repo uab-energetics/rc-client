@@ -11,7 +11,8 @@ export class UserGroupService {
     id: 1,
     name: "Caleb Falcione",
     email: "caleb.falcione@gmail.com",
-    image: "https://media4.giphy.com/avatars/nikdudukovic/ylDRTR05sy6M.gif"
+    image: "https://media4.giphy.com/avatars/nikdudukovic/ylDRTR05sy6M.gif",
+    location: "Birmingham, AL"
   }
 
   chris: User = {
@@ -19,7 +20,8 @@ export class UserGroupService {
     name: "Chris Rocco",
     email: "chris.rocco7@gmail.com",
     // tslint:disable-next-line:max-line-length
-    image: "https://static1.squarespace.com/static/552a5cc4e4b059a56a050501/565f6b57e4b0d9b44ab87107/566024f5e4b0354e5b79dd24/1449141991793/NYCGifathon12.gif"
+    image: "https://static1.squarespace.com/static/552a5cc4e4b059a56a050501/565f6b57e4b0d9b44ab87107/566024f5e4b0354e5b79dd24/1449141991793/NYCGifathon12.gif",
+    location: "Birmingham, AL"
   }
 
   constructor() { }
