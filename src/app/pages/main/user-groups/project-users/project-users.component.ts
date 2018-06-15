@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core'
 import { User } from '../../../../core/auth/models/User'
 
 @Component({
@@ -18,7 +18,6 @@ export class ProjectUsersComponent implements OnInit {
   }
 
   onClickUser(user: User) {
-    console.log(user)
     this.clickUser.emit(user)
   }
 
