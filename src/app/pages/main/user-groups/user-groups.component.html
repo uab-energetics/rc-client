@@ -18,11 +18,9 @@
     ></rc-project-users>
 
     <app-project-groups class="rc-col project-groups-col"
-          [groups]="projectGroups$ | async"
-          (clickUser)="updateSelectedUser($event)"
+                        [groups]="projectGroups$ | async"
+                        (clickUser)="updateSelectedUser($event)"
     ></app-project-groups>
 
   </div>
-
-
 </div>
