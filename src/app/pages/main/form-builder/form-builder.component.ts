@@ -40,7 +40,7 @@ export class FormBuilderComponent implements OnInit {
     return src
   }
 
-  exportToJSON = () => download(this.form.name, exportToJSON(this.form))
+  exportToJSON = () => download(this.form.name+'.json', exportToJSON(this.form))
 
   private fulfill(observable: Observable<any>) {
     this.loading = 1
