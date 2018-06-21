@@ -7,6 +7,8 @@ import {AppCategory} from '../../../core/form-categories/AppCategory'
 import {AppForm} from '../../../core/forms/AppForm'
 import {AppProject} from "../../../core/projects/AppProject"
 import {ActiveProjectService} from "../../../core/active-project/active-project.service"
+import {exportToJSON} from "./exports/json-export";
+import {download} from "../../../core/files/download";
 
 @Component({
   selector: 'app-form-builder',
@@ -37,6 +39,8 @@ export class FormBuilderComponent implements OnInit {
     src.subscribe(form => this.form = form)
     return src
   }
+
+  exportToJSON = () => download(this.form.name, exportToJSON(this.form))
 
   private fulfill(observable: Observable<any>) {
     this.loading = 1
