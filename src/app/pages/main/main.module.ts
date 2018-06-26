@@ -50,7 +50,7 @@ import {PmcModule} from "../../core/pmc/pmc.module";
 import {PmcImporterComponent} from './pub-repos/pmc-importer/pmc-importer.component';
 import {PipesComponent} from './pipes/pipes.component';
 import {NavbarModule} from "../shared/navbar/navbar.module";
-import {PubCoder4Module} from "./pub-coder-4/pub-coder-4.module";
+import {CodebooksModule} from "../../core/codebooks/codebooks.module";
 
 @NgModule({
   imports: [
@@ -63,6 +63,7 @@ import {PubCoder4Module} from "./pub-coder-4/pub-coder-4.module";
     PapaParseModule,
     AngularMaterialModule,
     SharedModule,
+    CodebooksModule,
     NavbarModule,
     SidebarModule,
     PmcModule,

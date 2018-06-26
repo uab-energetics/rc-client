@@ -17,6 +17,7 @@ import {ProjectUsersComponent} from './project-users/project-users.component'
 import {ProjectDashboardComponent} from './project-dashboard/project-dashboard.component'
 import {PubReposComponent} from "./pub-repos/pub-repos.component";
 import {PipesComponent} from "./pipes/pipes.component";
+import {RenderComponent} from "../../core/codebooks/render/render.component";
 
 export const mainRoutes: Routes = [
     {
@@ -45,6 +46,10 @@ export const mainRoutes: Routes = [
         {
           path: "welcome",
           component: WelcomeComponent
+        },
+        {
+          path: 'render-codebook',
+          component: RenderComponent
         },
         {
           path: 'projects',
