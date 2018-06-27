@@ -12,12 +12,10 @@ export class RenderComponent implements OnInit {
 
   ngOnInit() {
     this.codebookData = JSON.parse(localStorage['render-codebook'])
-    console.log('rendering', this.codebookData)
+  }
 
-    setTimeout(() => {
-      console.log('html', document.getElementById('html-rendering').innerHTML)
-      download('codebook-export.html', document.getElementById('html-rendering').innerHTML)
-    }, 2000)
+  startDownload() {
+    download('codebook-export.html', document.getElementById('html-rendering').innerHTML)
   }
 
 }
