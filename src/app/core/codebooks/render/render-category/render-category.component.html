@@ -1,0 +1,24 @@
+<div class="category-wrappper">
+
+  <div class="category-card">
+    <h4>{{ category.name }}</h4>
+  </div>
+
+  <div class="category-outlet" style="padding-left: 10px;">
+    <div class="category-question-outlet">
+
+      <app-render-question
+        *ngFor="let question of category.questions"
+        [question]="question"></app-render-question>
+
+    </div>
+
+    <div class="category-children-outlet">
+      <app-render-category
+        *ngFor="let child of category.children"
+        [category]="child">
+      </app-render-category>
+    </div>
+  </div>
+
+</div>

@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core'
 import {MatSnackBar} from "@angular/material"
-import {ActivatedRoute} from "@angular/router"
+import {ActivatedRoute, Router} from "@angular/router"
 import {Observable} from "rxjs/Observable"
 import {FormService} from '../../../core/forms/form.service'
 import {AppCategory} from '../../../core/form-categories/AppCategory'
 import {AppForm} from '../../../core/forms/AppForm'
 import {AppProject} from "../../../core/projects/AppProject"
 import {ActiveProjectService} from "../../../core/active-project/active-project.service"
+import {exportToJSON} from "./exports/json-export";
+import {download} from "../../../core/files/download";
 
 @Component({
   selector: 'app-form-builder',
@@ -21,6 +23,7 @@ export class FormBuilderComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private formService: FormService
   ) {}
 
@@ -36,6 +39,13 @@ export class FormBuilderComponent implements OnInit {
       .finally(() => this.loading = 0)
     src.subscribe(form => this.form = form)
     return src
+  }
+
+  exportToJSON = () => download(this.form.name+'.json', exportToJSON(this.form))
+
+  viewAsHTML() {
+    localStorage['render-codebook'] = JSON.stringify(this.form)
+    this.router.navigateByUrl('render-codebook')
   }
 
   private fulfill(observable: Observable<any>) {

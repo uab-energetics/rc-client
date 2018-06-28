@@ -1,0 +1,16 @@
+<h4>{{ question.name }} <span class="badge badge-primary">{{fmt}}</span> </h4>
+<h5>{{ question.prompt }}</h5>
+<h6><em>{{ question.description }}</em></h6>
+
+<div *ngIf="fmt === 'sel' || fmt === 'multi-sel'">
+  <ol>
+    <li *ngFor="let opt of question.options">{{opt.txt}}</li>
+  </ol>
+</div>
+
+<div *ngIf="fmt === 'boo'">
+  <ul>
+    <li>{{question.true_option}}</li>
+    <li>{{question.false_option}}</li>
+  </ul>
+</div>
