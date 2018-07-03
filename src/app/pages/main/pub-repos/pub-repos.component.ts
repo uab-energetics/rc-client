@@ -177,9 +177,8 @@ export class PubReposComponent implements OnInit {
           embeddingURL: R.embedding_url,
           sourceID: 'PMC' + R.uid
         })) )
-        .mergeMap( (uploadData: Publication[]) =>  this.repoService.addPublications(projectID, this.activeRepo.id, uploadData))
-        .map( body => body.publications )
         .reduce( (acc, current) => acc.concat(current) )
+        .switchMap( pubs => this.handleUpload(pubs) )
         .do( publications => this.notify.swal(`Found ${publications.length} articles!`, '', 'success') )
         .switchMap( _ => this.reloadPublications() )
         .subscribe( () => {
@@ -210,7 +209,7 @@ export class PubReposComponent implements OnInit {
         const modalRef = this.modalService.open(UploadPreviewComponent, {size: 'lg'})
         modalRef.componentInstance.data = parsed
         modalRef.componentInstance.onConfirm.subscribe(_ => {
-          this.repoService.addPublications(this.ps.getActiveProject().id + '', this.activeRepo.id, parsed)
+          this.handleUpload(parsed)
             .pipe(switchMap(() => this.reloadPublications()))
             .subscribe(() => {
               modalRef.close()
@@ -219,6 +218,14 @@ export class PubReposComponent implements OnInit {
         })
       }
     })
+  }
+
+  handleUpload(pubs: Publication[], chunkSize = 50): Observable<Publication[]> {
+    const projectID = this.ps.getActiveProject().id + ''
+    return merge( ...lodash.chunk(pubs, chunkSize)
+      .map( chunk => this.repoService.addPublications(projectID, this.activeRepo.id, chunk))
+    ) .map(body => body.publications)
+      .reduce( (acc, current) => acc.concat(current) )
   }
 
   handleDownload(onlySelected = false) {
