@@ -81,6 +81,7 @@ export class PubCoderComponent implements OnInit {
 
   handleDeleteBranch(id: number){
     this.loading++;
+    this.saveChanges()
     this.encodingService.deleteBranch(this.encoding.id, id)
       .finally(() => this.loading--)
       .subscribe(() => this.ngOnInit());
@@ -88,6 +89,7 @@ export class PubCoderComponent implements OnInit {
 
   handleCreateBranch(data: object){
     this.loading++;
+    this.saveChanges()
     this.encodingService.recordBranch(this.encoding.id, data as AppBranch)
       .finally(() => this.loading--)
       .subscribe(() => this.ngOnInit());
@@ -95,6 +97,7 @@ export class PubCoderComponent implements OnInit {
 
   handleChangeBranch(data: object){
     this.loading++;
+    this.saveChanges()
     this.encodingService.recordBranch(this.encoding.id, data as AppBranch)
       .finally(() => this.loading--)
       .subscribe(() => this.loadEncoding(this.encoding.id));
