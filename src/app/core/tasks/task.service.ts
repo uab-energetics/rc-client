@@ -35,9 +35,15 @@ export class TaskService {
       .share()
   }
 
-  startEncoding(task_id: number): Observable<AppExperimentEncoding> {
-    return this.http.get<AppExperimentEncoding>(`${api}/tasks/${task_id}/start-encoding`)
+  myNextTasks(): Observable<AppEncodingTask[]> {
+    return this.http.get<AppEncodingTask[]>(`${api}/users/tasks/next`)
       .share()
+  }
+
+  startEncoding(task_id: number): Observable<AppExperimentEncoding> {
+    return this.http.get<any>(`${api}/tasks/${task_id}/start-encoding`)
+      .share()
+      .map(response => response.encoding)
   }
 
   quitTask(task_id: number): Observable<void> {

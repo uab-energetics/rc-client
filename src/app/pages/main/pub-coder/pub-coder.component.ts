@@ -3,7 +3,7 @@ import {FormService} from "../../../core/forms/form.service";
 import {AppForm} from "../../../core/forms/AppForm";
 import {EncodingService} from "../../../core/encodings/encoding.service";
 import {AppExperimentEncoding} from "../../../core/encodings/AppExperimentEncoding";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import * as _ from "lodash";
 import {forkJoin} from "rxjs/observable/forkJoin";
 import {NotifyService} from "../../../core/notifications/notify.service";
@@ -25,11 +25,14 @@ export class PubCoderComponent implements OnInit {
   publication: AppPublication;
   encoding: AppExperimentEncoding;
   task: AppEncodingTask;
+  task_id = null
   @ViewChild('experimentForm') experimentForm;
 
   loading = 0;
   view = 'code';
   embeddingURL;
+
+  nextTasks: AppEncodingTask[] = null
 
   constructor(
     private formService: FormService,
@@ -37,16 +40,26 @@ export class PubCoderComponent implements OnInit {
     private taskService: TaskService,
     private publicationService: PublicationsService,
     private route: ActivatedRoute,
+    private router: Router,
     private notify: NotifyService,
     private sanitizer: DomSanitizer
-  ) { }
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false
+  }
 
   /**
    * Load the encoding from url, and its form
    */
   ngOnInit() {
-    let task_id = +this.route.snapshot.paramMap.get('id')
-    this.loadTask(task_id).switchMap(task => this.loadEncoding(task.encoding_id))
+    this.task_id = +this.route.snapshot.paramMap.get('id')
+    const task_id = this.task_id
+    this.loadTask(task_id)
+      .switchMap(task => {
+        if (task.encoding_id === null) {
+          return this.startEncoding(task_id)
+        }
+        return this.loadEncoding(task.encoding_id)
+      })
       .subscribe((encoding: AppExperimentEncoding) => {
         this.loading += 2;
         this.formService.getForm(encoding.form_id)
@@ -61,6 +74,7 @@ export class PubCoderComponent implements OnInit {
           });
       });
     this.setupHotKeys();
+    this.findNextTasks()
   }
 
   loadTask(task_id: number) {
@@ -77,6 +91,14 @@ export class PubCoderComponent implements OnInit {
       .finally(() => this.loading--);
     src.subscribe( encoding => this.encoding = encoding );
     return src;
+  }
+
+  startEncoding(task_id) {
+    let src = this.taskService.startEncoding(task_id)
+      .do( () => this.loading++ )
+      .finally( () => this.loading-- )
+    src.subscribe( encoding => this.encoding = encoding )
+    return src
   }
 
   handleDeleteBranch(id: number){
@@ -150,6 +172,24 @@ export class PubCoderComponent implements OnInit {
   setComplete(task: AppEncodingTask, value: boolean) {
     task.complete = value
     this.onChange()
+  }
+
+  findNextTasks() {
+    this.taskService.myNextTasks()
+    .subscribe( (tasks: AppEncodingTask[]) => {
+      this.nextTasks = tasks.filter(task => task.id != this.task_id)
+    }, err => {
+      this.nextTasks = []
+    })
+  }
+
+  nextTask() {
+    if (this.nextTasks === null || this.nextTasks.length === 0) {
+      return
+    }
+    let task_id = this.nextTasks[0].id
+    console.log("next task: " + task_id)
+    this.router.navigate(['pub-coder', task_id])
   }
 
 

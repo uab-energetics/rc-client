@@ -8,7 +8,25 @@
 
       <button (click)="view='code'"
               [disabled]="view==='code'"
-              class="btn btn-primary"> Code View </button>
+              class="btn btn-primary mr-20"> Code View </button>
+      
+      <button (click)="nextTask()"
+              *ngIf="nextTasks !== null && nextTasks.length > 0"
+              [matTooltip]="nextTasks[0].publication.name"
+              class="btn btn-outline-success">Next Task</button>
+      
+      <div 
+        *ngIf="nextTasks === null"
+        style="display:flex; align-items: center; justify-content: center;"
+      >
+        <p style="margin-top: auto; margin-bottom: auto;"><em>finding next paper</em></p>
+        <mat-progress-spinner mode="indeterminate" diameter="15" style="margin-left: 5px;">
+        </mat-progress-spinner>
+      </div>
+
+      <div *ngIf="nextTasks?.length === 0" style="display: flex; align-items:center; justify-content: center;">
+        <p style="margin-top: auto; margin-bottom: auto;"><em>couldn't find next task</em></p>
+      </div>
     </div>
 
     <div class="row"
