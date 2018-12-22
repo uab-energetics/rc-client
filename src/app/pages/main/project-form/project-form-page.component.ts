@@ -69,7 +69,9 @@ export class ProjectFormPageComponent implements OnInit {
     this.projectFormService.getProjectForm(this.projectId, this.formId)
       .subscribe(pf => {
         this.projectForm = pf
-        this.loadRepo()
+        if (pf.repo_uuid !== null) {
+          this.loadRepo()
+        }
       })
   }
 
