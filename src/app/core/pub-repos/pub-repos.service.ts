@@ -29,6 +29,11 @@ export class PubReposService {
       )
   }
 
+  retrieveRepo(projectId, id: string) {
+    const url = `${env.api}/projects/${projectId}/pub-repos/${id}`
+    return this.http.get<PubRepo>(url)
+  }
+
   updateRepo(projectID, id: string, data: PubRepo) {
     const url = `${env.api}/projects/${projectID}/pub-repos/${id}`
     this.http.put(url, data).subscribe(_ => this.requestRepos(projectID))

@@ -12,6 +12,13 @@
           <i class="icon wb-pencil"></i>
         </a>
       </h1>
+      <h4 *ngIf="projectForm !== null" style="margin-left: 5px">
+        Using:
+        <a [routerLink]="['/pub-repos']" [queryParams]="{repo_uuid: projectForm.repo_uuid}">
+          <em *ngIf="repo === null" style="display:inline">{{projectForm.repo_uuid}}</em>
+          <em *ngIf="repo !== null" style="display:inline">{{repo.displayName}}</em>
+        </a>
+      </h4>
 
 
       <!--<p class="page-description">{{project.description}}</p>-->

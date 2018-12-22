@@ -6,6 +6,9 @@ import {ProjectService} from '../../../core/projects/project.service'
 import {AppProject} from '../../../core/projects/AppProject'
 import {NotifyService} from '../../../core/notifications/notify.service'
 import {FormService} from '../../../core/forms/form.service'
+import {PubRepo} from "../../../core/pub-repos/PubRepo"
+import {ProjectFormService} from "../../../core/projects/project-form.service"
+import {PubReposService} from "../../../core/pub-repos/pub-repos.service"
 
 @Component({
   selector: 'app-project-form-page',
@@ -15,69 +18,95 @@ import {FormService} from '../../../core/forms/form.service'
 export class ProjectFormPageComponent implements OnInit {
 
   /* Data */
-  form: AppForm;
-  project: AppProject;
-  modal;
+  formId
+  form: AppForm
+  projectId
+  project: AppProject
+  modal
+  projectForm = null
+  repo: PubRepo = null
 
   /* UI */
-  loading = 0;
+  loading = 0
 
   constructor(
     private route: ActivatedRoute,
     private modalService: NgbModal,
     public notify: NotifyService,
     private projectService: ProjectService,
-    private formService: FormService
-  ) { }
+    private formService: FormService,
+    private projectFormService: ProjectFormService,
+    private repoService: PubReposService
+  ) {
+  }
 
   ngOnInit() {
-    this.loadProject();
-    this.loadForm();
+    this.projectId = +this.route.snapshot.paramMap.get('pid')
+    this.formId = +this.route.snapshot.paramMap.get('fid')
+    this.loadProject()
+    this.loadForm()
+    this.loadProjectForm()
   }
 
   loadProject() {
-    let projectID = +this.route.snapshot.paramMap.get('pid');
-    this.loading++;
+    const projectID = this.projectId
+    this.projectId = projectID
+    this.loading++
     this.projectService.find(projectID)
       .finally(() => this.loading--)
       .subscribe(project => this.project = project)
   }
 
   loadForm() {
-    let formID = +this.route.snapshot.paramMap.get('fid');
-    this.loading++;
+    const formID = this.formId
+    this.loading++
     this.formService.getForm(formID)
       .finally(() => this.loading--)
-      .subscribe(form => this.form = form);
+      .subscribe(form => this.form = form)
+  }
+
+  loadProjectForm() {
+    this.projectFormService.getProjectForm(this.projectId, this.formId)
+      .subscribe(pf => {
+        this.projectForm = pf
+        this.loadRepo()
+      })
+  }
+
+  loadRepo() {
+    this.repoService.retrieveRepo(this.projectId, this.projectForm.repo_uuid)
+      .subscribe(repo => {
+        this.repo = repo
+      })
   }
 
   updateForm(form: AppForm) {
     this.projectService.updateForm(form)
       .finally(() => this.loading--)
       .subscribe(() => {
-        this.notify.toast('Form updated.');
-        this.loadForm();
+        this.notify.toast('Form updated.')
+        this.loadForm()
       })
   }
 
-  editForm(content){
+  editForm(content) {
     this.modal = this.modalService.open(content)
   }
 
   exportForm(id: number) {
-    this.formService.saveExport(id);
+    this.formService.saveExport(id)
   }
 
-  formFormSubmit(form: AppForm){
-    this.modal.close();
-    this.updateForm(form);
+  formFormSubmit(form: AppForm) {
+    this.modal.close()
+    this.updateForm(form)
   }
 }
 
-export function requestStart(){
-  return { type: 'request_start' }
+export function requestStart() {
+  return {type: 'request_start'}
 }
 
-export function requestEnd(){
-  return { type: 'request_end' }
+export function requestEnd() {
+  return {type: 'request_end'}
 }
