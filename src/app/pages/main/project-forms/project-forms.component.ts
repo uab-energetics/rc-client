@@ -8,6 +8,7 @@ import {NotifyService} from '../../../core/notifications/notify.service'
 import {FormService} from '../../../core/forms/form.service'
 import {Router} from '@angular/router'
 import {ActiveProjectService} from '../../../core/active-project/active-project.service'
+import {PubReposService} from "../../../core/pub-repos/pub-repos.service"
 
 @Component({
   selector: 'app-project-forms',
@@ -18,6 +19,7 @@ export class ProjectFormsComponent {
 
   project: AppProject;
   forms: AppForm[] = [];
+  repoIdMap = {}
 
   editingForm: AppForm;
 
@@ -30,14 +32,17 @@ export class ProjectFormsComponent {
     private router: Router,
     private notify: NotifyService,
     private projectService: ProjectService,
-    private formService: FormService
+    private formService: FormService,
+    private repoService: PubReposService
   ) { }
 
   ngOnInit(){
     this.activeProjectService.project$
+      .filter(project => project !== null && project !== undefined)
       .subscribe( project => {
         this.project = project
         this.loadForms()
+        this.loadRepoIdMap()
       })
   }
 
@@ -98,6 +103,18 @@ export class ProjectFormsComponent {
 
   manageForm(form: AppForm) {
     this.router.navigate(['/projects/'+this.project.id+"/forms/"+form.id]);
+  }
+
+  loadRepoIdMap() {
+    this.repoService.requestRepos(this.project.id)
+      .map( repos => repos.reduce( (idMap, repo) => {
+        return {...idMap, [repo.id]: repo}
+        }, {}
+      ))
+      .subscribe(idMap => {
+        console.log(idMap)
+        this.repoIdMap = idMap
+      })
   }
 
 

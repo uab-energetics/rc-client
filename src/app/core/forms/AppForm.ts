@@ -12,6 +12,7 @@ export interface AppForm {
   published: boolean;
   root_category?: AppCategory;
   project_forms?: AppProjectForm[];
+  pivot?: {repo_uuid: string}
 }
 
 /**
