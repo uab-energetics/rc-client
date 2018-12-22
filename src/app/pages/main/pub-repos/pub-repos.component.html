@@ -84,6 +84,15 @@
             <button (click)="handleDeleteRepo()" class="btn btn-xs btn-danger float-right">
               <i class="icon wb-trash"></i> <b>Delete this repo</b></button>
           </h3>
+          <span *ngIf="activeRepo !== null && codebookMap[activeRepo.id]"
+                style="font-size: 14px">
+              Used by: 
+            <a *ngFor="let codebook of codebookMap[activeRepo.id]"
+               [routerLink]="['/projects', projectId, 'forms', codebook.id]"
+            >
+              {{codebook.name}}
+            </a>
+          </span>
           <p style="font-size: 12px"><em>{{originalPublications?.length}} total publications</em></p>
         </div>
       </div>

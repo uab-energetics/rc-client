@@ -20,6 +20,8 @@ import * as lodash from 'lodash'
 import {forkJoin} from "rxjs/observable/forkJoin";
 import "rxjs/add/operator/reduce";
 import {merge} from "rxjs/observable/merge";
+import { ProjectService } from '../../../core/projects/project.service';
+import { AppForm } from '../../../core/forms/AppForm';
 
 @Component({
   selector: 'app-pub-repos',
@@ -28,14 +30,12 @@ import {merge} from "rxjs/observable/merge";
 })
 export class PubReposComponent implements OnInit {
 
-  /*
-  *
-  * WARNING - there are some things you will likely run into when connecting this component to the real server.
-  * it was built very fast.
-  * */
 
   activeRepo$: Subject<PubRepo> = new Subject()
-  activeRepo: PubRepo
+  activeRepo: PubRepo = null
+
+  projectId = null
+  codebookMap: RepoCodebookMap = {}
 
   repos: PubRepo[] = []
   originalPublications: Publication[]
@@ -52,6 +52,7 @@ export class PubReposComponent implements OnInit {
   checked = {}
 
   constructor(public repoService: PubReposService,
+              private projectService: ProjectService,
               private csvParse: PapaParseService,
               private pmc: ArticlesService,
               private notify: NotifyService,
@@ -99,11 +100,16 @@ export class PubReposComponent implements OnInit {
     this.ps.project$
       .filter(project => project !== null)
       .subscribe((project: AppProject) => {
+        this.projectId = project.id
         this.repos = []
         this.repoService.requestRepos(project.id)
           .subscribe()
+        this.afterProjectLoaded()
       })
+  }
 
+  afterProjectLoaded() {
+    this.loadCodebooks()
   }
 
   openModal(content) {
@@ -314,4 +320,29 @@ export class PubReposComponent implements OnInit {
     }).catch(() => {})
   }
 
+  loadCodebooks() {
+    this.projectService.getForms(this.projectId)
+    .map(makeRepoCodebookMap)
+    .subscribe( codebookMap => {
+      this.codebookMap = codebookMap
+    })
+  }
+
+  
+
+}
+
+interface RepoCodebookMap {[repoId:string]: AppForm[]}
+
+let makeRepoCodebookMap = (codebooks: AppForm[]): RepoCodebookMap => {
+  let result = {}
+  for (let codebook of codebooks) {
+    for (let projectForm of codebook.project_forms) {
+      let uuid = projectForm.repo_uuid
+      if ( result[uuid] === undefined )
+        result[uuid] = []
+      result[uuid].push(codebook)
+    }
+  }
+  return result
 }

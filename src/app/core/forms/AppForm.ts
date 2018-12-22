@@ -1,6 +1,7 @@
 
 import {AppCategory, makeCategory} from "../form-categories/AppCategory";
 import {AppQuestion} from "../form-questions/AppQuestion";
+import { AppProjectForm } from "./AppProjectForm";
 
 export interface AppForm {
   id?: number;
@@ -10,6 +11,7 @@ export interface AppForm {
   questions?: AppQuestion[];
   published: boolean;
   root_category?: AppCategory;
+  project_forms?: AppProjectForm[];
 }
 
 /**
