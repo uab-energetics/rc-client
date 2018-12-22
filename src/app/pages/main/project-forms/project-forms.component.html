@@ -52,11 +52,12 @@
               <div class="panel-toolbar bg-grey-300" role="toolbar">
                 <label class="badge badge-success"> <i class="icon wb-check"></i> Published </label>
                 <label style="margin-left: 5px">
-                  Using:
-                  <a [routerLink]="['/pub-repos']" [queryParams]="{repo_uuid: form.pivot.repo_uuid}">
+                  repository:
+                  <a *ngIf="form.pivot.repo_uuid !== null" [routerLink]="['/pub-repos']" [queryParams]="{repo_uuid: form.pivot.repo_uuid}">
                     <p *ngIf="!repoIdMap[form.pivot.repo_uuid]" style="display: inline; font-size: smaller">{{form.pivot.repo_uuid}}</p>
                     <p *ngIf="repoIdMap[form.pivot.repo_uuid]" style="display: inline">{{repoIdMap[form.pivot.repo_uuid].displayName}}</p>
                   </a>
+                  <em *ngIf="form.pivot.repo_uuid === null">none</em>
                 </label>
               </div>
               <div class="panel-body">
