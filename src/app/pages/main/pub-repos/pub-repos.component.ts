@@ -22,6 +22,7 @@ import "rxjs/add/operator/reduce";
 import {merge} from "rxjs/observable/merge";
 import { ProjectService } from '../../../core/projects/project.service';
 import { AppForm } from '../../../core/forms/AppForm';
+import {ActivatedRoute} from "@angular/router"
 
 @Component({
   selector: 'app-pub-repos',
@@ -56,7 +57,8 @@ export class PubReposComponent implements OnInit {
               private csvParse: PapaParseService,
               private pmc: ArticlesService,
               private notify: NotifyService,
-              private modalService: NgbModal, public ps: ActiveProjectService) {
+              private modalService: NgbModal, public ps: ActiveProjectService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -92,8 +94,7 @@ export class PubReposComponent implements OnInit {
     ).subscribe()
 
     this.repoService.repos$.subscribe(R => {
-      if (this.repos.length === 0 && R.length > 0) // sets the active repo if none is selected
-        this.activeRepo$.next(R[0])
+      this.pickInitialActiveRepo(R)
       this.repos = R
     })
 
@@ -266,6 +267,23 @@ export class PubReposComponent implements OnInit {
           this.activeRepoPublications$.next(pubs)
         })
       )
+  }
+
+  pickInitialActiveRepo(repos: PubRepo[]) {
+    if (repos.length === 0) {
+      return
+    }
+    const queried = this.route.snapshot.queryParamMap.get('repo_uuid')
+    if (queried !== null) {
+      console.log(`Attempting to select repo ${queried}`)
+      const selected = repos.filter(repo => repo.id === queried)
+      if (selected.length > 0) {
+        this.activeRepo$.next( selected[0] )
+        return
+      }
+    }
+
+    this.activeRepo$.next(repos[0])
   }
 
 
