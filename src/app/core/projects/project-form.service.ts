@@ -42,6 +42,11 @@ export class ProjectFormService {
       .share()
   }
 
+  removeRepository(projectId, formId) {
+    return this.http.delete(`${api}/projects/${projectId}/forms/${formId}/repository`)
+      .share()
+  }
+
   getPublications(project: AppProject, form: AppForm, options: PaginationOptions = { page: 1, page_size: 20 }): Observable<PaginatedResult<AppFormPublication>> {
     let params: any = Object.assign({}, options)
     return this.http.get<PaginatedResult<AppFormPublication>>(this.getPrefix(project, form) + "/publications", {params})

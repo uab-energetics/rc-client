@@ -18,6 +18,9 @@
           <em *ngIf="repo === null" style="display:inline">{{projectForm.repo_uuid}}</em>
           <em *ngIf="repo !== null" style="display:inline">{{repo.displayName}}</em>
         </a>
+        <a *ngIf="projectForm.repo_uuid !== null" href="javascript:void(0);" (click)="promptRemoveRepo()" class="btn-sm btn-outline p-3">
+          <i class="icon wb-trash icon-color-alt"></i>
+        </a>
         <em *ngIf="projectForm.repo_uuid === null">none</em>
       </h4>
 

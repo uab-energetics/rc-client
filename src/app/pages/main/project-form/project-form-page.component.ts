@@ -9,6 +9,7 @@ import {FormService} from '../../../core/forms/form.service'
 import {PubRepo} from "../../../core/pub-repos/PubRepo"
 import {ProjectFormService} from "../../../core/projects/project-form.service"
 import {PubReposService} from "../../../core/pub-repos/pub-repos.service"
+import swal from 'sweetalert2'
 
 @Component({
   selector: 'app-project-form-page',
@@ -79,6 +80,26 @@ export class ProjectFormPageComponent implements OnInit {
     this.repoService.retrieveRepo(this.projectId, this.projectForm.repo_uuid)
       .subscribe(repo => {
         this.repo = repo
+      })
+  }
+
+  promptRemoveRepo() {
+    this.notify.confirm(() => this.removeRepo(), {
+      title: "Unlink Repository?",
+      text: "This will remove the repository from this codebook,\ " +
+        "as well as delete any assigned pending tasks. In progress and complete tasks won't be removed.",
+      confirmButtonText: "Yes, unlink it."
+    })
+  }
+
+  removeRepo() {
+    this.projectFormService.removeRepository(this.projectId, this.formId)
+      .subscribe(() => {
+        this.loadProjectForm()
+      }, err => {
+        console.error(err)
+        const res = err.error
+        this.notify.toast(`${res.status}: ${res.msg}`)
       })
   }
 
