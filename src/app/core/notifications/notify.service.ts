@@ -14,7 +14,7 @@ export class NotifyService {
 
   toast(message: string, action: string = 'Ok', options: MatSnackBarConfig = {
     verticalPosition: 'top',
-    duration: 1500
+    duration: 3000
   }) {
     this.materialSnackBar.open(message, action, options);
   }
