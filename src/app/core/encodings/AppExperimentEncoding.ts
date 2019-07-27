@@ -1,6 +1,6 @@
 import {AppBranch} from "../form-branch/AppBranch";
 import {AppForm} from "../forms/AppForm";
-import {User} from '../auth/models/User';
+import {User} from '../auth/user.model';
 import {AppPublication} from "../publications/AppPublication";
 
 export interface AppExperimentEncoding {

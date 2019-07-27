@@ -27,10 +27,7 @@ export class JwtService {
     this.loadSessionData();
   }
 
-  // TODO - refactor these function calls
-  public static getUserFromToken(tkn) {
-    return jsonwebtoken.decode(tkn).user
-  }
+  public static decode = jsonwebtoken.decode
 
   public isAuthenticated() {
     if (!this.jwt || !this.jwtDecoded) {
@@ -47,9 +44,9 @@ export class JwtService {
   private loadSessionData() {
     this.jwt = localStorage.getItem('jwt');
     this.user = JSON.parse(localStorage.getItem('user'));
-
-    if (this.jwt)
+    if (this.jwt) {
       this.jwtDecoded = jsonwebtoken.decode(this.jwt);
+    }
   }
 
 }

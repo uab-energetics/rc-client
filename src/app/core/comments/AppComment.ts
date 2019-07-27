@@ -1,4 +1,4 @@
-import {User} from '../auth/models/User'
+import {User} from '../auth/user.model'
 
 export interface AppComment {
   id?: number;

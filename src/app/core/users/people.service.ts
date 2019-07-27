@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
-import {User} from '../auth/models/User'
+import {User} from '../auth/user.model'
 
 let api = environment.api;
 

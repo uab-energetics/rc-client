@@ -9,7 +9,7 @@ export class AuthGuardService implements CanActivate {
 
   constructor(
     private jwtService: JwtService,
-    private redir: RedirectService,
+    private redirectService: RedirectService,
     private router: Router
   ) { }
 
@@ -25,8 +25,8 @@ export class AuthGuardService implements CanActivate {
         break
     }
 
-    this.redir.setRedirect(state.url);
-    this.router.navigateByUrl('/auth/login')
+    this.redirectService.setRedirect(state.url);
+    this.router.navigateByUrl('/auth')
     return false
   }
 }

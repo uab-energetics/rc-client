@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {dispatcher} from '../../../core/dispatcher/dispatcher'
 import {AuthService} from '../../../core/auth/auth.service'
-import {User} from '../../../core/auth/models/User'
+import {User} from '../../../core/auth/user.model'
 import {AppProject} from '../../../core/projects/AppProject'
 import {ActiveProjectService} from '../../../core/active-project/active-project.service'
 import {SidebarLink} from './SidebarLink'

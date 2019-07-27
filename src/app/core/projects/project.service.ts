@@ -8,7 +8,7 @@ import {catchError} from "rxjs/operators";
 import {AppPublication} from "../publications/AppPublication";
 import {PaginatedResult} from "../pagination/PaginatedResult";
 import {PaginationOptions} from "../pagination/PaginationOptions";
-import {User} from '../auth/models/User'
+import {User} from '../auth/user.model'
 import {BehaviorSubject} from 'rxjs/BehaviorSubject'
 
 const api = environment.api;

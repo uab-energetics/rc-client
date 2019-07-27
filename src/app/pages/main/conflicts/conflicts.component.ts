@@ -15,7 +15,7 @@ import {QuestionUpdate} from '../../../core/form-questions/components/question/q
 import {reduceResponses} from '../pub-coder/experiment-form/encodingReduce'
 import {AppBranch} from '../../../core/form-branch/AppBranch'
 import {AuthService} from '../../../core/auth/auth.service'
-import {User} from '../../../core/auth/models/User'
+import {User} from '../../../core/auth/user.model'
 
 interface Conflict {
   agrees: boolean
