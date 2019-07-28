@@ -4,17 +4,9 @@
   justify-content: center;
 }
 
-.login-page .panel {
-  width: 320px;
-}
-
 .login-content {
   display: flex;
   justify-content: center;
-}
-
-.brand-img {
-  width: 100%;
 }
 
 .page:before {
@@ -30,51 +22,4 @@
   /* IE9 SVG, needs conditional override of 'filter' to 'none' */
   background-image: url('/assets/images/email-pattern.png');
   background-position: center top;
-}
-
-.page-login-v3 .panel {
-  width: 400px;
-  margin-bottom: 45px;
-  background: #fff;
-  border-radius: .286rem;
-}
-
-.page-login-v3 .panel .panel-body {
-  padding: 50px 40px 40px;
-}
-
-.page-login-v3 .panel .brand-text {
-  margin-top: 8px;
-}
-
-.page-login-v3 form {
-  margin: 45px 0 30px;
-}
-
-.page-login-v3 form a {
-  margin-left: 20px;
-}
-
-.page-login-v3 form .form-material.floating + .page-login-v3 form .form-material.floating {
-  margin-top: 30px;
-}
-
-.page-login-v3 form .form-material label {
-  font-weight: 300;
-  color: #a3afb7;
-}
-
-@media (max-width: 479px) {
-  .page-login-v3 .page-content {
-    padding: 30px 20px;
-  }
-
-  .page-login-v3 .panel {
-    width: auto;
-    padding: 10px;
-  }
-
-  .page-login-v3 .panel .panel-body {
-    padding: 35px 25px;
-  }
 }
