@@ -11,7 +11,7 @@ import {AppProjectForm} from "../forms/AppProjectForm"
 import {PaginatedResult} from "../pagination/PaginatedResult"
 import {PaginationOptions} from "../pagination/PaginationOptions"
 import {JwtService} from '../auth/jwt.service'
-import {User} from '../auth/models/User'
+import {User} from '../auth/user.model'
 
 const api = environment.api
 

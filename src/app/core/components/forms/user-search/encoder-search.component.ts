@@ -12,7 +12,7 @@ import {of} from "rxjs/observable/of";
 import {ProjectService} from "../../../projects/project.service";
 import {Input} from "@angular/core";
 import {AppProject} from "../../../projects/AppProject";
-import {User} from '../../../auth/models/User'
+import {User} from '../../../auth/user.model'
 
 @Component({
   selector: 'app-encoder-search',

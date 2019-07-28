@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../../core/auth/auth.service";
-import {RedirectService} from "../../../core/auth/redirect.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { AuthService } from "../../../core/auth/auth.service";
+import { RedirectService } from "../../../core/auth/redirect.service";
+import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-oauth',
@@ -10,20 +11,18 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class OauthComponent implements OnInit {
 
-  static TOKEN_QUERY_PARAM = 'jwt'
-
-  constructor(private as: AuthService,
-              private router: Router,
-              private rdir: RedirectService,
-              private route: ActivatedRoute) { }
+  constructor(
+    private authService: AuthService,
+    private redirectService: RedirectService,
+    public afAuth: AngularFireAuth
+  ) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe( params => {
-      let jwt = params[OauthComponent.TOKEN_QUERY_PARAM]
-      console.log(jwt)
-      this.as.oauthLogin({ jwt })
-      this.rdir.followRedirect()
-    })
+    firebase.auth().getRedirectResult()
+      .then(() => this.afAuth.auth.currentUser.getIdToken(true))
+      .then((idToken) => {
+        this.authService.setToken(idToken)
+        this.redirectService.followRedirect()
+      })
   }
-
 }

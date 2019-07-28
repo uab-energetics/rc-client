@@ -6,7 +6,7 @@ import {DeleteEvent, ReplyEvent} from '../comments.component'
 import {NotifyService} from '../../../../notifications/notify.service'
 import {AppComment} from '../../../AppComment'
 import {AuthService} from '../../../../auth/auth.service'
-import {User} from '../../../../auth/models/User'
+import {User} from '../../../../auth/user.model'
 
 @Component({
   selector: 'app-channel',

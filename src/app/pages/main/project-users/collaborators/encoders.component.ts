@@ -3,7 +3,7 @@ import {AppProject} from "../../../../core/projects/AppProject";
 import {ProjectService} from "../../../../core/projects/project.service";
 import {NotifyService} from "../../../../core/notifications/notify.service";
 import {InvitationsService} from "../../../../core/invitations/invitations.service";
-import {User} from '../../../../core/auth/models/User'
+import {User} from '../../../../core/auth/user.model'
 
 @Component({
   selector: 'app-encoders',

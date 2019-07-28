@@ -22,6 +22,15 @@ let environment = {
       cluster: 'us2',
       encrypted: true
     }
+  },
+  firebaseConfig: {
+    apiKey: "AIzaSyBbQJlFfdN_bLkg-lWRdqR0F4hzWTH0VOY",
+    authDomain: "meta-research-data-portal.firebaseapp.com",
+    databaseURL: "https://meta-research-data-portal.firebaseio.com",
+    projectId: "meta-research-data-portal",
+    storageBucket: "",
+    messagingSenderId: "596453631490",
+    appId: "1:596453631490:web:485fdb333f99eaeb"
   }
 };
 

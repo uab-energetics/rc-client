@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core'
 import {AuthService} from '../../../../core/auth/auth.service'
-import {User} from '../../../../core/auth/models/User'
+import {User} from '../../../../core/auth/user.model'
 import {PeopleService} from '../../../../core/users/people.service'
 import {NotifyService} from '../../../../core/notifications/notify.service'
 

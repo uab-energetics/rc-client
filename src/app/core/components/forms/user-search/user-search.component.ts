@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/merge';
 import {of} from "rxjs/observable/of";
-import {User} from '../../../auth/models/User'
+import {User} from '../../../auth/user.model'
 
 @Component({
   selector: 'app-user-search',

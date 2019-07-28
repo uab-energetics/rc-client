@@ -4,7 +4,7 @@ import {NotifyService} from '../../../../core/notifications/notify.service'
 import {InvitationsService} from '../../../../core/invitations/invitations.service'
 import {AppForm} from '../../../../core/forms/AppForm'
 import {ProjectFormService} from '../../../../core/projects/project-form.service'
-import {User} from '../../../../core/auth/models/User'
+import {User} from '../../../../core/auth/user.model'
 
 @Component({
   selector: 'app-form-encoders',
